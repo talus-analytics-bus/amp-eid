@@ -76,9 +76,10 @@ const NavBar = () => {
   const data = useIndexPageData()
 
   const links = [
+    { to: '/topics/', children: 'Topics' },
+    { to: '/treaties/', children: 'Treaties' },
+    { to: '/countries/', children: 'Countries' },
     { to: '/about/', children: 'About' },
-    { to: '/map/', children: 'Map' },
-    { to: '/user-guide/', children: 'User guide' },
   ]
 
   return (
