@@ -30,19 +30,19 @@ const AboutNav = (): JSX.Element => {
   return (
     <LinkList>
       <PaddedLink
-        activeStyle={{ background: theme.ampEidColor2 }}
+        activeStyle={{ background: theme.ampEidLightBlue2 }}
         to="/overview/"
       >
         Overview
       </PaddedLink>
       <PaddedLink
-        activeStyle={{ background: theme.ampEidColor2 }}
+        activeStyle={{ background: theme.ampEidLightBlue2 }}
         to="/downloads-and-citations/"
       >
         Downloads and citations
       </PaddedLink>
       <PaddedLink
-        activeStyle={{ background: theme.ampEidColor2 }}
+        activeStyle={{ background: theme.ampEidLightBlue2 }}
         to="/methods/"
       >
         Methods

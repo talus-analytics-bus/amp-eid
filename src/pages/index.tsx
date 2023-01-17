@@ -19,7 +19,7 @@ const IntroParagraph = styled.p`
   ${({ theme }) => theme.bigParagraph};
 `
 const H1 = styled.h1`
-  color: ${({ theme }) => theme.ampEidColor};
+  color: ${({ theme }) => theme.ampEidDarkBlue};
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 500;

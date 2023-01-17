@@ -9,7 +9,7 @@ import MobileMenu from './MobileMenu/MobileMenu'
 import useIndexPageData from 'cmsHooks/useIndexPageData'
 
 const Nav = styled.nav`
-  background-color: ${({ theme }) => theme.ampEidColor};
+  background-color: ${({ theme }) => theme.ampEidDarkBlue};
   position: sticky;
   top: 0px;
   width: 100%;
@@ -39,11 +39,6 @@ const NavLink = styled(Link)`
   text-decoration: none;
   transition: 500ms ease;
   font-weight: 400;
-  &:hover {
-    transition: 150ms ease;
-    text-decoration: none !important;
-    color: ${({ theme }) => theme.lightAmpColor} !important;
-  }
 `
 const HomeLink = styled(NavLink)`
   font-family: 'Overpass', sans-serif !important;
@@ -62,7 +57,7 @@ const DesktopNavList = styled(LinkList)`
 `
 const MobileLinkList = styled(LinkList)`
   flex-direction: column;
-  background-color: ${({ theme }) => theme.ampEidColor};
+  background-color: ${({ theme }) => theme.ampEidDarkBlue};
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 `
