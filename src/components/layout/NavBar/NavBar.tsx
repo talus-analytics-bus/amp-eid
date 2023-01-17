@@ -24,7 +24,7 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 8px;
 `
-const LinkList = styled.ol`
+const LinkList = styled.ul`
   list-style: none;
   display: flex;
   padding: 0;
