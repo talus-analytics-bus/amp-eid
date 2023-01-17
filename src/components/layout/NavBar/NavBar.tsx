@@ -74,7 +74,7 @@ const NavBar = () => {
     { to: '/topics/', children: 'Topics' },
     { to: '/treaties/', children: 'Treaties' },
     { to: '/countries/', children: 'Countries' },
-    { to: '/overview/', children: 'About' },
+    { to: '/about/overview/', children: 'About' },
   ]
 
   return (
