@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 
 import CMS from '@talus-analytics/library.airtable-cms'
 import Providers from '../components/layout/Providers'
