@@ -51,7 +51,7 @@ const HomeLink = styled(NavLink)`
   margin-left: 20px;
 `
 const DesktopNavList = styled(LinkList)`
-  @media (max-width: 599px) {
+  @media (max-width: 950px) {
     display: none;
   }
 `
@@ -64,6 +64,7 @@ const MobileLinkList = styled(LinkList)`
 const NavLogo = styled(CMS.Image)`
   height: 50px;
   width: 525px;
+  max-width: 60vw;
   margin-right: 30px;
 `
 
