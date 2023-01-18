@@ -11,17 +11,19 @@ import Providers from 'components/layout/Providers'
 import useAboutOverviewPageData from 'cmsHooks/useAboutOverviewQuery'
 
 const Paragraph = styled.p`
-  color: ${({ theme }) => theme.black};
   ${({ theme }) => theme.bigParagraph};
+  color: ${({ theme }) => theme.black};
   max-width: 1000px;
 `
 
 const H1 = styled.h1`
   ${({ theme }) => theme.h1}
+  color: ${({ theme }) => theme.black};
 `
 
 const H2 = styled.h2`
   ${({ theme }) => theme.h2}
+  color: ${({ theme }) => theme.black};
 `
 
 const FunderImage = styled(CMS.Image)`
