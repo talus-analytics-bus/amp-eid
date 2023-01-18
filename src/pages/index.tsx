@@ -52,12 +52,16 @@ const TopicLinkList = styled.ul`
   list-style: none;
   display: flex;
   gap: 30px;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 `
 const Li = styled.li`
   flex-basis: 30%;
   display: block;
   border: 1px solid ${({ theme }) => theme.black};
   border-radius: 5px;
+  overflow: hidden;
 `
 const ImageLink = styled(Link)`
   display: block;
