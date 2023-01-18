@@ -6,7 +6,7 @@ import Dropdown from '@talus-analytics/library.ui.dropdown'
 import HamburgerButton from './HamburgerButton'
 
 const MenuContainer = styled.div`
-  @media (min-width: 600px) {
+  @media (min-width: 950px) {
     display: none;
   }
 `
