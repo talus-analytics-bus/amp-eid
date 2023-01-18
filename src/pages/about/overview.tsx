@@ -15,7 +15,7 @@ const Paragraph = styled.p`
 `
 
 const FunderImage = styled(CMS.Image)`
-  width: 633px;
+  max-width: 633px;
 `
 
 const GUImage = styled(CMS.Image)`
