@@ -43,24 +43,24 @@ const OverviewPage = (): JSX.Element => {
         <AboutNav />
         <H1>
           <CMS.Text name="H1" data={cmsData} />
-          <Paragraph>
-            <CMS.Text name="Top paragraph" data={cmsData} />
-          </Paragraph>
-          <H2>
-            <CMS.Text name="H2" data={cmsData} />
-          </H2>
-          <FunderImage
-            imgStyle={{ objectFit: 'contain' }}
-            name="Funder icon"
-            data={cmsData}
-          />
-          <Paragraph>
-            <CMS.Text name="Funder paragraph" data={cmsData} />
-          </Paragraph>
-          <H2>
-            <CMS.Text name="H2 contributors" data={cmsData} />
-          </H2>
         </H1>
+        <Paragraph>
+          <CMS.Text name="Top paragraph" data={cmsData} />
+        </Paragraph>
+        <H2>
+          <CMS.Text name="H2" data={cmsData} />
+        </H2>
+        <FunderImage
+          imgStyle={{ objectFit: 'contain' }}
+          name="Funder icon"
+          data={cmsData}
+        />
+        <Paragraph>
+          <CMS.Text name="Funder paragraph" data={cmsData} />
+        </Paragraph>
+        <H2>
+          <CMS.Text name="H2 contributors" data={cmsData} />
+        </H2>
         <GUImage
           imgStyle={{ objectFit: 'contain' }}
           name="Contributors icon"
