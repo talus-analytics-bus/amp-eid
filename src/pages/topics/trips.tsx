@@ -1,11 +1,16 @@
+import React from 'react'
+import styled from 'styled-components'
+import { graphql, PageProps } from 'gatsby'
+
 import CMS from '@talus-analytics/library.airtable-cms'
-import useIndexPageData from 'cmsHooks/useIndexPageData'
+
 import Main from 'components/layout/Main'
 import MainHeader from 'components/layout/MainHeader'
 import NavBar from 'components/layout/NavBar/NavBar'
 import Providers from 'components/layout/Providers'
-import React from 'react'
-import styled from 'styled-components'
+
+import useIndexPageData from 'cmsHooks/useIndexPageData'
+import TopicSwitcher from 'components/topics/TopicSwitcher/TopicSwitcher'
 
 // Trips page data sources
 
@@ -22,7 +27,9 @@ import styled from 'styled-components'
 
 // Find a country => use mapbox search
 
-const TRIPSPage = (): JSX.Element => {
+const TripsPage = ({
+  data,
+}: PageProps<Queries.TripsPageQuery>): JSX.Element => {
   const indexPageCMSData = useIndexPageData()
 
   return (
@@ -31,14 +38,28 @@ const TRIPSPage = (): JSX.Element => {
       <NavBar />
       <Main>
         <MainHeader>
-          <h2>TRIPS</h2>
+          <h2>TOPIC</h2>
           <h1>
             <CMS.Text name="TRIPS text" data={indexPageCMSData} />
           </h1>
         </MainHeader>
+        <TopicSwitcher subtopics={data} />
       </Main>
     </Providers>
   )
 }
 
-export default TRIPSPage
+export const query = graphql`
+  query TripsPage {
+    topics: allAirtable(filter: { table: { eq: "1. Subtopic" } }) {
+      nodes {
+        data {
+          Subtopic
+          Subtopic_description
+        }
+      }
+    }
+  }
+`
+
+export default TripsPage
