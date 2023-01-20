@@ -10,6 +10,7 @@ const Layout = styled.section`
 `
 const SubtopicsContainer = styled.div`
   flex-basis: 350px;
+  border: 1px solid ${({ theme }) => theme.black};
 `
 const MapContainer = styled.div`
   flex-grow: 1;
