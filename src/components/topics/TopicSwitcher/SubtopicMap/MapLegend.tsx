@@ -35,11 +35,16 @@ const MapLegend = () => {
         openIndex={subtopicIndex}
         setOpenIndex={setSubtopicIndex}
       >
-        {subtopicData.map(({ data: subtopic }) => (
+        {subtopicData.map(({ data: subtopic }, index) => (
           <Accordion
             key={subtopic?.Subtopic}
             renderButton={open => (
               <TopicButton
+                id={`tab-${index}`}
+                type="button"
+                role="tab"
+                aria-selected={open}
+                aria-controls={`tabpanel-${index}`}
                 style={{
                   background: open ? theme.ampEidDarkBlue : theme.lightGray,
                   color: open ? theme.white : theme.black,

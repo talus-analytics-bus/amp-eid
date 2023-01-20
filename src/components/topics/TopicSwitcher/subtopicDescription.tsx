@@ -8,6 +8,7 @@ const Description = styled.p`
   color: ${({ theme }) => theme.black};
   margin: 0;
   padding: 0;
+  padding-bottom: 20px;
 `
 const Citation = styled(RenderCMSRichText)`
   > p {
@@ -30,15 +31,23 @@ const SubtopicDescription = () => {
 
   return (
     <>
-      <Description>
-        {subtopicData[subtopicIndex ?? 0].data?.Subtopic_description}
-      </Description>
-      <Citation
-        markdown={
-          'Source: ' +
-            subtopicData[subtopicIndex ?? 0].data?.Subtopic_sources ?? ''
-        }
-      />
+      {subtopicData.map((subtopic, index) => (
+        <div
+          id={`tabpanel-${index}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${index}`}
+          style={{ display: subtopicIndex === index ? 'block' : 'none' }}
+        >
+          <Description>{subtopic.data?.Subtopic_description}</Description>
+          <Citation
+            markdown={
+              subtopic.data?.Subtopic_sources
+                ? 'Source: ' + subtopic.data?.Subtopic_sources
+                : ''
+            }
+          />
+        </div>
+      ))}
     </>
   )
 }
