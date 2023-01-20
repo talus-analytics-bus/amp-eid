@@ -26,16 +26,13 @@ const H1 = styled.h1`
   ${({ theme }) => theme.h1}
   color: ${({ theme }) => theme.black};
 `
-
 const H2 = styled.h2`
   ${({ theme }) => theme.h2}
   color: ${({ theme }) => theme.black};
 `
-
 const FunderImage = styled(CMS.Image)`
   max-width: 633px;
 `
-
 const GUImage = styled(CMS.Image)`
   max-width: 735px;
 `
