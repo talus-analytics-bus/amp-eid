@@ -55,4 +55,12 @@ export default {
 	text-decoration:none;
 	text-transform:none;
 `,
+  smallParagraph: `
+	font-size:14px;
+	font-family:"Poppins";
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	text-transform:none;
+`,
 }
