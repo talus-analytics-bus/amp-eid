@@ -9,12 +9,8 @@ const TopicButton = styled.button`
   text-align: left;
   color: ${({ theme }) => theme.white};
   transition: 250ms ease;
-  border: 1px solid ${({ theme }) => theme.medDarkGray};
-  border-bottom: none;
-
-  &:last-of-type {
-    border-bottom: 1px solid ${({ theme }) => theme.medDarkGray};
-  }
+  border: none;
+  border-top: 1px solid ${({ theme }) => theme.medDarkGray};
 `
 
 interface MapLegendProps {
