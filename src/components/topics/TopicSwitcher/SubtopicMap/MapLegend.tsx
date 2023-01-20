@@ -32,6 +32,7 @@ const MapLegend = () => {
   return (
     <Container>
       <AccordionParent
+        preventCloseAll
         openIndex={subtopicIndex}
         setOpenIndex={setSubtopicIndex}
       >
