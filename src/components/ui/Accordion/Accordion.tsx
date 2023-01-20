@@ -63,14 +63,14 @@ const Accordion = ({
   }
 
   return (
-    <div key={index}>
+    <React.Fragment key={index}>
       {buttonWithProps}
       <Expander
         key={index + 'expander'}
         {...props}
         open={openAccordion === index}
       />
-    </div>
+    </React.Fragment>
   )
 }
 
