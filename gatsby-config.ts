@@ -23,6 +23,7 @@ const config: GatsbyConfig = {
         apiKey: process.env.AIRTABLE_API_KEY,
         concurrency: 5,
         tables: [
+          // CMS Tables
           {
             baseId: `appAUZi15WZodq9QW`,
             tableName: `Landing Page`,
@@ -52,6 +53,19 @@ const config: GatsbyConfig = {
             tableName: `About Download And Citations`,
             tableView: `CMS`,
             mapping: { Image: `fileNode` },
+          },
+          // Data Tables
+          {
+            baseId: `appryZVvEysrHZL0S`,
+            tableName: `3. Define status`,
+            tableView: `CMS`,
+          },
+          {
+            baseId: `appryZVvEysrHZL0S`,
+            tableName: `1. Subtopic`,
+            tableView: `CMS`,
+            // tableLinks: [`3._Define_status`],
+            tableLinks: [`Define_status`],
           },
         ],
       },
