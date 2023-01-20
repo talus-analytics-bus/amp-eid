@@ -11,6 +11,7 @@ interface AccordionProps extends Omit<ExpanderProps, 'open' | 'floating'> {
   setOpenIndex?: React.Dispatch<React.SetStateAction<number | null>>
   index?: number
   animDuration?: number
+  preventCloseAll?: boolean
 }
 
 const Accordion = ({
@@ -18,6 +19,7 @@ const Accordion = ({
   setOpenIndex,
   renderButton,
   animDuration = 250,
+  preventCloseAll,
   index,
   ...props
 }: AccordionProps) => {
@@ -28,15 +30,18 @@ const Accordion = ({
 
   const open = openIndex === index
 
+  const onClick = () => {
+    if (preventCloseAll) setOpenIndex(index)
+    else setOpenIndex(prev => (prev !== index ? index : null))
+  }
+
   // render the renderButton render props function,
   // and clone it with the new props we need
   const Button = renderButton(open ?? false, animDuration)
   const buttonWithProps = React.cloneElement(Button, {
     'aria-expanded': open ? 'true' : 'false',
     key: index + 'button',
-    onClick: () => {
-      setOpenIndex(prev => (prev !== index ? index : null))
-    },
+    onClick,
     ...Button.props,
   })
 
@@ -78,18 +83,21 @@ interface AccordionParentProps {
   children: ReturnType<typeof Accordion>[]
   openIndex: number | null
   setOpenIndex: React.Dispatch<React.SetStateAction<number | null>>
+  preventCloseAll?: boolean
 }
 
 export const AccordionParent = ({
   children,
   openIndex,
   setOpenIndex,
+  preventCloseAll = false,
 }: AccordionParentProps) => (
   <>
     {React.Children.map(children, (child, index) =>
       React.cloneElement(child, {
         openIndex,
         setOpenIndex,
+        preventCloseAll,
         index,
         key: index,
         ...child.props,
