@@ -20,6 +20,7 @@ const Citation = styled(RenderCMSRichText)`
     > a {
       ${({ theme }) => theme.smallParagraph};
       color: ${({ theme }) => theme.darkGray};
+      text-decoration: underline;
     }
   }
 `
