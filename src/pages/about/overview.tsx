@@ -50,7 +50,7 @@ const OverviewPage = (): JSX.Element => {
           <CMS.Text name="Top paragraph" data={cmsData} />
         </Paragraph>
         <H2>
-          <CMS.Text name="H2" data={cmsData} />
+          <CMS.Text name="H2 funder" data={cmsData} />
         </H2>
         <FunderImage
           imgStyle={{ objectFit: 'contain' }}
