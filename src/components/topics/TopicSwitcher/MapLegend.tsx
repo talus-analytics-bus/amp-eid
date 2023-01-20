@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import Accordion, { AccordionParent } from 'components/ui/Accordion/Accordion'
 import MapStatusKey from './MapStatusKey'
+import { SubtopicContext } from './TopicSwitcher'
 
 const TopicButton = styled.button`
   width: 100%;
@@ -17,18 +18,16 @@ const TopicButton = styled.button`
   }
 `
 
-interface MapLegendProps {
-  subtopics: Queries.TripsPageQuery['subtopics']['nodes']
-}
-
-const MapLegend = ({ subtopics }: MapLegendProps) => {
+const MapLegend = () => {
   const theme = useTheme()
 
-  if (!subtopics) throw new Error('No subtopics found')
+  const context = useContext(SubtopicContext)
+  if (!context) throw new Error('MapLegend must be inside SubtopicContext')
+  const { subtopicIndex, setSubtopicIndex, subtopicData } = context
 
   return (
-    <AccordionParent>
-      {subtopics
+    <AccordionParent openIndex={subtopicIndex} setOpenIndex={setSubtopicIndex}>
+      {subtopicData
         .filter(({ data }) => Boolean(data?.Subtopic && data.Define_status))
         .map(({ data: subtopic }) => (
           <Accordion
