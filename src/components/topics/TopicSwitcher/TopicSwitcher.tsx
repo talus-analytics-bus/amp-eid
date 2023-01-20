@@ -20,7 +20,7 @@ const Layout = styled.section`
   gap: 30px;
 `
 const SubtopicsContainer = styled.div`
-  flex-basis: 350px;
+  min-width: 350px;
 `
 const MapContainer = styled.div`
   flex-grow: 1;
@@ -28,6 +28,7 @@ const MapContainer = styled.div`
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
+  gap: 20px;
 `
 
 interface TopicSwitcherProps {

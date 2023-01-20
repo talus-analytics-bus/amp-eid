@@ -13,7 +13,6 @@ const Citation = styled.p`
   color: ${({ theme }) => theme.darkGray};
   margin: 0;
   padding: 0;
-  margin-top: 20px;
 `
 
 const SubtopicDescription = () => {
