@@ -2163,7 +2163,7 @@
     core-js "^3.0.0"
     styled-components "^5.3.0"
 
-"@talus-analytics/library.ui.expander@0.0.5":
+"@talus-analytics/library.ui.expander@0.0.5", "@talus-analytics/library.ui.expander@^0.0.5":
   version "0.0.5"
   resolved "https://node.bit.dev/@talus-analytics/library.ui.expander/-/@talus-analytics-library.ui.expander-0.0.5.tgz#1ceebf67fc958a9733df10b1cbe932ac314e5ebb"
   integrity sha1-HO6/Z/yVipcz3xCxy+kyrDFOXrs=

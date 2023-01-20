@@ -20,6 +20,7 @@
     "@mdx-js/react": "^2.1.5",
     "@talus-analytics/library.airtable-cms": "^0.0.32",
     "@talus-analytics/library.ui.dropdown": "^0.0.9",
+    "@talus-analytics/library.ui.expander": "^0.0.5",
     "babel-plugin-styled-components": "^1.13.2",
     "gatsby": "^5.4.0",
     "gatsby-plugin-gtag": "^1.0.13",
