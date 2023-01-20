@@ -51,11 +51,18 @@ const TripsPage = ({
 
 export const query = graphql`
   query TripsPage {
-    topics: allAirtable(filter: { table: { eq: "1. Subtopic" } }) {
+    tripsSubtopics: allAirtableTrips {
       nodes {
         data {
           Subtopic
           Subtopic_description
+          Define_status {
+            data {
+              Map_color
+              Status
+              Status_description
+            }
+          }
         }
       }
     }
