@@ -11,6 +11,10 @@ const TopicButton = styled.button`
   transition: 250ms ease;
   border: none;
   border-top: 1px solid ${({ theme }) => theme.medDarkGray};
+
+  &:first-of-type {
+    border-top: none;
+  }
 `
 
 interface MapLegendProps {
