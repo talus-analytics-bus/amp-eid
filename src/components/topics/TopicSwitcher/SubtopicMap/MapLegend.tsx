@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import Accordion, { AccordionParent } from 'components/ui/Accordion/Accordion'
 import MapStatusKey from './MapStatusKey'
-import { SubtopicContext } from './TopicSwitcher'
+import { SubtopicContext } from '../TopicSwitcher'
 
 const Container = styled.div`
   border: 1px solid ${({ theme }) => theme.black};

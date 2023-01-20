@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react'
 import styled from 'styled-components'
-import MapLegend from './MapLegend'
+import MapLegend from './SubtopicMap/MapLegend'
 import SubtopicMap from './SubtopicMap/SubtopicMap'
 
 interface SubtopicContextProps {
