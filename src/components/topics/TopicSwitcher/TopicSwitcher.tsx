@@ -1,6 +1,7 @@
 import Accordion, { AccordionParent } from 'components/ui/Accordion/Accordion'
 import React from 'react'
 import styled, { useTheme } from 'styled-components'
+import camelCase from 'utilities/camelCase'
 
 const Layout = styled.section`
   margin-top: 30px;
@@ -35,6 +36,24 @@ const TopicButton = styled.button`
     border-bottom: 1px solid ${({ theme }) => theme.medDarkGray};
   }
 `
+const MapKey = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  padding: 10px;
+`
+const KeyEntry = styled.div`
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 0;
+`
+const ColorBlock = styled.div`
+  flex-shrink: 0;
+  margin-right: 15px;
+  margin-top: 0.15em;
+  width: 20px;
+  height: 20px;
+`
 
 const TopicSwitcher = ({ subtopics }: TopicSwitcherProps) => {
   const theme = useTheme()
@@ -45,9 +64,9 @@ const TopicSwitcher = ({ subtopics }: TopicSwitcherProps) => {
         <AccordionParent>
           {subtopics.tripsSubtopics.nodes
             .filter(subtopic => Boolean(subtopic.data?.Subtopic))
-            .map(subTopic => (
+            .map(subtopic => (
               <Accordion
-                key={subTopic.data?.Subtopic}
+                key={subtopic.data?.Subtopic}
                 renderButton={open => (
                   <TopicButton
                     style={{
@@ -56,11 +75,33 @@ const TopicSwitcher = ({ subtopics }: TopicSwitcherProps) => {
                       borderColor: open ? theme.black : theme.medDarkGray,
                     }}
                   >
-                    {subTopic.data?.Subtopic}
+                    {subtopic.data?.Subtopic}
                   </TopicButton>
                 )}
               >
-                {subTopic.data?.Subtopic_description}
+                <MapKey>
+                  {subtopic.data?.Define_status &&
+                    subtopic.data.Define_status.map(status => {
+                      if (!status || !status.data)
+                        throw new Error('Empty map legend entry')
+
+                      const keyColor = camelCase(status?.data?.Map_color)
+                      if (!keyColor)
+                        throw new Error(
+                          `Map legend color undefined for ${status.data.Status}`
+                        )
+                      return (
+                        <KeyEntry>
+                          <ColorBlock
+                            style={{
+                              background: theme[keyColor as keyof typeof theme],
+                            }}
+                          />
+                          <span>{status?.data?.Status}</span>
+                        </KeyEntry>
+                      )
+                    })}
+                </MapKey>
               </Accordion>
             ))}
         </AccordionParent>
