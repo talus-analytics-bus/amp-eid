@@ -35,26 +35,24 @@ const MapLegend = () => {
         openIndex={subtopicIndex}
         setOpenIndex={setSubtopicIndex}
       >
-        {subtopicData
-          .filter(({ data }) => Boolean(data?.Subtopic && data.Define_status))
-          .map(({ data: subtopic }) => (
-            <Accordion
-              key={subtopic?.Subtopic}
-              renderButton={open => (
-                <TopicButton
-                  style={{
-                    background: open ? theme.ampEidDarkBlue : theme.lightGray,
-                    color: open ? theme.white : theme.black,
-                    borderColor: open ? theme.black : theme.medDarkGray,
-                  }}
-                >
-                  {subtopic?.Subtopic}
-                </TopicButton>
-              )}
-            >
-              <MapStatusKey subtopic={subtopic} />
-            </Accordion>
-          ))}
+        {subtopicData.map(({ data: subtopic }) => (
+          <Accordion
+            key={subtopic?.Subtopic}
+            renderButton={open => (
+              <TopicButton
+                style={{
+                  background: open ? theme.ampEidDarkBlue : theme.lightGray,
+                  color: open ? theme.white : theme.black,
+                  borderColor: open ? theme.black : theme.medDarkGray,
+                }}
+              >
+                {subtopic?.Subtopic}
+              </TopicButton>
+            )}
+          >
+            <MapStatusKey subtopic={subtopic} />
+          </Accordion>
+        ))}
       </AccordionParent>
     </Container>
   )
