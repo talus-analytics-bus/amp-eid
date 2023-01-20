@@ -22,7 +22,7 @@ const ColorBlock = styled.div`
 `
 
 interface MapStatusKeyProps {
-  subtopic: Queries.TripsPageQuery['tripsSubtopics']['nodes'][0]['data']
+  subtopic: Queries.TripsPageQuery['subtopics']['nodes'][0]['data']
 }
 
 const MapStatusKey = ({ subtopic }: MapStatusKeyProps) => {

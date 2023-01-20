@@ -20,16 +20,16 @@ const MapContainer = styled.div`
 `
 
 interface TopicSwitcherProps {
-  subtopics: Queries.TripsPageQuery
+  data: Queries.TripsPageQuery
 }
 
-const TopicSwitcher = ({ subtopics }: TopicSwitcherProps) => {
-  if (!subtopics) throw new Error('No subtopics found')
+const TopicSwitcher = ({ data }: TopicSwitcherProps) => {
+  if (!data) throw new Error('No subtopics found')
 
   return (
     <Layout>
       <SubtopicsContainer>
-        <MapLegend subtopics={subtopics.tripsSubtopics.nodes} />
+        <MapLegend subtopics={data.subtopics.nodes} />
       </SubtopicsContainer>
       <MapContainer>
         <div>Map</div>

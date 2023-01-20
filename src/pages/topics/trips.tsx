@@ -51,7 +51,7 @@ const TripsPage = ({
 
 export const query = graphql`
   query TripsPage {
-    tripsSubtopics: allAirtableTrips {
+    subtopics: allAirtableTrips {
       nodes {
         data {
           Subtopic

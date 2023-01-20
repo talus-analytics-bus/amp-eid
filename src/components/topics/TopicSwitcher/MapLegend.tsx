@@ -18,7 +18,7 @@ const TopicButton = styled.button`
 `
 
 interface MapLegendProps {
-  subtopics: Queries.TripsPageQuery['tripsSubtopics']['nodes']
+  subtopics: Queries.TripsPageQuery['subtopics']['nodes']
 }
 
 const MapLegend = ({ subtopics }: MapLegendProps) => {
