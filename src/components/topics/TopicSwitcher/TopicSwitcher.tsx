@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react'
 import styled from 'styled-components'
+import SubtopicDescription from './subtopicDescription'
 import MapLegend from './SubtopicMap/MapLegend'
 import SubtopicMap from './SubtopicMap/SubtopicMap'
 
@@ -24,7 +25,8 @@ const SubtopicsContainer = styled.div`
 const MapContainer = styled.div`
   flex-grow: 1;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   justify-content: center;
 `
 
@@ -51,6 +53,7 @@ const TopicSwitcher = ({ data }: TopicSwitcherProps) => {
         </SubtopicsContainer>
         <MapContainer>
           <SubtopicMap />
+          <SubtopicDescription />
         </MapContainer>
       </Layout>
     </SubtopicContext.Provider>

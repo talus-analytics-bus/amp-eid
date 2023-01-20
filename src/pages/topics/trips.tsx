@@ -55,6 +55,7 @@ export const query = graphql`
         data {
           Subtopic
           Subtopic_description
+          Subtopic_sources
           Define_status {
             data {
               Map_color
