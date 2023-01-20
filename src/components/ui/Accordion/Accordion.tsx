@@ -1,30 +1,23 @@
 import React, { useState } from 'react'
 import Expander, { ExpanderProps } from '@talus-analytics/library.ui.expander'
-import styled from 'styled-components'
+import { DefaultTheme, StyledComponent } from 'styled-components'
 
-interface AccordionProps extends Omit<ExpanderProps, 'open'> {
-  title: React.ReactNode
-  className?: string
-  buttonStyle?: React.CSSProperties
-  expanderStyle?: React.CSSProperties
-  activeButtonStyle?: React.CSSProperties
-  buttonProps?: React.ComponentPropsWithoutRef<'button'>
-  defaultOpen?: boolean
+interface AccordionProps extends Omit<ExpanderProps, 'open' | 'floating'> {
+  renderButton: (
+    open: boolean,
+    animDuration: number
+  ) => React.ReactElement<React.ButtonHTMLAttributes<HTMLButtonElement>>
   openAccordion?: number | null
   setOpenAccordion?: React.Dispatch<React.SetStateAction<number | null>>
   index?: number
+  animDuration?: number
 }
 
 const Accordion = ({
-  title,
-  buttonProps,
-  activeButtonStyle,
-  expanderStyle,
-  buttonStyle,
-  defaultOpen,
-  className,
   openAccordion,
   setOpenAccordion,
+  renderButton,
+  animDuration = 250,
   index,
   ...props
 }: AccordionProps) => {
@@ -33,24 +26,49 @@ const Accordion = ({
       'Accordion component must be wrapped in <AccordionParent/> component'
     )
 
+  const open = openAccordion === index
+
+  // render the renderButton render props function,
+  // and clone it with the new props we need
+  const Button = renderButton(open ?? false, animDuration)
+  const buttonWithProps = React.cloneElement(Button, {
+    'aria-expanded': open ? 'true' : 'false',
+    key: index + 'button',
+    onClick: () => {
+      setOpenAccordion(prev => (prev !== index ? index : null))
+    },
+    ...Button.props,
+  })
+
+  // check if we're being passed the right kind
+  // of element in the render prop function
+  if (
+    // standard react elements will have type as a string
+    (typeof buttonWithProps.type === 'string' &&
+      buttonWithProps.type !== 'button') ||
+    // styled components have type.target
+    (typeof buttonWithProps.type === 'object' &&
+      (buttonWithProps.type as StyledComponent<'button', DefaultTheme>)
+        .target !== 'button')
+  ) {
+    const type =
+      (typeof buttonWithProps.type === 'string' && buttonWithProps.type) ||
+      (typeof buttonWithProps.type === 'object' &&
+        (buttonWithProps.type as { target: string }).target)
+    throw new Error(
+      `renderButton render prop in dropdown ` +
+        `must render a button element for accessibility. ` +
+        `Element type found was ${type}.`
+    )
+  }
+
   return (
     <div key={index}>
-      <button
-        key={index + 'button'}
-        {...buttonProps}
-        style={openAccordion === index ? activeButtonStyle : buttonStyle}
-        className={className}
-        onClick={() => {
-          setOpenAccordion(prev => (prev !== index ? index : null))
-        }}
-      >
-        {title}
-      </button>
+      {buttonWithProps}
       <Expander
         key={index + 'expander'}
         {...props}
         open={openAccordion === index}
-        style={expanderStyle}
       />
     </div>
   )
