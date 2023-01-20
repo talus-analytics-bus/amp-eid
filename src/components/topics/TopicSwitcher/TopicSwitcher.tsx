@@ -14,17 +14,19 @@ const Layout = styled.section`
   margin-top: 30px;
   display: flex;
   flex-direction: row;
-  justify-content: stretch;
+  justify-content: flex-start;
+  gap: 30px;
 `
 const SubtopicsContainer = styled.div`
   flex-basis: 350px;
-  border: 1px solid ${({ theme }) => theme.black};
 `
 const MapContainer = styled.div`
   flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 50vh;
+  background-color: ${({ theme }) => theme.lightGray};
 `
 
 interface TopicSwitcherProps {
