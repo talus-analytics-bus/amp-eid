@@ -15,7 +15,13 @@ const Paragraph = styled.p`
   color: ${({ theme }) => theme.black};
   max-width: 1000px;
 `
-
+const MainTextSection = styled(CMS.RichText)`
+  > p {
+    ${({ theme }) => theme.bigParagraph};
+    color: ${({ theme }) => theme.black};
+    max-width: 1000px;
+  }
+`
 const H1 = styled.h1`
   ${({ theme }) => theme.h1}
   color: ${({ theme }) => theme.black};
@@ -46,9 +52,7 @@ const OverviewPage = (): JSX.Element => {
         <H1>
           <CMS.Text name="H1" data={cmsData} />
         </H1>
-        <Paragraph>
-          <CMS.Text name="Top paragraph" data={cmsData} />
-        </Paragraph>
+        <MainTextSection name="Main content" data={cmsData} />
         <H2>
           <CMS.Text name="H2 funder" data={cmsData} />
         </H2>
