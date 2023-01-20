@@ -51,7 +51,7 @@ const TripsPage = ({
 
 export const query = graphql`
   query TripsPage {
-    subtopics: allAirtableTrips {
+    subtopics: allAirtableTrips(filter: { table: { eq: "1. Subtopic" } }) {
       nodes {
         data {
           Subtopic
