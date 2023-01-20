@@ -1,6 +1,7 @@
 import React, { createContext, useState } from 'react'
 import styled from 'styled-components'
 import MapLegend from './MapLegend'
+import SubtopicMap from './SubtopicMap/SubtopicMap'
 
 interface SubtopicContextProps {
   subtopicData: Queries.TripsPageQuery['subtopics']['nodes']
@@ -25,8 +26,6 @@ const MapContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 50vh;
-  background-color: ${({ theme }) => theme.lightGray};
 `
 
 interface TopicSwitcherProps {
@@ -51,7 +50,7 @@ const TopicSwitcher = ({ data }: TopicSwitcherProps) => {
           <MapLegend />
         </SubtopicsContainer>
         <MapContainer>
-          <div>Map</div>
+          <SubtopicMap />
         </MapContainer>
       </Layout>
     </SubtopicContext.Provider>
