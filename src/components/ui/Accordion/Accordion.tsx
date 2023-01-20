@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Expander, { ExpanderProps } from '@talus-analytics/library.ui.expander'
 import { DefaultTheme, StyledComponent } from 'styled-components'
 
@@ -7,26 +7,26 @@ interface AccordionProps extends Omit<ExpanderProps, 'open' | 'floating'> {
     open: boolean,
     animDuration: number
   ) => React.ReactElement<React.ButtonHTMLAttributes<HTMLButtonElement>>
-  openAccordion?: number | null
-  setOpenAccordion?: React.Dispatch<React.SetStateAction<number | null>>
+  openIndex?: number | null
+  setOpenIndex?: React.Dispatch<React.SetStateAction<number | null>>
   index?: number
   animDuration?: number
 }
 
 const Accordion = ({
-  openAccordion,
-  setOpenAccordion,
+  openIndex,
+  setOpenIndex,
   renderButton,
   animDuration = 250,
   index,
   ...props
 }: AccordionProps) => {
-  if (!setOpenAccordion || typeof index === 'undefined')
+  if (!setOpenIndex || typeof index === 'undefined')
     throw new Error(
       'Accordion component must be wrapped in <AccordionParent/> component'
     )
 
-  const open = openAccordion === index
+  const open = openIndex === index
 
   // render the renderButton render props function,
   // and clone it with the new props we need
@@ -35,7 +35,7 @@ const Accordion = ({
     'aria-expanded': open ? 'true' : 'false',
     key: index + 'button',
     onClick: () => {
-      setOpenAccordion(prev => (prev !== index ? index : null))
+      setOpenIndex(prev => (prev !== index ? index : null))
     },
     ...Button.props,
   })
@@ -68,7 +68,7 @@ const Accordion = ({
       <Expander
         key={index + 'expander'}
         {...props}
-        open={openAccordion === index}
+        open={openIndex === index}
       />
     </React.Fragment>
   )
@@ -76,15 +76,21 @@ const Accordion = ({
 
 interface AccordionParentProps {
   children: ReturnType<typeof Accordion>[]
+  openIndex: number | null
+  setOpenIndex: React.Dispatch<React.SetStateAction<number | null>>
 }
 
-export const AccordionParent = ({ children }: AccordionParentProps) => {
-  const [openAccordion, setOpenAccordion] = useState<number | null>(0)
+export const AccordionParent = ({
+  children,
+  openIndex,
+  setOpenIndex,
+}: AccordionParentProps) => {
+  // const [openAccordion, setOpenAccordion] = useState<number | null>(0)
 
   const childrenWithProps = React.Children.map(children, (child, index) =>
     React.cloneElement(child, {
-      openAccordion,
-      setOpenAccordion,
+      openIndex,
+      setOpenIndex,
       index,
       key: index,
       ...child.props,
