@@ -21,11 +21,11 @@ const ColorBlock = styled.div`
   height: 20px;
 `
 
-interface MapStatusLegendProps {
+interface MapStatusKeyProps {
   subtopic: Queries.TripsPageQuery['tripsSubtopics']['nodes'][0]['data']
 }
 
-const MapStatusLegend = ({ subtopic }: MapStatusLegendProps) => {
+const MapStatusKey = ({ subtopic }: MapStatusKeyProps) => {
   const theme = useTheme()
 
   if (!subtopic || !subtopic.Define_status) return <></>
@@ -56,4 +56,4 @@ const MapStatusLegend = ({ subtopic }: MapStatusLegendProps) => {
   )
 }
 
-export default MapStatusLegend
+export default MapStatusKey

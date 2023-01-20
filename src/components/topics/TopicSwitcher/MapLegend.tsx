@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { useTheme } from 'styled-components'
 import Accordion, { AccordionParent } from 'components/ui/Accordion/Accordion'
-import MapStatusLegend from './MapStatusLegend'
+import MapStatusKey from './MapStatusKey'
 
 const TopicButton = styled.button`
   width: 100%;
@@ -45,7 +45,7 @@ const MapLegend = ({ subtopics }: MapLegendProps) => {
               </TopicButton>
             )}
           >
-            <MapStatusLegend subtopic={subtopic} />
+            <MapStatusKey subtopic={subtopic} />
           </Accordion>
         ))}
     </AccordionParent>
