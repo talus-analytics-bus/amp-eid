@@ -84,20 +84,18 @@ export const AccordionParent = ({
   children,
   openIndex,
   setOpenIndex,
-}: AccordionParentProps) => {
-  // const [openAccordion, setOpenAccordion] = useState<number | null>(0)
-
-  const childrenWithProps = React.Children.map(children, (child, index) =>
-    React.cloneElement(child, {
-      openIndex,
-      setOpenIndex,
-      index,
-      key: index,
-      ...child.props,
-    })
-  )
-
-  return <>{childrenWithProps}</>
-}
+}: AccordionParentProps) => (
+  <>
+    {React.Children.map(children, (child, index) =>
+      React.cloneElement(child, {
+        openIndex,
+        setOpenIndex,
+        index,
+        key: index,
+        ...child.props,
+      })
+    )}
+  </>
+)
 
 export default Accordion
