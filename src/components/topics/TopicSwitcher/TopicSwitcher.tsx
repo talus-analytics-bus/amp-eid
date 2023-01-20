@@ -31,7 +31,9 @@ const TopicSwitcher = ({ subtopics }: TopicSwitcherProps) => {
             .map(subTopic => (
               <Accordion
                 key={subTopic.data?.Subtopic}
-                title={subTopic.data?.Subtopic}
+                renderButton={() => (
+                  <button>hello world{subTopic.data?.Subtopic}</button>
+                )}
               >
                 {subTopic.data?.Subtopic_description}
               </Accordion>
