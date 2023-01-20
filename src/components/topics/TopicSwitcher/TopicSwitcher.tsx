@@ -18,9 +18,16 @@ const Layout = styled.section`
   flex-direction: row;
   justify-content: flex-start;
   gap: 30px;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 `
 const SubtopicsContainer = styled.div`
   min-width: 350px;
+  @media (max-width: 1000px) {
+    min-width: auto;
+  }
 `
 const MapContainer = styled.div`
   flex-grow: 1;
