@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { SubtopicContext } from './TopicSwitcher'
+import { RenderCMSRichText } from '@talus-analytics/library.airtable.cms-rich-text'
 
 const Description = styled.p`
   ${({ theme }) => theme.bigParagraph};
@@ -8,11 +9,18 @@ const Description = styled.p`
   margin: 0;
   padding: 0;
 `
-const Citation = styled.p`
-  ${({ theme }) => theme.smallParagraph};
-  color: ${({ theme }) => theme.darkGray};
-  margin: 0;
-  padding: 0;
+const Citation = styled(RenderCMSRichText)`
+  > p {
+    ${({ theme }) => theme.smallParagraph};
+    color: ${({ theme }) => theme.darkGray};
+    margin: 0;
+    padding: 0;
+
+    > a {
+      ${({ theme }) => theme.smallParagraph};
+      color: ${({ theme }) => theme.darkGray};
+    }
+  }
 `
 
 const SubtopicDescription = () => {
@@ -25,9 +33,12 @@ const SubtopicDescription = () => {
       <Description>
         {subtopicData[subtopicIndex ?? 0].data?.Subtopic_description}
       </Description>
-      <Citation>
-        {subtopicData[subtopicIndex ?? 0].data?.Subtopic_sources}
-      </Citation>
+      <Citation
+        markdown={
+          'Source: ' +
+            subtopicData[subtopicIndex ?? 0].data?.Subtopic_sources ?? ''
+        }
+      />
     </>
   )
 }
