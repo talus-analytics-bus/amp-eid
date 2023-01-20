@@ -1,3 +1,4 @@
+import Accordion, { AccordionParent } from 'components/ui/Accordion/Accordion'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -24,9 +25,18 @@ const TopicSwitcher = ({ subtopics }: TopicSwitcherProps) => {
   return (
     <Layout>
       <SubtopicsContainer>
-        {subtopics.topics.nodes.map(topic => (
-          <p>{topic.data?.Subtopic}</p>
-        ))}
+        <AccordionParent>
+          {subtopics.tripsSubtopics.nodes
+            .filter(subtopic => Boolean(subtopic.data?.Subtopic))
+            .map(subTopic => (
+              <Accordion
+                key={subTopic.data?.Subtopic}
+                title={subTopic.data?.Subtopic}
+              >
+                {subTopic.data?.Subtopic_description}
+              </Accordion>
+            ))}
+        </AccordionParent>
       </SubtopicsContainer>
       <MapContainer>
         <div>Map</div>
