@@ -9,6 +9,7 @@ import Providers from 'components/layout/Providers'
 import MainHeader from 'components/layout/MainHeader'
 import NavBar from 'components/layout/NavBar/NavBar'
 import Sidebar from 'components/treatyPage/Sidebar'
+import StatusTable from 'components/treatyPage/StatusTable'
 
 const Layout = styled.div`
   margin-top: 30px;
@@ -59,6 +60,7 @@ const TreatyPage = ({
         <MainContent>
           <H3>Description</H3>
           <Description markdown={treatyData.data?.Treaty_description ?? ''} />
+          <StatusTable treatyData={treatyData} />
         </MainContent>
       </Layout>
     </Main>
