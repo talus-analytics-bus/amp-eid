@@ -77,6 +77,8 @@ const config: GatsbyConfig = {
             tableName: `LOOKUP: Treaty`,
             tableView: `CMS`,
             queryName: `Treaties`,
+            tableLinks: [`Country_link`],
+            mapping: { Attachments: `fileNode` },
             separateNodeType: true,
           },
           {
