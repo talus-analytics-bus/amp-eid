@@ -49,27 +49,33 @@ const ComingSoon = styled.span`
     background-color: ${({ theme }) => theme.lightGray};
   }
 `
+interface TopicsDropdownProps {
+  links: {
+    to: string
+    children: React.ReactNode
+    disabled?: boolean
+  }[]
+  title: React.ReactNode
+}
 
-const TopicsDropdown = () => {
-  const indexPageCMSData = useIndexPageData()
-
+const TopicsDropdown = ({ title, links }: TopicsDropdownProps) => {
   return (
     <Container>
       <Dropdown
         hover
-        renderButton={() => <DropdownButton>Topics</DropdownButton>}
+        renderButton={() => <DropdownButton>{title}</DropdownButton>}
         expanderStyle={{ right: 0, top: 42, borderRadius: 5 }}
       >
         <TopicList>
-          <Li>
-            <DropdownLink to="/topics/trips/">
-              <CMS.Text name="TRIPS text" data={indexPageCMSData} />
-            </DropdownLink>
-          </Li>
-          <Li>
-            <ComingSoon>Coming soon: Childhood vaccination</ComingSoon>
-            <ComingSoon>Coming soon: Non-human vaccination</ComingSoon>
-          </Li>
+          {links.map(link => (
+            <Li>
+              {link.disabled ? (
+                <ComingSoon>{link.children}</ComingSoon>
+              ) : (
+                <DropdownLink {...link} />
+              )}
+            </Li>
+          ))}
         </TopicList>
       </Dropdown>
     </Container>
