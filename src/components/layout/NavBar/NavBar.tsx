@@ -7,6 +7,7 @@ import CMS from '@talus-analytics/library.airtable-cms'
 import MobileMenu from './MobileMenu/MobileMenu'
 
 import useIndexPageData from 'cmsHooks/useIndexPageData'
+import TopicsDropdown from './TopicsDropdown'
 
 const Nav = styled.nav`
   background-color: ${({ theme }) => theme.ampEidDarkBlue};
@@ -72,7 +73,7 @@ const NavBar = () => {
   const data = useIndexPageData()
 
   const links = [
-    { to: '/topics/trips/', children: 'Topics' },
+    // { to: '/topics/trips/', children: <TopicsDropdown /> },
     { to: '/treaties/', children: 'Treaties' },
     { to: '/countries/', children: 'Countries' },
     { to: '/about/overview/', children: 'About' },
@@ -91,6 +92,7 @@ const NavBar = () => {
           </HomeLink>
         </LinkList>
         <DesktopNavList>
+          <TopicsDropdown />
           {links.map(linkProps => (
             <Li key={linkProps.to}>
               <NavLink {...linkProps} />
@@ -99,6 +101,11 @@ const NavBar = () => {
         </DesktopNavList>
         <MobileMenu>
           <MobileLinkList>
+            <Li key={'trips'}>
+              <NavLink to="/topics/trips/">
+                Trade and intellectual property
+              </NavLink>
+            </Li>
             {links.map(linkProps => (
               <Li key={linkProps.to}>
                 <NavLink {...linkProps} />
