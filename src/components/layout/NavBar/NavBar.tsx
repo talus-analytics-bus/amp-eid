@@ -8,6 +8,7 @@ import MobileMenu from './MobileMenu/MobileMenu'
 
 import useIndexPageData from 'cmsHooks/useIndexPageData'
 import TopicsDropdown from './TopicsDropdown'
+import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
 
 const Nav = styled.nav`
   background-color: ${({ theme }) => theme.ampEidDarkBlue};
@@ -71,13 +72,26 @@ const NavLogo = styled(CMS.Image)`
 
 const NavBar = () => {
   const data = useIndexPageData()
+  const treaties = useShortTreatyNames()
 
   const links = [
-    // { to: '/topics/trips/', children: <TopicsDropdown /> },
-    { to: '/treaties/', children: 'Treaties' },
     { to: '/countries/', children: 'Countries' },
     { to: '/about/overview/', children: 'About' },
   ]
+
+  const topicsLinks = [
+    {
+      to: '/topics/trips/',
+      children: <CMS.Text name="TRIPS text" data={data} />,
+    },
+    { to: '', children: 'Coming soon: Childhood vaccination', disabled: true },
+    { to: '', children: 'Coming soon: Non-human vaccination', disabled: true },
+  ]
+
+  const treatyLinks = treaties.distinct.map(treaty => ({
+    to: `/treaties/${treaty}`,
+    children: treaty,
+  }))
 
   return (
     <Nav>
@@ -92,7 +106,8 @@ const NavBar = () => {
           </HomeLink>
         </LinkList>
         <DesktopNavList>
-          <TopicsDropdown />
+          <TopicsDropdown title="Topics" links={topicsLinks} />
+          <TopicsDropdown title="Treaties" links={treatyLinks} />
           {links.map(linkProps => (
             <Li key={linkProps.to}>
               <NavLink {...linkProps} />
@@ -101,11 +116,19 @@ const NavBar = () => {
         </DesktopNavList>
         <MobileMenu>
           <MobileLinkList>
+            <h3 style={{ color: 'white' }}>Topics</h3>
             <Li key={'trips'}>
               <NavLink to="/topics/trips/">
                 Trade and intellectual property
               </NavLink>
             </Li>
+            <h3 style={{ color: 'white' }}>Treaties</h3>
+            {treatyLinks.map(linkProps => (
+              <Li key={linkProps.to}>
+                <NavLink {...linkProps} />
+              </Li>
+            ))}
+            <h3 style={{ color: 'white' }}>General</h3>
             {links.map(linkProps => (
               <Li key={linkProps.to}>
                 <NavLink {...linkProps} />
