@@ -8,6 +8,7 @@ import Main from 'components/layout/Main'
 import Providers from 'components/layout/Providers'
 import MainHeader from 'components/layout/MainHeader'
 import NavBar from 'components/layout/NavBar/NavBar'
+import Sidebar from 'components/treatyPage/Sidebar'
 
 const Layout = styled.div`
   margin-top: 30px;
@@ -38,29 +39,31 @@ const Description = styled(RenderCMSRichText)`
   }
 `
 
-const TreatyPage = ({ data }: PageProps<Queries.TreatyPageQuery>) => {
-  const treatyData = data.general.nodes[0]
-
-  return (
-    <Providers>
-      <CMS.SEO />
-      <NavBar />
-      <Main>
-        <MainHeader>
-          <h2>TREATY</h2>
-          <h1>{treatyData.data?.Document_name}</h1>
-        </MainHeader>
-        <Layout>
-          <Thumbnail />
-          <MainContent>
-            <H3>Description</H3>
-            <Description markdown={treatyData.data?.Treaty_description ?? ''} />
-          </MainContent>
-        </Layout>
-      </Main>
-    </Providers>
-  )
-}
+const TreatyPage = ({
+  data: {
+    general: {
+      nodes: [treatyData],
+    },
+  },
+}: PageProps<Queries.TreatyPageQuery>) => (
+  <Providers>
+    <CMS.SEO />
+    <NavBar />
+    <Main>
+      <MainHeader>
+        <h2>TREATY</h2>
+        <h1>{treatyData.data?.Document_name}</h1>
+      </MainHeader>
+      <Layout>
+        <Sidebar treatyData={treatyData} />
+        <MainContent>
+          <H3>Description</H3>
+          <Description markdown={treatyData.data?.Treaty_description ?? ''} />
+        </MainContent>
+      </Layout>
+    </Main>
+  </Providers>
+)
 
 export default TreatyPage
 
@@ -79,6 +82,7 @@ export const query = graphql`
       nodes {
         data {
           Document_name
+          Document_URL
           Treaty_description
           Date_of_latest_update
           Date_opened_for_signature
@@ -86,6 +90,8 @@ export const query = graphql`
           Attachments {
             localFiles {
               publicURL
+              prettySize
+              ext
             }
             raw {
               thumbnails {
