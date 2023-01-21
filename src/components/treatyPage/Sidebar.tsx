@@ -27,6 +27,17 @@ const Thumbnail = styled.img`
   overflow: hidden;
   margin-bottom: 20px;
 `
+const H4 = styled.h4`
+  margin: 0;
+  margin-top: 10px;
+  ${({ theme }) => theme.paragraph};
+  color: ${({ theme }) => theme.black};
+`
+const Semibold = styled.p`
+  margin: 0;
+  ${({ theme }) => theme.paragraphSemibold};
+  color: ${({ theme }) => theme.black};
+`
 
 const Sidebar = ({
   treatyData,
@@ -39,6 +50,10 @@ const Sidebar = ({
     throw new Error(
       `File metadata not found for treaty ${treatyData.data?.Document_name}`
     )
+
+  const openedForSignature = treatyData.data?.Date_opened_for_signature
+  const originalPublication = treatyData.data?.Date_of_original_publication
+  const latestUpdate = treatyData.data?.Date_of_latest_update
 
   return (
     <Container>
@@ -55,6 +70,24 @@ const Sidebar = ({
         <ButtonLink href={treatyData.data?.Document_URL}>
           Open link to treaty
         </ButtonLink>
+      )}
+      {openedForSignature && (
+        <>
+          <H4>Date opened for signature</H4>
+          <Semibold>{openedForSignature}</Semibold>
+        </>
+      )}
+      {originalPublication && (
+        <>
+          <H4>Date of original publication</H4>
+          <Semibold>{originalPublication}</Semibold>
+        </>
+      )}
+      {latestUpdate && (
+        <>
+          <H4>Latest update</H4>
+          <Semibold>{latestUpdate}</Semibold>
+        </>
       )}
     </Container>
   )
