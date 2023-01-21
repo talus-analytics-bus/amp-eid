@@ -55,6 +55,7 @@ const config: GatsbyConfig = {
             mapping: { Image: `fileNode` },
           },
           // Data Tables
+          // Trips
           {
             baseId: `appryZVvEysrHZL0S`,
             tableName: `3. Define status`,
@@ -68,6 +69,29 @@ const config: GatsbyConfig = {
             tableView: `CMS`,
             tableLinks: [`Define_status`],
             queryName: `Trips`,
+            separateNodeType: true,
+          },
+          // Treaties
+          {
+            baseId: `app6WOQpwEJy3B88C`,
+            tableName: `LOOKUP: Treaty`,
+            tableView: `CMS`,
+            queryName: `Treaties`,
+            separateNodeType: true,
+          },
+          {
+            baseId: `app6WOQpwEJy3B88C`,
+            tableName: `LOOKUP: Country`,
+            tableView: `CMS`,
+            queryName: `Treaties`,
+            separateNodeType: true,
+          },
+          {
+            baseId: `app6WOQpwEJy3B88C`,
+            tableName: `ALL: ONLY USE THIS TAB INSTEAD OF THE SINGLE TABS FROM NOW ON`,
+            tableLinks: [`Treaty_name`, `Country`],
+            tableView: `CMS`,
+            queryName: `Treaties`,
             separateNodeType: true,
           },
         ],
