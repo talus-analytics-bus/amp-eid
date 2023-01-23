@@ -1,6 +1,6 @@
 aws cloudformation deploy \
-  --stack-name [projectname] \
+  --stack-name amp-eid \
   --template-file build-stack.yaml \
   --capabilities CAPABILITY_NAMED_IAM \
-  --tags Key=Project,value=[projectgroup] \
-         Key=ProjectDetail,value=[projectname] \
+  --tags Key=Project,value=IDEA \
+         Key=ProjectDetail,value=AMPEID \
