@@ -25,6 +25,9 @@ const Citation = styled(RenderCMSRichText)`
   }
 `
 
+// Note on accessibility and SEO:
+// https://www.w3.org/WAI/ARIA/apg/example-index/tabs/tabs-manual.html
+
 const SubtopicDescription = () => {
   const context = useContext(SubtopicContext)
   if (!context) throw new Error('MapLegend must be inside SubtopicContext')
