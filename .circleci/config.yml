@@ -14,8 +14,8 @@ workflows:
           # Examples:
           # bucket: 's3://dev-projectname'
           # distribution: 'E31RXXXXXXXXXX'
-          bucket: ''
-          distribution: ''
+          bucket: 'dev-amp-eid'
+          distribution: 'E2QPMF58FUKEV4'
           context: *credentials
           filters:
             branches:
@@ -23,8 +23,8 @@ workflows:
                 - dev
       # review site
       - deploy:
-          bucket: ''
-          distribution: ''
+          bucket: 'review-amp-eid'
+          distribution: 'E155SS1GPO6B6G'
           context: *credentials
           filters:
             branches:
@@ -32,8 +32,8 @@ workflows:
                 - review
       # staging site
       - deploy:
-          bucket: ''
-          distribution: ''
+          bucket: 'staging-amp-eid'
+          distribution: 'E1JXVNTPRLLQZP'
           context: *credentials
           filters:
             branches:
@@ -41,8 +41,8 @@ workflows:
                 - staging
       # prod site
       - deploy:
-          bucket: ''
-          distribution: ''
+          bucket: 'prod-amp-eid'
+          distribution: 'E3OJKMBY66HFPH'
           context: *credentials
           filters:
             branches:
