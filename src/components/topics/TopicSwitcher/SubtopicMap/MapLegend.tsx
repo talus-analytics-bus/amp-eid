@@ -30,7 +30,7 @@ const MapLegend = () => {
   const { subtopicIndex, setSubtopicIndex, subtopicData } = context
 
   return (
-    <Container>
+    <Container aria-orientation="vertical">
       <AccordionParent
         preventCloseAll
         openIndex={subtopicIndex}
