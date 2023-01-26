@@ -2,6 +2,20 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { SubtopicContext } from '../TopicSwitcher'
 
+import mapboxgl from 'mapbox-gl'
+
+import 'mapbox-gl/dist/mapbox-gl.css'
+
+const mapboxKey = process.env.GATSBY_MAPBOX_API_KEY
+
+if (!mapboxKey)
+  throw new Error(
+    'Mapbox-gl-js API key must be set in ' +
+      'GATSBY_MAPBOX_API_KEY environment variable'
+  )
+
+mapboxgl.accessToken = mapboxKey
+
 const MapPlaceholder = styled.div`
   position: relative;
   flex-grow: 1;
