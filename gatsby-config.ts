@@ -84,6 +84,7 @@ const config: GatsbyConfig = {
           {
             baseId: `app6WOQpwEJy3B88C`,
             tableName: `LOOKUP: Country`,
+            tableLinks: [`Treaty_link`],
             tableView: `CMS`,
             queryName: `Treaties`,
             separateNodeType: true,
