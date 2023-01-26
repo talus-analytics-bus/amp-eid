@@ -33,6 +33,7 @@
     "gatsby-source-airtable": "^2.3.0",
     "gatsby-source-filesystem": "^5.2.0",
     "gatsby-transformer-sharp": "^5.2.0",
+    "mapbox-gl": "^2.12.0",
     "node-html-parser": "^5.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -46,6 +47,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
     "@babel/preset-react": "^7.16.7",
+    "@types/mapbox-gl": "^2.7.10",
     "@types/react": "^18.0.26",
     "@types/styled-components": "^5.1.12",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
