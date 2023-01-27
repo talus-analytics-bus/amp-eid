@@ -34,9 +34,10 @@ const MapStatusKey = ({ subtopic }: MapStatusKeyProps) => {
     <MapKey>
       {subtopic.Define_status &&
         subtopic.Define_status.map(status => {
-          if (!status || !status.data) throw new Error('Empty map legend entry')
+          if (!status || !status.data || !status.data.Map_color)
+            throw new Error('Empty map legend entry')
 
-          const keyColor = camelCase(status?.data?.Map_color)
+          const keyColor = camelCase(status.data.Map_color)
           if (!keyColor)
             throw new Error(
               `Map legend color undefined for ${status.data.Status}`
