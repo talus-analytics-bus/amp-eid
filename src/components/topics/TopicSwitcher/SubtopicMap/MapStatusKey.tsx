@@ -43,7 +43,7 @@ const MapStatusKey = ({ subtopic }: MapStatusKeyProps) => {
               `Map legend color undefined for ${status.data.Status}`
             )
           return (
-            <KeyEntry>
+            <KeyEntry key={status.data.Status}>
               <ColorBlock
                 style={{
                   background: theme[keyColor as keyof typeof theme],

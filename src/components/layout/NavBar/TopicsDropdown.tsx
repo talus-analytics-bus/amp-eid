@@ -68,7 +68,7 @@ const TopicsDropdown = ({ title, links }: TopicsDropdownProps) => {
       >
         <TopicList>
           {links.map(link => (
-            <Li>
+            <Li key={link.to}>
               {link.disabled ? (
                 <ComingSoon>{link.children}</ComingSoon>
               ) : (

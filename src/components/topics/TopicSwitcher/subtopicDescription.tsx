@@ -37,6 +37,7 @@ const SubtopicDescription = () => {
     <>
       {subtopicData.map((subtopic, index) => (
         <div
+          key={index}
           id={`tabpanel-${index}`}
           role="tabpanel"
           aria-labelledby={`tab-${index}`}
