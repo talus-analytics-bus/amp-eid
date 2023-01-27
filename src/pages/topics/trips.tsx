@@ -63,6 +63,20 @@ export const query = graphql`
               Status_description
             }
           }
+          Assign_status {
+            data {
+              Country {
+                data {
+                  ISO_3166_1_alpha_3
+                }
+              }
+              Status_link {
+                data {
+                  Map_color
+                }
+              }
+            }
+          }
         }
       }
     }
