@@ -1,8 +1,9 @@
 // Adapted from
 // https://stackoverflow.com/questions/2970525/converting-any-string-into-camel-case
 
-const camelCase = (str: string | undefined | null) => {
-  if (str === undefined) return undefined
+function camelCase(str: string): string
+function camelCase(str: string | undefined | null): string | undefined | null {
+  if (typeof str === 'undefined') return undefined
   if (str === null) return null
   return str
     .toLowerCase()
