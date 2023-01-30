@@ -55,6 +55,23 @@ const config: GatsbyConfig = {
             mapping: { Image: `fileNode` },
           },
           // Data Tables
+          // Master document library
+          {
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `LOOKUP: Country`,
+            queryName: `Documents`,
+            separateNodeType: true,
+            tableView: `CMS`,
+          },
+          {
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Document library`,
+            tableLinks: [`All_applicable_countries`],
+            queryName: `Documents`,
+            separateNodeType: true,
+            tableView: `CMS`,
+            mapping: { Attachment__most_recent_: `fileNode` },
+          },
           // Trips
           {
             baseId: `appryZVvEysrHZL0S`,
