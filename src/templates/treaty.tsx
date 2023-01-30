@@ -16,11 +16,6 @@ const Layout = styled.div`
   display: flex;
   gap: 50px;
 `
-const Thumbnail = styled.div`
-  width: 350px;
-  background-color: lightgray;
-  flex-shrink: 0;
-`
 const MainContent = styled.div``
 const H3 = styled.h3`
   margin-top: 0;
