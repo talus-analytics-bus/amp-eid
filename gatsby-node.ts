@@ -36,4 +36,39 @@ export const createPages: GatsbyNode['createPages'] = async ({
       context: { short_name },
     })
   }
+
+  const documentPageTemplate = path.resolve('./src/templates/document.tsx')
+
+  const documentNames = await graphql<Queries.DocumentNamesQuery>(`
+    query DocumentNames {
+      names: allAirtableDocuments(
+        filter: {
+          data: { Document_type: { ne: "Treaty" } }
+          table: { eq: "Document library" }
+        }
+      ) {
+        nodes {
+          id
+          data {
+            Document_name
+          }
+        }
+      }
+    }
+  `)
+
+  if (!documentNames.data?.names) throw new Error('No documents found')
+
+  for (const document of documentNames.data.names.nodes) {
+    if (!document.data?.Document_name)
+      throw new Error('All documents must have names')
+
+    actions.createPage({
+      path: document.data?.Document_name,
+      component: documentPageTemplate,
+      context: {
+        id: document.id,
+      },
+    })
+  }
 }
