@@ -9,7 +9,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
 }) => {
   const treatyPageTemplate = path.resolve('./src/templates/treaty.tsx')
 
-  const result = await graphql<Queries.TreatyShortNamesQuery>(`
+  const treatyNames = await graphql<Queries.TreatyShortNamesQuery>(`
     query ShortNames {
       shortNames: allAirtableTreaties(
         filter: {
@@ -27,9 +27,9 @@ export const createPages: GatsbyNode['createPages'] = async ({
     }
   `)
 
-  if (!result.data?.shortNames) throw new Error('No treaties found')
+  if (!treatyNames.data?.shortNames) throw new Error('No treaties found')
 
-  for (const short_name of result.data.shortNames.distinct) {
+  for (const short_name of treatyNames.data.shortNames.distinct) {
     actions.createPage({
       path: `/treaties/${short_name}/`,
       component: treatyPageTemplate,
