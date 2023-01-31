@@ -43,7 +43,10 @@ const TreatyPage = ({
   },
 }: PageProps<Queries.TreatyPageQuery>) => (
   <Providers>
-    <CMS.SEO />
+    <CMS.SEO
+      title={treatyData.data?.Document_name ?? undefined}
+      description={treatyData.data?.Treaty_description ?? undefined}
+    />
     <NavBar />
     <Main>
       <MainHeader>
