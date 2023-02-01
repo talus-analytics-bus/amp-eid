@@ -12,9 +12,6 @@ const ColumnSection = styled.section<{
 
   padding-top: 20px;
 
-  border-top: ${({ theme, noBorder }) =>
-    noBorder ? 'none' : `border-top: 3px solid ${theme.lightGray}`};
-
   @media (max-width: 1000px) {
     flex-direction: ${({ columnReverse }) =>
       columnReverse ? 'column-reverse' : 'column'};
@@ -41,6 +38,9 @@ const ColumnSection = styled.section<{
     justify-content: center;
     gap: 20px;
   }
+
+  ${({ theme, noBorder }) =>
+    !noBorder && `border-top: 3px solid ${theme.lightGray};`};
 `
 
 export default ColumnSection
