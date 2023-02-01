@@ -31,16 +31,8 @@ export default {
 	text-decoration:none;
 	text-transform:none;
 `,
-  paragraph: `
-	font-size:16px;
-	font-family:"Poppins";
-	font-weight:400;
-	font-style:normal;
-	text-decoration:none;
-	text-transform:none;
-`,
-  paragraphSemibold: `
-	font-size:16px;
+  bigParagraphMedium: `
+	font-size:20px;
 	font-family:"Poppins";
 	font-weight:500;
 	font-style:normal;
@@ -50,7 +42,39 @@ export default {
   bigParagraphSemibold: `
 	font-size:20px;
 	font-family:"Poppins";
+	font-weight:600;
+	font-style:normal;
+	text-decoration:none;
+	text-transform:none;
+`,
+  paragraph: `
+	font-size:16px;
+	font-family:"Poppins";
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	text-transform:none;
+`,
+  paragraphMedium: `
+	font-size:16px;
+	font-family:"Poppins";
 	font-weight:500;
+	font-style:normal;
+	text-decoration:none;
+	text-transform:none;
+`,
+  paragraphMediumItalic: `
+	font-size:16px;
+	font-family:"Poppins";
+	font-weight:500;
+	font-style:italic;
+	text-decoration:none;
+	text-transform:none;
+`,
+  paragraphSemibold: `
+	font-size:16px;
+	font-family:"Poppins";
+	font-weight:600;
 	font-style:normal;
 	text-decoration:none;
 	text-transform:none;
@@ -60,6 +84,18 @@ export default {
 	font-family:"Poppins";
 	font-weight:400;
 	font-style:normal;
+	text-decoration:none;
+	text-transform:none;
+`,
+  landingPageH1: `
+	font-size:40px;
+	font-family:"Tapas";
+	text-decoration:none;
+	text-transform:none;
+`,
+  landingPageSmall: `
+	font-size:16px;
+	font-family:"Tapas";
 	text-decoration:none;
 	text-transform:none;
 `,
