@@ -10,6 +10,7 @@ import Providers from 'components/layout/Providers'
 
 import useIndexPageData from 'cmsHooks/useIndexPageData'
 import TopicSwitcher from 'components/topics/TopicSwitcher/TopicSwitcher'
+import RelatedTreaty from 'components/topics/RelatedTreaty'
 
 // Trips page data sources
 
@@ -43,6 +44,7 @@ const TripsPage = ({
           </h1>
         </MainHeader>
         <TopicSwitcher data={data} />
+        <RelatedTreaty relatedTreaties={data.relatedTreaties} />
       </Main>
     </Providers>
   )
@@ -89,6 +91,7 @@ export const query = graphql`
       nodes {
         data {
           Document_name
+          Treaty_short_name
         }
       }
     }
