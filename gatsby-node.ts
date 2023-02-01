@@ -64,7 +64,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
       throw new Error('All documents must have names')
 
     actions.createPage({
-      path: `/document/${document.data?.Document_name}`,
+      path: `/documents/${document.data?.Document_name}`,
       component: documentPageTemplate,
       context: {
         id: document.id,
