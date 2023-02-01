@@ -18,11 +18,14 @@ const MapSection = styled.section`
   position: relative;
   flex-grow: 1;
   display: flex;
-  aspect-ratio: 16/9;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   background: ${({ theme }) => theme.veryLightGray};
+`
+const MapContainer = styled.div`
+  width: 100%;
+  aspect-ratio: 16/8;
 `
 const MapTitle = styled.h3`
   ${({ theme }) => theme.h3};
@@ -76,29 +79,31 @@ const SubtopicMap = () => {
   return (
     <MapSection>
       <MapTitle>{subtopicData[subtopicIndex ?? 0].data?.Subtopic}</MapTitle>
-      <Map
-        // map style is just the labels when you zoom in
-        mapStyle="mapbox://styles/ryan-talus/clddahzv7007j01qbgn0bba8w"
-        mapboxAccessToken={mapboxAccessToken}
-        projection="naturalEarth"
-        initialViewState={{
-          longitude: 0,
-          latitude: 15,
-          zoom: 0,
-          bounds: [
-            [360, 70],
-            [-90, -45],
-          ],
-        }}
-        maxZoom={5}
-        minZoom={0}
-      >
-        {/* This source provides country shapes and their ISO codes */}
-        <Source id="my-data" type="vector" url="mapbox://ryan-talus.0h741z23">
-          {/* This layer paints all colors including grey background color */}
-          {<Layer key={dataLayer.id} {...dataLayer} />}
-        </Source>
-      </Map>
+      <MapContainer>
+        <Map
+          // map style is just the labels when you zoom in
+          mapStyle="mapbox://styles/ryan-talus/clddahzv7007j01qbgn0bba8w"
+          mapboxAccessToken={mapboxAccessToken}
+          projection="naturalEarth"
+          initialViewState={{
+            longitude: 0,
+            latitude: 15,
+            zoom: 0,
+            bounds: [
+              [350, 70],
+              [-90, -45],
+            ],
+          }}
+          maxZoom={5}
+          minZoom={0}
+        >
+          {/* This source provides country shapes and their ISO codes */}
+          <Source id="my-data" type="vector" url="mapbox://ryan-talus.0h741z23">
+            {/* This layer paints all colors including grey background color */}
+            {<Layer key={dataLayer.id} {...dataLayer} />}
+          </Source>
+        </Map>
+      </MapContainer>
     </MapSection>
   )
 }
