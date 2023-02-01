@@ -89,6 +89,8 @@ const SubtopicMap = () => {
             longitude: 0,
             latitude: 15,
             zoom: 0,
+            // these bounds are weird due to a bug in mapbox with non-mercator projections:
+            // https://github.com/mapbox/mapbox-gl-js/issues/11284
             bounds: [
               [350, 70],
               [-90, -45],
