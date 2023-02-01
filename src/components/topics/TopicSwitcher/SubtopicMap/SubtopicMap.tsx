@@ -18,17 +18,12 @@ const MapSection = styled.section`
   position: relative;
   flex-grow: 1;
   display: flex;
-  height: 32vw;
+  aspect-ratio: 16/10;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   background: ${({ theme }) => theme.veryLightGray};
 `
-// const MapContainer = styled.div`
-//   position: relative;
-//   height: 100%;
-//   width: 100%;
-// `
 const MapTitle = styled.h3`
   ${({ theme }) => theme.h3};
   color: ${({ theme }) => theme.black};
@@ -39,159 +34,25 @@ const MapTitle = styled.h3`
 const SubtopicMap = () => {
   const theme = useTheme()
   const context = useContext(SubtopicContext)
+
   if (!context) throw new Error('SubtopicMap must be inside SubtopicContext')
   const { subtopicIndex, subtopicData } = context
 
-  // const mapContainer = useRef<HTMLDivElement>(null)
-  // const mapRef = useRef<null | mapboxgl.Map>(null)
-
+  // select the subtopic
   const countryData = subtopicData[subtopicIndex ?? 0].data?.Assign_status
   if (!countryData)
     throw new Error(`Country data not found for subtopic ${subtopicIndex}`)
 
-  // const layers = countryData.reduce((layers, country) => {
-  //   const iso = country?.data?.Country?.[0]?.data?.ISO_3166_1_alpha_3?.trim()
-  //   const layer = country?.data?.Status_link?.[0]?.data?.Map_color
-
-  //   if (!layer || !iso)
-  //     throw new Error(`Country status not found for ${JSON.stringify(country)}`)
-
-  //   if (!layers[layer]) layers[layer] = [iso]
-  //   else layers[layer].push(iso)
-
-  //   return layers
-  // }, {} as { [key: string]: string[] })
-
-  // useEffect(() => {
-  //   // don't mount map if ref is null or map is already mounted
-  //   let map = mapRef.current
-  //   if (!mapContainer.current || map) return
-
-  //   console.time('Compute layers')
-  //   console.timeEnd('Compute layers')
-
-  //   console.time('Mount map')
-  //   // map = new mapboxgl.Map({
-  //   //   container: mapContainer.current,
-  //   //   style: 'mapbox://styles/ryan-talus/clddahzv7007j01qbgn0bba8w',
-  //   //   // style: { version: 8, sources: {}, layers: [] },
-  //   //   projection: { name: 'naturalEarth' },
-  //   //   maxZoom: 5,
-  //   //   minZoom: 0,
-  //   //   maxBounds: [
-  //   //     [-180, -80],
-  //   //     [180, 80],
-  //   //   ],
-  //   // })
-
-  //   // map.fitBounds(
-  //   //   [
-  //   //     [160, -60],
-  //   //     [180, 90],
-  //   //   ],
-  //   //   { padding: 30 }
-  //   // )
-  //   // console.timeEnd('Mount map')
-
-  //   // map.on('load', () => {
-  //   //   console.time('Add sources and layers')
-  //   //   if (!map) return
-  //   //   map.addSource('countries', {
-  //   //     type: 'vector',
-  //   //     url: 'mapbox://ryan-talus.0h741z23',
-  //   //   })
-
-  //   //   map.addLayer(
-  //   //     {
-  //   //       id: 'countries-fill',
-  //   //       type: 'fill',
-  //   //       source: 'countries',
-  //   //       'source-layer': 'ne_10m_admin_0_countries-6llcvl',
-  //   //       paint: {
-  //   //         'fill-outline-color': 'white',
-  //   //         'fill-color': theme.option7,
-  //   //       },
-  //   //     },
-  //   //     'country-label'
-  //   //   )
-
-  //   //   // map.addLayer(
-  //   //   //   {
-  //   //   //     id: 'countries-stroke',
-  //   //   //     type: 'line',
-  //   //   //     source: 'countries',
-  //   //   //     'source-layer': 'ne_10m_admin_0_countries-6llcvl',
-  //   //   //     paint: {
-  //   //   //       'line-color': 'white',
-  //   //   //       'line-width': 0.5,
-  //   //   //     },
-  //   //   //   },
-  //   //   //   'country-label'
-  //   //   // )
-
-  //   //   Object.entries(layers).map(([color, countries]) => {
-  //   //     map!.addLayer(
-  //   //       {
-  //   //         id: `countries-highlight-${color}`,
-  //   //         type: 'fill',
-  //   //         source: 'countries',
-  //   //         'source-layer': 'ne_10m_admin_0_countries-6llcvl',
-  //   //         paint: {
-  //   //           'fill-outline-color': 'white',
-  //   //           'fill-color': theme[camelCase(color) as keyof typeof theme],
-  //   //         },
-  //   //         filter: ['in', 'ADM0_ISO', ...countries],
-  //   //       },
-  //   //       'country-label'
-  //   //     )
-  //   //   })
-  //   //   console.timeEnd('Add sources and layers')
-  //   // })
-
-  //   // return () => {
-  //   //   if (!map) return
-  //   //   map.getStyle().layers.forEach(layer => {
-  //   //     map!.removeLayer(layer.id)
-  //   //   })
-  //   // }
-  // }, [theme, subtopicData, subtopicIndex])
-
-  // const baseLayer = {
-  //   id: 'countries-fill',
-  //   type: 'fill',
-  //   source: 'countries',
-  //   'source-layer': 'ne_10m_admin_0_countries-6llcvl',
-  //   paint: {
-  //     'fill-outline-color': 'white',
-  //     'fill-color': theme.option7,
-  //   },
-  //   beforeId: 'country-label',
-  // }
-
-  // const dataLayers = Object.entries(layers).map(([color, countries]) => ({
-  //   id: `countries-highlight-${color}`,
-  //   type: 'fill',
-  //   source: 'countries',
-  //   'source-layer': 'ne_10m_admin_0_countries-6llcvl',
-  //   paint: {
-  //     'fill-outline-color': 'white',
-  //     'fill-color': theme[camelCase(color) as keyof typeof theme],
-  //   },
-  //   filter: ['in', 'ADM0_ISO', ...countries],
-  //   beforeId: 'country-label',
-  // }))
-
+  // creat a string array of [iso, color, iso, color] for all countries
+  // to populate the mapbox fill-color match statement format
   const countryColorMatch: string[] = []
   for (const country of countryData) {
-    const iso = country?.data?.Country?.[0]?.data?.ISO_3166_1_alpha_3?.trim()
+    const iso = country?.data?.Country?.[0]?.data?.ISO_3166_1_alpha_3
     const layer = country?.data?.Status_link?.[0]?.data?.Map_color
 
-    if (!layer || !iso)
-      throw new Error(`Country status not found for ${JSON.stringify(country)}`)
-
-    countryColorMatch.push(
-      ...[iso, theme[camelCase(layer) as keyof typeof theme]]
-    )
+    if (layer && iso)
+      countryColorMatch.push(iso, theme[camelCase(layer) as keyof typeof theme])
+    else console.log(`Country status not found for ${JSON.stringify(country)}`)
   }
 
   const dataLayer: LayerProps = {
@@ -205,21 +66,18 @@ const SubtopicMap = () => {
         'match',
         ['get', 'ADM0_ISO'],
         ...countryColorMatch,
+        // last color is the "default color"
         theme.option7,
       ],
     },
     beforeId: 'country-label',
   }
 
-  console.log(dataLayer)
-
   return (
     <MapSection>
       <MapTitle>{subtopicData[subtopicIndex ?? 0].data?.Subtopic}</MapTitle>
-      {
-        // <MapContainer ref={mapContainer} />
-      }
       <Map
+        // map style is just the labels when you zoom in
         mapStyle="mapbox://styles/ryan-talus/clddahzv7007j01qbgn0bba8w"
         mapboxAccessToken={mapboxAccessToken}
         projection="naturalEarth"
@@ -227,24 +85,14 @@ const SubtopicMap = () => {
           longitude: 0,
           latitude: 15,
           zoom: 1,
-          // bounds: [
-          //   [-180, -90],
-          //   [180, 90],
-          // ],
         }}
         maxZoom={5}
-        minZoom={0}
+        minZoom={1}
       >
+        {/* This source provides country shapes and their ISO codes */}
         <Source id="my-data" type="vector" url="mapbox://ryan-talus.0h741z23">
-          {
-            // <Layer key={baseLayer.id} {...baseLayer} />
-          }
+          {/* This layer paints all colors including grey background color */}
           <Layer key={dataLayer.id} {...dataLayer} />
-          {
-            // {dataLayers.map((layer, index) => (
-            //   <Layer key={index} {...layer} />
-            // ))}
-          }
         </Source>
       </Map>
     </MapSection>
