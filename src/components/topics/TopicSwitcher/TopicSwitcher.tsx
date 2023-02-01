@@ -22,6 +22,12 @@ const Layout = styled.section`
   @media (max-width: 1000px) {
     flex-direction: column;
   }
+
+  @media (max-width: 600px) {
+    margin-left: -30px;
+    margin-right: -30px;
+    width: calc(100% + 60px);
+  }
 `
 const SubtopicsContainer = styled.div`
   min-width: 350px;

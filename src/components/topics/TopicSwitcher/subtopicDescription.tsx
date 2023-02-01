@@ -9,8 +9,17 @@ const Description = styled.p`
   margin: 0;
   padding: 0;
   padding-bottom: 20px;
+
+  @media (max-width: 600px) {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
 `
 const Citation = styled(RenderCMSRichText)`
+  @media (max-width: 600px) {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
   > p {
     ${({ theme }) => theme.smallParagraph};
     color: ${({ theme }) => theme.darkGray};
