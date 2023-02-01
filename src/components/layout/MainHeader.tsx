@@ -1,9 +1,6 @@
 import styled from 'styled-components'
 
 const MainHeader = styled.header`
-  padding-bottom: 20px;
-  border-bottom: 3px solid ${({ theme }) => theme.lightGray};
-
   > h2 {
     ${({ theme }) => theme.bigParagraph};
     color: ${({ theme }) => theme.darkGray};
