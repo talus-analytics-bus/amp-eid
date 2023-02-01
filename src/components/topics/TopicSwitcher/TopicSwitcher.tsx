@@ -21,6 +21,16 @@ const Column = styled.div`
   }
 `
 
+const NoGapColumnSection = styled(ColumnSection)`
+  gap: 0;
+  margin-top: 0;
+  & > :nth-child(2) {
+    @media (min-width: 1000px) {
+      padding-left: 30px;
+    }
+  }
+`
+
 interface TopicSwitcherProps {
   data: Queries.TripsPageQuery
 }
@@ -38,15 +48,18 @@ const TopicSwitcher = ({ data }: TopicSwitcherProps) => {
         setSubtopicIndex,
       }}
     >
-      <ColumnSection>
+      <ColumnSection columnReverse>
         <Column>
           <MapLegend />
         </Column>
         <Column>
           <SubtopicMap />
-          <SubtopicDescription />
         </Column>
       </ColumnSection>
+      <NoGapColumnSection noBorder>
+        <span></span>
+        <SubtopicDescription />
+      </NoGapColumnSection>
     </SubtopicContext.Provider>
   )
 }
