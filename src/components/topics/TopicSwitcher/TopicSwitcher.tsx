@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react'
 import styled from 'styled-components'
+import ColumnSection from 'components/layout/ColumnSection'
 import SubtopicDescription from './subtopicDescription'
 import MapLegend from './SubtopicMap/MapLegend'
 import SubtopicMap from './SubtopicMap/SubtopicMap'
@@ -12,36 +13,12 @@ interface SubtopicContextProps {
 
 export const SubtopicContext = createContext<SubtopicContextProps | null>(null)
 
-const Layout = styled.section`
-  margin-top: 30px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 30px;
-
-  @media (max-width: 1000px) {
-    flex-direction: column;
-  }
-
+const Column = styled.div`
   @media (max-width: 600px) {
     margin-left: -30px;
     margin-right: -30px;
     width: calc(100% + 60px);
   }
-`
-const SubtopicsContainer = styled.div`
-  min-width: 350px;
-  @media (max-width: 1000px) {
-    min-width: auto;
-  }
-`
-const MapContainer = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  gap: 20px;
 `
 
 interface TopicSwitcherProps {
@@ -61,15 +38,15 @@ const TopicSwitcher = ({ data }: TopicSwitcherProps) => {
         setSubtopicIndex,
       }}
     >
-      <Layout>
-        <SubtopicsContainer>
+      <ColumnSection>
+        <Column>
           <MapLegend />
-        </SubtopicsContainer>
-        <MapContainer>
+        </Column>
+        <Column>
           <SubtopicMap />
           <SubtopicDescription />
-        </MapContainer>
-      </Layout>
+        </Column>
+      </ColumnSection>
     </SubtopicContext.Provider>
   )
 }
