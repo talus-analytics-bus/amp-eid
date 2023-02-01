@@ -80,6 +80,18 @@ export const query = graphql`
         }
       }
     }
+    relatedTreaties: allAirtableTrips(
+      filter: {
+        table: { eq: "LOOKUP: Document (imported)" }
+        data: { Document_type: { eq: "Treaty" } }
+      }
+    ) {
+      nodes {
+        data {
+          Document_name
+        }
+      }
+    }
   }
 `
 
