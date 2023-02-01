@@ -22,12 +22,10 @@ const Column = styled.div`
 `
 
 const NoGapColumnSection = styled(ColumnSection)`
-  gap: 0;
   margin-top: 0;
-  & > :nth-child(2) {
-    @media (min-width: 1000px) {
-      padding-left: 30px;
-    }
+
+  @media (max-width: 1000px) {
+    gap: 0;
   }
 `
 
