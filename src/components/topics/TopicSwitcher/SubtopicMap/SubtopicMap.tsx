@@ -18,7 +18,7 @@ const MapSection = styled.section`
   position: relative;
   flex-grow: 1;
   display: flex;
-  aspect-ratio: 16/10;
+  aspect-ratio: 16/9;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
@@ -66,7 +66,7 @@ const SubtopicMap = () => {
         'match',
         ['get', 'ADM0_ISO'],
         ...countryColorMatch,
-        // last color is the "default color"
+        // last color in the array is the "default color"
         theme.option7,
       ],
     },
@@ -84,15 +84,19 @@ const SubtopicMap = () => {
         initialViewState={{
           longitude: 0,
           latitude: 15,
-          zoom: 1,
+          zoom: 0,
+          bounds: [
+            [360, 70],
+            [-90, -45],
+          ],
         }}
         maxZoom={5}
-        minZoom={1}
+        minZoom={0}
       >
         {/* This source provides country shapes and their ISO codes */}
         <Source id="my-data" type="vector" url="mapbox://ryan-talus.0h741z23">
           {/* This layer paints all colors including grey background color */}
-          <Layer key={dataLayer.id} {...dataLayer} />
+          {<Layer key={dataLayer.id} {...dataLayer} />}
         </Source>
       </Map>
     </MapSection>
