@@ -46,7 +46,10 @@ const TripsPage = ({
         </MainHeader>
         <TopicSwitcher data={data} />
         <RelatedTreaty relatedTreaties={data.relatedTreaties} />
-        <ExplorePolicies countryDocuments={data.countryDocuments} />
+        <ExplorePolicies
+          countryDocuments={data.countryDocuments}
+          thumbnails={data.thumbnails}
+        />
       </Main>
     </Providers>
   )
@@ -118,6 +121,20 @@ export const query = graphql`
               Document_name
             }
           }
+        }
+      }
+    }
+    thumbnails: allAirtableDocuments(
+      filter: { data: { Topic: { eq: "Trade and intellectual property" } } }
+    ) {
+      nodes {
+        documentThumbnail {
+          childImageSharp {
+            gatsbyImageData(width: 100, placeholder: BLURRED)
+          }
+        }
+        data {
+          Document_name
         }
       }
     }
