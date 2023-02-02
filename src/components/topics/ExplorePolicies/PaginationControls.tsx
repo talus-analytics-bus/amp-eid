@@ -12,7 +12,8 @@ const Select = styled.select`
   border: none;
   background: none;
   padding: 2px 4px;
-  border: 1px solid ${({ theme }) => theme.medGray};
+  border: 1px solid ${({ theme }) => theme.lightGray};
+  border-radius: 5px;
   margin-right: 10px;
   color: ${({ theme }) => theme.veryDarkGray};
 `
