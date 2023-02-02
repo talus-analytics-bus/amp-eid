@@ -2,7 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 const PageControlSection = styled.div`
+  ${({ theme }) => theme.smallParagraph};
+  color: ${({ theme }) => theme.veryDarkGray};
   display: flex;
+  align-items: baseline;
   width: 100%;
 `
 const Select = styled.select`
@@ -11,9 +14,36 @@ const Select = styled.select`
   padding: 2px 4px;
   border: 1px solid ${({ theme }) => theme.medGray};
   margin-right: 10px;
+  color: ${({ theme }) => theme.veryDarkGray};
 `
-const PageDescription = styled.div`
+const PageDescription = styled.span`
   margin-right: auto;
+`
+const Button = styled.button`
+  ${({ theme }) => theme.smallParagraph};
+  color: ${({ theme }) => theme.veryDarkGray};
+  border: none;
+  background: none;
+  margin: 0px 2px;
+  padding: 1px 6px;
+  border-radius: 5px;
+  min-width: 2.25em;
+
+  transition: 250ms;
+  border: 1px solid white;
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.lightGray};
+    border: 1px solid ${({ theme }) => theme.lightGray};
+
+    &:hover {
+      background-color: ${({ theme }) => theme.lightGray};
+    }
+  }
+  &:hover {
+    background-color: ${({ theme }) => theme.veryLightGray};
+    border: 1px solid ${({ theme }) => theme.lightGray};
+  }
 `
 
 interface PaginationControlsProps {
@@ -73,34 +103,34 @@ const PaginationControls = ({
       </PageDescription>
       {lastPage >= 1 && (
         <>
-          <button disabled={page === 0} onClick={() => setPage(0)}>
+          <Button disabled={page === 0} onClick={() => setPage(0)}>
             1
-          </button>
+          </Button>
           {nearButtons[0] !== 1 && <span>...</span>}
           {lastPage > 1 &&
             nearButtons.map(number => (
-              <button
+              <Button
                 disabled={number === page}
                 onClick={() => setPage(number)}
               >
                 {number + 1}
-              </button>
+              </Button>
             ))}
           {lastPage > 1 && nearButtons.at(-1)! + 1 !== lastPage && (
             <span>...</span>
           )}
-          <button
+          <Button
             disabled={lastPage === page}
             onClick={() => setPage(lastPage)}
           >
             {lastPage + 1}
-          </button>
-          <button
+          </Button>
+          <Button
             disabled={page === lastPage}
             onClick={() => setPage(prev => prev + 1)}
           >
             Next page
-          </button>
+          </Button>
         </>
       )}
     </PageControlSection>
