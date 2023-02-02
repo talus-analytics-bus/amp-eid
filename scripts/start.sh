@@ -23,6 +23,12 @@ export GATSBY_MAPBOX_API_KEY=$(
   jq  -r .SecretString | jq -r .MAPBOX_API_KEY\
 )
 
+# make sure local fork of gatsby plugin is linked
+cd plugins/gatsby-plugin-remote-images/;
+yarn unlink;
+yarn link;
+cd ../../;
+yarn link "gatsby-plugin-remote-images"
 
 
 if [ "$reset" == "1" ]; then 
