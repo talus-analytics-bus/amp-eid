@@ -12,6 +12,7 @@ import useIndexPageData from 'cmsHooks/useIndexPageData'
 import TopicSwitcher from 'components/topics/TopicSwitcher/TopicSwitcher'
 import RelatedTreaty from 'components/topics/RelatedTreaty'
 import ExplorePolicies from 'components/topics/ExplorePolicies/ExplorePolicies'
+import Footer from 'components/layout/Footer'
 
 // Trips page data sources
 
@@ -51,6 +52,7 @@ const TripsPage = ({
           thumbnails={data.thumbnails}
         />
       </Main>
+      <Footer />
     </Providers>
   )
 }
