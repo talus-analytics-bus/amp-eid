@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
+import Fuse from 'fuse.js'
 
 import Dropdown from '@talus-analytics/library.ui.dropdown'
 
@@ -46,6 +47,7 @@ const ExplorePolicies = ({
 }: ExplorePoliciesProps) => {
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(5)
+  const [searchTerm, setSearchTerm] = useState('')
 
   // map between document name and thumbnail data
   const thumbnailMap: ThumbnailMap = useMemo(() => {
@@ -65,16 +67,39 @@ const ExplorePolicies = ({
     -readonly [key in keyof typeof countryDocuments.nodes[0]]: typeof countryDocuments.nodes[0][key]
   }
   const countries = countryDocuments.nodes as countriesMutable[]
-  const sorted = countries.sort(
-    (a, b) =>
-      a.data?.Country_name?.localeCompare(b.data?.Country_name ?? '') ?? -1
-  )
+
+  const fuse = new Fuse(countries, {
+    keys: ['data.Country_name', 'data.ISO_3166_1_alpha_3'],
+  })
+
+  let sorted: typeof countries
+
+  if (searchTerm === '')
+    sorted = countries.sort(
+      (a, b) =>
+        a.data?.Country_name?.localeCompare(b.data?.Country_name ?? '') ?? -1
+    )
+  else sorted = fuse.search(searchTerm).map(result => result.item)
+
+  console.log(sorted)
+
   const total = sorted.length
   const paginated = sorted.slice(page * pageSize, page * pageSize + pageSize)
 
   return (
     <ColumnSection>
-      <H3>Explore Policies</H3>
+      <div>
+        <H3>Explore Policies</H3>
+        <input
+          type="text"
+          placeholder="Find a country"
+          value={searchTerm}
+          onChange={e => {
+            setPage(0)
+            setSearchTerm(e.target.value)
+          }}
+        />
+      </div>
       <div>
         {paginated.map(country => (
           <React.Fragment key={country.data?.ISO_3166_1_alpha_3}>
