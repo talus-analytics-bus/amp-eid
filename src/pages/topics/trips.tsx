@@ -11,6 +11,7 @@ import Providers from 'components/layout/Providers'
 import useIndexPageData from 'cmsHooks/useIndexPageData'
 import TopicSwitcher from 'components/topics/TopicSwitcher/TopicSwitcher'
 import RelatedTreaty from 'components/topics/RelatedTreaty'
+import ExplorePolicies from 'components/topics/ExplorePolicies/ExplorePolicies'
 
 // Trips page data sources
 
@@ -45,6 +46,7 @@ const TripsPage = ({
         </MainHeader>
         <TopicSwitcher data={data} />
         <RelatedTreaty relatedTreaties={data.relatedTreaties} />
+        <ExplorePolicies countryDocuments={data.countryDocuments} />
       </Main>
     </Providers>
   )
@@ -92,6 +94,24 @@ export const query = graphql`
         data {
           Document_name
           Treaty_short_name
+        }
+      }
+    }
+    countryDocuments: allAirtableTrips(
+      filter: {
+        table: { eq: "LOOKUP: Country (imported)" }
+        data: { Country_name: { nin: ["Regional", "Treaty"] } }
+      }
+    ) {
+      nodes {
+        data {
+          Country_name
+          ISO_3166_1_alpha_3
+          All_applicable_countries_link {
+            data {
+              Document_name
+            }
+          }
         }
       }
     }
