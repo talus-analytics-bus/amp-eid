@@ -23,6 +23,11 @@ const StyledLink = styled(Link)`
   margin-right: 75px;
   border-top: 1px solid ${({ theme }) => theme.medGray};
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: ${({ theme }) => theme.black};
+  }
 `
 const Thumbnail = styled(GatsbyImage)`
   flex-shrink: 0;
