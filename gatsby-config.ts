@@ -143,6 +143,20 @@ const config: GatsbyConfig = {
       },
     },
     {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'AirtableTrips',
+        imagePath: 'data.ISO_3166-1_alpha-2',
+        // ** ALL OPTIONAL BELOW HERE: **
+        name: 'flag',
+        skipUndefinedUrls: true,
+        prepareUrl: (url: string) => {
+          if (!url || url === 'N/A') return undefined
+          return `https://flags.talusanalytics.com/shiny_100px/${url.toLowerCase()}.png`
+        },
+      },
+    },
+    {
       // filling in the gtag here
       // will set up both the gatsby
       // google analytics plugin and
