@@ -12,6 +12,21 @@ const H3 = styled.h3`
   color: ${({ theme }) => theme.black};
   margin: 0;
 `
+const DropdownButton = styled.button`
+  ${({ theme }) => theme.bigParagraphMedium};
+  border: none;
+  background: ${({ theme }) => theme.veryLightGray};
+  margin: none;
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+`
+const Flag = styled.img`
+  width: 40px;
+`
 
 interface ExplorePoliciesProps {
   countryDocuments: Queries.TripsPageQuery['countryDocuments']
@@ -42,7 +57,14 @@ const ExplorePolicies = ({ countryDocuments }: ExplorePoliciesProps) => {
         {paginated.map(country => (
           <Dropdown
             floating={false}
-            renderButton={() => <button>{country.data?.Country_name}</button>}
+            renderButton={() => (
+              <DropdownButton>
+                <Flag
+                  src={`https://flags.talusanalytics.com/shiny_100px/${country.data?.ISO_3166_1_alpha_2?.toLowerCase()}.png`}
+                />
+                {country.data?.Country_name}
+              </DropdownButton>
+            )}
           >
             {country.data?.All_applicable_countries_link?.map(document => (
               <Link to={`/documents/${document?.data?.Document_name}`}>
