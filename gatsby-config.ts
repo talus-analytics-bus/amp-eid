@@ -84,6 +84,7 @@ const config: GatsbyConfig = {
           {
             baseId: `appryZVvEysrHZL0S`,
             tableName: `LOOKUP: Country (imported)`,
+            tableLinks: [`All_applicable_countries_link`],
             tableView: `CMS`,
             queryName: `Trips`,
             separateNodeType: true,
@@ -91,6 +92,7 @@ const config: GatsbyConfig = {
           {
             baseId: `appryZVvEysrHZL0S`,
             tableName: `LOOKUP: Document (imported)`,
+            tableLinks: [`Authoring_country`],
             tableView: `CMS`,
             queryName: `Trips`,
             separateNodeType: true,
