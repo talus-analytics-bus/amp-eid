@@ -75,7 +75,7 @@ const PaginationControls = ({
     case page > lastPage - 3:
       nearButtons = [lastPage - 3, lastPage - 2, lastPage - 1]
       break
-    case page > 3:
+    case page > 2:
       nearButtons = [page - 1, page, page + 1]
       break
     default:
