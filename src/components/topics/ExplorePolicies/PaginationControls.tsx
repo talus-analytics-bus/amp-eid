@@ -129,7 +129,7 @@ const PaginationControls = ({
             disabled={page === lastPage}
             onClick={() => setPage(prev => prev + 1)}
           >
-            Next page
+            Next
           </Button>
         </>
       )}
