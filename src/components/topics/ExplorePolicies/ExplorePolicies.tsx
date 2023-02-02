@@ -31,6 +31,20 @@ const DropdownContent = styled.div`
   border-bottom-left-radius: 5px;
   background: ${({ theme }) => theme.veryLightGray};
 `
+const Label = styled.label`
+  ${({ theme }) => theme.smallParagraph};
+  color: ${({ theme }) => theme.black};
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 20px;
+`
+const Search = styled.input`
+  padding: 6px 12px;
+  border: 1px solid ${({ theme }) => theme.black};
+  border-radius: 5px;
+`
 
 interface ExplorePoliciesProps {
   countryDocuments: Queries.TripsPageQuery['countryDocuments']
@@ -88,15 +102,18 @@ const ExplorePolicies = ({
     <ColumnSection>
       <div>
         <H3>Explore Policies</H3>
-        <input
-          type="text"
-          placeholder="Find a country"
-          value={searchTerm}
-          onChange={e => {
-            setPage(0)
-            setSearchTerm(e.target.value)
-          }}
-        />
+        <Label>
+          Country
+          <Search
+            type="search"
+            placeholder="Find a country"
+            value={searchTerm}
+            onChange={e => {
+              setPage(0)
+              setSearchTerm(e.target.value)
+            }}
+          />
+        </Label>
       </div>
       <div>
         {paginated.map(country => (
