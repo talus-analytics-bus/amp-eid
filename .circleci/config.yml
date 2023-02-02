@@ -85,8 +85,8 @@ jobs:
             - yarn-deps-
 
       - run:
-        name: Check out gatsby-plugin-remote-images fork
-        command: git submodule init && git submodule update
+          name: Check out gatsby-plugin-remote-images fork
+          command: git submodule init && git submodule update
 
       - run:
           name: Yarn Install
