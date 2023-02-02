@@ -27,7 +27,6 @@ interface RelatedTreatyProps {
 }
 
 const RelatedTreaty = ({ relatedTreaties }: RelatedTreatyProps) => {
-  console.log(relatedTreaties)
   return (
     <ColumnSection>
       <H3>Treaty</H3>

@@ -111,6 +111,7 @@ const PaginationControls = ({
           {lastPage > 1 &&
             nearButtons.map(number => (
               <Button
+                key={number}
                 disabled={number === page}
                 onClick={() => setPage(number)}
               >

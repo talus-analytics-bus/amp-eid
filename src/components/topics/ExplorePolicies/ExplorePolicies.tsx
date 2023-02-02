@@ -54,6 +54,7 @@ const ExplorePolicies = ({ countryDocuments }: ExplorePoliciesProps) => {
       <div>
         {paginated.map(country => (
           <Dropdown
+            key={country.data?.ISO_3166_1_alpha_3}
             floating={false}
             renderButton={() => (
               <DropdownButton>
@@ -68,7 +69,10 @@ const ExplorePolicies = ({ countryDocuments }: ExplorePoliciesProps) => {
             )}
           >
             {country.data?.All_applicable_countries_link?.map(document => (
-              <Link to={`/documents/${document?.data?.Document_name}`}>
+              <Link
+                key={document?.data?.Document_name}
+                to={`/documents/${document?.data?.Document_name}`}
+              >
                 {document?.data?.Document_name}
               </Link>
             ))}
