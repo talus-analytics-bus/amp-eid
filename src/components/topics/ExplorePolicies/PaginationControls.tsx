@@ -71,26 +71,38 @@ const PaginationControls = ({
       <PageDescription>
         Showing {page * pageSize + 1} to {maxShown} of {total} countries
       </PageDescription>
-      <button disabled={page === 0} onClick={() => setPage(0)}>
-        1
-      </button>
-      {nearButtons[0] !== 1 && <span>...</span>}
-      {lastPage > 1 &&
-        nearButtons.map(number => (
-          <button disabled={number === page} onClick={() => setPage(number)}>
-            {number + 1}
+      {lastPage >= 1 && (
+        <>
+          <button disabled={page === 0} onClick={() => setPage(0)}>
+            1
           </button>
-        ))}
-      {lastPage > 1 && nearButtons.at(-1)! + 1 !== lastPage && <span>...</span>}
-      <button disabled={lastPage === page} onClick={() => setPage(lastPage)}>
-        {lastPage + 1}
-      </button>
-      <button
-        disabled={page === lastPage}
-        onClick={() => setPage(prev => prev + 1)}
-      >
-        Next page
-      </button>
+          {nearButtons[0] !== 1 && <span>...</span>}
+          {lastPage > 1 &&
+            nearButtons.map(number => (
+              <button
+                disabled={number === page}
+                onClick={() => setPage(number)}
+              >
+                {number + 1}
+              </button>
+            ))}
+          {lastPage > 1 && nearButtons.at(-1)! + 1 !== lastPage && (
+            <span>...</span>
+          )}
+          <button
+            disabled={lastPage === page}
+            onClick={() => setPage(lastPage)}
+          >
+            {lastPage + 1}
+          </button>
+          <button
+            disabled={page === lastPage}
+            onClick={() => setPage(prev => prev + 1)}
+          >
+            Next page
+          </button>
+        </>
+      )}
     </PageControlSection>
   )
 }
