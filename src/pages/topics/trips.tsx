@@ -104,6 +104,11 @@ export const query = graphql`
       }
     ) {
       nodes {
+        flag {
+          childImageSharp {
+            gatsbyImageData(width: 40, placeholder: BLURRED)
+          }
+        }
         data {
           Country_name
           ISO_3166_1_alpha_3
