@@ -93,6 +93,7 @@ const config: GatsbyConfig = {
             baseId: `appryZVvEysrHZL0S`,
             tableName: `LOOKUP: Document (imported)`,
             tableLinks: [`Authoring_country`],
+            // mapping: { Attachment__most_recent_: 'fileNode' },
             tableView: `CMS`,
             queryName: `Trips`,
             separateNodeType: true,
@@ -153,6 +154,20 @@ const config: GatsbyConfig = {
         prepareUrl: (url: string) => {
           if (!url || url === 'N/A') return undefined
           return `https://flags.talusanalytics.com/shiny_100px/${url.toLowerCase()}.png`
+        },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'AirtableDocuments',
+        imagePath: 'data.Attachment_(most_recent)[].thumbnails.large.url',
+        // ** ALL OPTIONAL BELOW HERE: **
+        name: 'documentThumbnail',
+        skipUndefinedUrls: true,
+        prepareUrl: (url: string) => {
+          if (!url || url === 'N/A') return undefined
+          return url
         },
       },
     },
