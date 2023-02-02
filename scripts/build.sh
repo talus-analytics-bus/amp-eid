@@ -25,6 +25,8 @@ export GATSBY_MAPBOX_API_KEY=$(
 
 # make sure local fork of gatsby plugin is linked
 cd plugins/gatsby-plugin-remote-images/;
+echo 'Forcing unlink gatsby-plugin-remote-images'
+echo 'If the package was not previously linked this should show an error'
 yarn unlink;
 yarn link;
 cd ../../;
