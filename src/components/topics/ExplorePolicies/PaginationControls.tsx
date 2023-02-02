@@ -5,6 +5,13 @@ const PageControlSection = styled.div`
   display: flex;
   width: 100%;
 `
+const Select = styled.select`
+  border: none;
+  background: none;
+  padding: 2px 4px;
+  border: 1px solid ${({ theme }) => theme.medGray};
+  margin-right: 10px;
+`
 const PageDescription = styled.div`
   margin-right: auto;
 `
@@ -47,7 +54,7 @@ const PaginationControls = ({
 
   return (
     <PageControlSection>
-      <select
+      <Select
         onChange={e => {
           setPage(0)
           setPageSize(Number(e.target.value))
@@ -60,7 +67,7 @@ const PaginationControls = ({
         <option value="100">100</option>
         <option value="150">150</option>
         <option value="300">All</option>
-      </select>
+      </Select>
       <PageDescription>
         Showing {page * pageSize + 1} to {maxShown} of {total} countries
       </PageDescription>
