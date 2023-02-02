@@ -81,8 +81,6 @@ const ExplorePolicies = ({
     )
   else sorted = fuse.search(searchTerm).map(result => result.item)
 
-  console.log(sorted)
-
   const total = sorted.length
   const paginated = sorted.slice(page * pageSize, page * pageSize + pageSize)
 
