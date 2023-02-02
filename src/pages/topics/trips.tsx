@@ -107,6 +107,7 @@ export const query = graphql`
         data {
           Country_name
           ISO_3166_1_alpha_3
+          ISO_3166_1_alpha_2
           All_applicable_countries_link {
             data {
               Document_name
