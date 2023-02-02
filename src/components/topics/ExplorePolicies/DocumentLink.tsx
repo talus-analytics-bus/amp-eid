@@ -9,6 +9,7 @@ interface DocumentLinkProps {
   document?: {
     data?: {
       Document_name?: string | null
+      Date_of_latest_update?: string | null
     } | null
   } | null
   thumbnailMap: ThumbnailMap
@@ -35,10 +36,23 @@ const Name = styled.div`
   ${({ theme }) => theme.bigParagraph};
   color: ${({ theme }) => theme.black};
 `
+const DateText = styled.div`
+  ${({ theme }) => theme.smallParagraph};
+  color: ${({ theme }) => theme.veryDarkGray};
+`
 
 const DocumentLink = ({ document, thumbnailMap }: DocumentLinkProps) => {
   const name = document?.data?.Document_name
   if (!name) throw new Error('Document missing name')
+
+  let date = document?.data?.Date_of_latest_update
+  if (date)
+    date = new Date(date).toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    })
+
   const image = thumbnailMap[name]
 
   console.log(document)
@@ -47,6 +61,7 @@ const DocumentLink = ({ document, thumbnailMap }: DocumentLinkProps) => {
     <StyledLink key={name} to={`/documents/${name}`}>
       {image && <Thumbnail image={image} alt={`${name} thumbnail`} />}
       <Metadata>
+        <DateText>{date}</DateText>
         <Name>{name}</Name>
       </Metadata>
     </StyledLink>
