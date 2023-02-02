@@ -85,11 +85,15 @@ jobs:
             - yarn-deps-
 
       - run:
+        name: Check out gatsby-plugin-remote-images fork
+        command: git submodule init && git submodule update
+
+      - run:
           name: Yarn Install
           command: yarn install --network-timeout 1000000
 
       - run:
-          name: Gatsby build
+          name: Pull all data & Build
           command: yarn build;
 
       - run:
