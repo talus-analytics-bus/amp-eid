@@ -6,6 +6,7 @@ import Dropdown from '@talus-analytics/library.ui.dropdown'
 
 import ColumnSection from 'components/layout/ColumnSection'
 import PaginationControls from './PaginationControls'
+import { GatsbyImage, StaticImage } from 'gatsby-plugin-image'
 
 const H3 = styled.h3`
   ${({ theme }) => theme.h2};
@@ -23,9 +24,6 @@ const DropdownButton = styled.button`
   display: flex;
   align-items: center;
   gap: 15px;
-`
-const Flag = styled.img`
-  width: 40px;
 `
 
 interface ExplorePoliciesProps {
@@ -59,9 +57,12 @@ const ExplorePolicies = ({ countryDocuments }: ExplorePoliciesProps) => {
             floating={false}
             renderButton={() => (
               <DropdownButton>
-                <Flag
-                  src={`https://flags.talusanalytics.com/shiny_100px/${country.data?.ISO_3166_1_alpha_2?.toLowerCase()}.png`}
-                />
+                {country.flag?.childImageSharp?.gatsbyImageData && (
+                  <GatsbyImage
+                    image={country.flag.childImageSharp.gatsbyImageData}
+                    alt={`${country.data?.Country_name} Flag`}
+                  />
+                )}
                 {country.data?.Country_name}
               </DropdownButton>
             )}
