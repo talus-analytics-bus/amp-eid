@@ -158,10 +158,10 @@ Resources:
             if (host.includes('prod')) subdomain = 'prod';
 
             const authObj = {
-              dev: ['dev', '****************'],
-              review: ['review', '****************'],
-              staging: ['staging', '****************'],
-              prod: ['prod', '****************'],
+              dev: ['dev', '********************'],
+              review: ['review', '********************'],
+              staging: ['staging', '********************'],
+              prod: ['prod', '********************'],
             };
 
             const checkAuthorized = headers => {
@@ -270,6 +270,7 @@ Resources:
           CachedMethods:
             - GET
             - HEAD
+          Compress: true
           TargetOriginId: myCustomOrigin
           SmoothStreaming: 'false'
           ForwardedValues:
@@ -370,6 +371,7 @@ Resources:
           CachedMethods:
             - GET
             - HEAD
+          Compress: true
           TargetOriginId: myCustomOrigin
           SmoothStreaming: 'false'
           ForwardedValues:
@@ -469,6 +471,7 @@ Resources:
           CachedMethods:
             - GET
             - HEAD
+          Compress: true
           TargetOriginId: myCustomOrigin
           SmoothStreaming: 'false'
           ForwardedValues:
@@ -570,14 +573,15 @@ Resources:
           CachedMethods:
             - GET
             - HEAD
+          Compress: true
           TargetOriginId: myCustomOrigin
           SmoothStreaming: 'false'
           ForwardedValues:
             QueryString: 'true'
           ViewerProtocolPolicy: redirect-to-https
-          # LambdaFunctionAssociations:
-          #   - EventType: "viewer-request"
-          #     LambdaFunctionARN: !Ref BasicAuthLambdaVersion
+          LambdaFunctionAssociations:
+            - EventType: 'viewer-request'
+              LambdaFunctionARN: !Ref BasicAuthLambdaVersion
         PriceClass: PriceClass_All
         ViewerCertificate:
           AcmCertificateArn: !Ref CertificateArn
