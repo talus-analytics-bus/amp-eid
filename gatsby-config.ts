@@ -68,12 +68,13 @@ const config: GatsbyConfig = {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `Document library`,
             tableLinks: [`All_applicable_countries`],
-            queryName: `Files`,
+            queryName: `Documents`,
             separateNodeType: true,
             mapping: { Attachment_most_recent: `fileNode` },
             tableView: `CMS`,
           },
-          // Documents table for pulling metadata and thumbnails
+          // Double-linking the documents table appears to
+          // make thumbnail generation work consistenly
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `Document library`,

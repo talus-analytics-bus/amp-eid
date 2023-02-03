@@ -8,17 +8,17 @@ import MainHeader from 'components/layout/MainHeader'
 import Thumbnail from 'components/ui/DocumentThumbnail'
 
 const DocumentPage = ({
-  data: { metadata, file },
+  data: { document },
 }: PageProps<Queries.DocumentPageQuery>) => {
-  const name = metadata?.data?.Document_name
+  const name = document?.data?.Document_name
 
   const downloadUrl =
-    file?.data?.Attachment_most_recent?.localFiles?.[0]?.publicURL
+    document?.data?.Attachment_most_recent?.localFiles?.[0]?.publicURL
 
   const image =
-    metadata?.documentThumbnail?.[0]?.childImageSharp?.gatsbyImageData
+    document?.documentThumbnail?.[0]?.childImageSharp?.gatsbyImageData
 
-  if (!metadata?.data || !name)
+  if (!document?.data || !name)
     throw new Error('All documents must have a document name.')
 
   if (!downloadUrl) throw new Error(`File "${name}" is missing download link.`)
@@ -34,7 +34,7 @@ const DocumentPage = ({
       <NavBar />
       <Main>
         <MainHeader>
-          <h2>{metadata.data.Topic}</h2>
+          <h2>{document.data.Topic}</h2>
           <h1>{name}</h1>
         </MainHeader>
         <Thumbnail image={image} alt={name + ' thumbnail'} />
@@ -52,7 +52,7 @@ const DocumentPage = ({
 
 export const query = graphql`
   query DocumentPage($recordId: String) {
-    metadata: airtableDocuments(recordId: { eq: $recordId }) {
+    document: airtableDocuments(recordId: { eq: $recordId }) {
       recordId
       rowIndex
       data {
@@ -64,21 +64,17 @@ export const query = graphql`
             ISO3
           }
         }
-      }
-      documentThumbnail {
-        childImageSharp {
-          gatsbyImageData(width: 160, placeholder: BLURRED)
-        }
-      }
-    }
-    file: airtableFiles(recordId: { eq: $recordId }) {
-      data {
         Attachment_most_recent {
           localFiles {
             publicURL
             prettySize
             ext
           }
+        }
+      }
+      documentThumbnail {
+        childImageSharp {
+          gatsbyImageData(width: 160, placeholder: BLURRED)
         }
       }
     }
