@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { graphql, Link, PageProps } from 'gatsby'
+import { graphql, PageProps } from 'gatsby'
 import Providers from 'components/layout/Providers'
 import CMS from '@talus-analytics/library.airtable-cms'
 import NavBar from 'components/layout/NavBar/NavBar'
