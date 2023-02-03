@@ -63,6 +63,7 @@ const config: GatsbyConfig = {
             separateNodeType: true,
             tableView: `CMS`,
           },
+          // Documents table for pulling metadata and thumbnails
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `Document library`,
@@ -70,7 +71,16 @@ const config: GatsbyConfig = {
             queryName: `Documents`,
             separateNodeType: true,
             tableView: `CMS`,
-            mapping: { Attachment__most_recent_: `fileNode` },
+          },
+          // Documents table for pulling files
+          {
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Document library`,
+            tableLinks: [`All_applicable_countries`],
+            queryName: `Files`,
+            separateNodeType: true,
+            mapping: { Attachment_most_recent: `fileNode` },
+            tableView: `CMS`,
           },
           // Trips
           {
@@ -161,7 +171,7 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-remote-images`,
       options: {
         nodeType: 'AirtableDocuments',
-        imagePath: 'data.Attachment_(most_recent)[].thumbnails.large.url',
+        imagePath: 'data.Attachment_most_recent[].thumbnails.large.url',
         // ** ALL OPTIONAL BELOW HERE: **
         name: 'documentThumbnail',
         skipUndefinedUrls: true,
