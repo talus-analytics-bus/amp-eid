@@ -76,7 +76,7 @@ export const query = graphql`
             data {
               Country {
                 data {
-                  ISO_3166_1_alpha_3
+                  ISO3
                 }
               }
               Status_link {
@@ -116,7 +116,7 @@ export const query = graphql`
         }
         data {
           Country_name
-          ISO_3166_1_alpha_3
+          ISO3
           All_applicable_countries_link {
             data {
               Document_name

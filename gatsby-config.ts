@@ -156,7 +156,7 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-remote-images`,
       options: {
         nodeType: 'AirtableTrips',
-        imagePath: 'data.ISO_3166-1_alpha-2',
+        imagePath: 'data.ISO2',
         // ** ALL OPTIONAL BELOW HERE: **
         name: 'flag',
         skipUndefinedUrls: true,

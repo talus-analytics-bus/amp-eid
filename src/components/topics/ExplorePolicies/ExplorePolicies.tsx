@@ -83,7 +83,7 @@ const ExplorePolicies = ({
   const countries = countryDocuments.nodes as countriesMutable[]
 
   const fuse = new Fuse(countries, {
-    keys: ['data.Country_name', 'data.ISO_3166_1_alpha_3'],
+    keys: ['data.Country_name', 'data.ISO3'],
   })
 
   let sorted: typeof countries
@@ -117,8 +117,8 @@ const ExplorePolicies = ({
       </div>
       <div>
         {paginated.map(country => (
-          <React.Fragment key={country.data?.ISO_3166_1_alpha_3}>
-            {country.data?.ISO_3166_1_alpha_3 && (
+          <React.Fragment key={country.data?.ISO3}>
+            {country.data?.ISO3 && (
               <Dropdown
                 floating={false}
                 renderButton={() => (

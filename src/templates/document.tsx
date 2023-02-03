@@ -61,7 +61,7 @@ export const query = graphql`
         All_applicable_countries {
           data {
             Country_name
-            ISO_3166_1_alpha_3
+            ISO3
           }
         }
       }

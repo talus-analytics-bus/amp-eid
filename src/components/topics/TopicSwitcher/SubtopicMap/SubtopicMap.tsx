@@ -50,7 +50,7 @@ const SubtopicMap = () => {
   // to populate the mapbox fill-color match statement format
   const countryColorMatch: string[] = []
   for (const country of countryData) {
-    const iso = country?.data?.Country?.[0]?.data?.ISO_3166_1_alpha_3
+    const iso = country?.data?.Country?.[0]?.data?.ISO3
     const layer = country?.data?.Status_link?.[0]?.data?.Map_color
 
     if (layer && iso)
