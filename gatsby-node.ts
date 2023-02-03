@@ -48,7 +48,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
         }
       ) {
         nodes {
-          id
+          recordId
           data {
             Document_name
           }
@@ -67,7 +67,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
       path: `/documents/${document.data?.Document_name}`,
       component: documentPageTemplate,
       context: {
-        id: document.id,
+        recordId: document.recordId,
       },
     })
   }

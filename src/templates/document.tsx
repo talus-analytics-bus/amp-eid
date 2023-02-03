@@ -1,51 +1,79 @@
 import * as React from 'react'
-import { graphql, PageProps } from 'gatsby'
+import { graphql, Link, PageProps } from 'gatsby'
 import Providers from 'components/layout/Providers'
 import CMS from '@talus-analytics/library.airtable-cms'
 import NavBar from 'components/layout/NavBar/NavBar'
 import Main from 'components/layout/Main'
 import MainHeader from 'components/layout/MainHeader'
+import { GatsbyImage } from 'gatsby-plugin-image'
 
 const DocumentPage = ({
-  data: { document },
+  data: { metadata, file },
 }: PageProps<Queries.DocumentPageQuery>) => {
-  if (!document?.data || !document.data.Document_name)
-    throw new Error('All documents must have a unique document name.')
+  const name = metadata?.data?.Document_name
+
+  const downloadUrl =
+    file?.data?.Attachment_most_recent?.localFiles?.[0]?.publicURL
+
+  const image =
+    metadata?.documentThumbnail?.[0]?.childImageSharp?.gatsbyImageData
+
+  if (!metadata?.data || !name)
+    throw new Error('All documents must have a document name.')
+
+  if (!downloadUrl) throw new Error(`File "${name}" is missing download link.`)
+
+  if (!image) throw new Error(`File "${name}" is missing thumbnail image.`)
+
   return (
     <Providers>
       <CMS.SEO
-        title={document.data.Document_name}
-        description={
-          `Applicable countries, metadata, and download ` +
-          `links for ${document.data.Document_name}`
-        }
+        title={name}
+        description={`Applicable countries, metadata, and download links for ${name}`}
       />
       <NavBar />
       <Main>
         <MainHeader>
-          <h2>{document.data.Topic}</h2>
-          <h1>{document.data.Document_name}</h1>
+          <h2>{metadata.data.Topic}</h2>
+          <h1>{name}</h1>
         </MainHeader>
+        <GatsbyImage image={image} alt={name + ' thumbnail'} />
+        <h4>Download</h4>
+        <a href={downloadUrl}>{name}</a>
       </Main>
     </Providers>
   )
 }
 
 export const query = graphql`
-  query DocumentPage($id: String) {
-    document: airtableDocuments(id: { eq: $id }) {
+  query DocumentPage($recordId: String) {
+    metadata: airtableDocuments(recordId: { eq: $recordId }) {
+      recordId
+      rowIndex
       data {
         Topic
         Document_name
-        Document_note
         All_applicable_countries {
           data {
             Country_name
             ISO_3166_1_alpha_3
           }
         }
-        Attachment__most_recent_ {
-          filename
+      }
+      documentThumbnail {
+        childImageSharp {
+          gatsbyImageData(width: 160, placeholder: BLURRED)
+        }
+      }
+    }
+    file: airtableFiles(recordId: { eq: $recordId }) {
+      data {
+        Attachment_most_recent {
+          localFiles {
+            publicURL
+            prettySize
+            ext
+          }
         }
       }
     }

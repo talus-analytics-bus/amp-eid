@@ -63,15 +63,6 @@ const config: GatsbyConfig = {
             separateNodeType: true,
             tableView: `CMS`,
           },
-          // Documents table for pulling metadata and thumbnails
-          {
-            baseId: `appC6ldXKPoY3bIwz`,
-            tableName: `Document library`,
-            tableLinks: [`All_applicable_countries`],
-            queryName: `Documents`,
-            separateNodeType: true,
-            tableView: `CMS`,
-          },
           // Documents table for pulling files
           {
             baseId: `appC6ldXKPoY3bIwz`,
@@ -80,6 +71,14 @@ const config: GatsbyConfig = {
             queryName: `Files`,
             separateNodeType: true,
             mapping: { Attachment_most_recent: `fileNode` },
+            tableView: `CMS`,
+          },
+          // Documents table for pulling metadata and thumbnails
+          {
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Document library`,
+            queryName: `Documents`,
+            separateNodeType: true,
             tableView: `CMS`,
           },
           // Trips
