@@ -5,7 +5,7 @@ import CMS from '@talus-analytics/library.airtable-cms'
 import NavBar from 'components/layout/NavBar/NavBar'
 import Main from 'components/layout/Main'
 import MainHeader from 'components/layout/MainHeader'
-import { GatsbyImage } from 'gatsby-plugin-image'
+import Thumbnail from 'components/ui/DocumentThumbnail'
 
 const DocumentPage = ({
   data: { metadata, file },
@@ -37,7 +37,7 @@ const DocumentPage = ({
           <h2>{metadata.data.Topic}</h2>
           <h1>{name}</h1>
         </MainHeader>
-        <GatsbyImage image={image} alt={name + ' thumbnail'} />
+        <Thumbnail image={image} alt={name + ' thumbnail'} />
         <h4>Download</h4>
         <a href={downloadUrl}>{name}</a>
       </Main>

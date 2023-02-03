@@ -1,5 +1,5 @@
+import Thumbnail from 'components/ui/DocumentThumbnail'
 import { Link } from 'gatsby'
-import { GatsbyImage } from 'gatsby-plugin-image'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -29,11 +29,6 @@ const StyledLink = styled(Link)`
     text-decoration-color: ${({ theme }) => theme.black};
   }
 `
-const Thumbnail = styled(GatsbyImage)`
-  flex-shrink: 0;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border-radius: 2px;
-`
 const Metadata = styled.div`
   padding: 0 15px;
 `
@@ -59,8 +54,6 @@ const DocumentLink = ({ document, thumbnailMap }: DocumentLinkProps) => {
     })
 
   const image = thumbnailMap[name]
-
-  console.log(document)
 
   return (
     <StyledLink key={name} to={`/documents/${name}`}>
