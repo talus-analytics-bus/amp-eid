@@ -40,6 +40,11 @@ const DocumentPage = ({
         <Thumbnail image={image} alt={name + ' thumbnail'} />
         <h4>Download</h4>
         <a href={downloadUrl}>{name}</a>
+        <iframe
+          title="document preview"
+          src={downloadUrl}
+          style={{ height: '80vh', width: '100%' }}
+        />
       </Main>
     </Providers>
   )
