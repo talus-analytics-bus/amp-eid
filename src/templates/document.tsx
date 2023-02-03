@@ -12,8 +12,7 @@ const DocumentPage = ({
 }: PageProps<Queries.DocumentPageQuery>) => {
   const name = document?.data?.Document_name
 
-  const downloadUrl =
-    document?.data?.Attachment_most_recent?.localFiles?.[0]?.publicURL
+  const downloadUrl = document?.data?.PDF?.localFiles?.[0]?.publicURL
 
   const image =
     document?.documentThumbnail?.[0]?.childImageSharp?.gatsbyImageData
@@ -64,7 +63,7 @@ export const query = graphql`
             ISO3
           }
         }
-        Attachment_most_recent {
+        PDF {
           localFiles {
             publicURL
             prettySize

@@ -70,7 +70,7 @@ const config: GatsbyConfig = {
             tableLinks: [`All_applicable_countries`],
             queryName: `Documents`,
             separateNodeType: true,
-            mapping: { Attachment_most_recent: `fileNode` },
+            mapping: { PDF: `fileNode` },
             tableView: `CMS`,
           },
           // Double-linking the documents table appears to
@@ -169,7 +169,7 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-remote-images`,
       options: {
         nodeType: 'AirtableDocuments',
-        imagePath: 'data.Attachment_most_recent[].thumbnails.large.url',
+        imagePath: 'data.PDF[].thumbnails.large.url',
         // ** ALL OPTIONAL BELOW HERE: **
         name: 'documentThumbnail',
         skipUndefinedUrls: true,
