@@ -86,7 +86,6 @@ const config: GatsbyConfig = {
           {
             baseId: `appryZVvEysrHZL0S`,
             tableName: `3. Define status`,
-            tableLinks: [`Assign_status`],
             tableView: `CMS`,
             queryName: `Trips`,
             separateNodeType: true,
@@ -103,7 +102,6 @@ const config: GatsbyConfig = {
             baseId: `appryZVvEysrHZL0S`,
             tableName: `LOOKUP: Document (imported)`,
             tableLinks: [`Authoring_country`],
-            // mapping: { Attachment__most_recent_: 'fileNode' },
             tableView: `CMS`,
             queryName: `Trips`,
             separateNodeType: true,
