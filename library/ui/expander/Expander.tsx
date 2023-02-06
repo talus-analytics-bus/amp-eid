@@ -133,7 +133,14 @@ const Expander = ({
     >
       <ContentContainer
         ref={contentContainer}
-        display={renderWhileClosed && !renderChildren ? 'none' : 'block'}
+        style={{
+          background: 'red',
+          ...{
+            ...(renderWhileClosed && {
+              display: renderChildren ? 'flow-root' : 'none',
+            }),
+          },
+        }}
       >
         {(renderChildren || renderWhileClosed) && children}
       </ContentContainer>
