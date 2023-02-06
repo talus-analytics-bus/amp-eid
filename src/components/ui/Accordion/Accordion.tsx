@@ -1,6 +1,6 @@
 import React from 'react'
 import Expander, { ExpanderProps } from '@talus-analytics/library.ui.expander'
-import { DefaultTheme, StyledComponent } from 'styled-components'
+import styled, { DefaultTheme, StyledComponent } from 'styled-components'
 
 interface AccordionProps extends Omit<ExpanderProps, 'open' | 'floating'> {
   renderButton: (
@@ -18,7 +18,7 @@ const Accordion = ({
   openIndex,
   setOpenIndex,
   renderButton,
-  animDuration = 250,
+  animDuration = 2500,
   preventCloseAll,
   index,
   ...props
@@ -71,6 +71,7 @@ const Accordion = ({
     <React.Fragment key={index}>
       {buttonWithProps}
       <Expander
+        animDuration={animDuration}
         key={index + 'expander'}
         {...props}
         open={openIndex === index}
@@ -79,7 +80,13 @@ const Accordion = ({
   )
 }
 
-interface AccordionParentProps {
+const AccordionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+interface AccordionParentProps
+  extends Omit<React.ComponentPropsWithRef<'div'>, 'children'> {
   children: ReturnType<typeof Accordion>[]
   openIndex: number | null
   setOpenIndex: React.Dispatch<React.SetStateAction<number | null>>
@@ -91,19 +98,21 @@ export const AccordionParent = ({
   openIndex,
   setOpenIndex,
   preventCloseAll = false,
-}: AccordionParentProps) => (
-  <>
-    {React.Children.map(children, (child, index) =>
-      React.cloneElement(child, {
-        openIndex,
-        setOpenIndex,
-        preventCloseAll,
-        index,
-        key: index,
-        ...child.props,
-      })
-    )}
-  </>
-)
+  ...props
+}: AccordionParentProps) => {
+  return (
+    <AccordionContainer {...props}>
+      {React.Children.map(children, (child, index) =>
+        React.cloneElement(child, {
+          openIndex,
+          setOpenIndex,
+          preventCloseAll,
+          index,
+          ...child.props,
+        })
+      )}
+    </AccordionContainer>
+  )
+}
 
 export default Accordion
