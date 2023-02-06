@@ -120,6 +120,7 @@ const ExplorePolicies = ({
           <React.Fragment key={country.data?.ISO3}>
             {country.data?.ISO3 && (
               <Dropdown
+                renderWhileClosed
                 floating={false}
                 renderButton={() => (
                   <DropdownButton>

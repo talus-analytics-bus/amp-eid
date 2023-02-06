@@ -9,5 +9,17 @@
  */
 
 {
+    "ui/dropdown": {
+        "scope": "talus-analytics.library",
+        "version": "0.0.9",
+        "mainFile": "index.tsx",
+        "rootDir": "library/ui/dropdown"
+    },
+    "ui/expander": {
+        "scope": "talus-analytics.library",
+        "version": "0.0.5",
+        "mainFile": "index.tsx",
+        "rootDir": "library/ui/expander"
+    },
     "$schema-version": "14.9.0"
 }
