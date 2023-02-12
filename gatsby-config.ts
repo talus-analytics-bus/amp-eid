@@ -129,7 +129,7 @@ const config: GatsbyConfig = {
             tableView: `CMS`,
             queryName: `Treaties`,
             tableLinks: [`Country_link`],
-            mapping: { Attachments: `fileNode` },
+            mapping: { PDF: `fileNode` },
             separateNodeType: true,
           },
           {
