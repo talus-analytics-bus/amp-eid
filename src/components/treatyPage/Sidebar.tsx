@@ -1,4 +1,3 @@
-import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -44,7 +43,7 @@ const Sidebar = ({
 }: {
   treatyData: Queries.TreatyPageQuery['general']['nodes'][0]
 }) => {
-  const fileData = treatyData.data?.Attachments?.localFiles?.[0]
+  const fileData = treatyData.data?.PDF?.localFiles?.[0]
 
   if (!fileData?.prettySize || !fileData.publicURL)
     throw new Error(
@@ -53,21 +52,21 @@ const Sidebar = ({
 
   const openedForSignature = treatyData.data?.Date_opened_for_signature
   const originalPublication = treatyData.data?.Date_of_original_publication
-  const latestUpdate = treatyData.data?.Date_of_latest_update
+  const latestUpdate = treatyData.data?.File_publish_date
 
   return (
     <Container>
-      <Thumbnail
-        src={
-          treatyData.data?.Attachments?.raw?.[0]?.thumbnails?.large?.url ?? ''
-        }
-      />
+      {
+        // <Thumbnail
+        //   src={treatyData.data?.PDF?.raw?.[0]?.thumbnails?.large?.url ?? ''}
+        // />
+      }
       <ButtonLink href={fileData.publicURL}>
         Download treaty ({fileData.ext.toUpperCase().replace('.', '')},{' '}
         {fileData.prettySize})
       </ButtonLink>
-      {treatyData.data?.Document_URL && (
-        <ButtonLink href={treatyData.data?.Document_URL}>
+      {treatyData.data?.File_source_URL && (
+        <ButtonLink href={treatyData.data?.File_source_URL}>
           Open link to treaty
         </ButtonLink>
       )}
