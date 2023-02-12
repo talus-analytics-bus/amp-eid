@@ -109,6 +109,11 @@ export const query = graphql`
             }
           }
         }
+        documentThumbnail {
+          childImageSharp {
+            gatsbyImageData
+          }
+        }
       }
     }
   }
