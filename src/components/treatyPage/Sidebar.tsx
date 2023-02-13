@@ -1,4 +1,4 @@
-import { Link } from 'gatsby'
+import Thumbnail from 'components/ui/DocumentThumbnail'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -19,14 +19,14 @@ const ButtonLink = styled.a`
   background: ${({ theme }) => theme.option3};
   padding: 10px 20px;
   border-radius: 5px;
-  margin-bottom: 20px;
+  margin-top: 20px;
 `
-const Thumbnail = styled.img`
-  width: 100%;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-bottom: 20px;
-`
+// const Thumbnail = styled.img`
+//   width: 100%;
+//   border-radius: 5px;
+//   overflow: hidden;
+//   margin-bottom: 20px;
+// `
 const H4 = styled.h4`
   margin: 0;
   margin-top: 10px;
@@ -44,30 +44,42 @@ const Sidebar = ({
 }: {
   treatyData: Queries.TreatyPageQuery['general']['nodes'][0]
 }) => {
-  const fileData = treatyData.data?.Attachments?.localFiles?.[0]
+  const fileData = treatyData.data?.PDF?.localFiles?.[0]
 
   if (!fileData?.prettySize || !fileData.publicURL)
     throw new Error(
       `File metadata not found for treaty ${treatyData.data?.Document_name}`
     )
 
+  const image =
+    treatyData.documentThumbnail?.[0]?.childImageSharp?.gatsbyImageData
+
+  if (!image)
+    throw new Error(
+      `Treaty ${treatyData.data?.Document_name} is missing thumbnail`
+    )
+
   const openedForSignature = treatyData.data?.Date_opened_for_signature
   const originalPublication = treatyData.data?.Date_of_original_publication
-  const latestUpdate = treatyData.data?.Date_of_latest_update
+  const latestUpdate = treatyData.data?.File_publish_date
 
   return (
     <Container>
+      {
+        // <Thumbnail
+        //   src={treatyData.data?.PDF?.raw?.[0]?.thumbnails?.large?.url ?? ''}
+        // />
+      }
       <Thumbnail
-        src={
-          treatyData.data?.Attachments?.raw?.[0]?.thumbnails?.large?.url ?? ''
-        }
+        image={image}
+        alt={treatyData.data?.Document_name + ' thumbnail'}
       />
       <ButtonLink href={fileData.publicURL}>
         Download treaty ({fileData.ext.toUpperCase().replace('.', '')},{' '}
         {fileData.prettySize})
       </ButtonLink>
-      {treatyData.data?.Document_URL && (
-        <ButtonLink href={treatyData.data?.Document_URL}>
+      {treatyData.data?.File_source_URL && (
+        <ButtonLink href={treatyData.data?.File_source_URL}>
           Open link to treaty
         </ButtonLink>
       )}

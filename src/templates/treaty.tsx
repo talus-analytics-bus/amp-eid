@@ -82,23 +82,16 @@ export const query = graphql`
       nodes {
         data {
           Document_name
-          Document_URL
+          File_source_URL
           Treaty_description
-          Date_of_latest_update
+          File_publish_date
           Date_opened_for_signature
           Date_of_original_publication
-          Attachments {
+          PDF {
             localFiles {
               publicURL
               prettySize
               ext
-            }
-            raw {
-              thumbnails {
-                large {
-                  url
-                }
-              }
             }
           }
           Country_link {
@@ -114,6 +107,11 @@ export const query = graphql`
                 }
               }
             }
+          }
+        }
+        documentThumbnail {
+          childImageSharp {
+            gatsbyImageData
           }
         }
       }

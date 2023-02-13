@@ -129,7 +129,14 @@ const config: GatsbyConfig = {
             tableView: `CMS`,
             queryName: `Treaties`,
             tableLinks: [`Country_link`],
-            mapping: { Attachments: `fileNode` },
+            mapping: { PDF: `fileNode` },
+            separateNodeType: true,
+          },
+          {
+            baseId: `app6WOQpwEJy3B88C`,
+            tableName: `LOOKUP: Treaty`,
+            tableView: `CMS`,
+            queryName: `Treaties`,
             separateNodeType: true,
           },
           {
@@ -170,6 +177,21 @@ const config: GatsbyConfig = {
       options: {
         nodeType: 'AirtableDocuments',
         imagePath: 'data.PDF[].thumbnails.large.url',
+        // ** ALL OPTIONAL BELOW HERE: **
+        name: 'documentThumbnail',
+        skipUndefinedUrls: true,
+        prepareUrl: (url: string) => {
+          if (!url || url === 'N/A') return undefined
+          return url
+        },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'AirtableTreaties',
+        imagePath: 'data.PDF[].thumbnails.large.url',
+        // imagePath: 'data.PDF.raw[].thumbnails.large.url',
         // ** ALL OPTIONAL BELOW HERE: **
         name: 'documentThumbnail',
         skipUndefinedUrls: true,
