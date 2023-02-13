@@ -118,25 +118,25 @@ const IndexPage = (): JSX.Element => {
           <TopicLinkList>
             <Li>
               <ImageLink to="/topics/trips/">
-                <CMS.Image name="TRIPS image" data={cmsData} />
+                <CMS.Image name="Topic 1 image" data={cmsData} />
                 <ImageLinkTextContainer>
-                  <CMS.Text name="TRIPS text" data={cmsData} />
+                  <CMS.Text name="Topic 1 text" data={cmsData} />
                 </ImageLinkTextContainer>
               </ImageLink>
             </Li>
             <Li>
               <ComingSoonLinkPlaceholder>
-                <CMS.Image name="Childhood vaccination image" data={cmsData} />
+                <CMS.Image name="Topic 2 image" data={cmsData} />
                 <ImageLinkTextContainer>
-                  <CMS.Text name="Childhood vaccination text" data={cmsData} />
+                  <CMS.Text name="Topic 2 text" data={cmsData} />
                 </ImageLinkTextContainer>
               </ComingSoonLinkPlaceholder>
             </Li>
             <Li>
               <ComingSoonLinkPlaceholder>
-                <CMS.Image name="Non-human vaccination image" data={cmsData} />
+                <CMS.Image name="Topic 3 image" data={cmsData} />
                 <ImageLinkTextContainer>
-                  <CMS.Text name="Non-human vaccination text" data={cmsData} />
+                  <CMS.Text name="Topic 3 text" data={cmsData} />
                 </ImageLinkTextContainer>
               </ComingSoonLinkPlaceholder>
             </Li>

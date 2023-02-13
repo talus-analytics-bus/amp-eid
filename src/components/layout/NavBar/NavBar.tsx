@@ -82,7 +82,7 @@ const NavBar = () => {
   const topicsLinks = [
     {
       to: '/topics/trips/',
-      children: <CMS.Text name="TRIPS text" data={data} />,
+      children: <CMS.Text name="Topic 1 text" data={data} />,
     },
     { to: '', children: 'Coming soon: Childhood vaccination', disabled: true },
     { to: '', children: 'Coming soon: Non-human vaccination', disabled: true },

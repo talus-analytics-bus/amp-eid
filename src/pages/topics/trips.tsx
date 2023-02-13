@@ -42,7 +42,7 @@ const TripsPage = ({
         <MainHeader>
           <h2>TOPIC</h2>
           <h1>
-            <CMS.Text name="TRIPS text" data={indexPageCMSData} />
+            <CMS.Text name="Topic 1 text" data={indexPageCMSData} />
           </h1>
         </MainHeader>
         <TopicSwitcher data={data} />
