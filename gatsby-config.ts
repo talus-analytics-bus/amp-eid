@@ -168,7 +168,7 @@ const config: GatsbyConfig = {
         skipUndefinedUrls: true,
         prepareUrl: (url: string) => {
           if (!url || url === 'N/A') return undefined
-          return `https://flags.talusanalytics.com/shiny_100px/${url.toLowerCase()}.png`
+          return `https://flags.talusanalytics.com/300px/${url.toLowerCase()}.png`
         },
       },
     },
