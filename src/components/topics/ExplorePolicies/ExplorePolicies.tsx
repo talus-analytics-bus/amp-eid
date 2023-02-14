@@ -127,6 +127,10 @@ const ExplorePolicies = ({
                       <GatsbyImage
                         image={country.flag.childImageSharp.gatsbyImageData}
                         alt={`${country.data?.Country_name} Flag`}
+                        style={{
+                          filter:
+                            'drop-shadow(.5px 0.5px 1px rgba(0, 0, 0, 0.35))',
+                        }}
                       />
                     )}
                     {country.data?.Country_name}
