@@ -4,38 +4,46 @@ import styled from 'styled-components'
 import CMS from '@talus-analytics/library.airtable-cms'
 import Providers from '../components/layout/Providers'
 
-import Main from '../components/layout/Main'
-
 import useIndexPageData from '../cmsHooks/useIndexPageData'
 import NavBar from 'components/layout/NavBar/NavBar'
 import { Link } from 'gatsby'
 
+const ContentContainer = styled.div`
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+`
 const Header = styled.header`
   text-align: center;
   max-width: 1000px;
   margin: auto;
+  margin-top: 50px;
 `
 const IntroParagraph = styled.p`
   ${({ theme }) => theme.bigParagraph};
-  color: ${({ theme }) => theme.veryDarkGray};
+  color: ${({ theme }) => theme.black};
 `
 const H1 = styled.h1`
-  color: ${({ theme }) => theme.ampEidGreen};
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 40px;
-  line-height: 60px;
+  color: ${({ theme }) => theme.veryDarkGray};
+  ${({ theme }) => theme.landingPageSmall};
+  margin: 0;
+  margin-bottom: 10px;
 `
 const H2 = styled.h2`
-  ${({ theme }) => theme.bigParagraph};
-  color: ${({ theme }) => theme.veryDarkGray};
+  ${({ theme }) => theme.landingPageH1};
+  color: ${({ theme }) => theme.ampEidMedBlue};
+  margin: 0;
+  margin-bottom: 60px;
 `
 const TopicSection = styled.section`
   display: flex;
-  align-items: center;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 80px;
+  padding-top: 60px;
+  padding-bottom: 80px;
+  background-color: ${({ theme }) => theme.veryLightGray};
 `
 const H3 = styled.h3`
   margin: 0;
@@ -50,8 +58,12 @@ const H4 = styled.h4`
 `
 const TopicLinkList = styled.ul`
   list-style: none;
-  display: flex;
-  gap: 30px;
+  margin: 0;
+  padding: 0;
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
   @media (max-width: 1000px) {
     flex-direction: column;
   }
@@ -96,19 +108,21 @@ const IndexPage = (): JSX.Element => {
     <Providers>
       <CMS.SEO />
       <NavBar />
-      <Main>
+      <ContentContainer>
         <Header>
-          <H2>
-            <CMS.Text name="H2" data={cmsData} />
-          </H2>
           <H1>
-            <CMS.Text name="H1" data={cmsData} />
+            <CMS.Text name="H2" data={cmsData} />
           </H1>
-          <IntroParagraph>
-            <CMS.Text name="Intro paragraph" data={cmsData} />
-          </IntroParagraph>
+          <H2>
+            <CMS.Text name="H1" data={cmsData} />
+          </H2>
         </Header>
-        <TopicSection>
+        <IntroParagraph>
+          <CMS.Text name="Paragraph 1" data={cmsData} />
+        </IntroParagraph>
+      </ContentContainer>
+      <TopicSection>
+        <ContentContainer>
           <H3>
             <CMS.Text name="H3" data={cmsData} />
           </H3>
@@ -140,9 +154,25 @@ const IndexPage = (): JSX.Element => {
                 </ImageLinkTextContainer>
               </ComingSoonLinkPlaceholder>
             </Li>
+            <Li>
+              <ComingSoonLinkPlaceholder>
+                <CMS.Image name="Topic 4 image" data={cmsData} />
+                <ImageLinkTextContainer>
+                  <CMS.Text name="Topic 4 text" data={cmsData} />
+                </ImageLinkTextContainer>
+              </ComingSoonLinkPlaceholder>
+            </Li>
           </TopicLinkList>
-        </TopicSection>
-      </Main>
+        </ContentContainer>
+      </TopicSection>
+      <ContentContainer>
+        <H3>
+          <CMS.Text name="H4" data={cmsData} />
+        </H3>
+        <H3>
+          <CMS.Text name="H5" data={cmsData} />
+        </H3>
+      </ContentContainer>
     </Providers>
   )
 }
