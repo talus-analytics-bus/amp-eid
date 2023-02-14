@@ -67,4 +67,35 @@ export const createPages: GatsbyNode['createPages'] = async ({
       },
     })
   }
+
+  const countryPageTemplate = path.resolve('./src/templates/country.tsx')
+
+  const countryNames = await graphql<Queries.CountryNamesQuery>(`
+    query CountryNames {
+      countries: allAirtableDocuments(
+        filter: { table: { eq: "LOOKUP: Country" } }
+      ) {
+        nodes {
+          data {
+            ISO3
+          }
+        }
+      }
+    }
+  `)
+
+  if (!countryNames.data?.countries) throw new Error('No countries found')
+
+  for (const country of countryNames.data.countries.nodes) {
+    if (!country.data?.ISO3)
+      throw new Error('All countries must have ISO3 codes')
+
+    actions.createPage({
+      path: `/countries/${country.data.ISO3.toLowerCase()}`,
+      component: countryPageTemplate,
+      context: {
+        iso3: country.data.ISO3,
+      },
+    })
+  }
 }
