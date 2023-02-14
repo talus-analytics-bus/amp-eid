@@ -7,6 +7,8 @@ import Providers from '../components/layout/Providers'
 import useIndexPageData from '../cmsHooks/useIndexPageData'
 import NavBar from 'components/layout/NavBar/NavBar'
 import TopicList from 'components/landing/TopicList'
+import CountrySearch from 'components/landing/CountrySearch'
+import Footer from 'components/layout/Footer'
 
 const ContentContainer = styled.div`
   max-width: 920px;
@@ -92,10 +94,12 @@ const IndexPage = (): JSX.Element => {
         <H3>
           <CMS.Text name="H4" data={cmsData} />
         </H3>
+        <CountrySearch />
         <H3>
           <CMS.Text name="H5" data={cmsData} />
         </H3>
       </ContentContainer>
+      <Footer />
     </Providers>
   )
 }
