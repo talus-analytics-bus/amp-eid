@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const MainHeader = styled.header`
   > h2 {
-    ${({ theme }) => theme.bigParagraph};
+    ${({ theme }) => theme.paragraph};
     color: ${({ theme }) => theme.darkGray};
     margin: 0;
   }
