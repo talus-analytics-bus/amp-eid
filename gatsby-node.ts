@@ -12,11 +12,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   const treatyNames = await graphql<Queries.TreatyShortNamesQuery>(`
     query ShortNames {
       shortNames: allAirtableTreaties(
-        filter: {
-          table: {
-            eq: "ALL: ONLY USE THIS TAB INSTEAD OF THE SINGLE TABS FROM NOW ON"
-          }
-        }
+        filter: { table: { eq: "All treaties and countries" } }
       ) {
         distinct(
           field: {

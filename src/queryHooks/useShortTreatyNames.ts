@@ -4,11 +4,7 @@ const useShortTreatyNames = () => {
   const { shortNames } = useStaticQuery<Queries.TreatyShortNamesQuery>(graphql`
     query TreatyShortNames {
       shortNames: allAirtableTreaties(
-        filter: {
-          table: {
-            eq: "ALL: ONLY USE THIS TAB INSTEAD OF THE SINGLE TABS FROM NOW ON"
-          }
-        }
+        filter: { table: { eq: "All treaties and countries" } }
       ) {
         distinct(
           field: {
