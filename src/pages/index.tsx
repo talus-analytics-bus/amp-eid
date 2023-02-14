@@ -94,10 +94,10 @@ const IndexPage = (): JSX.Element => {
         <H3>
           <CMS.Text name="H4" data={cmsData} />
         </H3>
-        <CountrySearch />
         <H3>
           <CMS.Text name="H5" data={cmsData} />
         </H3>
+        <CountrySearch />
       </ContentContainer>
       <Footer />
     </Providers>
