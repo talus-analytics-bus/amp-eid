@@ -149,7 +149,7 @@ const config: GatsbyConfig = {
           },
           {
             baseId: `app6WOQpwEJy3B88C`,
-            tableName: `ALL: ONLY USE THIS TAB INSTEAD OF THE SINGLE TABS FROM NOW ON`,
+            tableName: `All treaties and countries`,
             tableLinks: [`Treaty_name`, `Country`],
             tableView: `CMS`,
             queryName: `Treaties`,
