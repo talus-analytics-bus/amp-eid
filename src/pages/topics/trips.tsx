@@ -132,7 +132,7 @@ export const query = graphql`
       nodes {
         documentThumbnail {
           childImageSharp {
-            gatsbyImageData(width: 100, placeholder: BLURRED)
+            gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
           }
         }
         data {
