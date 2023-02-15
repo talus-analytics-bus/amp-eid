@@ -1,7 +1,8 @@
-// use Typescript with gatsby node apis here
 import * as path from 'path'
 
 import { GatsbyNode } from 'gatsby'
+
+import simplifyForUrl from './src/utilities/simplifyForUrl'
 
 export const createPages: GatsbyNode['createPages'] = async ({
   actions,
@@ -27,7 +28,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
 
   for (const short_name of treatyNames.data.shortNames.distinct) {
     actions.createPage({
-      path: `/treaties/${short_name}/`,
+      path: `/treaties/${simplifyForUrl(short_name)}/`,
       component: treatyPageTemplate,
       context: { short_name },
     })
@@ -60,7 +61,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
       throw new Error('All documents must have names')
 
     actions.createPage({
-      path: `/documents/${document.data?.Document_name}`,
+      path: `/documents/${simplifyForUrl(document.data?.Document_name)}`,
       component: documentPageTemplate,
       context: {
         recordId: document.recordId,
