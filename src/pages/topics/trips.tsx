@@ -120,7 +120,7 @@ export const query = graphql`
           All_applicable_countries_link {
             data {
               Document_name
-              Date_of_latest_update
+              File_publish_date
             }
           }
         }

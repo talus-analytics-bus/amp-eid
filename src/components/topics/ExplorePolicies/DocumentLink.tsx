@@ -9,7 +9,7 @@ interface DocumentLinkProps {
   document?: {
     data?: {
       Document_name?: string | null
-      Date_of_latest_update?: string | null
+      File_publish_date?: string | null
     } | null
   } | null
   thumbnailMap: ThumbnailMap
@@ -45,13 +45,23 @@ const DocumentLink = ({ document, thumbnailMap }: DocumentLinkProps) => {
   const name = document?.data?.Document_name
   if (!name) throw new Error('Document missing name')
 
-  let date = document?.data?.Date_of_latest_update
-  if (date)
-    date = new Date(date).toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    })
+  let dateStrings = document?.data?.File_publish_date
+  let date = ''
+
+  if (dateStrings) {
+    const mostRecent = dateStrings
+      .split(',')
+      .map(string => new Date(string))
+      .sort((a, b) => b.getTime() - a.getTime())
+      .at(0)
+
+    if (mostRecent)
+      date = mostRecent.toLocaleString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      })
+  }
 
   const image = thumbnailMap[name]
 
