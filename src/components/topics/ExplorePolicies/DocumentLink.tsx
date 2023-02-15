@@ -2,6 +2,7 @@ import Thumbnail from 'components/ui/DocumentThumbnail'
 import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
+import simplifyForUrl from 'utilities/simplifyForUrl'
 
 import { ThumbnailMap } from './ExplorePolicies'
 
@@ -66,7 +67,7 @@ const DocumentLink = ({ document, thumbnailMap }: DocumentLinkProps) => {
   const image = thumbnailMap[name]
 
   return (
-    <StyledLink key={name} to={`/documents/${name}`}>
+    <StyledLink key={name} to={`/documents/${simplifyForUrl(name)}`}>
       {image && <Thumbnail image={image} alt={`${name} thumbnail`} />}
       <Metadata>
         <DateText>{date}</DateText>

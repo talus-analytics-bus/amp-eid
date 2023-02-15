@@ -9,6 +9,7 @@ import MobileMenu from './MobileMenu/MobileMenu'
 import useIndexPageData from 'cmsHooks/useIndexPageData'
 import TopicsDropdown from './TopicsDropdown'
 import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
+import simplifyForUrl from 'utilities/simplifyForUrl'
 
 const Nav = styled.nav`
   background-color: ${({ theme }) => theme.ampEidDarkBlue};
@@ -89,7 +90,7 @@ const NavBar = () => {
   ]
 
   const treatyLinks = treaties.distinct.map(treaty => ({
-    to: `/treaties/${treaty}`,
+    to: `/treaties/${simplifyForUrl(treaty)}`,
     children: treaty,
   }))
 
