@@ -9,6 +9,7 @@ import NavBar from 'components/layout/NavBar/NavBar'
 import TopicList from 'components/landing/TopicList'
 import CountrySearch from 'components/landing/CountrySearch'
 import Footer from 'components/layout/Footer'
+import TreatySearch from 'components/landing/TreatySearch'
 
 const ContentContainer = styled.div`
   max-width: 920px;
@@ -94,6 +95,7 @@ const IndexPage = (): JSX.Element => {
         <H3>
           <CMS.Text name="H4" data={cmsData} />
         </H3>
+        <TreatySearch />
         <H3>
           <CMS.Text name="H5" data={cmsData} />
         </H3>
