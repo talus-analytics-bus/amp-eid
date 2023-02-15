@@ -74,7 +74,10 @@ export const createPages: GatsbyNode['createPages'] = async ({
   const countryNames = await graphql<Queries.CountryNamesQuery>(`
     query CountryNames {
       countries: allAirtableDocuments(
-        filter: { table: { eq: "LOOKUP: Country" } }
+        filter: {
+          table: { eq: "LOOKUP: Country" }
+          data: { Country_name: { nin: ["Regional", "Treaty"] } }
+        }
       ) {
         nodes {
           data {
