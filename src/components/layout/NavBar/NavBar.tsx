@@ -7,9 +7,10 @@ import CMS from '@talus-analytics/library.airtable-cms'
 import MobileMenu from './MobileMenu/MobileMenu'
 
 import useIndexPageData from 'cmsHooks/useIndexPageData'
-import TopicsDropdown from './TopicsDropdown'
+import NavbarDropdown from './TopicsDropdown'
 import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
 import simplifyForUrl from 'utilities/simplifyForUrl'
+import LinksList from './LinksList'
 
 const Nav = styled.nav`
   background-color: ${({ theme }) => theme.ampEidDarkBlue};
@@ -107,8 +108,12 @@ const NavBar = () => {
           </HomeLink>
         </LinkList>
         <DesktopNavList>
-          <TopicsDropdown title="Topics" links={topicsLinks} />
-          <TopicsDropdown title="Treaties" links={treatyLinks} />
+          <NavbarDropdown title="Topics">
+            <LinksList links={topicsLinks} />
+          </NavbarDropdown>
+          <NavbarDropdown title="Treaties">
+            <LinksList links={treatyLinks} />
+          </NavbarDropdown>
           {links.map(linkProps => (
             <Li key={linkProps.to}>
               <NavLink {...linkProps} />
