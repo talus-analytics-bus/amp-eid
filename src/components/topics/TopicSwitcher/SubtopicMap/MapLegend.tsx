@@ -29,6 +29,13 @@ const MapLegend = () => {
   if (!context) throw new Error('MapLegend must be inside SubtopicContext')
   const { subtopicIndex, setSubtopicIndex, subtopicData } = context
 
+  // removing 'readonly' from the gatsby-generated type
+  // so we can sort without typescript complaining
+  type subtopicMutable = {
+    -readonly [key in keyof typeof subtopicData[0]]: typeof subtopicData[0][key]
+  }
+  const subtopics = subtopicData as subtopicMutable[]
+
   return (
     <Container aria-orientation="vertical">
       <AccordionParent
@@ -36,29 +43,33 @@ const MapLegend = () => {
         openIndex={subtopicIndex}
         setOpenIndex={setSubtopicIndex}
       >
-        {subtopicData.map(({ data: subtopic }, index) => (
-          <Accordion
-            key={subtopic?.Subtopic}
-            renderButton={open => (
-              <TopicButton
-                id={`tab-${index}`}
-                type="button"
-                role="tab"
-                aria-selected={open}
-                aria-controls={`tabpanel-${index}`}
-                style={{
-                  background: open ? theme.ampEidDarkBlue : theme.lightGray,
-                  color: open ? theme.white : theme.black,
-                  borderColor: open ? theme.black : theme.medDarkGray,
-                }}
-              >
-                {subtopic?.Subtopic}
-              </TopicButton>
-            )}
-          >
-            <MapStatusKey subtopic={subtopic} />
-          </Accordion>
-        ))}
+        {subtopics
+          // coercing here becasuse we know these exist
+          // and a type guard would slow it down.
+          .sort((a, b) => b.data?.Order! - a.data?.Order!)
+          .map(({ data: subtopic }, index) => (
+            <Accordion
+              key={subtopic?.Subtopic}
+              renderButton={open => (
+                <TopicButton
+                  id={`tab-${index}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={open}
+                  aria-controls={`tabpanel-${index}`}
+                  style={{
+                    background: open ? theme.ampEidDarkBlue : theme.lightGray,
+                    color: open ? theme.white : theme.black,
+                    borderColor: open ? theme.black : theme.medDarkGray,
+                  }}
+                >
+                  {subtopic?.Subtopic}
+                </TopicButton>
+              )}
+            >
+              <MapStatusKey subtopic={subtopic} />
+            </Accordion>
+          ))}
       </AccordionParent>
     </Container>
   )
