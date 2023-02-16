@@ -2218,7 +2218,7 @@
 
 "@talus-analytics/library.ui.typeahead@^0.0.6":
   version "0.0.6"
-  resolved "https://node.bit.cloud/@talus-analytics/library.ui.typeahead/-/@talus-analytics-library.ui.typeahead-0.0.6.tgz#2a91b1fb57e3574985ed2b93e12cfe63a0e0cc8f"
+  resolved "https://node.bit.dev/@talus-analytics/library.ui.typeahead/-/@talus-analytics-library.ui.typeahead-0.0.6.tgz#2a91b1fb57e3574985ed2b93e12cfe63a0e0cc8f"
   integrity sha1-KpGx+1fjV0mF7SuT4Sz+Y6DgzI8=
   dependencies:
     "@talus-analytics/library.ui.expander" "0.0.5"
