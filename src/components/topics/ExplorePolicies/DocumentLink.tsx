@@ -2,6 +2,7 @@ import Thumbnail from 'components/ui/DocumentThumbnail'
 import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
+import formatDate from 'utilities/formatDate'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 
 import { ThumbnailMap } from './ExplorePolicies'
@@ -56,12 +57,7 @@ const DocumentLink = ({ document, thumbnailMap }: DocumentLinkProps) => {
       .sort((a, b) => b.getTime() - a.getTime())
       .at(0)
 
-    if (mostRecent)
-      date = mostRecent.toLocaleString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
+    if (mostRecent) date = formatDate(mostRecent)
   }
 
   const image = thumbnailMap[name]
