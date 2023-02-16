@@ -3,7 +3,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.section`
-  min-width: 350px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -21,12 +20,6 @@ const ButtonLink = styled.a`
   border-radius: 5px;
   margin-top: 20px;
 `
-// const Thumbnail = styled.img`
-//   width: 100%;
-//   border-radius: 5px;
-//   overflow: hidden;
-//   margin-bottom: 20px;
-// `
 const H4 = styled.h4`
   margin: 0;
   margin-top: 10px;
@@ -65,11 +58,6 @@ const Sidebar = ({
 
   return (
     <Container>
-      {
-        // <Thumbnail
-        //   src={treatyData.data?.PDF?.raw?.[0]?.thumbnails?.large?.url ?? ''}
-        // />
-      }
       <Thumbnail
         image={image}
         alt={treatyData.data?.Document_name + ' thumbnail'}

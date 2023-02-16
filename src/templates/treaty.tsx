@@ -10,12 +10,14 @@ import MainHeader from 'components/layout/MainHeader'
 import NavBar from 'components/layout/NavBar/NavBar'
 import Sidebar from 'components/treatyPage/Sidebar'
 import StatusTable from 'components/treatyPage/StatusTable'
+import ColumnSection from 'components/layout/ColumnSection'
 
-const Layout = styled.div`
-  margin-top: 30px;
-  display: flex;
-  gap: 50px;
-`
+// const Layout = styled.div`
+//   margin-top: 30px;
+//   display: flex;
+//   gap: 50px;
+// `
+
 const MainContent = styled.div``
 const H3 = styled.h3`
   margin-top: 0;
@@ -53,14 +55,14 @@ const TreatyPage = ({
         <h2>TREATY</h2>
         <h1>{treatyData.data?.Document_name}</h1>
       </MainHeader>
-      <Layout>
+      <ColumnSection>
         <Sidebar treatyData={treatyData} />
         <MainContent>
           <H3>Description</H3>
           <Description markdown={treatyData.data?.Treaty_description ?? ''} />
           <StatusTable treatyData={treatyData} />
         </MainContent>
-      </Layout>
+      </ColumnSection>
     </Main>
   </Providers>
 )
