@@ -7,9 +7,15 @@ const Container = styled.section`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px;
+`
+const ThumbnailHolder = styled.div`
   background: ${({ theme }) => theme.lightGray};
   border-radius: 5px;
+  padding: 20px;
+  max-height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 const ButtonLink = styled.a`
   ${({ theme }) => theme.paragraph};
@@ -19,6 +25,7 @@ const ButtonLink = styled.a`
   padding: 10px 20px;
   border-radius: 5px;
   margin-top: 20px;
+  display: block;
 `
 const H4 = styled.h4`
   margin: 0;
@@ -58,10 +65,12 @@ const Sidebar = ({
 
   return (
     <Container>
-      <Thumbnail
-        image={image}
-        alt={treatyData.data?.Document_name + ' thumbnail'}
-      />
+      <ThumbnailHolder>
+        <Thumbnail
+          image={image}
+          alt={treatyData.data?.Document_name + ' thumbnail'}
+        />
+      </ThumbnailHolder>
       <ButtonLink href={fileData.publicURL}>
         Download treaty ({fileData.ext.toUpperCase().replace('.', '')},{' '}
         {fileData.prettySize})
