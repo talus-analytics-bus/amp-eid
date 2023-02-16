@@ -44,12 +44,13 @@ const TopicSection = styled.section`
   display: flex;
   flex-direction: column;
   margin-top: 80px;
-  padding-top: 60px;
+  // padding-top: 60px;
   padding-bottom: 80px;
   background-color: ${({ theme }) => theme.veryLightGray};
 `
 const H3 = styled.h3`
   margin: 0;
+  margin-top: 80px;
   ${({ theme }) => theme.h2};
   color: ${({ theme }) => theme.black};
 `
@@ -58,6 +59,22 @@ const H4 = styled.h4`
   margin-top: 5px;
   ${({ theme }) => theme.paragraph};
   color: ${({ theme }) => theme.veryDarkGray};
+`
+const Columns = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+
+  @media (max-width: 800px) {
+    flex-direction: column-reverse;
+  }
+
+  &:last-child {
+    margin-bottom: 80px;
+  }
+`
+const Column = styled.div`
+  flex: 1;
 `
 
 const IndexPage = (): JSX.Element => {
@@ -95,11 +112,25 @@ const IndexPage = (): JSX.Element => {
         <H3>
           <CMS.Text name="H4" data={cmsData} />
         </H3>
-        <TreatySearch />
+        <Columns>
+          <Column>
+            <CMS.Text name="Paragraph 3" data={cmsData} />
+          </Column>
+          <Column>
+            <TreatySearch />
+          </Column>
+        </Columns>
         <H3>
           <CMS.Text name="H5" data={cmsData} />
         </H3>
-        <CountrySearch />
+        <Columns>
+          <Column>
+            <CMS.Text name="Paragraph 4" data={cmsData} />
+          </Column>
+          <Column>
+            <CountrySearch />
+          </Column>
+        </Columns>
       </ContentContainer>
       <Footer />
     </Providers>
