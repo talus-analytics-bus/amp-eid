@@ -23,7 +23,7 @@ import Footer from 'components/layout/Footer'
 
 // Map
 // Map title: subtopic title
-// "Assign status" table has the association between country, subtopic, and status
+// "Assign statuy" table has the association between country, subtopic, and status
 
 // descriptions under map => subtopics table paragraphs
 
@@ -59,7 +59,10 @@ const TripsPage = ({
 
 export const query = graphql`
   query TripsPage {
-    subtopics: allAirtableTrips(filter: { table: { eq: "1. Subtopic" } }) {
+    subtopics: allAirtableTrips(
+      filter: { table: { eq: "1. Subtopic" } }
+      sort: { data: { Order: ASC } }
+    ) {
       nodes {
         data {
           Subtopic
