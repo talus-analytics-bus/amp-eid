@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import formatDate from 'utilities/formatDate'
 
 const Container = styled.div`
   margin-top: 30px;
@@ -35,12 +36,45 @@ const StatusTable = ({
       `Country list not found for treaty ${treatyData.data?.Document_name}`
     )
 
-  const columns = [
-    // { displayName: 'Country', key: 'Country' },
-    { displayName: 'Status', key: 'Status' },
-    { displayName: 'Signed', key: 'Date_signed' },
-    { displayName: 'Ratified', key: 'Date_ratified' },
-    { displayName: 'Became a party', key: 'Date_became_a_party' },
+  type CountryData = Exclude<
+    [Exclude<typeof countryList[number], null>][number]['data'],
+    null
+  >
+
+  interface Column<T extends keyof CountryData> {
+    key: T
+    displayName: string
+    parse: (val: CountryData[T] | undefined) => React.ReactNode
+  }
+
+  // create type to take keyos of CountryData and return Column<'key 1'> | Column<'key 2'>
+  type ConvertToUnion<T> = T[keyof T]
+  type ColumnTypeUnion<T extends keyof CountryData> = ConvertToUnion<{
+    [key in T]: Column<key>
+  }>
+
+  const columns: ColumnTypeUnion<Exclude<keyof CountryData, ''>>[] = [
+    {
+      displayName: 'Country',
+      key: 'Country',
+      parse: val => val?.[0]?.data?.Country_name,
+    },
+    { displayName: 'Status', key: 'Status', parse: val => val },
+    {
+      displayName: 'Signed',
+      key: 'Date_signed',
+      parse: val => (val ? formatDate(val) : ''),
+    },
+    {
+      displayName: 'Ratified',
+      key: 'Date_ratified',
+      parse: val => (val ? formatDate(val) : ''),
+    },
+    {
+      displayName: 'Became a party',
+      key: 'Date_became_a_party',
+      parse: val => (val ? formatDate(val) : ''),
+    },
   ]
 
   return (
@@ -48,7 +82,6 @@ const StatusTable = ({
       <table>
         <thead>
           <tr>
-            <th>Country</th>
             {columns.map(col => (
               <th>{col.displayName}</th>
             ))}
@@ -57,12 +90,8 @@ const StatusTable = ({
         <tbody>
           {countryList.map(country => (
             <tr>
-              <td>{country?.data?.Country?.[0]?.data?.Country_name}</td>
               {columns.map(col => (
-                <td>
-                  {country?.data?.[col.key as keyof typeof country['data']] ??
-                    ''}
-                </td>
+                <td>{col.parse(country?.data?.[col.key])}</td>
               ))}
             </tr>
           ))}
