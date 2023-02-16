@@ -18,6 +18,7 @@ const DropdownButton = styled.button`
   ${({ theme }) => theme.bigParagraphMedium};
   border: none;
   background: ${({ theme }) => theme.veryLightGray};
+  color: ${({ theme }) => theme.black};
   margin: none;
   width: 100%;
   padding: 10px 20px;
