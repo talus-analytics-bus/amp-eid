@@ -27,6 +27,8 @@ const CountrySearch = ({ style }: CoutnrySearchProps) => {
     <Typeahead
       iconLeft
       style={style}
+      // TODO: Add autoFocus Prop to this component
+      // autoFocus
       items={searchItems}
       placeholder={`Search`}
       onAdd={item => navigate(`/countries/${item.key.toLowerCase()}`)}
