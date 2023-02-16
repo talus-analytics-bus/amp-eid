@@ -64,13 +64,13 @@ const MainInfoSection = ({
         {openedForSignature && (
           <tr>
             <td>Date opened for signature</td>
-            <td>{openedForSignature}</td>
+            <td>{formatDate(openedForSignature)}</td>
           </tr>
         )}
         {originalPublication && (
           <tr>
             <td>Date of original publication</td>
-            <td>{originalPublication}</td>
+            <td>{formatDate(originalPublication)}</td>
           </tr>
         )}
         {latestUpdate && (
