@@ -12,12 +12,6 @@ import StatusTable from 'components/treatyPage/StatusTable'
 import ColumnSection from 'components/layout/ColumnSection'
 import MainInfoSection from 'components/treatyPage/MainInfoSection'
 
-// const Layout = styled.div`
-//   margin-top: 30px;
-//   display: flex;
-//   gap: 50px;
-// `
-
 const MainContent = styled.div``
 const H3 = styled.h3`
   margin-top: 0;
