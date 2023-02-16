@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { graphql, PageProps } from 'gatsby'
 import CMS from '@talus-analytics/library.airtable-cms'
-import { RenderCMSRichText } from '@talus-analytics/library.airtable.cms-rich-text'
 
 import Main from 'components/layout/Main'
 import Providers from 'components/layout/Providers'
@@ -11,6 +10,7 @@ import NavBar from 'components/layout/NavBar/NavBar'
 import Sidebar from 'components/treatyPage/Sidebar'
 import StatusTable from 'components/treatyPage/StatusTable'
 import ColumnSection from 'components/layout/ColumnSection'
+import MainInfoSection from 'components/treatyPage/MainInfoSection'
 
 // const Layout = styled.div`
 //   margin-top: 30px;
@@ -24,17 +24,6 @@ const H3 = styled.h3`
   margin-bottom: 20px;
   ${({ theme }) => theme.h3}
   color: ${({ theme }) => theme.black};
-`
-const Description = styled(RenderCMSRichText)`
-  > p {
-    margin: 0;
-    ${({ theme }) => theme.paragraph}
-    color: ${({ theme }) => theme.black};
-    > a {
-      color: ${({ theme }) => theme.ampEidMedBlue};
-      text-decoration: underline;
-    }
-  }
 `
 
 const TreatyPage = ({
@@ -58,8 +47,7 @@ const TreatyPage = ({
       <ColumnSection>
         <Sidebar treatyData={treatyData} />
         <MainContent>
-          <H3>Description</H3>
-          <Description markdown={treatyData.data?.Treaty_description ?? ''} />
+          <MainInfoSection treatyData={treatyData} />
           <StatusTable treatyData={treatyData} />
         </MainContent>
       </ColumnSection>

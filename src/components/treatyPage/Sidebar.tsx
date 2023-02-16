@@ -27,17 +27,6 @@ const ButtonLink = styled.a`
   margin-top: 20px;
   display: block;
 `
-const H4 = styled.h4`
-  margin: 0;
-  margin-top: 10px;
-  ${({ theme }) => theme.paragraph};
-  color: ${({ theme }) => theme.black};
-`
-const Semibold = styled.p`
-  margin: 0;
-  ${({ theme }) => theme.paragraphSemibold};
-  color: ${({ theme }) => theme.black};
-`
 
 const Sidebar = ({
   treatyData,
@@ -59,10 +48,6 @@ const Sidebar = ({
       `Treaty ${treatyData.data?.Document_name} is missing thumbnail`
     )
 
-  const openedForSignature = treatyData.data?.Date_opened_for_signature
-  const originalPublication = treatyData.data?.Date_of_original_publication
-  const latestUpdate = treatyData.data?.File_publish_date
-
   return (
     <Container>
       <ThumbnailHolder>
@@ -79,24 +64,6 @@ const Sidebar = ({
         <ButtonLink href={treatyData.data?.File_source_URL}>
           Open link to treaty
         </ButtonLink>
-      )}
-      {openedForSignature && (
-        <>
-          <H4>Date opened for signature</H4>
-          <Semibold>{openedForSignature}</Semibold>
-        </>
-      )}
-      {originalPublication && (
-        <>
-          <H4>Date of original publication</H4>
-          <Semibold>{originalPublication}</Semibold>
-        </>
-      )}
-      {latestUpdate && (
-        <>
-          <H4>Latest update</H4>
-          <Semibold>{latestUpdate}</Semibold>
-        </>
       )}
     </Container>
   )
