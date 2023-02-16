@@ -11,6 +11,7 @@ import NavbarDropdown from './NavbarDropdown'
 import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import LinksList from './LinksList'
+import CountrySearch from 'components/landing/CountrySearch'
 
 const Nav = styled.nav`
   background-color: ${({ theme }) => theme.ampEidDarkBlue};
@@ -76,10 +77,7 @@ const NavBar = () => {
   const data = useIndexPageData()
   const treaties = useShortTreatyNames()
 
-  const links = [
-    { to: '/countries/', children: 'Countries' },
-    { to: '/about/overview/', children: 'About' },
-  ]
+  const links = [{ to: '/about/overview/', children: 'About' }]
 
   const topicsLinks = [
     {
@@ -113,6 +111,9 @@ const NavBar = () => {
           </NavbarDropdown>
           <NavbarDropdown title="Treaties">
             <LinksList links={treatyLinks} />
+          </NavbarDropdown>
+          <NavbarDropdown title="Countries">
+            <CountrySearch style={{ minWidth: 350, margin: '0' }} />
           </NavbarDropdown>
           {links.map(linkProps => (
             <Li key={linkProps.to}>

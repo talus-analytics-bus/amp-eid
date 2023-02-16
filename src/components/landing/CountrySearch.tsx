@@ -5,7 +5,11 @@ import Typeahead from '@talus-analytics/library.ui.typeahead'
 import useCountryNames from 'queryHooks/useCountryNames'
 import { navigate } from 'gatsby'
 
-const CountrySearch = () => {
+interface CoutnrySearchProps {
+  style?: React.CSSProperties
+}
+
+const CountrySearch = ({ style }: CoutnrySearchProps) => {
   const countries = useCountryNames()
 
   const searchItems = useMemo(
@@ -22,6 +26,7 @@ const CountrySearch = () => {
   return (
     <Typeahead
       iconLeft
+      style={style}
       items={searchItems}
       placeholder={`Search`}
       onAdd={item => navigate(`/countries/${item.key.toLowerCase()}`)}
