@@ -113,7 +113,7 @@ export const query = graphql`
         }
         documentThumbnail {
           childImageSharp {
-            gatsbyImageData
+            gatsbyImageData(height: 230, placeholder: BLURRED)
           }
         }
       }
