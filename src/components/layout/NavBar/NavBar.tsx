@@ -7,7 +7,7 @@ import CMS from '@talus-analytics/library.airtable-cms'
 import MobileMenu from './MobileMenu/MobileMenu'
 
 import useIndexPageData from 'cmsHooks/useIndexPageData'
-import NavbarDropdown from './TopicsDropdown'
+import NavbarDropdown from './NavbarDropdown'
 import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import LinksList from './LinksList'
