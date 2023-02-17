@@ -6,6 +6,11 @@ import ColumnSection from 'components/layout/ColumnSection'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import { Link } from 'gatsby'
 
+const TreatiesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`
 const TreatyLink = styled(Link)`
   ${({ theme }) => theme.bigParagraphMedium};
   border-radius: 5px;
@@ -26,7 +31,7 @@ interface RelatedTreatiesProps {
 
 const RelatedTreaties = ({ relatedTreaties }: RelatedTreatiesProps) => {
   return (
-    <div>
+    <TreatiesContainer>
       {relatedTreaties.map(treaty => {
         const shortName = treaty.data?.Treaty_short_name
         if (!shortName)
@@ -42,7 +47,7 @@ const RelatedTreaties = ({ relatedTreaties }: RelatedTreatiesProps) => {
           </TreatyLink>
         )
       })}
-    </div>
+    </TreatiesContainer>
   )
 }
 
