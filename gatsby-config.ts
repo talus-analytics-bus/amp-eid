@@ -128,7 +128,7 @@ const config: GatsbyConfig = {
             tableName: `LOOKUP: Treaty`,
             tableView: `CMS`,
             queryName: `Treaties`,
-            tableLinks: [`Country_link`],
+            tableLinks: [`Country_link`, `Related_document`],
             mapping: { PDF: `fileNode` },
             separateNodeType: true,
           },

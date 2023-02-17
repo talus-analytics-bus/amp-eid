@@ -81,6 +81,12 @@ export const query = graphql`
           File_publish_date
           Date_opened_for_signature
           Date_of_original_publication
+          Related_document {
+            data {
+              Treaty_short_name
+              Document_name
+            }
+          }
           PDF {
             localFiles {
               publicURL
