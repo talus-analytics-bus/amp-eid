@@ -18,7 +18,7 @@ const formatDate = (input: string | Date) => {
     input = new Date(input)
   }
 
-  return `${input.getDay()} ${
+  return `${input.getDate()} ${
     monthNames[input.getMonth()]
   } ${input.getFullYear()}`
 }
