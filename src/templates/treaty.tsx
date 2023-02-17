@@ -13,6 +13,7 @@ import ColumnSection from 'components/layout/ColumnSection'
 import MainInfoSection from 'components/treatyPage/MainInfoSection'
 import SubSection from 'components/layout/SubSection'
 import Footer from 'components/layout/Footer'
+import RelatedTreaties from 'components/topics/RelatedTreaties'
 
 const MainContent = styled.div``
 const H3 = styled.h3`
@@ -21,6 +22,10 @@ const H3 = styled.h3`
   ${({ theme }) => theme.h3}
   color: ${({ theme }) => theme.black};
 `
+
+type NoUndefinedField<T> = {
+  [P in keyof T]-?: NoUndefinedField<NonNullable<T[P]>>
+}
 
 const TreatyPage = ({
   data: {
@@ -44,9 +49,19 @@ const TreatyPage = ({
         <Sidebar treatyData={treatyData} />
         <MainContent>
           <MainInfoSection treatyData={treatyData} />
-          <SubSection>
-            <H3>Related Treaties</H3>
-          </SubSection>
+          {treatyData.data?.Related_document &&
+            treatyData.data.Related_document?.[0]?.data && (
+              <SubSection>
+                <H3>Related Treaties</H3>
+                <RelatedTreaties
+                  relatedTreaties={
+                    treatyData.data.Related_document as NoUndefinedField<
+                      typeof treatyData.data.Related_document
+                    >
+                  }
+                />
+              </SubSection>
+            )}
           <SubSection>
             <H3>States Parties</H3>
             <p>Paragraph of content goes here</p>
