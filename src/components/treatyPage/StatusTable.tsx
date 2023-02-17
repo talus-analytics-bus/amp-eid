@@ -91,6 +91,8 @@ const StatusTable = ({
           {countryList.map(country => (
             <tr>
               {columns.map(col => (
+                // @ts-expect-error: The types of col.parse
+                // and col.key are guaranteed by the types above
                 <td>{col.parse(country?.data?.[col.key])}</td>
               ))}
             </tr>
