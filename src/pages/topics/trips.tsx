@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { graphql, PageProps } from 'gatsby'
 
 import CMS from '@talus-analytics/library.airtable-cms'
@@ -13,6 +14,7 @@ import TopicSwitcher from 'components/topics/TopicSwitcher/TopicSwitcher'
 import RelatedTreaties from 'components/topics/RelatedTreaties'
 import ExplorePolicies from 'components/topics/ExplorePolicies/ExplorePolicies'
 import Footer from 'components/layout/Footer'
+import ColumnSection from 'components/layout/ColumnSection'
 
 // Trips page data sources
 
@@ -28,6 +30,12 @@ import Footer from 'components/layout/Footer'
 // descriptions under map => subtopics table paragraphs
 
 // Find a country => use mapbox search
+
+const H3 = styled.h3`
+  ${({ theme }) => theme.h2};
+  color: ${({ theme }) => theme.black};
+  margin: 0;
+`
 
 const TripsPage = ({
   data,
@@ -46,7 +54,10 @@ const TripsPage = ({
           </h1>
         </MainHeader>
         <TopicSwitcher data={data} />
-        <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
+        <ColumnSection>
+          <H3>Treaty</H3>
+          <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
+        </ColumnSection>
         <ExplorePolicies
           countryDocuments={data.countryDocuments}
           thumbnails={data.thumbnails}
