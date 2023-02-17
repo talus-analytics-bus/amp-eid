@@ -10,7 +10,7 @@ import Providers from 'components/layout/Providers'
 
 import useIndexPageData from 'cmsHooks/useIndexPageData'
 import TopicSwitcher from 'components/topics/TopicSwitcher/TopicSwitcher'
-import RelatedTreaty from 'components/topics/RelatedTreaty'
+import RelatedTreaties from 'components/topics/RelatedTreaty'
 import ExplorePolicies from 'components/topics/ExplorePolicies/ExplorePolicies'
 import Footer from 'components/layout/Footer'
 
@@ -46,7 +46,7 @@ const TripsPage = ({
           </h1>
         </MainHeader>
         <TopicSwitcher data={data} />
-        <RelatedTreaty relatedTreaties={data.relatedTreaties} />
+        <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
         <ExplorePolicies
           countryDocuments={data.countryDocuments}
           thumbnails={data.thumbnails}

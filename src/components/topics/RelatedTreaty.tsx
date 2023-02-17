@@ -1,7 +1,10 @@
-import ColumnSection from 'components/layout/ColumnSection'
-import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
+
+import ColumnSection from 'components/layout/ColumnSection'
+
+import simplifyForUrl from 'utilities/simplifyForUrl'
+import { Link } from 'gatsby'
 
 const H3 = styled.h3`
   ${({ theme }) => theme.h2};
@@ -22,26 +25,33 @@ const TreatyLink = styled(Link)`
   }
 `
 
-interface RelatedTreatyProps {
-  relatedTreaties: Queries.TripsPageQuery['relatedTreaties']
+interface RelatedTreatiesProps {
+  relatedTreaties: Queries.TripsPageQuery['relatedTreaties']['nodes']
 }
 
-const RelatedTreaty = ({ relatedTreaties }: RelatedTreatyProps) => {
+const RelatedTreaties = ({ relatedTreaties }: RelatedTreatiesProps) => {
   return (
     <ColumnSection>
       <H3>Treaty</H3>
       <div>
-        {relatedTreaties.nodes.map(treaty => (
-          <TreatyLink
-            key={treaty.data?.Document_name}
-            to={`/treaties/${treaty.data?.Treaty_short_name}`}
-          >
-            {treaty.data?.Document_name}
-          </TreatyLink>
-        ))}
+        {relatedTreaties.map(treaty => {
+          const shortName = treaty.data?.Treaty_short_name
+          if (!shortName)
+            throw new Error(
+              `Trying to link Treaty ${treaty.data?.Document_name} but Treaty_short_name not found`
+            )
+          return (
+            <TreatyLink
+              key={treaty.data?.Document_name}
+              to={`/treaties/${simplifyForUrl(treaty.data?.Treaty_short_name)}`}
+            >
+              {treaty.data?.Document_name}
+            </TreatyLink>
+          )
+        })}
       </div>
     </ColumnSection>
   )
 }
 
-export default RelatedTreaty
+export default RelatedTreaties
