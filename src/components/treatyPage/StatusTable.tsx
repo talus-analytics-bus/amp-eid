@@ -4,7 +4,7 @@ import Fuse from 'fuse.js'
 
 import PaginationControls from 'components/topics/ExplorePolicies/PaginationControls'
 
-import formatDate from 'utilities/formatDate'
+import formatAirtableDate from 'utilities/formatDate'
 
 const Container = styled.div`
   margin-top: 30px;
@@ -120,17 +120,17 @@ const StatusTable = ({
     {
       displayName: 'Signed',
       key: 'Date_signed',
-      parse: val => (val ? formatDate(val) : ''),
+      parse: val => (val ? formatAirtableDate(val) : ''),
     },
     {
       displayName: 'Ratified',
       key: 'Date_ratified',
-      parse: val => (val ? formatDate(val) : ''),
+      parse: val => (val ? formatAirtableDate(val) : ''),
     },
     {
       displayName: 'Became a party',
       key: 'Date_became_a_party',
-      parse: val => (val ? formatDate(val) : ''),
+      parse: val => (val ? formatAirtableDate(val) : ''),
     },
   ]
 

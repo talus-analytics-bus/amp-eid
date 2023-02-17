@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { RenderCMSRichText } from '@talus-analytics/library.airtable.cms-rich-text'
-import formatDate from 'utilities/formatDate'
+import formatAirtableDate from 'utilities/formatDate'
+import parseAirtableDate from 'utilities/parseDate'
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.veryLightGray};
@@ -51,11 +52,11 @@ const MainInfoSection = ({
   if (fileDates) {
     const mostRecent = fileDates
       .split(',')
-      .map(string => new Date(string))
+      .map(string => parseAirtableDate(string))
       .sort((a, b) => b.getTime() - a.getTime())
       .at(0)
 
-    if (mostRecent) latestUpdate = formatDate(mostRecent)
+    if (mostRecent) latestUpdate = formatAirtableDate(mostRecent)
   }
 
   return (
@@ -64,13 +65,13 @@ const MainInfoSection = ({
         {openedForSignature && (
           <tr>
             <td>Date opened for signature</td>
-            <td>{formatDate(openedForSignature)}</td>
+            <td>{formatAirtableDate(openedForSignature)}</td>
           </tr>
         )}
         {originalPublication && (
           <tr>
             <td>Date of original publication</td>
-            <td>{formatDate(originalPublication)}</td>
+            <td>{formatAirtableDate(originalPublication)}</td>
           </tr>
         )}
         {latestUpdate && (

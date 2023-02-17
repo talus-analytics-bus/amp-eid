@@ -2,7 +2,8 @@ import Thumbnail from 'components/ui/DocumentThumbnail'
 import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
-import formatDate from 'utilities/formatDate'
+import formatAirtableDate from 'utilities/formatDate'
+import parseAirtableDate from 'utilities/parseDate'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 
 import { ThumbnailMap } from './ExplorePolicies'
@@ -47,17 +48,17 @@ const DocumentLink = ({ document, thumbnailMap }: DocumentLinkProps) => {
   const name = document?.data?.Document_name
   if (!name) throw new Error('Document missing name')
 
-  let dateStrings = document?.data?.File_publish_date
+  const dateStrings = document?.data?.File_publish_date
   let date = ''
 
   if (dateStrings) {
     const mostRecent = dateStrings
       .split(',')
-      .map(string => new Date(string))
+      .map(string => parseAirtableDate(string))
       .sort((a, b) => b.getTime() - a.getTime())
       .at(0)
 
-    if (mostRecent) date = formatDate(mostRecent)
+    if (mostRecent) date = formatAirtableDate(mostRecent)
   }
 
   const image = thumbnailMap[name]
