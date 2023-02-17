@@ -151,17 +151,17 @@ const StatusTable = ({
         <thead>
           <tr>
             {columns.map(col => (
-              <th>{col.displayName}</th>
+              <th key={col.displayName}>{col.displayName}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {paginated.map(country => (
-            <tr>
+            <tr key={country?.data?.Country?.[0]?.data?.ISO3}>
               {columns.map(col => (
                 // @ts-expect-error: The types of col.parse
                 // and col.key are guaranteed by the types above
-                <td>{col.parse(country?.data?.[col.key])}</td>
+                <td key={col.key}>{col.parse(country?.data?.[col.key])}</td>
               ))}
             </tr>
           ))}

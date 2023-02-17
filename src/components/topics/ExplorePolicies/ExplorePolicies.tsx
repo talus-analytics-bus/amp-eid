@@ -141,7 +141,10 @@ const ExplorePolicies = ({
                 <DropdownContent>
                   {country.data?.All_applicable_countries_link?.map(
                     document => (
-                      <DocumentLink {...{ document, thumbnailMap }} />
+                      <DocumentLink
+                        key={document?.data?.Document_name}
+                        {...{ document, thumbnailMap }}
+                      />
                     )
                   )}
                 </DropdownContent>
