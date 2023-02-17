@@ -41,6 +41,8 @@ const StatusTable = ({
     null
   >
 
+  // This approach adapted from:
+  // https://stackoverflow.com/questions/50870423/discriminated-union-of-generic-type
   interface Column<T extends keyof CountryData> {
     key: T
     displayName: string
