@@ -75,6 +75,10 @@ const Columns = styled.div`
 const Column = styled.div`
   flex: 1;
 `
+const Paragraph = styled.p`
+  ${({ theme }) => theme.paragraph};
+  color: ${({ theme }) => theme.paragraph};
+`
 
 const IndexPage = (): JSX.Element => {
   const cmsData = useIndexPageData()
@@ -101,7 +105,9 @@ const IndexPage = (): JSX.Element => {
           <H3>
             <CMS.Text name="H3" data={cmsData} />
           </H3>
-          <CMS.Text name="Paragraph 2" data={cmsData} />
+          <Paragraph>
+            <CMS.Text name="Paragraph 2" data={cmsData} />
+          </Paragraph>
           <TopicList />
         </ContentContainer>
       </TopicSection>
@@ -111,7 +117,9 @@ const IndexPage = (): JSX.Element => {
         </H3>
         <Columns>
           <Column>
-            <CMS.Text name="Paragraph 3" data={cmsData} />
+            <Paragraph>
+              <CMS.Text name="Paragraph 3" data={cmsData} />
+            </Paragraph>
           </Column>
           <Column>
             <TreatySearch />
@@ -122,7 +130,9 @@ const IndexPage = (): JSX.Element => {
         </H3>
         <Columns>
           <Column>
-            <CMS.Text name="Paragraph 4" data={cmsData} />
+            <Paragraph>
+              <CMS.Text name="Paragraph 4" data={cmsData} />
+            </Paragraph>
           </Column>
           <Column>
             <CountrySearch />
