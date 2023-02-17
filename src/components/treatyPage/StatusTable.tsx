@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import Fuse from 'fuse.js'
+
+import PaginationControls from 'components/topics/ExplorePolicies/PaginationControls'
+
 import formatDate from 'utilities/formatDate'
 
 const Container = styled.div`
   margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -25,16 +33,63 @@ const Container = styled.div`
     }
   }
 `
+const SearchControlContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+const Search = styled.input`
+  padding: 6px 12px;
+  border: 1px solid ${({ theme }) => theme.black};
+  border-radius: 5px;
+`
+
 const StatusTable = ({
   treatyData,
 }: {
-  treatyData: Queries.TreatyPageQuery['general']['nodes'][0]
+  treatyData: Queries.TreatyPageQuery['general']['nodes'][number]
 }) => {
   const countryList = treatyData.data?.Country_link
   if (!countryList || countryList.length === 0 || !countryList[0]?.data)
     throw new Error(
       `Country list not found for treaty ${treatyData.data?.Document_name}`
     )
+
+  const [page, setPage] = useState(0)
+  const [pageSize, setPageSize] = useState(5)
+  const [searchTerm, setSearchTerm] = useState('')
+
+  // // removing 'readonly' from the gatsby-generated type
+  // // so we can sort without typescript complaining
+  // type countriesMutable = {
+  //   -readonly [key in keyof typeof countryList[number]]: typeof countryList[key]
+  // }
+
+  type Writeable<T> = { -readonly [P in keyof T]: T[P] }
+  type countriesMutable = Writeable<typeof countryList>
+  const countries = countryList as unknown as countriesMutable
+
+  let sorted: typeof countries
+
+  const fuse = new Fuse(countries, {
+    keys: [
+      {
+        name: 'name',
+        getFn: country => country?.data?.Country?.[0]?.data?.Country_name ?? '',
+      },
+    ],
+  })
+
+  if (searchTerm === '')
+    sorted = countries.sort(
+      (a, b) =>
+        a?.data?.Country?.[0]?.data?.Country_name?.localeCompare(
+          b?.data?.Country?.[0]?.data?.Country_name ?? ''
+        ) ?? -1
+    )
+  else sorted = fuse.search(searchTerm).map(result => result.item)
+
+  const total = sorted.length
+  const paginated = sorted.slice(page * pageSize, page * pageSize + pageSize)
 
   type CountryData = Exclude<
     [Exclude<typeof countryList[number], null>][number]['data'],
@@ -81,6 +136,17 @@ const StatusTable = ({
 
   return (
     <Container>
+      <SearchControlContainer>
+        <Search
+          type="search"
+          placeholder="Find a country"
+          value={searchTerm}
+          onChange={e => {
+            setPage(0)
+            setSearchTerm(e.target.value)
+          }}
+        />
+      </SearchControlContainer>
       <table>
         <thead>
           <tr>
@@ -90,7 +156,7 @@ const StatusTable = ({
           </tr>
         </thead>
         <tbody>
-          {countryList.map(country => (
+          {paginated.map(country => (
             <tr>
               {columns.map(col => (
                 // @ts-expect-error: The types of col.parse
@@ -101,6 +167,9 @@ const StatusTable = ({
           ))}
         </tbody>
       </table>
+      <PaginationControls
+        {...{ page, setPage, pageSize, setPageSize, total }}
+      />
     </Container>
   )
 }
