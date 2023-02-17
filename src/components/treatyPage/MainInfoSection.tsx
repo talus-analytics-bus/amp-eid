@@ -62,24 +62,26 @@ const MainInfoSection = ({
   return (
     <Container>
       <DateTable>
-        {openedForSignature && (
-          <tr>
-            <td>Date opened for signature</td>
-            <td>{formatAirtableDate(openedForSignature)}</td>
-          </tr>
-        )}
-        {originalPublication && (
-          <tr>
-            <td>Date of original publication</td>
-            <td>{formatAirtableDate(originalPublication)}</td>
-          </tr>
-        )}
-        {latestUpdate && (
-          <tr>
-            <td>Latest update</td>
-            <td>{latestUpdate}</td>
-          </tr>
-        )}
+        <tbody>
+          {openedForSignature && (
+            <tr>
+              <td>Date opened for signature</td>
+              <td>{formatAirtableDate(openedForSignature)}</td>
+            </tr>
+          )}
+          {originalPublication && (
+            <tr>
+              <td>Date of original publication</td>
+              <td>{formatAirtableDate(originalPublication)}</td>
+            </tr>
+          )}
+          {latestUpdate && (
+            <tr>
+              <td>Latest update</td>
+              <td>{latestUpdate}</td>
+            </tr>
+          )}
+        </tbody>
       </DateTable>
       <Description markdown={treatyData.data?.Treaty_description ?? ''} />
     </Container>
