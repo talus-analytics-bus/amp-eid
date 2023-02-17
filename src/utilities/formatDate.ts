@@ -1,3 +1,5 @@
+import parseAirtableDate from './parseDate'
+
 const monthNames = [
   'Jan',
   'Feb',
@@ -13,9 +15,9 @@ const monthNames = [
   'Dec',
 ]
 
-const formatDate = (input: string | Date) => {
+const formatAirtableDate = (input: string | Date) => {
   if (typeof input === 'string') {
-    input = new Date(input)
+    input = parseAirtableDate(input)
   }
 
   return `${input.getDate()} ${
@@ -23,4 +25,4 @@ const formatDate = (input: string | Date) => {
   } ${input.getFullYear()}`
 }
 
-export default formatDate
+export default formatAirtableDate
