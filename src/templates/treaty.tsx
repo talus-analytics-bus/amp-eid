@@ -12,6 +12,7 @@ import StatusTable from 'components/treatyPage/StatusTable'
 import ColumnSection from 'components/layout/ColumnSection'
 import MainInfoSection from 'components/treatyPage/MainInfoSection'
 import SubSection from 'components/layout/SubSection'
+import Footer from 'components/layout/Footer'
 
 const MainContent = styled.div``
 const H3 = styled.h3`
@@ -54,6 +55,7 @@ const TreatyPage = ({
         </MainContent>
       </ColumnSection>
     </Main>
+    <Footer />
   </Providers>
 )
 
