@@ -11,6 +11,7 @@ import Sidebar from 'components/treatyPage/Sidebar'
 import StatusTable from 'components/treatyPage/StatusTable'
 import ColumnSection from 'components/layout/ColumnSection'
 import MainInfoSection from 'components/treatyPage/MainInfoSection'
+import SubSection from 'components/layout/SubSection'
 
 const MainContent = styled.div``
 const H3 = styled.h3`
@@ -42,7 +43,14 @@ const TreatyPage = ({
         <Sidebar treatyData={treatyData} />
         <MainContent>
           <MainInfoSection treatyData={treatyData} />
-          <StatusTable treatyData={treatyData} />
+          <SubSection>
+            <H3>Related Treaties</H3>
+          </SubSection>
+          <SubSection>
+            <H3>States Parties</H3>
+            <p>Paragraph of content goes here</p>
+            <StatusTable treatyData={treatyData} />
+          </SubSection>
         </MainContent>
       </ColumnSection>
     </Main>
