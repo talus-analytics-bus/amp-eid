@@ -10,7 +10,7 @@ import Providers from 'components/layout/Providers'
 
 import useIndexPageData from 'cmsHooks/useIndexPageData'
 import TopicSwitcher from 'components/topics/TopicSwitcher/TopicSwitcher'
-import RelatedTreaties from 'components/topics/RelatedTreaty'
+import RelatedTreaties from 'components/topics/RelatedTreaties'
 import ExplorePolicies from 'components/topics/ExplorePolicies/ExplorePolicies'
 import Footer from 'components/layout/Footer'
 
