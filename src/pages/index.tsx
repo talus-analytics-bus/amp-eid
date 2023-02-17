@@ -44,7 +44,6 @@ const TopicSection = styled.section`
   display: flex;
   flex-direction: column;
   margin-top: 80px;
-  // padding-top: 60px;
   padding-bottom: 80px;
   background-color: ${({ theme }) => theme.veryLightGray};
 `
@@ -102,9 +101,7 @@ const IndexPage = (): JSX.Element => {
           <H3>
             <CMS.Text name="H3" data={cmsData} />
           </H3>
-          <H4>
-            <CMS.Text name="H4" data={cmsData} />
-          </H4>
+          <CMS.Text name="Paragraph 2" data={cmsData} />
           <TopicList />
         </ContentContainer>
       </TopicSection>
