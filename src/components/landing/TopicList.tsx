@@ -14,8 +14,9 @@ const TopicLinkList = styled.ul`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  @media (max-width: 1000px) {
-    flex-direction: column;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
   }
 `
 const Li = styled.li`

@@ -53,12 +53,6 @@ const H3 = styled.h3`
   ${({ theme }) => theme.h2};
   color: ${({ theme }) => theme.black};
 `
-const H4 = styled.h4`
-  margin: 0;
-  margin-top: 5px;
-  ${({ theme }) => theme.paragraph};
-  color: ${({ theme }) => theme.veryDarkGray};
-`
 const Columns = styled.div`
   display: flex;
   flex-wrap: wrap;
