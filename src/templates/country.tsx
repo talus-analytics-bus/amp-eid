@@ -68,15 +68,22 @@ const CountryPage = ({
 
 export const query = graphql`
   query CountryPage($iso3: String) {
-    country: airtableDocuments(data: { ISO3: { eq: $iso3 } }) {
+    countryData: airtableTrips(data: { ISO3: { eq: $iso3 } }) {
+      flag {
+        childrenImageSharp {
+          gatsbyImageData(placeholder: BLURRED, width: 55, quality: 80)
+        }
+      }
       data {
         Country_name
       }
     }
-    flagData: airtableTrips(data: { ISO3: { eq: $iso3 } }) {
-      flag {
-        childrenImageSharp {
-          gatsbyImageData(placeholder: BLURRED, width: 55, quality: 80)
+    trips: airtableTrips(data: { ISO3: { eq: $iso3 } }) {
+      data {
+        All_applicable_countries_link {
+          data {
+            Document_name
+          }
         }
       }
     }
