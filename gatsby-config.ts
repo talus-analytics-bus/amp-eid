@@ -108,6 +108,13 @@ const config: GatsbyConfig = {
           },
           {
             baseId: `appryZVvEysrHZL0S`,
+            tableName: `LOOKUP: Document (imported)`,
+            tableView: `CMS`,
+            queryName: `Trips`,
+            separateNodeType: true,
+          },
+          {
+            baseId: `appryZVvEysrHZL0S`,
             tableName: `4. Assign status`,
             tableLinks: [`Country`, `Status_link`],
             tableView: `CMS`,
