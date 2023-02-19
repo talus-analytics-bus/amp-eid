@@ -101,7 +101,7 @@ const config: GatsbyConfig = {
           {
             baseId: `appryZVvEysrHZL0S`,
             tableName: `LOOKUP: Document (imported)`,
-            tableLinks: [`Authoring_country`],
+            tableLinks: [`Authoring_country`, `All_applicable_countries`],
             tableView: `CMS`,
             queryName: `Trips`,
             separateNodeType: true,
@@ -176,6 +176,20 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-remote-images`,
       options: {
         nodeType: 'AirtableDocuments',
+        imagePath: 'data.PDF[].thumbnails.large.url',
+        // ** ALL OPTIONAL BELOW HERE: **
+        name: 'documentThumbnail',
+        skipUndefinedUrls: true,
+        prepareUrl: (url: string) => {
+          if (!url || url === 'N/A') return undefined
+          return url
+        },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'AirtableTrips',
         imagePath: 'data.PDF[].thumbnails.large.url',
         // ** ALL OPTIONAL BELOW HERE: **
         name: 'documentThumbnail',

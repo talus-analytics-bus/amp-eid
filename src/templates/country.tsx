@@ -22,11 +22,9 @@ const H2 = styled.h2`
   color: ${({ theme }) => theme.black};
 `
 
-const CountryPage = ({
-  data: { country, flagData },
-}: PageProps<Queries.CountryPageQuery>) => {
-  const countryName = country?.data?.Country_name
-  const flag = flagData?.flag?.childrenImageSharp?.[0]?.gatsbyImageData
+const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
+  const countryName = data.countryData?.data?.Country_name
+  const flag = data.countryData?.flag?.childrenImageSharp?.[0]?.gatsbyImageData
 
   if (!countryName) throw new Error('All countries must have a country name')
   if (!flag) throw new Error(`Flag not found for ${countryName}`)
@@ -78,11 +76,18 @@ export const query = graphql`
         Country_name
       }
     }
-    trips: airtableTrips(data: { ISO3: { eq: $iso3 } }) {
-      data {
-        All_applicable_countries_link {
-          data {
-            Document_name
+    trips: allAirtableTrips(filter: { data: { ISO3: { eq: $iso3 } } }) {
+      nodes {
+        data {
+          All_applicable_countries_link {
+            data {
+              Document_name
+            }
+            documentThumbnail {
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
           }
         }
       }
