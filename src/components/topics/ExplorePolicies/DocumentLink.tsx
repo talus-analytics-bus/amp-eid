@@ -7,8 +7,6 @@ import formatAirtableDate from 'utilities/formatDate'
 import parseAirtableDate from 'utilities/parseDate'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 
-import { ThumbnailMap } from './ExplorePolicies'
-
 const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
@@ -42,12 +40,21 @@ interface DocumentLinkProps {
       File_publish_date?: string | null
     } | null
   } | null
-  thumbnail: IGatsbyImageData | null | undefined
+  thumbnail:
+    | {
+        childImageSharp: {
+          gatsbyImageData: IGatsbyImageData
+        } | null
+      }
+    | null
+    | undefined
 }
 
 const DocumentLink = ({ document, thumbnail }: DocumentLinkProps) => {
   const name = document?.data?.Document_name
   if (!name) throw new Error('Document missing name')
+  const image = thumbnail?.childImageSharp?.gatsbyImageData
+  if (!image) throw new Error(`Document ${name} missing thumbnail`)
 
   const dateStrings = document?.data?.File_publish_date
   let date = ''
@@ -64,7 +71,7 @@ const DocumentLink = ({ document, thumbnail }: DocumentLinkProps) => {
 
   return (
     <StyledLink key={name} to={`/documents/${simplifyForUrl(name)}`}>
-      {thumbnail && <Thumbnail image={thumbnail} alt={`${name} thumbnail`} />}
+      {thumbnail && <Thumbnail image={image} alt={`${name} thumbnail`} />}
       <Metadata>
         <DateText>{date}</DateText>
         <Name>{name}</Name>

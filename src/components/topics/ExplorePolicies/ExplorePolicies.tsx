@@ -34,10 +34,6 @@ interface ExplorePoliciesProps {
   thumbnails: Queries.TripsPageQuery['thumbnails']
 }
 
-export interface ThumbnailMap {
-  [key: string]: IGatsbyImageData
-}
-
 const ExplorePolicies = ({
   countryDocuments,
   thumbnails,
@@ -47,12 +43,11 @@ const ExplorePolicies = ({
   const [searchTerm, setSearchTerm] = useState('')
 
   // map between document name and thumbnail data
-  const thumbnailMap: ThumbnailMap = useMemo(() => {
+  const thumbnailMap = useMemo(() => {
     return thumbnails.nodes.reduce(
       (obj, doc) => ({
         ...obj,
-        [doc.data!.Document_name!]:
-          doc.documentThumbnail?.[0]?.childImageSharp?.gatsbyImageData,
+        [doc.data!.Document_name!]: doc.documentThumbnail?.[0],
       }),
       {}
     )
