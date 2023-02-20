@@ -6,6 +6,8 @@ import PaginationControls from 'components/topics/ExplorePolicies/PaginationCont
 
 import formatAirtableDate from 'utilities/formatDate'
 import StyledTable from 'components/ui/StyledTable'
+import { Link } from 'gatsby'
+import simplifyForUrl from 'utilities/simplifyForUrl'
 
 const Container = styled.div`
   margin-top: 30px;
@@ -94,7 +96,11 @@ const StatusTable = ({
     {
       displayName: 'Country',
       key: 'Country',
-      parse: val => val?.[0]?.data?.Country_name,
+      parse: val => (
+        <Link to={`/countries/${simplifyForUrl(val?.[0]?.data?.ISO3 ?? '#')}`}>
+          {val?.[0]?.data?.Country_name}
+        </Link>
+      ),
     },
     { displayName: 'Status', key: 'Status', parse: val => val },
     {
