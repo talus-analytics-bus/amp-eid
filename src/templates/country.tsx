@@ -23,6 +23,7 @@ const H1 = styled.h1`
 const H2 = styled.h2`
   ${({ theme }) => theme.h2};
   color: ${({ theme }) => theme.black};
+  margin: 0;
 `
 
 const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
@@ -53,7 +54,7 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
             <H2>Explore policies</H2>
             <CountryPolicies {...data} />
             <SubSection>
-              <h2>Treaties</h2>
+              <H2>Treaties</H2>
               <CountryTreaties {...data} />
             </SubSection>
           </div>

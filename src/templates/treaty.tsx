@@ -17,10 +17,14 @@ import RelatedTreaties from 'components/topics/RelatedTreaties'
 
 const MainContent = styled.div``
 const H3 = styled.h3`
-  margin-top: 0;
-  margin-bottom: 20px;
+  margin: 0;
   ${({ theme }) => theme.h3}
   color: ${({ theme }) => theme.black};
+`
+const P = styled.p`
+  ${({ theme }) => theme.paragraph};
+  color: ${({ theme }) => theme.black};
+  margin: 0;
 `
 
 type NoUndefinedField<T> = {
@@ -64,7 +68,7 @@ const TreatyPage = ({
             )}
           <SubSection>
             <H3>States Parties</H3>
-            <p>Paragraph of content goes here</p>
+            <P>{treatyData.data?.Treaty_footnotes}</P>
             <StatusTable treatyData={treatyData} />
           </SubSection>
         </MainContent>
@@ -96,6 +100,7 @@ export const query = graphql`
           File_publish_date
           Date_opened_for_signature
           Date_of_original_publication
+          Treaty_footnotes
           Related_document {
             data {
               Treaty_short_name

@@ -10,7 +10,6 @@ import { Link } from 'gatsby'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 
 const Container = styled.div`
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
   gap: 15px;
