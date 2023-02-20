@@ -1,4 +1,3 @@
-import Thumbnail from 'components/ui/DocumentThumbnail'
 import { Link } from 'gatsby'
 import { IGatsbyImageData } from 'gatsby-plugin-image'
 import React from 'react'
@@ -6,6 +5,7 @@ import styled from 'styled-components'
 import formatAirtableDate from 'utilities/formatDate'
 import parseAirtableDate from 'utilities/parseDate'
 import simplifyForUrl from 'utilities/simplifyForUrl'
+import Thumbnail from 'components/ui/DocumentThumbnail'
 
 const StyledLink = styled(Link)`
   display: flex;

@@ -5,7 +5,7 @@ import Fuse from 'fuse.js'
 import ColumnSection from 'components/layout/ColumnSection'
 import PaginationControls from './PaginationControls'
 import { IGatsbyImageData } from 'gatsby-plugin-image'
-import DocumentLink from './DocumentLink'
+import DocumentLink from '../../ui/DocumentLink'
 import Flag from 'components/ui/Flag'
 import ExploreDropdown from 'components/ui/ExploreDropdown'
 
