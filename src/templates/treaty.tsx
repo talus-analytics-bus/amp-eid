@@ -80,7 +80,9 @@ const TreatyPage = ({
             )}
           <SubSection>
             <H3>States Parties</H3>
-            <Footnote markdown={treatyData.data?.Treaty_footnotes ?? ''} />
+            {treatyData.data?.Treaty_footnotes && (
+              <Footnote markdown={treatyData.data?.Treaty_footnotes} />
+            )}
             <StatusTable treatyData={treatyData} />
           </SubSection>
         </MainContent>
