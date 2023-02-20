@@ -5,33 +5,13 @@ import Fuse from 'fuse.js'
 import PaginationControls from 'components/topics/ExplorePolicies/PaginationControls'
 
 import formatAirtableDate from 'utilities/formatDate'
+import StyledTable from 'components/ui/StyledTable'
 
 const Container = styled.div`
   margin-top: 30px;
   display: flex;
   flex-direction: column;
   gap: 15px;
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    th,
-    td {
-      border: 1px solid ${({ theme }) => theme.medGray};
-      padding: 10px;
-    }
-    tr:nth-child(odd) {
-      background: ${({ theme }) => theme.ampEidVeryLightBlue};
-    }
-    thead {
-      tr:nth-child(odd) {
-        background: white;
-      }
-      th {
-        text-align: left;
-      }
-    }
-  }
 `
 const SearchControlContainer = styled.div`
   display: flex;
@@ -147,7 +127,7 @@ const StatusTable = ({
           }}
         />
       </SearchControlContainer>
-      <table>
+      <StyledTable>
         <thead>
           <tr>
             {columns.map(col => (
@@ -166,7 +146,7 @@ const StatusTable = ({
             </tr>
           ))}
         </tbody>
-      </table>
+      </StyledTable>
       <PaginationControls
         {...{ page, setPage, pageSize, setPageSize, total }}
       />
