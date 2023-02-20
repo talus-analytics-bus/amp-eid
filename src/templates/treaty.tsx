@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { graphql, PageProps } from 'gatsby'
+import { graphql, Link, PageProps } from 'gatsby'
 import CMS from '@talus-analytics/library.airtable-cms'
 import { RenderCMSRichText } from '@talus-analytics/library.airtable.cms-rich-text'
 
@@ -15,6 +15,7 @@ import MainInfoSection from 'components/treatyPage/MainInfoSection'
 import SubSection from 'components/layout/SubSection'
 import Footer from 'components/layout/Footer'
 import RelatedTreaties from 'components/topics/RelatedTreaties'
+import RelatedTopics from 'components/ui/RelatedTopic'
 
 const MainContent = styled.div``
 const H3 = styled.h3`
@@ -73,6 +74,7 @@ const TreatyPage = ({
                 />
               </SubSection>
             )}
+          <RelatedTopics topics={treatyData.data?.Topic} />
           <SubSection>
             <H3>States Parties</H3>
             {treatyData.data?.Treaty_footnotes && (
@@ -110,6 +112,7 @@ export const query = graphql`
           Date_opened_for_signature
           Date_of_original_publication
           Treaty_footnotes
+          Topic
           Related_document {
             data {
               Treaty_short_name
