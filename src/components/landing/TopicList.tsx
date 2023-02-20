@@ -58,7 +58,7 @@ const TopicList = () => {
   return (
     <TopicLinkList>
       <Li>
-        <ImageLink to="/topics/trips/">
+        <ImageLink to="/topics/trade-and-intellectual-property/">
           <CMS.Image name="Topic 1 image" data={cmsData} />
           <ImageLinkTextContainer>
             <CMS.Text name="Topic 1 text" data={cmsData} />

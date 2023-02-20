@@ -81,7 +81,7 @@ const NavBar = () => {
 
   const topicsLinks = [
     {
-      to: '/topics/trips/',
+      to: '/topics/trade-and-intellectual-property/',
       children: <CMS.Text name="Topic 1 text" data={data} />,
     },
     { to: '', children: 'Coming soon: Childhood vaccination', disabled: true },
@@ -125,7 +125,7 @@ const NavBar = () => {
           <MobileLinkList>
             <h3 style={{ color: 'white' }}>Topics</h3>
             <Li key={'trips'}>
-              <NavLink to="/topics/trips/">
+              <NavLink to="/topics/trade-and-intellectual-property/">
                 Trade and intellectual property
               </NavLink>
             </Li>
