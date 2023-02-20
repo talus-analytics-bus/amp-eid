@@ -10,6 +10,7 @@ import MainHeader from 'components/layout/MainHeader'
 import Main from 'components/layout/Main'
 import ColumnSection from 'components/layout/ColumnSection'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import Flag from 'components/ui/Flag'
 
 const H1 = styled.h1`
   display: flex;
@@ -24,10 +25,8 @@ const H2 = styled.h2`
 
 const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
   const countryName = data.countryData?.data?.Country_name
-  const flag = data.countryData?.flag?.childrenImageSharp?.[0]?.gatsbyImageData
 
   if (!countryName) throw new Error('All countries must have a country name')
-  if (!flag) throw new Error(`Flag not found for ${countryName}`)
 
   return (
     <Providers>
@@ -40,13 +39,7 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
         <MainHeader>
           <h2>COUNTRY</h2>
           <H1>
-            <GatsbyImage
-              style={{
-                filter: 'drop-shadow(.5px 0.5px 1px rgba(0, 0, 0, 0.35))',
-              }}
-              image={flag}
-              alt={`${countryName} flag`}
-            />
+            <Flag country={data.countryData} />
             {countryName}
           </H1>
         </MainHeader>
@@ -68,7 +61,7 @@ export const query = graphql`
   query CountryPage($iso3: String) {
     countryData: airtableTrips(data: { ISO3: { eq: $iso3 } }) {
       flag {
-        childrenImageSharp {
+        childImageSharp {
           gatsbyImageData(placeholder: BLURRED, width: 55, quality: 80)
         }
       }
