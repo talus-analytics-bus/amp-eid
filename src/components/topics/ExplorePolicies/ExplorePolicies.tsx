@@ -113,7 +113,13 @@ const ExplorePolicies = ({
                 {country.data?.All_applicable_countries_link?.map(document => (
                   <DocumentLink
                     key={document?.data?.Document_name}
-                    {...{ document, thumbnailMap }}
+                    document={document}
+                    thumbnail={
+                      thumbnailMap[
+                        document?.data
+                          ?.Document_name as keyof typeof thumbnailMap
+                      ]
+                    }
                   />
                 ))}
               </ExploreDropdown>

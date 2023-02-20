@@ -1,5 +1,6 @@
 import Thumbnail from 'components/ui/DocumentThumbnail'
 import { Link } from 'gatsby'
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 import React from 'react'
 import styled from 'styled-components'
 import formatAirtableDate from 'utilities/formatDate'
@@ -7,16 +8,6 @@ import parseAirtableDate from 'utilities/parseDate'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 
 import { ThumbnailMap } from './ExplorePolicies'
-
-interface DocumentLinkProps {
-  document?: {
-    data?: {
-      Document_name?: string | null
-      File_publish_date?: string | null
-    } | null
-  } | null
-  thumbnailMap: ThumbnailMap
-}
 
 const StyledLink = styled(Link)`
   display: flex;
@@ -44,7 +35,17 @@ const DateText = styled.div`
   color: ${({ theme }) => theme.veryDarkGray};
 `
 
-const DocumentLink = ({ document, thumbnailMap }: DocumentLinkProps) => {
+interface DocumentLinkProps {
+  document?: {
+    data?: {
+      Document_name?: string | null
+      File_publish_date?: string | null
+    } | null
+  } | null
+  thumbnail: IGatsbyImageData | null | undefined
+}
+
+const DocumentLink = ({ document, thumbnail }: DocumentLinkProps) => {
   const name = document?.data?.Document_name
   if (!name) throw new Error('Document missing name')
 
@@ -61,11 +62,9 @@ const DocumentLink = ({ document, thumbnailMap }: DocumentLinkProps) => {
     if (mostRecent) date = formatAirtableDate(mostRecent)
   }
 
-  const image = thumbnailMap[name]
-
   return (
     <StyledLink key={name} to={`/documents/${simplifyForUrl(name)}`}>
-      {image && <Thumbnail image={image} alt={`${name} thumbnail`} />}
+      {thumbnail && <Thumbnail image={thumbnail} alt={`${name} thumbnail`} />}
       <Metadata>
         <DateText>{date}</DateText>
         <Name>{name}</Name>
