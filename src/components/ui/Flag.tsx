@@ -27,7 +27,7 @@ const Flag = ({ country }: FlagProps) => {
   return (
     <GatsbyImage
       image={imageData}
-      alt={`${countryName} Flag`}
+      alt={`Flag of ${countryName} `}
       style={{
         filter: 'drop-shadow(.5px 0.5px 1px rgba(0, 0, 0, 0.35))',
       }}
