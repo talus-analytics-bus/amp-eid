@@ -11,6 +11,8 @@ import Main from 'components/layout/Main'
 import ColumnSection from 'components/layout/ColumnSection'
 import Flag from 'components/ui/Flag'
 import CountryPolicies from 'components/countryPage/CountryPolicies'
+import SubSection from 'components/layout/SubSection'
+import CountryTreaties from 'components/countryPage/CountryTreaties'
 
 const H1 = styled.h1`
   display: flex;
@@ -50,6 +52,10 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
           <div>
             <H2>Explore policies</H2>
             <CountryPolicies {...data} />
+            <SubSection>
+              <h2>Treaties</h2>
+              <CountryTreaties {...data} />
+            </SubSection>
           </div>
         </ColumnSection>
       </Main>
@@ -80,6 +86,23 @@ export const query = graphql`
             childImageSharp {
               gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
             }
+          }
+        }
+      }
+    }
+    treaties: airtableTreaties(data: { ISO3: { eq: $iso3 } }) {
+      data {
+        Treaty_link {
+          data {
+            Treaty_name {
+              data {
+                Treaty_short_name
+              }
+            }
+            Status
+            Date_signed
+            Date_ratified
+            Date_became_a_party
           }
         }
       }
