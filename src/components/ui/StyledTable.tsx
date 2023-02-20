@@ -14,6 +14,7 @@ const StyledTable = styled.table`
 
       &:hover {
         color: ${({ theme }) => theme.link};
+        text-decoration: underline;
       }
     }
   }
