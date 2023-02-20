@@ -3,11 +3,12 @@ import styled from 'styled-components'
 import Fuse from 'fuse.js'
 
 import ColumnSection from 'components/layout/ColumnSection'
-import PaginationControls from './PaginationControls'
-import { IGatsbyImageData } from 'gatsby-plugin-image'
-import DocumentLink from '../../ui/DocumentLink'
+
 import Flag from 'components/ui/Flag'
+import DocumentLink from 'components/ui/DocumentLink'
 import ExploreDropdown from 'components/ui/ExploreDropdown'
+
+import PaginationControls from './PaginationControls'
 
 const H3 = styled.h3`
   ${({ theme }) => theme.h2};
