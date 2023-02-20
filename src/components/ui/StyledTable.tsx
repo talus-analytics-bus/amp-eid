@@ -7,6 +7,15 @@ const StyledTable = styled.table`
   td {
     border: 1px solid ${({ theme }) => theme.medGray};
     padding: 10px;
+
+    a {
+      color: ${({ theme }) => theme.black};
+      text-decoration: none;
+
+      &:hover {
+        color: ${({ theme }) => theme.link};
+      }
+    }
   }
   tr:nth-child(odd) {
     background: ${({ theme }) => theme.ampEidVeryLightBlue};
