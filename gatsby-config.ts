@@ -101,7 +101,14 @@ const config: GatsbyConfig = {
           {
             baseId: `appryZVvEysrHZL0S`,
             tableName: `LOOKUP: Document (imported)`,
-            tableLinks: [`Authoring_country`],
+            tableLinks: [`Authoring_country`, `All_applicable_countries`],
+            tableView: `CMS`,
+            queryName: `Trips`,
+            separateNodeType: true,
+          },
+          {
+            baseId: `appryZVvEysrHZL0S`,
+            tableName: `LOOKUP: Document (imported)`,
             tableView: `CMS`,
             queryName: `Trips`,
             separateNodeType: true,
@@ -128,7 +135,7 @@ const config: GatsbyConfig = {
             tableName: `LOOKUP: Treaty`,
             tableView: `CMS`,
             queryName: `Treaties`,
-            tableLinks: [`Country_link`],
+            tableLinks: [`Country_link`, `Related_document`],
             mapping: { PDF: `fileNode` },
             separateNodeType: true,
           },
@@ -149,7 +156,7 @@ const config: GatsbyConfig = {
           },
           {
             baseId: `app6WOQpwEJy3B88C`,
-            tableName: `ALL: ONLY USE THIS TAB INSTEAD OF THE SINGLE TABS FROM NOW ON`,
+            tableName: `All treaties and countries`,
             tableLinks: [`Treaty_name`, `Country`],
             tableView: `CMS`,
             queryName: `Treaties`,
@@ -168,7 +175,7 @@ const config: GatsbyConfig = {
         skipUndefinedUrls: true,
         prepareUrl: (url: string) => {
           if (!url || url === 'N/A') return undefined
-          return `https://flags.talusanalytics.com/shiny_100px/${url.toLowerCase()}.png`
+          return `https://flags.talusanalytics.com/300px/${url.toLowerCase()}.png`
         },
       },
     },
@@ -176,6 +183,20 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-remote-images`,
       options: {
         nodeType: 'AirtableDocuments',
+        imagePath: 'data.PDF[].thumbnails.large.url',
+        // ** ALL OPTIONAL BELOW HERE: **
+        name: 'documentThumbnail',
+        skipUndefinedUrls: true,
+        prepareUrl: (url: string) => {
+          if (!url || url === 'N/A') return undefined
+          return url
+        },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'AirtableTrips',
         imagePath: 'data.PDF[].thumbnails.large.url',
         // ** ALL OPTIONAL BELOW HERE: **
         name: 'documentThumbnail',

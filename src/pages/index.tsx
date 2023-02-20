@@ -4,89 +4,74 @@ import styled from 'styled-components'
 import CMS from '@talus-analytics/library.airtable-cms'
 import Providers from '../components/layout/Providers'
 
-import Main from '../components/layout/Main'
-
 import useIndexPageData from '../cmsHooks/useIndexPageData'
 import NavBar from 'components/layout/NavBar/NavBar'
-import { Link } from 'gatsby'
+import TopicList from 'components/landing/TopicList'
+import CountrySearch from 'components/landing/CountrySearch'
+import Footer from 'components/layout/Footer'
+import TreatySearch from 'components/landing/TreatySearch'
 
+const ContentContainer = styled.div`
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+`
 const Header = styled.header`
   text-align: center;
   max-width: 1000px;
   margin: auto;
+  margin-top: 50px;
 `
 const IntroParagraph = styled.p`
   ${({ theme }) => theme.bigParagraph};
-  color: ${({ theme }) => theme.veryDarkGray};
+  color: ${({ theme }) => theme.black};
 `
 const H1 = styled.h1`
-  color: ${({ theme }) => theme.ampEidGreen};
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 40px;
-  line-height: 60px;
+  color: ${({ theme }) => theme.veryDarkGray};
+  ${({ theme }) => theme.landingPageSmall};
+  margin: 0;
+  margin-bottom: 10px;
 `
 const H2 = styled.h2`
-  ${({ theme }) => theme.bigParagraph};
-  color: ${({ theme }) => theme.veryDarkGray};
+  ${({ theme }) => theme.landingPageH1};
+  color: ${({ theme }) => theme.ampEidMedBlue};
+  margin: 0;
+  margin-bottom: 60px;
 `
 const TopicSection = styled.section`
   display: flex;
-  align-items: center;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 80px;
+  padding-bottom: 80px;
+  background-color: ${({ theme }) => theme.veryLightGray};
 `
 const H3 = styled.h3`
   margin: 0;
+  margin-top: 80px;
   ${({ theme }) => theme.h2};
   color: ${({ theme }) => theme.black};
 `
-const H4 = styled.h4`
-  margin: 0;
-  margin-top: 5px;
-  ${({ theme }) => theme.paragraph};
-  color: ${({ theme }) => theme.veryDarkGray};
-`
-const TopicLinkList = styled.ul`
-  list-style: none;
+const Columns = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 30px;
-  @media (max-width: 1000px) {
-    flex-direction: column;
-  }
-`
-const Li = styled.li`
-  flex-basis: 30%;
-  display: block;
-  border: 1px solid ${({ theme }) => theme.black};
-  border-radius: 5px;
-  overflow: hidden;
-`
-const ImageLink = styled(Link)`
-  display: block;
-  position: relative;
-  background: white;
-  transition: 150ms ease;
 
-  &:hover {
-    background: ${({ theme }) => theme.lightGray};
+  @media (max-width: 800px) {
+    flex-direction: column-reverse;
+  }
+
+  &:last-child {
+    margin-bottom: 80px;
   }
 `
-const ComingSoonLinkPlaceholder = styled.span`
-  display: block;
-  position: relative;
+const Column = styled.div`
+  flex: 1;
 `
-const ImageLinkTextContainer = styled.div`
-  ${({ theme }) => theme.bigParagraph};
-  position: absolute;
-  text-align: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: ${({ theme }) => theme.black};
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 5px;
+const Paragraph = styled.p`
+  ${({ theme }) => theme.paragraph};
+  color: ${({ theme }) => theme.paragraph};
 `
 
 const IndexPage = (): JSX.Element => {
@@ -96,53 +81,59 @@ const IndexPage = (): JSX.Element => {
     <Providers>
       <CMS.SEO />
       <NavBar />
-      <Main>
+      <ContentContainer>
         <Header>
-          <H2>
-            <CMS.Text name="H2" data={cmsData} />
-          </H2>
           <H1>
-            <CMS.Text name="H1" data={cmsData} />
+            <CMS.Text name="H2" data={cmsData} />
           </H1>
-          <IntroParagraph>
-            <CMS.Text name="Intro paragraph" data={cmsData} />
-          </IntroParagraph>
+          <H2>
+            <CMS.Text name="H1" data={cmsData} />
+          </H2>
         </Header>
-        <TopicSection>
+        <IntroParagraph>
+          <CMS.Text name="Paragraph 1" data={cmsData} />
+        </IntroParagraph>
+      </ContentContainer>
+      <TopicSection>
+        <ContentContainer>
           <H3>
             <CMS.Text name="H3" data={cmsData} />
           </H3>
-          <H4>
-            <CMS.Text name="H4" data={cmsData} />
-          </H4>
-          <TopicLinkList>
-            <Li>
-              <ImageLink to="/topics/trips/">
-                <CMS.Image name="TRIPS image" data={cmsData} />
-                <ImageLinkTextContainer>
-                  <CMS.Text name="TRIPS text" data={cmsData} />
-                </ImageLinkTextContainer>
-              </ImageLink>
-            </Li>
-            <Li>
-              <ComingSoonLinkPlaceholder>
-                <CMS.Image name="Childhood vaccination image" data={cmsData} />
-                <ImageLinkTextContainer>
-                  <CMS.Text name="Childhood vaccination text" data={cmsData} />
-                </ImageLinkTextContainer>
-              </ComingSoonLinkPlaceholder>
-            </Li>
-            <Li>
-              <ComingSoonLinkPlaceholder>
-                <CMS.Image name="Non-human vaccination image" data={cmsData} />
-                <ImageLinkTextContainer>
-                  <CMS.Text name="Non-human vaccination text" data={cmsData} />
-                </ImageLinkTextContainer>
-              </ComingSoonLinkPlaceholder>
-            </Li>
-          </TopicLinkList>
-        </TopicSection>
-      </Main>
+          <Paragraph>
+            <CMS.Text name="Paragraph 2" data={cmsData} />
+          </Paragraph>
+          <TopicList />
+        </ContentContainer>
+      </TopicSection>
+      <ContentContainer>
+        <H3>
+          <CMS.Text name="H4" data={cmsData} />
+        </H3>
+        <Columns>
+          <Column>
+            <Paragraph>
+              <CMS.Text name="Paragraph 3" data={cmsData} />
+            </Paragraph>
+          </Column>
+          <Column>
+            <TreatySearch />
+          </Column>
+        </Columns>
+        <H3>
+          <CMS.Text name="H5" data={cmsData} />
+        </H3>
+        <Columns>
+          <Column>
+            <Paragraph>
+              <CMS.Text name="Paragraph 4" data={cmsData} />
+            </Paragraph>
+          </Column>
+          <Column>
+            <CountrySearch />
+          </Column>
+        </Columns>
+      </ContentContainer>
+      <Footer />
     </Providers>
   )
 }

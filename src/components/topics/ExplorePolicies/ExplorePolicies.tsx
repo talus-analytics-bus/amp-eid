@@ -2,34 +2,18 @@ import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import Fuse from 'fuse.js'
 
-import Dropdown from '@talus-analytics/library.ui.dropdown'
-
 import ColumnSection from 'components/layout/ColumnSection'
+
+import Flag from 'components/ui/Flag'
+import DocumentLink from 'components/ui/DocumentLink'
+import ExploreDropdown from 'components/ui/ExploreDropdown'
+
 import PaginationControls from './PaginationControls'
-import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
-import DocumentLink from './DocumentLink'
 
 const H3 = styled.h3`
   ${({ theme }) => theme.h2};
   color: ${({ theme }) => theme.black};
   margin: 0;
-`
-const DropdownButton = styled.button`
-  ${({ theme }) => theme.bigParagraphMedium};
-  border: none;
-  background: ${({ theme }) => theme.veryLightGray};
-  margin: none;
-  width: 100%;
-  padding: 10px 20px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-`
-const DropdownContent = styled.div`
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  background: ${({ theme }) => theme.veryLightGray};
 `
 const Label = styled.label`
   ${({ theme }) => theme.smallParagraph};
@@ -51,10 +35,6 @@ interface ExplorePoliciesProps {
   thumbnails: Queries.TripsPageQuery['thumbnails']
 }
 
-export interface ThumbnailMap {
-  [key: string]: IGatsbyImageData
-}
-
 const ExplorePolicies = ({
   countryDocuments,
   thumbnails,
@@ -64,12 +44,11 @@ const ExplorePolicies = ({
   const [searchTerm, setSearchTerm] = useState('')
 
   // map between document name and thumbnail data
-  const thumbnailMap: ThumbnailMap = useMemo(() => {
+  const thumbnailMap = useMemo(() => {
     return thumbnails.nodes.reduce(
       (obj, doc) => ({
         ...obj,
-        [doc.data!.Document_name!]:
-          doc.documentThumbnail?.[0]?.childImageSharp?.gatsbyImageData,
+        [doc.data!.Document_name!]: doc.documentThumbnail?.[0],
       }),
       {}
     )
@@ -119,29 +98,32 @@ const ExplorePolicies = ({
         {paginated.map(country => (
           <React.Fragment key={country.data?.ISO3}>
             {country.data?.ISO3 && (
-              <Dropdown
-                renderWhileClosed
-                floating={false}
-                renderButton={() => (
-                  <DropdownButton>
-                    {country.flag?.childImageSharp?.gatsbyImageData && (
-                      <GatsbyImage
-                        image={country.flag.childImageSharp.gatsbyImageData}
-                        alt={`${country.data?.Country_name} Flag`}
-                      />
-                    )}
+              <ExploreDropdown
+                label={
+                  <>
+                    <Flag country={country} />
                     {country.data?.Country_name}
-                  </DropdownButton>
-                )}
+                  </>
+                }
               >
-                <DropdownContent>
-                  {country.data?.All_applicable_countries_link?.map(
-                    document => (
-                      <DocumentLink {...{ document, thumbnailMap }} />
-                    )
-                  )}
-                </DropdownContent>
-              </Dropdown>
+                {country.data.All_applicable_countries_link &&
+                country.data.All_applicable_countries_link.length > 0 ? (
+                  country.data?.All_applicable_countries_link?.map(document => (
+                    <DocumentLink
+                      key={document?.data?.Document_name}
+                      document={document}
+                      thumbnail={
+                        thumbnailMap[
+                          document?.data
+                            ?.Document_name as keyof typeof thumbnailMap
+                        ]
+                      }
+                    />
+                  ))
+                ) : (
+                  <p>No document</p>
+                )}
+              </ExploreDropdown>
             )}
           </React.Fragment>
         ))}

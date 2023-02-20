@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { graphql, PageProps } from 'gatsby'
+import { graphql, Link, PageProps } from 'gatsby'
 import CMS from '@talus-analytics/library.airtable-cms'
 import { RenderCMSRichText } from '@talus-analytics/library.airtable.cms-rich-text'
 
@@ -10,22 +10,22 @@ import MainHeader from 'components/layout/MainHeader'
 import NavBar from 'components/layout/NavBar/NavBar'
 import Sidebar from 'components/treatyPage/Sidebar'
 import StatusTable from 'components/treatyPage/StatusTable'
+import ColumnSection from 'components/layout/ColumnSection'
+import MainInfoSection from 'components/treatyPage/MainInfoSection'
+import SubSection from 'components/layout/SubSection'
+import Footer from 'components/layout/Footer'
+import RelatedTreaties from 'components/topics/RelatedTreaties'
+import RelatedTopics from 'components/ui/RelatedTopic'
 
-const Layout = styled.div`
-  margin-top: 30px;
-  display: flex;
-  gap: 50px;
-`
 const MainContent = styled.div``
 const H3 = styled.h3`
-  margin-top: 0;
-  margin-bottom: 20px;
+  margin: 0;
   ${({ theme }) => theme.h3}
   color: ${({ theme }) => theme.black};
 `
-const Description = styled(RenderCMSRichText)`
+const Footnote = styled(RenderCMSRichText)`
   > p {
-    margin: 0;
+    margin-top: 30px 0 0 0;
     ${({ theme }) => theme.paragraph}
     color: ${({ theme }) => theme.black};
     > a {
@@ -34,6 +34,10 @@ const Description = styled(RenderCMSRichText)`
     }
   }
 `
+
+type NoUndefinedField<T> = {
+  [P in keyof T]-?: NoUndefinedField<NonNullable<T[P]>>
+}
 
 const TreatyPage = ({
   data: {
@@ -53,15 +57,35 @@ const TreatyPage = ({
         <h2>TREATY</h2>
         <h1>{treatyData.data?.Document_name}</h1>
       </MainHeader>
-      <Layout>
+      <ColumnSection>
         <Sidebar treatyData={treatyData} />
         <MainContent>
-          <H3>Description</H3>
-          <Description markdown={treatyData.data?.Treaty_description ?? ''} />
-          <StatusTable treatyData={treatyData} />
+          <MainInfoSection treatyData={treatyData} />
+          {treatyData.data?.Related_document &&
+            treatyData.data.Related_document?.[0]?.data && (
+              <SubSection>
+                <H3>Related Treaties</H3>
+                <RelatedTreaties
+                  relatedTreaties={
+                    treatyData.data.Related_document as NoUndefinedField<
+                      typeof treatyData.data.Related_document
+                    >
+                  }
+                />
+              </SubSection>
+            )}
+          <RelatedTopics topics={treatyData.data?.Topic} />
+          <SubSection>
+            <H3>States Parties</H3>
+            {treatyData.data?.Treaty_footnotes && (
+              <Footnote markdown={treatyData.data?.Treaty_footnotes} />
+            )}
+            <StatusTable treatyData={treatyData} />
+          </SubSection>
         </MainContent>
-      </Layout>
+      </ColumnSection>
     </Main>
+    <Footer />
   </Providers>
 )
 
@@ -87,6 +111,14 @@ export const query = graphql`
           File_publish_date
           Date_opened_for_signature
           Date_of_original_publication
+          Treaty_footnotes
+          Topic
+          Related_document {
+            data {
+              Treaty_short_name
+              Document_name
+            }
+          }
           PDF {
             localFiles {
               publicURL
@@ -111,7 +143,7 @@ export const query = graphql`
         }
         documentThumbnail {
           childImageSharp {
-            gatsbyImageData
+            gatsbyImageData(height: 230, placeholder: BLURRED)
           }
         }
       }

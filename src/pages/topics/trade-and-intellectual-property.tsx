@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { graphql, PageProps } from 'gatsby'
 
 import CMS from '@talus-analytics/library.airtable-cms'
@@ -10,9 +11,10 @@ import Providers from 'components/layout/Providers'
 
 import useIndexPageData from 'cmsHooks/useIndexPageData'
 import TopicSwitcher from 'components/topics/TopicSwitcher/TopicSwitcher'
-import RelatedTreaty from 'components/topics/RelatedTreaty'
+import RelatedTreaties from 'components/topics/RelatedTreaties'
 import ExplorePolicies from 'components/topics/ExplorePolicies/ExplorePolicies'
 import Footer from 'components/layout/Footer'
+import ColumnSection from 'components/layout/ColumnSection'
 
 // Trips page data sources
 
@@ -23,11 +25,17 @@ import Footer from 'components/layout/Footer'
 
 // Map
 // Map title: subtopic title
-// "Assign status" table has the association between country, subtopic, and status
+// "Assign statuy" table has the association between country, subtopic, and status
 
 // descriptions under map => subtopics table paragraphs
 
 // Find a country => use mapbox search
+
+const H3 = styled.h3`
+  ${({ theme }) => theme.h2};
+  color: ${({ theme }) => theme.black};
+  margin: 0;
+`
 
 const TripsPage = ({
   data,
@@ -42,11 +50,14 @@ const TripsPage = ({
         <MainHeader>
           <h2>TOPIC</h2>
           <h1>
-            <CMS.Text name="TRIPS text" data={indexPageCMSData} />
+            <CMS.Text name="Topic 1 text" data={indexPageCMSData} />
           </h1>
         </MainHeader>
         <TopicSwitcher data={data} />
-        <RelatedTreaty relatedTreaties={data.relatedTreaties} />
+        <ColumnSection>
+          <H3>Treaty</H3>
+          <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
+        </ColumnSection>
         <ExplorePolicies
           countryDocuments={data.countryDocuments}
           thumbnails={data.thumbnails}
@@ -59,12 +70,16 @@ const TripsPage = ({
 
 export const query = graphql`
   query TripsPage {
-    subtopics: allAirtableTrips(filter: { table: { eq: "1. Subtopic" } }) {
+    subtopics: allAirtableTrips(
+      filter: { table: { eq: "1. Subtopic" } }
+      sort: { data: { Order: ASC } }
+    ) {
       nodes {
         data {
           Subtopic
           Subtopic_description
           Subtopic_sources
+          Order
           Define_status {
             data {
               Map_color
@@ -120,7 +135,7 @@ export const query = graphql`
           All_applicable_countries_link {
             data {
               Document_name
-              Date_of_latest_update
+              File_publish_date
             }
           }
         }
@@ -132,7 +147,7 @@ export const query = graphql`
       nodes {
         documentThumbnail {
           childImageSharp {
-            gatsbyImageData(width: 100, placeholder: BLURRED)
+            gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
           }
         }
         data {

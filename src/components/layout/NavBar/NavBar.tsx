@@ -7,8 +7,11 @@ import CMS from '@talus-analytics/library.airtable-cms'
 import MobileMenu from './MobileMenu/MobileMenu'
 
 import useIndexPageData from 'cmsHooks/useIndexPageData'
-import TopicsDropdown from './TopicsDropdown'
+import NavbarDropdown from './NavbarDropdown'
 import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
+import simplifyForUrl from 'utilities/simplifyForUrl'
+import LinksList from './LinksList'
+import CountrySearch from 'components/landing/CountrySearch'
 
 const Nav = styled.nav`
   background-color: ${({ theme }) => theme.ampEidDarkBlue};
@@ -74,22 +77,19 @@ const NavBar = () => {
   const data = useIndexPageData()
   const treaties = useShortTreatyNames()
 
-  const links = [
-    { to: '/countries/', children: 'Countries' },
-    { to: '/about/overview/', children: 'About' },
-  ]
+  const links = [{ to: '/about/overview/', children: 'About' }]
 
   const topicsLinks = [
     {
-      to: '/topics/trips/',
-      children: <CMS.Text name="TRIPS text" data={data} />,
+      to: '/topics/trade-and-intellectual-property/',
+      children: <CMS.Text name="Topic 1 text" data={data} />,
     },
     { to: '', children: 'Coming soon: Childhood vaccination', disabled: true },
     { to: '', children: 'Coming soon: Non-human vaccination', disabled: true },
   ]
 
   const treatyLinks = treaties.distinct.map(treaty => ({
-    to: `/treaties/${treaty}`,
+    to: `/treaties/${simplifyForUrl(treaty)}`,
     children: treaty,
   }))
 
@@ -106,8 +106,15 @@ const NavBar = () => {
           </HomeLink>
         </LinkList>
         <DesktopNavList>
-          <TopicsDropdown title="Topics" links={topicsLinks} />
-          <TopicsDropdown title="Treaties" links={treatyLinks} />
+          <NavbarDropdown title="Topics">
+            <LinksList links={topicsLinks} />
+          </NavbarDropdown>
+          <NavbarDropdown title="Treaties">
+            <LinksList links={treatyLinks} />
+          </NavbarDropdown>
+          <NavbarDropdown title="Countries">
+            <CountrySearch style={{ minWidth: 350, margin: '0' }} />
+          </NavbarDropdown>
           {links.map(linkProps => (
             <Li key={linkProps.to}>
               <NavLink {...linkProps} />
@@ -118,7 +125,7 @@ const NavBar = () => {
           <MobileLinkList>
             <h3 style={{ color: 'white' }}>Topics</h3>
             <Li key={'trips'}>
-              <NavLink to="/topics/trips/">
+              <NavLink to="/topics/trade-and-intellectual-property/">
                 Trade and intellectual property
               </NavLink>
             </Li>
