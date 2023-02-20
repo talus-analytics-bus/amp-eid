@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { graphql, PageProps } from 'gatsby'
 import CMS from '@talus-analytics/library.airtable-cms'
+import { RenderCMSRichText } from '@talus-analytics/library.airtable.cms-rich-text'
 
 import Main from 'components/layout/Main'
 import Providers from 'components/layout/Providers'
@@ -25,6 +26,17 @@ const P = styled.p`
   ${({ theme }) => theme.paragraph};
   color: ${({ theme }) => theme.black};
   margin: 0;
+`
+const Footnote = styled(RenderCMSRichText)`
+  > p {
+    margin-top: 30px 0 0 0;
+    ${({ theme }) => theme.paragraph}
+    color: ${({ theme }) => theme.black};
+    > a {
+      color: ${({ theme }) => theme.ampEidMedBlue};
+      text-decoration: underline;
+    }
+  }
 `
 
 type NoUndefinedField<T> = {
@@ -68,7 +80,7 @@ const TreatyPage = ({
             )}
           <SubSection>
             <H3>States Parties</H3>
-            <P>{treatyData.data?.Treaty_footnotes}</P>
+            <Footnote markdown={treatyData.data?.Treaty_footnotes ?? ''} />
             <StatusTable treatyData={treatyData} />
           </SubSection>
         </MainContent>
