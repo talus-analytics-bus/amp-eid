@@ -9,8 +9,8 @@ import NavBar from 'components/layout/NavBar/NavBar'
 import MainHeader from 'components/layout/MainHeader'
 import Main from 'components/layout/Main'
 import ColumnSection from 'components/layout/ColumnSection'
-import { GatsbyImage } from 'gatsby-plugin-image'
 import Flag from 'components/ui/Flag'
+import CountryPolicies from 'components/countryPage/CountryPolicies'
 
 const H1 = styled.h1`
   display: flex;
@@ -25,7 +25,6 @@ const H2 = styled.h2`
 
 const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
   const countryName = data.countryData?.data?.Country_name
-
   if (!countryName) throw new Error('All countries must have a country name')
 
   return (
@@ -50,6 +49,7 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
           </div>
           <div>
             <H2>Explore policies</H2>
+            <CountryPolicies {...data} />
           </div>
         </ColumnSection>
       </Main>
@@ -69,17 +69,16 @@ export const query = graphql`
         Country_name
       }
     }
-    trips: allAirtableTrips(filter: { data: { ISO3: { eq: $iso3 } } }) {
-      nodes {
-        data {
-          All_applicable_countries_link {
-            data {
-              Document_name
-            }
-            documentThumbnail {
-              childImageSharp {
-                gatsbyImageData
-              }
+    trips: airtableTrips(data: { ISO3: { eq: $iso3 } }) {
+      data {
+        All_applicable_countries_link {
+          data {
+            Document_name
+            File_publish_date
+          }
+          documentThumbnail {
+            childImageSharp {
+              gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
             }
           }
         }
