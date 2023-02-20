@@ -22,11 +22,6 @@ const H3 = styled.h3`
   ${({ theme }) => theme.h3}
   color: ${({ theme }) => theme.black};
 `
-const P = styled.p`
-  ${({ theme }) => theme.paragraph};
-  color: ${({ theme }) => theme.black};
-  margin: 0;
-`
 const Footnote = styled(RenderCMSRichText)`
   > p {
     margin-top: 30px 0 0 0;

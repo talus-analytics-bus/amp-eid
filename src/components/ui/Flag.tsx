@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  GatsbyImage,
-  GatsbyImageProps,
-  IGatsbyImageData,
-} from 'gatsby-plugin-image'
+import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 
 interface FlagProps {
   country: {

@@ -1,7 +1,6 @@
 import DocumentLink from 'components/ui/DocumentLink'
 import ExploreDropdown from 'components/ui/ExploreDropdown'
 import React from 'react'
-import styled from 'styled-components'
 
 const CountryPolicies = ({ trips }: Queries.CountryPageQuery) => {
   return (
