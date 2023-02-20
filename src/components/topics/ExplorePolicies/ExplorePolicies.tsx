@@ -6,8 +6,9 @@ import Dropdown from '@talus-analytics/library.ui.dropdown'
 
 import ColumnSection from 'components/layout/ColumnSection'
 import PaginationControls from './PaginationControls'
-import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 import DocumentLink from './DocumentLink'
+import Flag from 'components/ui/Flag'
 
 const H3 = styled.h3`
   ${({ theme }) => theme.h2};
@@ -124,16 +125,7 @@ const ExplorePolicies = ({
                 floating={false}
                 renderButton={() => (
                   <DropdownButton>
-                    {country.flag?.childImageSharp?.gatsbyImageData && (
-                      <GatsbyImage
-                        image={country.flag.childImageSharp.gatsbyImageData}
-                        alt={`${country.data?.Country_name} Flag`}
-                        style={{
-                          filter:
-                            'drop-shadow(.5px 0.5px 1px rgba(0, 0, 0, 0.35))',
-                        }}
-                      />
-                    )}
+                    <Flag country={country} />
                     {country.data?.Country_name}
                   </DropdownButton>
                 )}
