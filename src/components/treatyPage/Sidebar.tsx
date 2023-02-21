@@ -1,4 +1,5 @@
 import Thumbnail from 'components/ui/DocumentThumbnail'
+import ThumbnailHolder from 'components/ui/ThumbnailHolder'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -6,15 +7,6 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
-`
-const ThumbnailHolder = styled.div`
-  background: ${({ theme }) => theme.lightGray};
-  border-radius: 5px;
-  padding: 20px;
-  max-height: 350px;
-  display: flex;
-  justify-content: center;
   align-items: center;
 `
 const ButtonLink = styled.a`
