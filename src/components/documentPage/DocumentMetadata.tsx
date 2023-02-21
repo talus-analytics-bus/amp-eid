@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+
 import formatAirtableDate from 'utilities/formatDate'
 import parseAirtableDate from 'utilities/parseDate'
 
@@ -21,7 +22,6 @@ const MetadataTable = styled.table`
 const DocumentMetadata = ({ document }: Queries.DocumentPageQuery) => {
   const fileDates = document?.data?.File_publish_date
 
-  let displayMostRecent
   const mostRecent =
     fileDates &&
     fileDates
@@ -29,12 +29,13 @@ const DocumentMetadata = ({ document }: Queries.DocumentPageQuery) => {
       .sort((a, b) => b.getTime() - a.getTime())
       .at(0)
 
-  if (mostRecent) displayMostRecent = formatAirtableDate(mostRecent)
-
-  const metadata = {
-    'Latest update': displayMostRecent,
+  const dates = {
+    'Latest update': mostRecent,
     'Entered into force': document?.data?.Date_entered_into_force,
     'Original publication': document?.data?.Date_of_original_publication,
+  }
+
+  const text = {
     'Relevant articles': document?.data?.Chaper__Section_or_Article,
     Note: document?.data?.Document_note,
   }
@@ -43,12 +44,21 @@ const DocumentMetadata = ({ document }: Queries.DocumentPageQuery) => {
     <Container>
       <MetadataTable>
         <tbody>
-          {Object.entries(metadata).map(
-            ([label, value]) =>
-              value && (
+          {Object.entries(dates).map(
+            ([label, date]) =>
+              date && (
                 <tr>
                   <td>{label}</td>
-                  <td>{value}</td>
+                  <td>{formatAirtableDate(date)}</td>
+                </tr>
+              )
+          )}
+          {Object.entries(text).map(
+            ([label, text]) =>
+              text && (
+                <tr>
+                  <td>{label}</td>
+                  <td>{text}</td>
                 </tr>
               )
           )}
