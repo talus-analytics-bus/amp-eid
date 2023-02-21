@@ -6,6 +6,7 @@ import NavBar from 'components/layout/NavBar/NavBar'
 import Main from 'components/layout/Main'
 import MainHeader from 'components/layout/MainHeader'
 import Thumbnail from 'components/ui/DocumentThumbnail'
+import ApplicableCountries from 'components/documentPage/RelatedCountries'
 
 const DocumentPage = ({
   data: { document },
@@ -35,6 +36,9 @@ const DocumentPage = ({
         <MainHeader>
           <h2>{document.data.Topic}</h2>
           <h1>{name}</h1>
+          <ApplicableCountries
+            countries={document.data.All_applicable_countries}
+          />
         </MainHeader>
         <Thumbnail image={image} alt={name + ' thumbnail'} />
         <h4>Download</h4>

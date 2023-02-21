@@ -47,8 +47,10 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
         </MainHeader>
         <ColumnSection>
           <div>
-            <div>Map Here</div>
-            <div>Download country policies here</div>
+            {
+              // <div>Map Here</div>
+              // <div>Download country policies here</div>
+            }
           </div>
           <div>
             <H2>Explore policies</H2>
