@@ -12,7 +12,29 @@ const Container = styled.div`
 const MetadataTable = styled.table`
   border-collapse: collapse;
   margin-top: 30px;
-  & td:nth-child(2) {
+
+  & td {
+    padding-bottom: 15px;
+    vertical-align: top;
+
+    a {
+      display: block;
+      text-decoration: none;
+      color: ${({ theme }) => theme.black};
+      margin-bottom: 8px;
+
+      &:hover {
+        text-decoration: underline;
+        color: ${({ theme }) => theme.link};
+      }
+    }
+  }
+
+  td:nth-child(1) {
+    text-align: right;
+    width: 11em;
+  }
+  td:nth-child(2) {
     ${({ theme }) => theme.paragraphMedium};
     color: ${({ theme }) => theme.black};
     padding-left: 15px;
@@ -40,6 +62,17 @@ const DocumentMetadata = ({ document }: Queries.DocumentPageQuery) => {
     Note: document?.data?.Document_note,
   }
 
+  const languages = []
+  const languageList = document?.data?.Language
+
+  if (languageList) {
+    for (const [index, language] of languageList.entries()) {
+      const title = document?.data?.Original_language_title?.[index]
+      const link = document?.data?.PDF?.localFiles?.[index]?.publicURL
+      if (language && title && link) languages.push({ language, title, link })
+    }
+  }
+
   return (
     <Container>
       <MetadataTable>
@@ -62,6 +95,17 @@ const DocumentMetadata = ({ document }: Queries.DocumentPageQuery) => {
                 </tr>
               )
           )}
+          <tr>
+            <td>Available languages</td>
+            <td>
+              {languages.map(language => (
+                <a href={language.link}>
+                  <strong>{language.language} </strong>
+                  {language.title}
+                </a>
+              ))}
+            </td>
+          </tr>
         </tbody>
       </MetadataTable>
     </Container>

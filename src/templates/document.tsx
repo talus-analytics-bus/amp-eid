@@ -12,6 +12,7 @@ import ApplicableCountries from 'components/documentPage/RelatedCountries'
 import ColumnSection from 'components/layout/ColumnSection'
 import ThumbnailHolder from 'components/ui/ThumbnailHolder'
 import DocumentMetadata from 'components/documentPage/DocumentMetadata'
+import SubSection from 'components/layout/SubSection'
 
 const DocumentPage = ({
   data: { document },
@@ -56,11 +57,13 @@ const DocumentPage = ({
           </div>
           <div>
             <DocumentMetadata document={document} />
-            <iframe
-              title="document preview"
-              src={downloadUrl}
-              style={{ height: '80vh', width: '100%' }}
-            />
+            <SubSection>
+              <iframe
+                title="document preview"
+                src={downloadUrl}
+                style={{ height: '80vh', width: '100%' }}
+              />
+            </SubSection>
           </div>
         </ColumnSection>
       </Main>
