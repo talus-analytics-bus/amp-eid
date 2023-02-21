@@ -52,8 +52,10 @@ const DocumentPage = ({
             <ThumbnailHolder>
               <Thumbnail image={image} alt={name + ' thumbnail'} />
             </ThumbnailHolder>
-            <h4>Download</h4>
-            <a href={downloadUrl}>{name}</a>
+            {
+              // <h4>Download</h4>
+              // <a href={downloadUrl}>{name}</a>
+            }
           </div>
           <div>
             <DocumentMetadata document={document} />
