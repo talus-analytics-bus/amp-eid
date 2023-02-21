@@ -1,7 +1,7 @@
 /**
  * this is the main configuration file of your bit workspace.
  * for full documentation, please see: https://harmony-docs.bit.dev/workspace/configurations
- **/{
+ **/ {
   "$schema": "https://static.bit.dev/teambit/schemas/schema.json",
   /**
    * main configuration of the Bit workspace.
@@ -38,7 +38,10 @@
      */
     "packageManager": "teambit.dependencies/yarn",
     "policy": {
-      "dependencies": {},
+      "dependencies": {
+        "@talus-analytics/library.ui.dropdown": "0.0.10",
+        "@talus-analytics/library.ui.expander": "0.0.6"
+      },
       "peerDependencies": {}
     }
   },
@@ -61,3 +64,4 @@
     }
   }
 }
+
