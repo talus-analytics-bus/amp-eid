@@ -24,21 +24,25 @@ const DropdownContent = styled.div`
 
 interface ExploreDropdownProps extends Omit<DropdownProps, 'renderButton'> {
   label: React.ReactNode
+  style: React.CSSProperties
 }
 
 const ExploreDropdown = ({
   label,
   children,
+  style,
   ...props
 }: ExploreDropdownProps) => (
-  <Dropdown
-    {...props}
-    floating={false}
-    renderWhileClosed
-    renderButton={() => <DropdownButton>{label}</DropdownButton>}
-  >
-    <DropdownContent>{children}</DropdownContent>
-  </Dropdown>
+  <div style={style}>
+    <Dropdown
+      {...props}
+      floating={false}
+      renderWhileClosed
+      renderButton={() => <DropdownButton>{label}</DropdownButton>}
+    >
+      <DropdownContent>{children}</DropdownContent>
+    </Dropdown>
+  </div>
 )
 
 export default ExploreDropdown

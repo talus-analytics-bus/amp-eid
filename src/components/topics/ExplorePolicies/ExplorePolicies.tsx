@@ -40,7 +40,7 @@ const ExplorePolicies = ({
   thumbnails,
 }: ExplorePoliciesProps) => {
   const [page, setPage] = useState(0)
-  const [pageSize, setPageSize] = useState(500)
+  const [pageSize, setPageSize] = useState(5)
   const [searchTerm, setSearchTerm] = useState('')
 
   // map between document name and thumbnail data
@@ -75,7 +75,6 @@ const ExplorePolicies = ({
   else sorted = fuse.search(searchTerm).map(result => result.item)
 
   const total = sorted.length
-  const paginated = sorted.slice(page * pageSize, page * pageSize + pageSize)
 
   return (
     <ColumnSection>
@@ -95,10 +94,17 @@ const ExplorePolicies = ({
         </Label>
       </div>
       <div>
-        {paginated.map(country => (
+        {sorted.map((country, index) => (
           <React.Fragment key={country.data?.ISO3}>
             {country.data?.ISO3 && (
               <ExploreDropdown
+                style={{
+                  display:
+                    index >= page * pageSize &&
+                    index < page * pageSize + pageSize
+                      ? 'block'
+                      : 'none',
+                }}
                 label={
                   <>
                     <Flag country={country} />
