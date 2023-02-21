@@ -134,7 +134,6 @@ const Expander = ({
       <ContentContainer
         ref={contentContainer}
         style={{
-          background: 'red',
           ...{
             ...(renderWhileClosed && {
               display: renderChildren ? 'flow-root' : 'none',
