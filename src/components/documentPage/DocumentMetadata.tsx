@@ -108,17 +108,6 @@ const DocumentMetadata = ({ document }: Queries.DocumentPageQuery) => {
             <td>
               <table>
                 <tbody>
-                  {
-                    // {languages.map(language => (
-                    //   <div style={{ display: 'flex', gap: '15px' }}>
-                    //     <strong style={{ width: '9em', flexShrink: 0 }}>
-                    //       {language.language}{' '}
-                    //     </strong>
-                    //     <a href={language.link}>{language.title}</a>
-                    //   </div>
-                    // ))}
-                  }
-
                   {languages.map(language => (
                     <tr>
                       <td style={{ textAlign: 'left', width: 'min-content' }}>
