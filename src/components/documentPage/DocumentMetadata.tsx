@@ -17,11 +17,19 @@ const MetadataTable = styled.table`
     padding-bottom: 15px;
     vertical-align: top;
 
+    div {
+      margin-bottom: 10px;
+    }
+
     a {
-      display: block;
+      // display: block;
       text-decoration: none;
       color: ${({ theme }) => theme.black};
-      margin-bottom: 8px;
+      font-weight: 100;
+
+      strong {
+        font-weight: 500;
+      }
 
       &:hover {
         text-decoration: underline;
@@ -98,12 +106,31 @@ const DocumentMetadata = ({ document }: Queries.DocumentPageQuery) => {
           <tr>
             <td>Available languages</td>
             <td>
-              {languages.map(language => (
-                <a href={language.link}>
-                  <strong>{language.language} </strong>
-                  {language.title}
-                </a>
-              ))}
+              <table>
+                <tbody>
+                  {
+                    // {languages.map(language => (
+                    //   <div style={{ display: 'flex', gap: '15px' }}>
+                    //     <strong style={{ width: '9em', flexShrink: 0 }}>
+                    //       {language.language}{' '}
+                    //     </strong>
+                    //     <a href={language.link}>{language.title}</a>
+                    //   </div>
+                    // ))}
+                  }
+
+                  {languages.map(language => (
+                    <tr>
+                      <td style={{ textAlign: 'left', width: 'min-content' }}>
+                        <strong style={{}}>{language.language} </strong>
+                      </td>
+                      <td>
+                        <a href={language.link}>{language.title}</a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </td>
           </tr>
         </tbody>
