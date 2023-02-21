@@ -39,11 +39,11 @@ interface DocumentLinkProps {
       Document_name: string | null
       File_publish_date: string | null
       Authoring_country:
-        | {
-            data?: {
-              Country_name: string | null
+        | readonly ({
+            readonly data: {
+              readonly Country_name: string | null
             } | null
-          }[]
+          } | null)[]
         | null
     } | null
   } | null

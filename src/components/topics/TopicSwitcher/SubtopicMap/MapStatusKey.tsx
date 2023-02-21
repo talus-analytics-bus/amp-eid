@@ -31,7 +31,7 @@ const MapStatusKey = ({ subtopic }: MapStatusKeyProps) => {
   if (!subtopic || !subtopic.Define_status) return <></>
 
   return (
-    <MapKey renderWhileClosed>
+    <MapKey>
       {subtopic.Define_status &&
         subtopic.Define_status.map(status => {
           if (!status || !status.data || !status.data.Map_color)
