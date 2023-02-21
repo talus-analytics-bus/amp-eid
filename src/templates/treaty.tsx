@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { graphql, Link, PageProps } from 'gatsby'
+import { graphql, PageProps } from 'gatsby'
 import CMS from '@talus-analytics/library.airtable-cms'
 import { RenderCMSRichText } from '@talus-analytics/library.airtable.cms-rich-text'
 
