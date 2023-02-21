@@ -40,7 +40,7 @@ const ExplorePolicies = ({
   thumbnails,
 }: ExplorePoliciesProps) => {
   const [page, setPage] = useState(0)
-  const [pageSize, setPageSize] = useState(5)
+  const [pageSize, setPageSize] = useState(500)
   const [searchTerm, setSearchTerm] = useState('')
 
   // map between document name and thumbnail data

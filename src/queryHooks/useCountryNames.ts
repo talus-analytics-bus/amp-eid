@@ -7,7 +7,11 @@ const useCountryNames = () => {
         countries: allAirtableDocuments(
           filter: {
             table: { eq: "LOOKUP: Country" }
-            data: { Country_name: { nin: ["Regional", "Treaty"] } }
+            data: {
+              Country_name: {
+                nin: ["Regional", "Treaty", "European Union", null]
+              }
+            }
           }
         ) {
           nodes {

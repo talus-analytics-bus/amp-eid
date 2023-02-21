@@ -135,7 +135,6 @@ export const query = graphql`
               Country {
                 data {
                   Country_name
-                  ISO3
                 }
               }
             }

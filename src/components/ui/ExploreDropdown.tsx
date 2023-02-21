@@ -34,6 +34,7 @@ const ExploreDropdown = ({
   <Dropdown
     {...props}
     floating={false}
+    renderWhileClosed
     renderButton={() => <DropdownButton>{label}</DropdownButton>}
   >
     <DropdownContent>{children}</DropdownContent>

@@ -67,7 +67,7 @@ const config: GatsbyConfig = {
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `Document library`,
-            tableLinks: [`All_applicable_countries`],
+            tableLinks: [`All_applicable_countries`, `Authoring_country`],
             queryName: `Documents`,
             separateNodeType: true,
             mapping: { PDF: `fileNode` },

@@ -34,10 +34,17 @@ const DateText = styled.div`
 `
 
 interface DocumentLinkProps {
-  document?: {
-    data?: {
-      Document_name?: string | null
-      File_publish_date?: string | null
+  document: {
+    data: {
+      Document_name: string | null
+      File_publish_date: string | null
+      Authoring_country:
+        | {
+            data?: {
+              Country_name: string | null
+            } | null
+          }[]
+        | null
     } | null
   } | null
   thumbnail:
@@ -55,6 +62,10 @@ const DocumentLink = ({ document, thumbnail }: DocumentLinkProps) => {
   if (!name) throw new Error('Document missing name')
   const image = thumbnail?.childImageSharp?.gatsbyImageData
   if (!image) throw new Error(`Document ${name} missing thumbnail`)
+  console.log(document)
+  const countryName = document?.data?.Authoring_country?.[0]?.data?.Country_name
+  if (!countryName)
+    throw new Error(`Document ${name} missing authoring country`)
 
   const dateStrings = document?.data?.File_publish_date
   let date = ''
@@ -70,7 +81,10 @@ const DocumentLink = ({ document, thumbnail }: DocumentLinkProps) => {
   }
 
   return (
-    <StyledLink key={name} to={`/documents/${simplifyForUrl(name)}`}>
+    <StyledLink
+      key={name}
+      to={`/documents/${simplifyForUrl(countryName)}/${simplifyForUrl(name)}`}
+    >
       {thumbnail && <Thumbnail image={image} alt={`${name} thumbnail`} />}
       <Metadata>
         <DateText>{date}</DateText>

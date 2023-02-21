@@ -120,7 +120,7 @@ export const query = graphql`
     countryDocuments: allAirtableTrips(
       filter: {
         table: { eq: "LOOKUP: Country (imported)" }
-        data: { Country_name: { nin: ["Regional", "Treaty"] } }
+        data: { Country_name: { nin: ["Regional", "Treaty", null] } }
       }
     ) {
       nodes {
@@ -136,6 +136,11 @@ export const query = graphql`
             data {
               Document_name
               File_publish_date
+              Authoring_country {
+                data {
+                  Country_name
+                }
+              }
             }
           }
         }

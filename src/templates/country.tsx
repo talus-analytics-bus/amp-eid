@@ -81,6 +81,11 @@ export const query = graphql`
         All_applicable_countries_link {
           data {
             Document_name
+            Authoring_country {
+              data {
+                Country_name
+              }
+            }
             File_publish_date
           }
           documentThumbnail {

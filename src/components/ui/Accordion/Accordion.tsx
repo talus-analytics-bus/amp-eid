@@ -18,7 +18,7 @@ const Accordion = ({
   openIndex,
   setOpenIndex,
   renderButton,
-  animDuration = 2500,
+  animDuration = 250,
   preventCloseAll,
   index,
   ...props

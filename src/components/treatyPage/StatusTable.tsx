@@ -96,7 +96,11 @@ const StatusTable = ({
       displayName: 'Country',
       key: 'Country',
       parse: val => (
-        <Link to={`/countries/${simplifyForUrl(val?.[0]?.data?.ISO3 ?? '#')}`}>
+        <Link
+          to={`/countries/${simplifyForUrl(
+            val?.[0]?.data?.Country_name ?? '#'
+          )}`}
+        >
           {val?.[0]?.data?.Country_name}
         </Link>
       ),
@@ -142,7 +146,7 @@ const StatusTable = ({
         </thead>
         <tbody>
           {paginated.map(country => (
-            <tr key={country?.data?.Country?.[0]?.data?.ISO3}>
+            <tr key={country?.data?.Country?.[0]?.data?.Country_name}>
               {columns.map(col => (
                 // @ts-expect-error: The types of col.parse
                 // and col.key are guaranteed by the types above
