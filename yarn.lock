@@ -2218,7 +2218,7 @@
 
 "@talus-analytics/library.ui.dropdown@^0.0.10":
   version "0.0.10"
-  resolved "https://node.bit.cloud/@talus-analytics/library.ui.dropdown/-/@talus-analytics-library.ui.dropdown-0.0.10.tgz#4ca64b30df78549188de852fadda68fa7928a4ae"
+  resolved "https://node.bit.dev/@talus-analytics/library.ui.dropdown/-/@talus-analytics-library.ui.dropdown-0.0.10.tgz#4ca64b30df78549188de852fadda68fa7928a4ae"
   integrity sha1-TKZLMN94VJGI3oUvrdpo+nkopK4=
   dependencies:
     "@talus-analytics/library.ui.expander" "0.0.6"
@@ -2235,7 +2235,7 @@
 
 "@talus-analytics/library.ui.expander@0.0.6", "@talus-analytics/library.ui.expander@^0.0.6":
   version "0.0.6"
-  resolved "https://node.bit.cloud/@talus-analytics/library.ui.expander/-/@talus-analytics-library.ui.expander-0.0.6.tgz#a209e94f85a8132fc0f67aa48ce7287a4e054889"
+  resolved "https://node.bit.dev/@talus-analytics/library.ui.expander/-/@talus-analytics-library.ui.expander-0.0.6.tgz#a209e94f85a8132fc0f67aa48ce7287a4e054889"
   integrity sha1-ognpT4WoEy/A9nqkjOcoek4FSIk=
   dependencies:
     core-js "^3.0.0"
