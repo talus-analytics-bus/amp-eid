@@ -24,7 +24,7 @@ const DropdownContent = styled.div`
 
 interface ExploreDropdownProps extends Omit<DropdownProps, 'renderButton'> {
   label: React.ReactNode
-  style: React.CSSProperties
+  style?: React.CSSProperties
 }
 
 const ExploreDropdown = ({
