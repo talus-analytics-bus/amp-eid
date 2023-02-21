@@ -62,7 +62,6 @@ const DocumentLink = ({ document, thumbnail }: DocumentLinkProps) => {
   if (!name) throw new Error('Document missing name')
   const image = thumbnail?.childImageSharp?.gatsbyImageData
   if (!image) throw new Error(`Document ${name} missing thumbnail`)
-  console.log(document)
   const countryName = document?.data?.Authoring_country?.[0]?.data?.Country_name
   if (!countryName)
     throw new Error(`Document ${name} missing authoring country`)
