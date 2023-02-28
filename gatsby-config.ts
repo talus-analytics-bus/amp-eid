@@ -73,6 +73,14 @@ const config: GatsbyConfig = {
             mapping: { PDF: `fileNode` },
             tableView: `CMS`,
           },
+          {
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Topic`,
+            tableLinks: [],
+            queryName: `Database`,
+            separateNodeType: true,
+            tableView: `CMS`,
+          },
           // Double-linking the documents table appears to
           // make thumbnail generation work consistenly
           // {
