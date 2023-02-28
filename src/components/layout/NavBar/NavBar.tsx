@@ -92,7 +92,7 @@ const NavBar = () => {
     { to: '', children: 'Coming soon: Non-human vaccination', disabled: true },
   ]
 
-  const treatyLinks = treaties.distinct.map(treaty => ({
+  const treatyLinks = treaties.map(treaty => ({
     to: `/treaties/${simplifyForUrl(treaty)}`,
     children: treaty,
   }))
