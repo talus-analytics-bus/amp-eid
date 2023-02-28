@@ -59,7 +59,7 @@ const config: GatsbyConfig = {
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `LOOKUP: Country`,
-            queryName: `Documents`,
+            queryName: `Database`,
             separateNodeType: true,
             tableView: `CMS`,
           },
@@ -68,7 +68,7 @@ const config: GatsbyConfig = {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `Document library`,
             tableLinks: [`All_applicable_countries`, `Authoring_country`],
-            queryName: `Documents`,
+            queryName: `Database`,
             separateNodeType: true,
             mapping: { PDF: `fileNode` },
             tableView: `CMS`,
