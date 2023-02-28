@@ -84,6 +84,10 @@ const NavBar = () => {
       to: '/topics/trade-and-intellectual-property/',
       children: <CMS.Text name="Topic 1 text" data={data} />,
     },
+    {
+      to: '/topics/amr-animal-health',
+      children: 'AMR Animal Health',
+    },
     { to: '', children: 'Coming soon: Childhood vaccination', disabled: true },
     { to: '', children: 'Coming soon: Non-human vaccination', disabled: true },
   ]
