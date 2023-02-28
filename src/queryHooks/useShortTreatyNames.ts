@@ -1,9 +1,11 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
 const useShortTreatyNames = () => {
-  const { shortNames } = useStaticQuery<Queries.TreatyShortNamesQuery>(graphql`
+  const {
+    treaties: { distinct: shortNames },
+  } = useStaticQuery<Queries.TreatyShortNamesQuery>(graphql`
     query TreatyShortNames {
-      shortNames: allAirtableDatabase(
+      treaties: allAirtableDatabase(
         filter: { table: { eq: "Document library" } }
       ) {
         distinct(field: { data: { Treaty_short_name: SELECT } })
