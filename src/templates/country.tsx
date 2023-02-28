@@ -66,56 +66,56 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
   )
 }
 
-export const query = graphql`
-  query CountryPage($iso3: String) {
-    countryData: airtableTrips(data: { ISO3: { eq: $iso3 } }) {
-      flag {
-        childImageSharp {
-          gatsbyImageData(placeholder: BLURRED, width: 55, quality: 80)
-        }
-      }
-      data {
-        Country_name
-      }
-    }
-    trips: airtableTrips(data: { ISO3: { eq: $iso3 } }) {
-      data {
-        All_applicable_countries_link {
-          data {
-            Document_name
-            Authoring_country {
-              data {
-                Country_name
-              }
-            }
-            File_publish_date
-          }
-          documentThumbnail {
-            childImageSharp {
-              gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
-            }
-          }
-        }
-      }
-    }
-    treaties: airtableTreaties(data: { ISO3: { eq: $iso3 } }) {
-      data {
-        Treaty_link {
-          data {
-            Treaty_name {
-              data {
-                Treaty_short_name
-              }
-            }
-            Status
-            Date_signed
-            Date_ratified
-            Date_became_a_party
-          }
-        }
-      }
-    }
-  }
-`
+// export const query = graphql`
+//   query CountryPage($iso3: String) {
+//     countryData: airtableTrips(data: { ISO3: { eq: $iso3 } }) {
+//       flag {
+//         childImageSharp {
+//           gatsbyImageData(placeholder: BLURRED, width: 55, quality: 80)
+//         }
+//       }
+//       data {
+//         Country_name
+//       }
+//     }
+//     trips: airtableTrips(data: { ISO3: { eq: $iso3 } }) {
+//       data {
+//         All_applicable_countries_link {
+//           data {
+//             Document_name
+//             Authoring_country {
+//               data {
+//                 Country_name
+//               }
+//             }
+//             File_publish_date
+//           }
+//           documentThumbnail {
+//             childImageSharp {
+//               gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
+//             }
+//           }
+//         }
+//       }
+//     }
+//     treaties: airtableTreaties(data: { ISO3: { eq: $iso3 } }) {
+//       data {
+//         Treaty_link {
+//           data {
+//             Treaty_name {
+//               data {
+//                 Treaty_short_name
+//               }
+//             }
+//             Status
+//             Date_signed
+//             Date_ratified
+//             Date_became_a_party
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
 
 export default CountryPage

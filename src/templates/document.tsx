@@ -73,43 +73,43 @@ const DocumentPage = ({
   )
 }
 
-export const query = graphql`
-  query DocumentPage($recordId: String) {
-    document: airtableDocuments(recordId: { eq: $recordId }) {
-      recordId
-      rowIndex
-      data {
-        Topic
-        Document_name
-        Document_subtitle
-        Date_entered_into_force
-        Date_of_original_publication
-        File_publish_date
-        Chaper__Section_or_Article
-        Document_note
-        All_applicable_countries {
-          data {
-            Country_name
-            ISO3
-          }
-        }
-        Language
-        Original_language_title
-        PDF {
-          localFiles {
-            publicURL
-            prettySize
-            ext
-          }
-        }
-      }
-      documentThumbnail {
-        childImageSharp {
-          gatsbyImageData(width: 160, placeholder: BLURRED)
-        }
-      }
-    }
-  }
-`
+// export const query = graphql`
+//   query DocumentPage($recordId: String) {
+//     document: airtableDocuments(recordId: { eq: $recordId }) {
+//       recordId
+//       rowIndex
+//       data {
+//         Topic
+//         Document_name
+//         Document_subtitle
+//         Date_entered_into_force
+//         Date_of_original_publication
+//         File_publish_date
+//         Chaper__Section_or_Article
+//         Document_note
+//         All_applicable_countries {
+//           data {
+//             Country_name
+//             ISO3
+//           }
+//         }
+//         Language
+//         Original_language_title
+//         PDF {
+//           localFiles {
+//             publicURL
+//             prettySize
+//             ext
+//           }
+//         }
+//       }
+//       documentThumbnail {
+//         childImageSharp {
+//           gatsbyImageData(width: 160, placeholder: BLURRED)
+//         }
+//       }
+//     }
+//   }
+// `
 
 export default DocumentPage

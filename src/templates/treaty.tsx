@@ -91,61 +91,61 @@ const TreatyPage = ({
 
 export default TreatyPage
 
-export const query = graphql`
-  query TreatyPage($short_name: String) {
-    general: allAirtableTreaties(
-      filter: {
-        table: { eq: "LOOKUP: Treaty" }
-        data: {
-          Treaty_name: {
-            elemMatch: { data: { Treaty_short_name: { eq: $short_name } } }
-          }
-        }
-      }
-    ) {
-      nodes {
-        data {
-          Document_name
-          File_source_URL
-          Treaty_description
-          File_publish_date
-          Date_opened_for_signature
-          Date_of_original_publication
-          Treaty_footnotes
-          Topic
-          Related_document {
-            data {
-              Treaty_short_name
-              Document_name
-            }
-          }
-          PDF {
-            localFiles {
-              publicURL
-              prettySize
-              ext
-            }
-          }
-          Country_link {
-            data {
-              Status
-              Date_became_a_party
-              Date_ratified
-              Date_signed
-              Country {
-                data {
-                  Country_name
-                }
-              }
-            }
-          }
-        }
-        documentThumbnail {
-          childImageSharp {
-            gatsbyImageData(height: 230, placeholder: BLURRED)
-          }
-        }
-      }
-    }
-  }
-`
+// export const query = graphql`
+//   query TreatyPage($short_name: String) {
+//     general: allAirtableTreaties(
+//       filter: {
+//         table: { eq: "LOOKUP: Treaty" }
+//         data: {
+//           Treaty_name: {
+//             elemMatch: { data: { Treaty_short_name: { eq: $short_name } } }
+//           }
+//         }
+//       }
+//     ) {
+//       nodes {
+//         data {
+//           Document_name
+//           File_source_URL
+//           Treaty_description
+//           File_publish_date
+//           Date_opened_for_signature
+//           Date_of_original_publication
+//           Treaty_footnotes
+//           Topic
+//           Related_document {
+//             data {
+//               Treaty_short_name
+//               Document_name
+//             }
+//           }
+//           PDF {
+//             localFiles {
+//               publicURL
+//               prettySize
+//               ext
+//             }
+//           }
+//           Country_link {
+//             data {
+//               Status
+//               Date_became_a_party
+//               Date_ratified
+//               Date_signed
+//               Country {
+//                 data {
+//                   Country_name
+//                 }
+//               }
+//             }
+//           }
+//         }
+//         documentThumbnail {
+//           childImageSharp {
+//             gatsbyImageData(height: 230, placeholder: BLURRED)
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
