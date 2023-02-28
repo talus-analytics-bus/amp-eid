@@ -212,34 +212,34 @@ const config: GatsbyConfig = {
         ],
       },
     },
-    {
-      resolve: `gatsby-plugin-remote-images`,
-      options: {
-        nodeType: 'AirtableTrips',
-        imagePath: 'data.ISO2',
-        // ** ALL OPTIONAL BELOW HERE: **
-        name: 'flag',
-        skipUndefinedUrls: true,
-        prepareUrl: (url: string) => {
-          if (!url || url === 'N/A') return undefined
-          return `https://flags.talusanalytics.com/300px/${url.toLowerCase()}.png`
-        },
-      },
-    },
-    {
-      resolve: `gatsby-plugin-remote-images`,
-      options: {
-        nodeType: 'AirtableAmrAnimal',
-        imagePath: 'data.ISO2',
-        // ** ALL OPTIONAL BELOW HERE: **
-        name: 'flag',
-        skipUndefinedUrls: true,
-        prepareUrl: (url: string) => {
-          if (!url || url === 'N/A') return undefined
-          return `https://flags.talusanalytics.com/300px/${url.toLowerCase()}.png`
-        },
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-remote-images`,
+    //   options: {
+    //     nodeType: 'AirtableTrips',
+    //     imagePath: 'data.ISO2',
+    //     // ** ALL OPTIONAL BELOW HERE: **
+    //     name: 'flag',
+    //     skipUndefinedUrls: true,
+    //     prepareUrl: (url: string) => {
+    //       if (!url || url === 'N/A') return undefined
+    //       return `https://flags.talusanalytics.com/300px/${url.toLowerCase()}.png`
+    //     },
+    //   },
+    // },
+    // {
+    //   resolve: `gatsby-plugin-remote-images`,
+    //   options: {
+    //     nodeType: 'AirtableAmrAnimal',
+    //     imagePath: 'data.ISO2',
+    //     // ** ALL OPTIONAL BELOW HERE: **
+    //     name: 'flag',
+    //     skipUndefinedUrls: true,
+    //     prepareUrl: (url: string) => {
+    //       if (!url || url === 'N/A') return undefined
+    //       return `https://flags.talusanalytics.com/300px/${url.toLowerCase()}.png`
+    //     },
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-remote-images`,
       options: {
