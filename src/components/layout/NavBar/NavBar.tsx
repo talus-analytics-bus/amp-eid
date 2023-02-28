@@ -12,7 +12,7 @@ import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import LinksList from './LinksList'
 import CountrySearch from 'components/landing/CountrySearch'
-import useTopicNames from 'queryHooks/useTopics'
+import useTopics from 'queryHooks/useTopics'
 
 const Nav = styled.nav`
   background-color: ${({ theme }) => theme.ampEidDarkBlue};
@@ -79,18 +79,12 @@ const NavBar = () => {
 
   const links = [{ to: '/about/overview/', children: 'About' }]
 
-  const topicNames = useTopicNames()
-  const topicsLinks = topicNames.map(name => ({
-    to: `/topics/${simplifyForUrl(name)}/`,
-    children: name,
-    disabled: false,
+  const topics = useTopics()
+  const topicsLinks = topics.map(({ data }) => ({
+    to: `/topics/${simplifyForUrl(data?.Topic ?? '')}/`,
+    children: data?.Topic ?? '',
+    disabled: data?.Disable ?? false,
   }))
-
-  // hardcoded "coming soon" links
-  topicsLinks.push(
-    { to: '', children: 'Coming soon: Childhood vaccination', disabled: true },
-    { to: '', children: 'Coming soon: Non-human vaccination', disabled: true }
-  )
 
   const treaties = useShortTreatyNames()
   const treatyLinks = treaties.map(treaty => ({
