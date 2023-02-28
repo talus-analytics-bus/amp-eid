@@ -75,13 +75,13 @@ const config: GatsbyConfig = {
           },
           // Double-linking the documents table appears to
           // make thumbnail generation work consistenly
-          {
-            baseId: `appC6ldXKPoY3bIwz`,
-            tableName: `Document library`,
-            queryName: `Documents`,
-            separateNodeType: true,
-            tableView: `CMS`,
-          },
+          // {
+          //   baseId: `appC6ldXKPoY3bIwz`,
+          //   tableName: `Document library`,
+          //   queryName: `Documents`,
+          //   separateNodeType: true,
+          //   tableView: `CMS`,
+          // },
           // // Trips
           // {
           //   baseId: `appryZVvEysrHZL0S`,
@@ -240,20 +240,20 @@ const config: GatsbyConfig = {
     //     },
     //   },
     // },
-    {
-      resolve: `gatsby-plugin-remote-images`,
-      options: {
-        nodeType: 'AirtableDocuments',
-        imagePath: 'data.PDF[].thumbnails.large.url',
-        // ** ALL OPTIONAL BELOW HERE: **
-        name: 'documentThumbnail',
-        skipUndefinedUrls: true,
-        prepareUrl: (url: string) => {
-          if (!url || url === 'N/A') return undefined
-          return url
-        },
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-remote-images`,
+    //   options: {
+    //     nodeType: 'AirtableDocuments',
+    //     imagePath: 'data.PDF[].thumbnails.large.url',
+    //     // ** ALL OPTIONAL BELOW HERE: **
+    //     name: 'documentThumbnail',
+    //     skipUndefinedUrls: true,
+    //     prepareUrl: (url: string) => {
+    //       if (!url || url === 'N/A') return undefined
+    //       return url
+    //     },
+    //   },
+    // },
     // {
     //   resolve: `gatsby-plugin-remote-images`,
     //   options: {
