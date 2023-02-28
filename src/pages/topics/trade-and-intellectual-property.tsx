@@ -42,6 +42,8 @@ const TripsPage = ({
 }: PageProps<Queries.TripsPageQuery>): JSX.Element => {
   const indexPageCMSData = useIndexPageData()
 
+  return <>Coming soon</>
+
   return (
     <Providers>
       <CMS.SEO />
@@ -68,99 +70,99 @@ const TripsPage = ({
   )
 }
 
-export const query = graphql`
-  query TripsPage {
-    subtopics: allAirtableTrips(
-      filter: { table: { eq: "1. Subtopic" } }
-      sort: { data: { Order: ASC } }
-    ) {
-      nodes {
-        data {
-          Subtopic
-          Subtopic_description
-          Subtopic_sources
-          Order
-          Define_status {
-            data {
-              Map_color
-              Status
-              Status_description
-            }
-          }
-          Assign_status {
-            data {
-              Country {
-                data {
-                  ISO3
-                }
-              }
-              Status_link {
-                data {
-                  Map_color
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    relatedTreaties: allAirtableTrips(
-      filter: {
-        table: { eq: "LOOKUP: Document (imported)" }
-        data: { Document_type: { eq: "Treaty" } }
-      }
-    ) {
-      nodes {
-        data {
-          Document_name
-          Treaty_short_name
-        }
-      }
-    }
-    countryDocuments: allAirtableTrips(
-      filter: {
-        table: { eq: "LOOKUP: Country (imported)" }
-        data: { Country_name: { nin: ["Regional", "Treaty", null] } }
-      }
-    ) {
-      nodes {
-        flag {
-          childImageSharp {
-            gatsbyImageData(width: 40, placeholder: BLURRED)
-          }
-        }
-        data {
-          Country_name
-          ISO3
-          All_applicable_countries_link {
-            data {
-              Document_name
-              File_publish_date
-              Authoring_country {
-                data {
-                  Country_name
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    thumbnails: allAirtableDocuments(
-      filter: { data: { Topic: { eq: "Trade and intellectual property" } } }
-    ) {
-      nodes {
-        documentThumbnail {
-          childImageSharp {
-            gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
-          }
-        }
-        data {
-          Document_name
-        }
-      }
-    }
-  }
-`
+// export const query = graphql`
+//   query TripsPage {
+//     subtopics: allAirtableTrips(
+//       filter: { table: { eq: "1. Subtopic" } }
+//       sort: { data: { Order: ASC } }
+//     ) {
+//       nodes {
+//         data {
+//           Subtopic
+//           Subtopic_description
+//           Subtopic_sources
+//           Order
+//           Define_status {
+//             data {
+//               Map_color
+//               Status
+//               Status_description
+//             }
+//           }
+//           Assign_status {
+//             data {
+//               Country {
+//                 data {
+//                   ISO3
+//                 }
+//               }
+//               Status_link {
+//                 data {
+//                   Map_color
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//     relatedTreaties: allAirtableTrips(
+//       filter: {
+//         table: { eq: "LOOKUP: Document (imported)" }
+//         data: { Document_type: { eq: "Treaty" } }
+//       }
+//     ) {
+//       nodes {
+//         data {
+//           Document_name
+//           Treaty_short_name
+//         }
+//       }
+//     }
+//     countryDocuments: allAirtableTrips(
+//       filter: {
+//         table: { eq: "LOOKUP: Country (imported)" }
+//         data: { Country_name: { nin: ["Regional", "Treaty", null] } }
+//       }
+//     ) {
+//       nodes {
+//         flag {
+//           childImageSharp {
+//             gatsbyImageData(width: 40, placeholder: BLURRED)
+//           }
+//         }
+//         data {
+//           Country_name
+//           ISO3
+//           All_applicable_countries_link {
+//             data {
+//               Document_name
+//               File_publish_date
+//               Authoring_country {
+//                 data {
+//                   Country_name
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//     thumbnails: allAirtableDocuments(
+//       filter: { data: { Topic: { eq: "Trade and intellectual property" } } }
+//     ) {
+//       nodes {
+//         documentThumbnail {
+//           childImageSharp {
+//             gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
+//           }
+//         }
+//         data {
+//           Document_name
+//         }
+//       }
+//     }
+//   }
+// `
 
 export default TripsPage
