@@ -5,6 +5,7 @@ import { Link } from 'gatsby'
 import CMS from '@talus-analytics/library.airtable-cms'
 
 import useIndexPageData from 'cmsHooks/useIndexPageData'
+import useTopics from 'queryHooks/useTopics'
 
 const TopicLinkList = styled.ul`
   list-style: none;
@@ -54,6 +55,7 @@ const ImageLinkTextContainer = styled.div`
 
 const TopicList = () => {
   const cmsData = useIndexPageData()
+  const topics = useTopics()
 
   return (
     <TopicLinkList>
@@ -61,7 +63,7 @@ const TopicList = () => {
         <ImageLink to="/topics/trade-and-intellectual-property/">
           <CMS.Image name="Topic 1 image" data={cmsData} />
           <ImageLinkTextContainer>
-            <CMS.Text name="Topic 1 text" data={cmsData} />
+            {topics[0].data?.Topic}
           </ImageLinkTextContainer>
         </ImageLink>
       </Li>
