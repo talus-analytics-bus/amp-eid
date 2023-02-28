@@ -254,50 +254,50 @@ const config: GatsbyConfig = {
         },
       },
     },
-    {
-      resolve: `gatsby-plugin-remote-images`,
-      options: {
-        nodeType: 'AirtableTrips',
-        imagePath: 'data.PDF[].thumbnails.large.url',
-        // ** ALL OPTIONAL BELOW HERE: **
-        name: 'documentThumbnail',
-        skipUndefinedUrls: true,
-        prepareUrl: (url: string) => {
-          if (!url || url === 'N/A') return undefined
-          return url
-        },
-      },
-    },
-    {
-      resolve: `gatsby-plugin-remote-images`,
-      options: {
-        nodeType: 'AirtableAmrAnimal',
-        imagePath: 'data.PDF[].thumbnails.large.url',
-        // imagePath: 'data.PDF.raw[].thumbnails.large.url',
-        // ** ALL OPTIONAL BELOW HERE: **
-        name: 'documentThumbnail',
-        skipUndefinedUrls: true,
-        prepareUrl: (url: string) => {
-          if (!url || url === 'N/A') return undefined
-          return url
-        },
-      },
-    },
-    {
-      resolve: `gatsby-plugin-remote-images`,
-      options: {
-        nodeType: 'AirtableTreaties',
-        imagePath: 'data.PDF[].thumbnails.large.url',
-        // imagePath: 'data.PDF.raw[].thumbnails.large.url',
-        // ** ALL OPTIONAL BELOW HERE: **
-        name: 'documentThumbnail',
-        skipUndefinedUrls: true,
-        prepareUrl: (url: string) => {
-          if (!url || url === 'N/A') return undefined
-          return url
-        },
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-remote-images`,
+    //   options: {
+    //     nodeType: 'AirtableTrips',
+    //     imagePath: 'data.PDF[].thumbnails.large.url',
+    //     // ** ALL OPTIONAL BELOW HERE: **
+    //     name: 'documentThumbnail',
+    //     skipUndefinedUrls: true,
+    //     prepareUrl: (url: string) => {
+    //       if (!url || url === 'N/A') return undefined
+    //       return url
+    //     },
+    //   },
+    // },
+    // {
+    //   resolve: `gatsby-plugin-remote-images`,
+    //   options: {
+    //     nodeType: 'AirtableAmrAnimal',
+    //     imagePath: 'data.PDF[].thumbnails.large.url',
+    //     // imagePath: 'data.PDF.raw[].thumbnails.large.url',
+    //     // ** ALL OPTIONAL BELOW HERE: **
+    //     name: 'documentThumbnail',
+    //     skipUndefinedUrls: true,
+    //     prepareUrl: (url: string) => {
+    //       if (!url || url === 'N/A') return undefined
+    //       return url
+    //     },
+    //   },
+    // },
+    // {
+    //   resolve: `gatsby-plugin-remote-images`,
+    //   options: {
+    //     nodeType: 'AirtableTreaties',
+    //     imagePath: 'data.PDF[].thumbnails.large.url',
+    //     // imagePath: 'data.PDF.raw[].thumbnails.large.url',
+    //     // ** ALL OPTIONAL BELOW HERE: **
+    //     name: 'documentThumbnail',
+    //     skipUndefinedUrls: true,
+    //     prepareUrl: (url: string) => {
+    //       if (!url || url === 'N/A') return undefined
+    //       return url
+    //     },
+    //   },
+    // },
     {
       // filling in the gtag here
       // will set up both the gatsby
