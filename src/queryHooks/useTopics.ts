@@ -1,16 +1,22 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
-const useTopicNames = () => {
-  const {
-    topics: { distinct: topicNames },
-  } = useStaticQuery<Queries.TopicNamesQuery>(graphql`
+const useTopics = () => {
+  const { topics } = useStaticQuery<Queries.TopicNamesQuery>(graphql`
     query TopicNames {
-      topics: allAirtableDatabase(filter: { table: { eq: "Topic" } }) {
-        distinct(field: { data: { Topic: SELECT } })
+      topics: allAirtableDatabase(
+        filter: { table: { eq: "Topic" } }
+        sort: { data: { Order: ASC } }
+      ) {
+        nodes {
+          data {
+            Topic
+            Disable
+          }
+        }
       }
     }
   `)
-  return topicNames
+  return topics.nodes
 }
 
-export default useTopicNames
+export default useTopics
