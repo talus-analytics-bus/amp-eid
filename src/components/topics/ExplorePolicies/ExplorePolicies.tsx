@@ -31,8 +31,8 @@ const Search = styled.input`
 `
 
 interface ExplorePoliciesProps {
-  countryDocuments: Queries.TripsPageQuery['countryDocuments']
-  thumbnails: Queries.TripsPageQuery['thumbnails']
+  countryDocuments: Queries.TopicPageQuery['countryDocuments']
+  thumbnails: Queries.TopicPageQuery['thumbnails']
 }
 
 const ExplorePolicies = ({

@@ -26,7 +26,7 @@ const TreatyLink = styled(Link)`
 `
 
 interface RelatedTreatiesProps {
-  relatedTreaties: Queries.TripsPageQuery['relatedTreaties']['nodes']
+  relatedTreaties: Queries.TopicPageQuery['relatedTreaties']['nodes']
 }
 
 const RelatedTreaties = ({ relatedTreaties }: RelatedTreatiesProps) => {
