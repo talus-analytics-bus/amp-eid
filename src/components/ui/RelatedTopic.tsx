@@ -2,10 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components'
 import SubSection from 'components/layout/SubSection'
-
-const relatedTopicURLMap = {
-  'Trade and intellectual property': '/topics/trade-and-intellectual-property',
-}
+import simplifyForUrl from 'utilities/simplifyForUrl'
 
 const H3 = styled.h3`
   margin: 0;
@@ -27,25 +24,27 @@ const StyledLink = styled(Link)`
 `
 
 interface RelatedTopicsProps {
-  topics: readonly (string | null)[] | null | undefined
+  topic_link:
+    | readonly ({
+        readonly data: {
+          readonly Topic: string | null
+        } | null
+      } | null)[]
+    | null
 }
 
-const RelatedTopics = ({ topics }: RelatedTopicsProps) => {
-  if (!topics || topics.length === 0) return <></>
+const RelatedTopics = ({ topic_link }: RelatedTopicsProps) => {
+  if (!topic_link || topic_link.length === 0) return <></>
 
   return (
     <>
-      {topics.map(
+      {topic_link.map(
         topic =>
-          topic && (
+          topic?.data?.Topic && (
             <SubSection>
               <H3>Related Topic</H3>
-              <StyledLink
-                to={
-                  relatedTopicURLMap[topic as keyof typeof relatedTopicURLMap]
-                }
-              >
-                {topic}
+              <StyledLink to={`/topics/${simplifyForUrl(topic.data.Topic)}`}>
+                {topic.data.Topic}
               </StyledLink>
             </SubSection>
           )

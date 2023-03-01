@@ -63,21 +63,21 @@ const TreatyPage = ({
           <Sidebar treatyData={treatyData} />
           <MainContent>
             <MainInfoSection treatyData={treatyData} />
+            {treatyData.data.Related_document &&
+              treatyData.data.Related_document?.[0]?.data && (
+                <SubSection>
+                  <H3>Related Treaties</H3>
+                  <RelatedTreaties
+                    relatedTreaties={
+                      treatyData.data.Related_document as NoUndefinedField<
+                        typeof treatyData.data.Related_document
+                      >
+                    }
+                  />
+                </SubSection>
+              )}
+            <RelatedTopics topic_link={treatyData.data.Document_topic_link} />
             {
-              //   {treatyData.data.Related_document &&
-              //     treatyData.dataRelated_document?.[0]?.data && (
-              //       <SubSection>
-              //         <H3>Related Treaties</H3>
-              //         <RelatedTreaties
-              //           relatedTreaties={
-              //             treatyData.dataRelated_document as NoUndefinedField<
-              //               typeof treatyData.dataRelated_document
-              //             >
-              //           }
-              //         />
-              //       </SubSection>
-              //     )}
-              //   <RelatedTopics topics={treatyData.data.Topic} />
               //   <SubSection>
               //     <H3>States Parties</H3>
               //     {treatyData.data.Treaty_footnotes && (
@@ -107,12 +107,22 @@ export const query = graphql`
         Date_opened_for_signature
         Date_of_original_publication
         Treaty_footnotes
-        Topic
+        Document_topic_link {
+          data {
+            Topic
+          }
+        }
         PDF {
           localFiles {
             prettySize
             publicURL
             ext
+          }
+        }
+        Related_document {
+          data {
+            Treaty_short_name
+            Document_name
           }
         }
       }

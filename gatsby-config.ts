@@ -71,6 +71,7 @@ const config: GatsbyConfig = {
               `Document_topic_link`,
               `All_applicable_countries`,
               `Authoring_country`,
+              `Related_document`,
             ],
             queryName: `Database`,
             separateNodeType: true,
