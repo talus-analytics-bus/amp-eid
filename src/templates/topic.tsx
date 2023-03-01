@@ -49,19 +49,19 @@ const TripsPage = ({
       <Main>
         <MainHeader>
           <h2>TOPIC</h2>
-          <h1>
-            <CMS.Text name="Topic 1 text" data={indexPageCMSData} />
-          </h1>
+          <h1>{data.topic?.data?.Topic}</h1>
         </MainHeader>
-        <TopicSwitcher data={data} />
-        <ColumnSection>
-          <H3>Treaty</H3>
-          <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
-        </ColumnSection>
-        <ExplorePolicies
-          countryDocuments={data.countryDocuments}
-          thumbnails={data.thumbnails}
-        />
+        {
+          // <TopicSwitcher data={data} />
+          // <ColumnSection>
+          //   <H3>Treaty</H3>
+          //   <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
+          // </ColumnSection>
+          // <ExplorePolicies
+          //   countryDocuments={data.countryDocuments}
+          //   thumbnails={data.thumbnails}
+          // />
+        }
       </Main>
       <Footer />
     </Providers>
@@ -75,7 +75,7 @@ export const query = graphql`
         Topic
       }
     }
-    rlatedTreaties: allAirtableDatabase(
+    relatedTreaties: allAirtableDatabase(
       filter: {
         table: { eq: "Document library" }
         data: {
