@@ -34,33 +34,22 @@ const DateText = styled.div`
 `
 
 interface DocumentLinkProps {
-  document: {
-    data: {
-      Document_name: string | null
-      File_publish_date: string | null
-      Authoring_country:
-        | readonly ({
-            readonly data: {
-              readonly Country_name: string | null
-            } | null
-          } | null)[]
-        | null
-    } | null
-  } | null
-  thumbnail:
-    | {
-        childImageSharp: {
-          gatsbyImageData: IGatsbyImageData
-        } | null
-      }
-    | null
-    | undefined
+  document: Exclude<
+    Exclude<
+      Queries.TopicPageQuery['countryDocuments']['nodes'][number]['data'],
+      null
+    >['All_applicable_countries_link'],
+    null
+  >[number]
 }
 
-const DocumentLink = ({ document, thumbnail }: DocumentLinkProps) => {
+const DocumentLink = ({ document }: DocumentLinkProps) => {
   const name = document?.data?.Document_name
   if (!name) throw new Error('Document missing name')
-  const image = thumbnail?.childImageSharp?.gatsbyImageData
+
+  const image =
+    document.documentThumbnail?.at(0)?.childImageSharp?.gatsbyImageData
+
   if (!image) throw new Error(`Document ${name} missing thumbnail`)
   const countryName = document?.data?.Authoring_country?.[0]?.data?.Country_name
   if (!countryName)
@@ -70,11 +59,12 @@ const DocumentLink = ({ document, thumbnail }: DocumentLinkProps) => {
   let date = ''
 
   if (dateStrings) {
-    const mostRecent = dateStrings
-      .split(',')
-      .map(string => parseAirtableDate(string))
-      .sort((a, b) => b.getTime() - a.getTime())
-      .at(0)
+    const mostRecent =
+      dateStrings.length > 0 &&
+      dateStrings
+        .map(string => parseAirtableDate(string!))
+        .sort((a, b) => b.getTime() - a.getTime())
+        .at(0)
 
     if (mostRecent) date = formatAirtableDate(mostRecent)
   }
@@ -84,7 +74,7 @@ const DocumentLink = ({ document, thumbnail }: DocumentLinkProps) => {
       key={name}
       to={`/documents/${simplifyForUrl(countryName)}/${simplifyForUrl(name)}`}
     >
-      {thumbnail && <Thumbnail image={image} alt={`${name} thumbnail`} />}
+      {image && <Thumbnail image={image} alt={`${name} thumbnail`} />}
       <Metadata>
         <DateText>{date}</DateText>
         <Name>{name}</Name>
