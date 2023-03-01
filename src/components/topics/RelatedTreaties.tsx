@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import ColumnSection from 'components/layout/ColumnSection'
-
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import { Link } from 'gatsby'
 
