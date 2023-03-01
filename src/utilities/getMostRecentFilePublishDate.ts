@@ -2,7 +2,7 @@ import parseAirtableDate from './parseDate'
 import formatAirtableDate from './formatDate'
 
 // return type from airtable for this property
-type FilePublishDate = readonly (string | null)[] | null
+type FilePublishDate = readonly (string | null)[] | null | undefined
 
 export default (data: FilePublishDate) => {
   if (!data) return undefined
