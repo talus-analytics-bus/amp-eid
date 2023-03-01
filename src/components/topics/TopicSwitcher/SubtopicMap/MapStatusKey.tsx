@@ -22,18 +22,18 @@ const ColorBlock = styled.div`
 `
 
 interface MapStatusKeyProps {
-  subtopic: Queries.TripsPageQuery['subtopics']['nodes'][0]['data']
+  subtopic: Queries.TopicPageQuery['subtopics']['nodes'][0]['data']
 }
 
 const MapStatusKey = ({ subtopic }: MapStatusKeyProps) => {
   const theme = useTheme()
 
-  if (!subtopic || !subtopic.Define_status) return <></>
+  if (!subtopic || !subtopic.Subtopic_define_status_link) return <></>
 
   return (
     <MapKey>
-      {subtopic.Define_status &&
-        subtopic.Define_status.map(status => {
+      {subtopic.Subtopic_define_status_link &&
+        subtopic.Subtopic_define_status_link.map(status => {
           if (!status || !status.data || !status.data.Map_color)
             throw new Error('Empty map legend entry')
 

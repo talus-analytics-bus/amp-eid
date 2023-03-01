@@ -51,8 +51,8 @@ const TripsPage = ({
           <h2>TOPIC</h2>
           <h1>{data.topic?.data?.Topic}</h1>
         </MainHeader>
+        <TopicSwitcher data={data} />
         {
-          // <TopicSwitcher data={data} />
           // <ColumnSection>
           //   <H3>Treaty</H3>
           //   <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
