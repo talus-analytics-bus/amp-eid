@@ -73,49 +73,50 @@ export const createPages: GatsbyNode['createPages'] = async ({
     })
   }
 
-  // const documentPageTemplate = path.resolve('./src/templates/document.tsx')
-  // const documentNames = await graphql<Queries.DocumentNamesQuery>(`
-  //   query DocumentNames {
-  //     names: allAirtableDocuments(
-  //       filter: {
-  //         data: { Document_type: { ne: "Treaty" } }
-  //         table: { eq: "Document library" }
-  //       }
-  //     ) {
-  //       nodes {
-  //         recordId
-  //         data {
-  //           Document_name
-  //           Authoring_country {
-  //             data {
-  //               Country_name
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // `)
-  // if (!documentNames.data?.names) throw new Error('No documents found')
-  // for (const document of documentNames.data.names.nodes) {
-  //   const name = document.data?.Document_name
-  //   if (!name) throw new Error('All documents must have names')
-  //   const authoringCountry =
-  //     document.data?.Authoring_country?.[0]?.data?.Country_name
-  //   if (!authoringCountry)
-  //     throw new Error(
-  //       `Document ${name} does not have an "Authoring country" which has a "Country name".`
-  //     )
-  //   actions.createPage({
-  //     path: `/documents/${simplifyForUrl(authoringCountry)}/${simplifyForUrl(
-  //       name
-  //     )}/`,
-  //     component: documentPageTemplate,
-  //     context: {
-  //       recordId: document.recordId,
-  //     },
-  //   })
-  // }
+  const documentPageTemplate = path.resolve('./src/templates/document.tsx')
+  const documentNames = await graphql<Queries.DocumentNamesQuery>(`
+    query DocumentNames {
+      names: allAirtableDatabase(
+        filter: {
+          table: { eq: "Document library" }
+          data: { Document_type: { ne: "Treaty" } }
+        }
+      ) {
+        nodes {
+          id
+          data {
+            Document_name
+            Authoring_country {
+              data {
+                Country_name
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+  if (!documentNames.data?.names) throw new Error('No documents found')
+  for (const document of documentNames.data.names.nodes) {
+    const name = document.data?.Document_name
+    if (!name) throw new Error('All documents must have names')
+    const authoringCountry =
+      document.data?.Authoring_country?.[0]?.data?.Country_name
+    if (!authoringCountry)
+      throw new Error(
+        `Document ${name} does not have an "Authoring country" which has a "Country name".`
+      )
+    actions.createPage({
+      path: `/documents/${simplifyForUrl(authoringCountry)}/${simplifyForUrl(
+        name
+      )}/`,
+      component: documentPageTemplate,
+      context: {
+        document_id: document.id,
+      },
+    })
+  }
+
   // const countryPageTemplate = path.resolve('./src/templates/country.tsx')
   // const countryNames = await graphql<Queries.CountryNamesQuery>(`
   //   query CountryNames {
