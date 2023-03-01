@@ -55,10 +55,10 @@ const config: GatsbyConfig = {
             mapping: { Image: `fileNode` },
           },
           // Data Tables
-          // Master document library
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `LOOKUP: Country`,
+            tableLinks: [`All_applicable_countries_link`],
             queryName: `Database`,
             separateNodeType: true,
             tableView: `CMS`,
@@ -77,6 +77,7 @@ const config: GatsbyConfig = {
             mapping: { PDF: `fileNode` },
             tableView: `CMS`,
           },
+          // Documents table for thumbnails
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `Document library`,

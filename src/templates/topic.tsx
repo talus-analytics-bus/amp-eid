@@ -128,6 +128,28 @@ export const query = graphql`
         }
       }
     }
+    countryDocuments: allAirtableDatabase(
+      filter: {
+        table: { eq: "LOOKUP: Country" }
+        data: { Country_name: { nin: ["Regional", "Treaty", null] } }
+      }
+    ) {
+      nodes {
+        data {
+          Country_name
+          All_applicable_countries_link {
+            documentThumbnail {
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
+            data {
+              Document_name
+            }
+          }
+        }
+      }
+    }
   }
 `
 
