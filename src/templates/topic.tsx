@@ -134,7 +134,7 @@ export const query = graphql`
           All_applicable_countries {
             flag {
               childImageSharp {
-                gatsbyImageData
+                gatsbyImageData(width: 40, placeholder: BLURRED)
               }
             }
             data {
@@ -149,7 +149,7 @@ export const query = graphql`
         }
         documentThumbnail {
           childImageSharp {
-            gatsbyImageData
+            gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
           }
         }
       }
