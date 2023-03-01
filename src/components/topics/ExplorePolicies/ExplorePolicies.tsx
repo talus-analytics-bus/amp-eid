@@ -31,28 +31,71 @@ const Search = styled.input`
 `
 
 interface ExplorePoliciesProps {
-  countryDocuments: Queries.TopicPageQuery['countryDocuments']
-  thumbnails: Queries.TopicPageQuery['thumbnails']
+  topicDocuments: Queries.TopicPageQuery['topicDocuments']
 }
 
-const ExplorePolicies = ({
-  countryDocuments,
-  thumbnails,
-}: ExplorePoliciesProps) => {
+const ExplorePolicies = ({ topicDocuments }: ExplorePoliciesProps) => {
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(5)
   const [searchTerm, setSearchTerm] = useState('')
 
-  // map between document name and thumbnail data
-  const thumbnailMap = useMemo(() => {
-    return thumbnails.nodes.reduce(
-      (obj, doc) => ({
-        ...obj,
-        [doc.data!.Document_name!]: doc.documentThumbnail?.[0],
-      }),
-      {}
+  // // map between document name and thumbnail data
+  // const thumbnailMap = useMemo(() => {
+  //   return thumbnails.nodes.reduce(
+  //     (obj, doc) => ({
+  //       ...obj,
+  //       [doc.data!.Document_name!]: doc.documentThumbnail?.[0],
+  //     }),
+  //     {}
+  //   )
+  // }, [thumbnails])
+
+  console.time('countryDocuments')
+  const countryDocuments = useMemo(() => {
+    // prettier-ignore
+    interface CountriesObj {
+      [key: string]: {
+        country: 
+          Exclude<
+            Exclude<
+              Exclude<
+                typeof topicDocuments.nodes[number], 
+                null>['data'], 
+              null
+            >['All_applicable_countries'],
+            null
+          >[number]
+
+        documents: Exclude<typeof topicDocuments.nodes[number][], null>
+      }
+    }
+    const countriesObj: CountriesObj = {}
+
+    for (const document of topicDocuments.nodes) {
+      const countries = document.data?.All_applicable_countries
+      if (!countries) break
+
+      for (const country of countries) {
+        if (!country?.data?.Country_name) break
+
+        if (!countriesObj[country.data.Country_name])
+          countriesObj[country.data.Country_name] = {
+            country,
+            documents: [document],
+          }
+        else countriesObj[country.data.Country_name].documents.push(document)
+      }
+    }
+    const countriesList = Object.entries(countriesObj).sort((a, b) =>
+      a[0].localeCompare(b[0])
     )
-  }, [thumbnails])
+    return countriesList
+  }, [topicDocuments])
+  console.timeEnd('countryDocuments')
+
+  console.log(countryDocuments)
+
+  return <pre>{JSON.stringify(countryDocuments, null, 2)}</pre>
 
   // removing 'readonly' from the gatsby-generated type
   // so we can sort without typescript complaining
@@ -95,8 +138,8 @@ const ExplorePolicies = ({
       </div>
       <div>
         {sorted.map((country, index) => (
-          <React.Fragment key={country.data?.ISO3}>
-            {country.data?.ISO3 && (
+          <React.Fragment key={country.data?.Country_name}>
+            {country.data?.Country_name && (
               <ExploreDropdown
                 style={{
                   display:
@@ -118,12 +161,6 @@ const ExplorePolicies = ({
                     <DocumentLink
                       key={document?.data?.Document_name}
                       document={document}
-                      thumbnail={
-                        thumbnailMap[
-                          document?.data
-                            ?.Document_name as keyof typeof thumbnailMap
-                        ]
-                      }
                     />
                   ))
                 ) : (
