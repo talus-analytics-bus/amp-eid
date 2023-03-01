@@ -145,7 +145,7 @@ export const query = graphql`
           All_applicable_countries_link {
             documentThumbnail {
               childImageSharp {
-                gatsbyImageData
+                gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
               }
             }
             data {
