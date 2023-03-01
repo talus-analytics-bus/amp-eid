@@ -9,7 +9,6 @@ import MainHeader from 'components/layout/MainHeader'
 import NavBar from 'components/layout/NavBar/NavBar'
 import Providers from 'components/layout/Providers'
 
-import useIndexPageData from 'cmsHooks/useIndexPageData'
 import TopicSwitcher from 'components/topics/TopicSwitcher/TopicSwitcher'
 import RelatedTreaties from 'components/topics/RelatedTreaties'
 import ExplorePolicies from 'components/topics/ExplorePolicies/ExplorePolicies'
@@ -40,8 +39,6 @@ const H3 = styled.h3`
 const TripsPage = ({
   data,
 }: PageProps<Queries.TopicPageQuery>): JSX.Element => {
-  const indexPageCMSData = useIndexPageData()
-
   return (
     <Providers>
       <CMS.SEO />
@@ -52,16 +49,11 @@ const TripsPage = ({
           <h1>{data.topic?.data?.Topic}</h1>
         </MainHeader>
         <TopicSwitcher data={data} />
-        {
-          // <ColumnSection>
-          //   <H3>Treaty</H3>
-          //   <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
-          // </ColumnSection>
-          // <ExplorePolicies
-          //   countryDocuments={data.countryDocuments}
-          //   thumbnails={data.thumbnails}
-          // />
-        }
+        <ColumnSection>
+          <H3>Treaty</H3>
+          <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
+        </ColumnSection>
+        <ExplorePolicies topicDocuments={data.topicDocuments} />
       </Main>
       <Footer />
     </Providers>
@@ -126,35 +118,80 @@ export const query = graphql`
         }
       }
     }
-    countryDocuments: allAirtableDatabase(
+    topicDocuments: allAirtableDatabase(
       filter: {
-        table: { eq: "LOOKUP: Country" }
-        data: { Country_name: { nin: ["Regional", "Treaty", null] } }
+        table: { eq: "Document library" }
+        data: {
+          Document_type: { ne: "Treaty" }
+          Document_topic_link: { elemMatch: { id: { eq: $topic_id } } }
+        }
       }
     ) {
       nodes {
-        flag {
-          childImageSharp {
-            gatsbyImageData(width: 40, placeholder: BLURRED)
-          }
-        }
         data {
-          Country_name
-          All_applicable_countries_link {
-            documentThumbnail {
+          Document_name
+          File_publish_date
+          All_applicable_countries {
+            flag {
               childImageSharp {
-                gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
+                gatsbyImageData
               }
             }
             data {
-              Document_name
+              Country_name
             }
+          }
+          Authoring_country {
+            data {
+              Country_name
+            }
+          }
+        }
+        documentThumbnail {
+          childImageSharp {
+            gatsbyImageData
           }
         }
       }
     }
   }
 `
+
+// countryDocuments: allAirtableDatabase(
+//   filter: {
+//     table: { eq: "LOOKUP: Country" }
+//     data: {
+//       Country_name: { nin: ["Regional", "Treaty", "European Union", null] }
+//     }
+//   }
+// ) {
+//   nodes {
+//     flag {
+//       childImageSharp {
+//         gatsbyImageData(width: 40, placeholder: BLURRED)
+//       }
+//     }
+//     data {
+//       Country_name
+//       All_applicable_countries_link {
+//         documentThumbnail {
+//           childImageSharp {
+//             gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
+//           }
+//         }
+//         data {
+//           Document_name
+//           File_publish_date
+//           Authoring_country {
+//             data {
+//               Country_name
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
 // export const query = graphql`
 //   query TripsPage {
