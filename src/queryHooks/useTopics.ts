@@ -1,8 +1,8 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
 const useTopics = () => {
-  const { topics } = useStaticQuery<Queries.TopicNamesQuery>(graphql`
-    query TopicNames {
+  const { topics } = useStaticQuery<Queries.TopicsQuery>(graphql`
+    query Topics {
       topics: allAirtableDatabase(
         filter: { table: { eq: "Topic" } }
         sort: { data: { Order: ASC } }
