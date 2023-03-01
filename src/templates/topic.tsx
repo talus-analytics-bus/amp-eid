@@ -70,6 +70,67 @@ const TripsPage = ({
   )
 }
 
+export const query = graphql`
+  query TopicPage($topic_id: String) {
+    topic: airtableDatabase(id: { eq: $topic_id }) {
+      data {
+        Topic
+      }
+    }
+    rlatedTreaties: allAirtableDatabase(
+      filter: {
+        table: { eq: "Document library" }
+        data: {
+          Document_type: { eq: "Treaty" }
+          Document_topic_link: { elemMatch: { id: { eq: $topic_id } } }
+        }
+      }
+    ) {
+      nodes {
+        data {
+          Document_name
+          Treaty_short_name
+        }
+      }
+    }
+    subtopics: allAirtableDatabase(
+      filter: {
+        table: { eq: "Subtopic" }
+        data: { Subtopic_topic_link: { elemMatch: { id: { eq: $topic_id } } } }
+      }
+      sort: { data: { Order: ASC } }
+    ) {
+      nodes {
+        data {
+          Subtopic
+          Subtopic_description
+          Subtopic_define_status_link {
+            data {
+              Status
+              Map_color
+              Status_description
+            }
+          }
+          Subtopic_assign_status_link {
+            data {
+              Country {
+                data {
+                  ISO3
+                }
+              }
+              Status_link {
+                data {
+                  Map_color
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
 // export const query = graphql`
 //   query TripsPage {
 //     subtopics: allAirtableTrips(
