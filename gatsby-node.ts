@@ -41,28 +41,38 @@ export const createPages: GatsbyNode['createPages'] = async ({
     })
   }
 
-  // const treatyPageTemplate = path.resolve('./src/templates/treaty.tsx')
-  // const treatyNames = await graphql<Queries.TreatyShortNamesQuery>(`
-  //   query ShortNames {
-  //     shortNames: allAirtableTreaties(
-  //       filter: { table: { eq: "All treaties and countries" } }
-  //     ) {
-  //       distinct(
-  //         field: {
-  //           data: { Treaty_name: { data: { Treaty_short_name: SELECT } } }
-  //         }
-  //       )
-  //     }
-  //   }
-  // `)
-  // if (!treatyNames.data?.shortNames) throw new Error('No treaties found')
-  // for (const short_name of treatyNames.data.shortNames.distinct) {
-  //   actions.createPage({
-  //     path: `/treaties/${simplifyForUrl(short_name)}/`,
-  //     component: treatyPageTemplate,
-  //     context: { short_name },
-  //   })
-  // }
+  const treatyPageTemplate = path.resolve('./src/templates/treaty.tsx')
+  const treatyNames = await graphql<Queries.TreatyPageUrlsQuery>(`
+    query TreatyPageUrls {
+      shortNames: allAirtableDatabase(
+        filter: {
+          table: { eq: "Document library" }
+          data: { Document_type: { eq: "Treaty" } }
+        }
+      ) {
+        nodes {
+          id
+          data {
+            Treaty_short_name
+          }
+        }
+      }
+    }
+  `)
+  if (!treatyNames.data?.shortNames.nodes.length)
+    throw new Error('No treaties found')
+
+  for (const treaty of treatyNames.data.shortNames.nodes) {
+    if (!treaty.data?.Treaty_short_name)
+      throw new Error(`All treaties must have short names`)
+
+    actions.createPage({
+      path: `/treaties/${simplifyForUrl(treaty.data?.Treaty_short_name)}/`,
+      component: treatyPageTemplate,
+      context: { treaty_id: treaty.id },
+    })
+  }
+
   // const documentPageTemplate = path.resolve('./src/templates/document.tsx')
   // const documentNames = await graphql<Queries.DocumentNamesQuery>(`
   //   query DocumentNames {

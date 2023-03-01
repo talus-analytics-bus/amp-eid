@@ -40,56 +40,79 @@ type NoUndefinedField<T> = {
 }
 
 const TreatyPage = ({
-  data: {
-    general: {
-      nodes: [treatyData],
-    },
-  },
-}: PageProps<Queries.TreatyPageQuery>) => (
-  <Providers>
-    <CMS.SEO
-      title={treatyData.data?.Document_name ?? undefined}
-      description={treatyData.data?.Treaty_description ?? undefined}
-    />
-    <NavBar />
-    <Main>
-      <MainHeader>
-        <h2>TREATY</h2>
-        <h1>{treatyData.data?.Document_name}</h1>
-      </MainHeader>
-      <ColumnSection>
-        <Sidebar treatyData={treatyData} />
-        <MainContent>
-          <MainInfoSection treatyData={treatyData} />
-          {treatyData.data?.Related_document &&
-            treatyData.data.Related_document?.[0]?.data && (
-              <SubSection>
-                <H3>Related Treaties</H3>
-                <RelatedTreaties
-                  relatedTreaties={
-                    treatyData.data.Related_document as NoUndefinedField<
-                      typeof treatyData.data.Related_document
-                    >
-                  }
-                />
-              </SubSection>
-            )}
-          <RelatedTopics topics={treatyData.data?.Topic} />
-          <SubSection>
-            <H3>States Parties</H3>
-            {treatyData.data?.Treaty_footnotes && (
-              <Footnote markdown={treatyData.data?.Treaty_footnotes} />
-            )}
-            <StatusTable treatyData={treatyData} />
-          </SubSection>
-        </MainContent>
-      </ColumnSection>
-    </Main>
-    <Footer />
-  </Providers>
-)
+  data: { treaty },
+  pageContext,
+}: PageProps<Queries.TreatyPageQuery, { treaty_id: string }>) => {
+  const treatyData = treaty?.data
+  if (!treatyData)
+    throw new Error(`Treaty data not found for ${pageContext.treaty_id}`)
+
+  return (
+    <Providers>
+      <CMS.SEO
+        title={treatyData?.Document_name ?? undefined}
+        description={treatyData?.Treaty_description ?? undefined}
+      />
+      <NavBar />
+      <Main>
+        <MainHeader>
+          <h2>TREATY</h2>
+          <h1>{treatyData?.Document_name}</h1>
+        </MainHeader>
+
+        {
+          // <ColumnSection>
+          //   <Sidebar treatyData={treatyData} />
+          //   <MainContent>
+          //     <MainInfoSection treatyData={treatyData} />
+          //     {treatyData?.Related_document &&
+          //       treatyData.Related_document?.[0]?.data && (
+          //         <SubSection>
+          //           <H3>Related Treaties</H3>
+          //           <RelatedTreaties
+          //             relatedTreaties={
+          //               treatyData.Related_document as NoUndefinedField<
+          //                 typeof treatyData.Related_document
+          //               >
+          //             }
+          //           />
+          //         </SubSection>
+          //       )}
+          //     <RelatedTopics topics={treatyData?.Topic} />
+          //     <SubSection>
+          //       <H3>States Parties</H3>
+          //       {treatyData?.Treaty_footnotes && (
+          //         <Footnote markdown={treatyData?.Treaty_footnotes} />
+          //       )}
+          //       <StatusTable treatyData={treatyData} />
+          //     </SubSection>
+          //   </MainContent>
+          // </ColumnSection>
+        }
+      </Main>
+      <Footer />
+    </Providers>
+  )
+}
 
 export default TreatyPage
+
+export const query = graphql`
+  query TreatyPage($treaty_id: String) {
+    treaty: airtableDatabase(id: { eq: $treaty_id }) {
+      data {
+        Document_name
+        File_source_URL
+        Treaty_description
+        File_publish_date
+        Date_opened_for_signature
+        Date_of_original_publication
+        Treaty_footnotes
+        Topic
+      }
+    }
+  }
+`
 
 // export const query = graphql`
 //   query TreatyPage($short_name: String) {
