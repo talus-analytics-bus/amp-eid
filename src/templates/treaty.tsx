@@ -77,15 +77,13 @@ const TreatyPage = ({
                 </SubSection>
               )}
             <RelatedTopics topic_link={treatyData.data.Document_topic_link} />
-            {
-              //   <SubSection>
-              //     <H3>States Parties</H3>
-              //     {treatyData.data.Treaty_footnotes && (
-              //       <Footnote markdown={treatyData.data.Treaty_footnotes} />
-              //     )}
-              //     <StatusTable treatyData={treatyData} />
-              //   </SubSection>
-            }
+            <SubSection>
+              <H3>States Parties</H3>
+              {treatyData.data.Treaty_footnotes && (
+                <Footnote markdown={treatyData.data.Treaty_footnotes} />
+              )}
+              <StatusTable treatyData={treatyData} />
+            </SubSection>
           </MainContent>
         </ColumnSection>
       </Main>
@@ -123,6 +121,19 @@ export const query = graphql`
           data {
             Treaty_short_name
             Document_name
+          }
+        }
+        Treaty_status {
+          data {
+            Status
+            Date_became_a_party
+            Date_ratified
+            Date_signed
+            Country {
+              data {
+                Country_name
+              }
+            }
           }
         }
       }
