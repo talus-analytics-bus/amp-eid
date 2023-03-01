@@ -8,6 +8,39 @@ export const createPages: GatsbyNode['createPages'] = async ({
   actions,
   graphql,
 }) => {
+  const topicPageTemplate = path.resolve('./src/templates/topic.tsx')
+
+  const topicQuery = await graphql<Queries.TopicNamesQuery>(`
+    query TopicNames {
+      topics: allAirtableDatabase(
+        filter: { table: { eq: "Topic" }, data: { Disable: { ne: true } } }
+      ) {
+        nodes {
+          id
+          data {
+            Topic
+          }
+        }
+      }
+    }
+  `)
+
+  if (!topicQuery.data?.topics.nodes)
+    throw new Error('No topics found to publish')
+
+  for (const topic of topicQuery.data.topics.nodes) {
+    if (!topic.data?.Topic)
+      throw new Error(
+        'All topics must have a topic name in the "Topic" column.'
+      )
+
+    actions.createPage({
+      path: `/treaties/${simplifyForUrl(topic.data?.Topic)}/`,
+      component: topicPageTemplate,
+      context: { id: topic.id },
+    })
+  }
+
   // const treatyPageTemplate = path.resolve('./src/templates/treaty.tsx')
   // const treatyNames = await graphql<Queries.TreatyShortNamesQuery>(`
   //   query ShortNames {
