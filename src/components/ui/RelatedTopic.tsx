@@ -28,20 +28,27 @@ interface RelatedTopicsProps {
     | readonly ({
         readonly data: {
           readonly Topic: string | null
+          readonly Publish: boolean | null
         } | null
       } | null)[]
     | null
 }
 
 const RelatedTopics = ({ topic_link }: RelatedTopicsProps) => {
-  if (!topic_link || topic_link.length === 0) return <></>
+  if (
+    !topic_link ||
+    topic_link.length === 0 ||
+    topic_link.every(t => t?.data?.Publish !== true)
+  )
+    return <></>
 
   return (
     <SubSection>
       <H3>Related {topic_link.length === 1 ? 'Topic' : 'Topics'}</H3>
       {topic_link.map(
         topic =>
-          topic?.data?.Topic && (
+          topic?.data?.Topic &&
+          (topic?.data?.Publish !== null || undefined) && (
             <StyledLink to={`/topics/${simplifyForUrl(topic.data.Topic)}`}>
               {topic.data.Topic}
             </StyledLink>

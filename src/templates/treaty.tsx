@@ -108,6 +108,7 @@ export const query = graphql`
         Document_topic_link {
           data {
             Topic
+            Publish
           }
         }
         PDF {
