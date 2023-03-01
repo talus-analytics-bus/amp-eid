@@ -35,7 +35,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
       )
 
     actions.createPage({
-      path: `/treaties/${simplifyForUrl(topic.data?.Topic)}/`,
+      path: `/topics/${simplifyForUrl(topic.data?.Topic)}/`,
       component: topicPageTemplate,
       context: { id: topic.id },
     })
