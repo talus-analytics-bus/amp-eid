@@ -135,6 +135,11 @@ export const query = graphql`
       }
     ) {
       nodes {
+        flag {
+          childImageSharp {
+            gatsbyImageData(width: 40, placeholder: BLURRED)
+          }
+        }
         data {
           Country_name
           All_applicable_countries_link {
