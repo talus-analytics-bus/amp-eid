@@ -39,10 +39,8 @@ const H3 = styled.h3`
 
 const TripsPage = ({
   data,
-}: PageProps<Queries.TripsPageQuery>): JSX.Element => {
+}: PageProps<Queries.TopicPageQuery>): JSX.Element => {
   const indexPageCMSData = useIndexPageData()
-
-  return <>Coming soon</>
 
   return (
     <Providers>
