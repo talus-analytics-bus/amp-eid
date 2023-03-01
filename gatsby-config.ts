@@ -67,7 +67,11 @@ const config: GatsbyConfig = {
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `Document library`,
-            tableLinks: [`All_applicable_countries`, `Authoring_country`],
+            tableLinks: [
+              `Document_topic_link`,
+              `All_applicable_countries`,
+              `Authoring_country`,
+            ],
             queryName: `Database`,
             separateNodeType: true,
             mapping: { PDF: `fileNode` },
@@ -75,8 +79,43 @@ const config: GatsbyConfig = {
           },
           {
             baseId: `appC6ldXKPoY3bIwz`,
-            tableName: `Topic`,
+            tableName: `Document library`,
+            queryName: `Database`,
+            separateNodeType: true,
+            tableView: `CMS`,
+          },
+          {
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Define status`,
             tableLinks: [],
+            queryName: `Database`,
+            separateNodeType: true,
+            tableView: `CMS`,
+          },
+          {
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Assign status`,
+            tableLinks: [`Country`, `Status_link`],
+            queryName: `Database`,
+            separateNodeType: true,
+            tableView: `CMS`,
+          },
+          {
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Subtopic`,
+            tableLinks: [
+              `Subtopic_topic_link`,
+              `Subtopic_define_status_link`,
+              `Subtopic_assign_status_link`,
+            ],
+            queryName: `Database`,
+            separateNodeType: true,
+            tableView: `CMS`,
+          },
+          {
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Topic`,
+            tableLinks: [`Topic_subtopic_link`],
             queryName: `Database`,
             separateNodeType: true,
             tableView: `CMS`,
@@ -218,6 +257,20 @@ const config: GatsbyConfig = {
           //   separateNodeType: true,
           // },
         ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'AirtableDatabase',
+        imagePath: 'data.PDF[].thumbnails.large.url',
+        // ** ALL OPTIONAL BELOW HERE: **
+        name: 'documentThumbnail',
+        skipUndefinedUrls: true,
+        prepareUrl: (url: string) => {
+          if (!url || url === 'N/A') return undefined
+          return url
+        },
       },
     },
     // {
