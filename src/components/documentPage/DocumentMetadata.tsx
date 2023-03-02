@@ -71,7 +71,7 @@ const DocumentMetadata = ({ document }: Queries.DocumentPageQuery) => {
 
   const text = {
     'Relevant articles': document?.data?.Chaper__Section_or_Article,
-    Note: document?.data?.Document_note,
+    Note: document?.data?.Document_description,
   }
 
   const languages = []

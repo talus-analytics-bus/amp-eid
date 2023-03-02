@@ -38,7 +38,7 @@ const MainInfoSection = ({
 }) => {
   const fileData = treatyData.data?.PDF?.localFiles?.[0]
 
-  if (!treatyData.data?.Treaty_description)
+  if (!treatyData.data?.Document_description)
     throw new Error(
       `Treaty description not found for treaty ${treatyData.data?.Document_name}`
     )
@@ -79,7 +79,7 @@ const MainInfoSection = ({
           )}
         </tbody>
       </DateTable>
-      <Description markdown={treatyData.data?.Treaty_description} />
+      <Description markdown={treatyData.data?.Document_description} />
     </Container>
   )
 }

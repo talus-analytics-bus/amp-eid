@@ -51,7 +51,7 @@ const TreatyPage = ({
     <Providers>
       <CMS.SEO
         title={treatyData.data.Document_name ?? undefined}
-        description={treatyData.data.Treaty_description ?? undefined}
+        description={treatyData.data.Document_description ?? undefined}
       />
       <NavBar />
       <Main>
@@ -103,7 +103,7 @@ export const query = graphql`
       data {
         Document_name
         File_source_URL
-        Treaty_description
+        Document_description
         File_publish_date
         Date_opened_for_signature
         Date_of_original_publication

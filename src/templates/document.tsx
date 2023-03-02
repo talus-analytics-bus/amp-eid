@@ -84,7 +84,7 @@ export const query = graphql`
         Date_of_original_publication
         File_publish_date
         Chaper__Section_or_Article
-        Document_note
+        Document_description
         Language
         Original_language_title
         All_applicable_countries {
