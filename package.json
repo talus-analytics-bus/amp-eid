@@ -50,6 +50,7 @@
     "@babel/core": "^7.21.0",
     "@babel/eslint-parser": "^7.19.1",
     "@babel/preset-react": "^7.16.7",
+    "@total-typescript/ts-reset": "^0.3.7",
     "@types/mapbox-gl": "^2.7.10",
     "@types/react": "^18.0.26",
     "@types/styled-components": "^5.1.12",

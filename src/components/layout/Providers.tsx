@@ -13,6 +13,9 @@ import getTrackingId from 'utilities/trackingId'
 
 import '../../../static/assets/fonts/fonts.css'
 
+// typescript really strict mode
+import '@total-typescript/ts-reset'
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
