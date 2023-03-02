@@ -1,6 +1,15 @@
 /* Using this import for now because this particular font might not stick around */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&display=swap');
 
+/* Tapas sans */
+@font-face {
+  font-family: 'Tapas';
+  src: url('/assets/fonts/tapasSans/tapas-sans-webfont.woff2') format('woff2'),
+    url('/assets/fonts/tapasSans/tapas-sans-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Open Sans */
 @font-face {
   font-family: 'Open Sans';
