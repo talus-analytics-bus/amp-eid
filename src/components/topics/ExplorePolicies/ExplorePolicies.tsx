@@ -46,8 +46,8 @@ const ExplorePolicies = ({ topicDocuments }: ExplorePoliciesProps) => {
 
   let displayCountries = countryDocuments
 
-  const fuse = new Fuse(countryDocuments, {
-    keys: ['data.Country_name', 'data.ISO3'],
+  const fuse = new Fuse(displayCountries, {
+    keys: ['country.data.Country_name', 'country.data.ISO3'],
   })
 
   if (searchTerm !== '')
@@ -73,8 +73,8 @@ const ExplorePolicies = ({ topicDocuments }: ExplorePoliciesProps) => {
         </Label>
       </div>
       <div>
-        {displayCountries.map(([name, data], index) => (
-          <React.Fragment key={name}>
+        {displayCountries.map((data, index) => (
+          <React.Fragment key={data.country?.data?.Country_name}>
             {data?.country?.data?.Country_name && (
               <ExploreDropdown
                 style={{
@@ -87,7 +87,7 @@ const ExplorePolicies = ({ topicDocuments }: ExplorePoliciesProps) => {
                 label={
                   <>
                     <Flag country={data.country} />
-                    {name}
+                    {data.country.data.Country_name}
                   </>
                 }
               >
