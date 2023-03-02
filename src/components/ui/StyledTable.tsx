@@ -9,7 +9,7 @@ const StyledTable = styled.table`
     padding: 10px;
 
     a {
-      color: ${({ theme }) => theme.black};
+      color: ${({ theme }) => theme.link};
       text-decoration: none;
 
       &:hover {
