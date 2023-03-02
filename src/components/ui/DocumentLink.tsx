@@ -1,11 +1,11 @@
-import { Link } from 'gatsby'
-import { IGatsbyImageData } from 'gatsby-plugin-image'
 import React from 'react'
+import { Link } from 'gatsby'
 import styled from 'styled-components'
-import formatAirtableDate from 'utilities/formatDate'
-import parseAirtableDate from 'utilities/parseDate'
-import simplifyForUrl from 'utilities/simplifyForUrl'
+
 import Thumbnail from 'components/ui/DocumentThumbnail'
+
+import simplifyForUrl from 'utilities/simplifyForUrl'
+import getMostRecentFilePublishDate from 'utilities/getMostRecentFilePublishDate'
 
 const StyledLink = styled(Link)`
   display: flex;
@@ -35,12 +35,9 @@ const DateText = styled.div`
 
 interface DocumentLinkProps {
   document: Exclude<
-    Exclude<
-      Queries.TopicPageQuery['countryDocuments']['nodes'][number]['data'],
-      null
-    >['All_applicable_countries_link'],
+    Queries.TopicPageQuery['topicDocuments']['nodes'][number],
     null
-  >[number]
+  >
 }
 
 const DocumentLink = ({ document }: DocumentLinkProps) => {
@@ -55,19 +52,7 @@ const DocumentLink = ({ document }: DocumentLinkProps) => {
   if (!countryName)
     throw new Error(`Document ${name} missing authoring country`)
 
-  const dateStrings = document?.data?.File_publish_date
-  let date = ''
-
-  if (dateStrings) {
-    const mostRecent =
-      dateStrings.length > 0 &&
-      dateStrings
-        .map(string => parseAirtableDate(string!))
-        .sort((a, b) => b.getTime() - a.getTime())
-        .at(0)
-
-    if (mostRecent) date = formatAirtableDate(mostRecent)
-  }
+  const date = getMostRecentFilePublishDate(document.data.File_publish_date)
 
   return (
     <StyledLink
