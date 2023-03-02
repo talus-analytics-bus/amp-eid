@@ -117,38 +117,39 @@ export const createPages: GatsbyNode['createPages'] = async ({
     })
   }
 
-  // const countryPageTemplate = path.resolve('./src/templates/country.tsx')
-  // const countryNames = await graphql<Queries.CountryNamesQuery>(`
-  //   query CountryNames {
-  //     countries: allAirtableDocuments(
-  //       filter: {
-  //         table: { eq: "LOOKUP: Country" }
-  //         data: {
-  //           Country_name: {
-  //             nin: ["Regional", "Treaty", "European Union", null]
-  //           }
-  //         }
-  //       }
-  //     ) {
-  //       nodes {
-  //         data {
-  //           ISO3
-  //           Country_name
-  //         }
-  //       }
-  //     }
-  //   }
-  // `)
-  // if (!countryNames.data?.countries) throw new Error('No countries found')
-  // for (const country of countryNames.data.countries.nodes) {
-  //   const iso3 = country.data?.ISO3
-  //   const countryName = country.data?.Country_name
-  //   if (!iso3 || !countryName)
-  //     throw new Error('All countries must have names and ISO3 codes')
-  //   actions.createPage({
-  //     path: `/countries/${simplifyForUrl(countryName)}/`,
-  //     component: countryPageTemplate,
-  //     context: { iso3 },
-  //   })
-  // }
+  const countryPageTemplate = path.resolve('./src/templates/country.tsx')
+  const countryNames = await graphql<Queries.CountryNamesQuery>(`
+    query CountryNames {
+      countries: allAirtableDatabase(
+        filter: {
+          table: { eq: "LOOKUP: Country" }
+          data: {
+            Country_name: {
+              nin: ["Regional", "Treaty", "European Union", null]
+            }
+          }
+        }
+      ) {
+        nodes {
+          id
+          data {
+            Country_name
+            ISO3
+          }
+        }
+      }
+    }
+  `)
+  if (!countryNames.data?.countries) throw new Error('No countries found')
+  for (const country of countryNames.data.countries.nodes) {
+    const iso3 = country.data?.ISO3
+    const countryName = country.data?.Country_name
+    if (!iso3 || !countryName)
+      throw new Error('All countries must have names and ISO3 codes')
+    actions.createPage({
+      path: `/countries/${simplifyForUrl(countryName)}/`,
+      component: countryPageTemplate,
+      context: { country_id: country.id },
+    })
+  }
 }

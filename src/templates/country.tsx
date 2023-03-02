@@ -54,10 +54,12 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
           </div>
           <div>
             <H2>Explore policies</H2>
-            <CountryPolicies {...data} />
+            // <CountryPolicies {...data} />
             <SubSection>
               <H2>Treaties</H2>
-              <CountryTreaties {...data} />
+              {
+                // <CountryTreaties {...data} />
+              }
             </SubSection>
           </div>
         </ColumnSection>
@@ -65,6 +67,55 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
     </Providers>
   )
 }
+
+export const query = graphql`
+  query CountryPage($country_id: String) {
+    countryData: airtableDatabase(id: { eq: $country_id }) {
+      flag {
+        childImageSharp {
+          gatsbyImageData(placeholder: BLURRED, width: 55, quality: 80)
+        }
+      }
+      data {
+        Country_name
+        Country_treaty_status_link {
+          data {
+            Treaty_name {
+              data {
+                Treaty_short_name
+              }
+            }
+            Status
+            Date_signed
+            Date_ratified
+            Date_became_a_party
+          }
+        }
+        All_applicable_countries_link {
+          data {
+            Document_name
+            File_publish_date
+            Authoring_country {
+              data {
+                Country_name
+              }
+            }
+            Document_topic_link {
+              data {
+                Topic
+              }
+            }
+          }
+          documentThumbnail {
+            childImageSharp {
+              gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
 // export const query = graphql`
 //   query CountryPage($iso3: String) {

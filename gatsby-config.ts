@@ -58,7 +58,10 @@ const config: GatsbyConfig = {
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `LOOKUP: Country`,
-            tableLinks: [`All_applicable_countries_link`],
+            tableLinks: [
+              `All_applicable_countries_link`,
+              `Country_treaty_status_link`,
+            ],
             queryName: `Database`,
             separateNodeType: true,
             tableView: `CMS`,
@@ -98,7 +101,7 @@ const config: GatsbyConfig = {
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `Treaty status`,
-            tableLinks: [`Country`],
+            tableLinks: [`Country`, `Treaty_name`],
             queryName: `Database`,
             separateNodeType: true,
             tableView: `CMS`,
