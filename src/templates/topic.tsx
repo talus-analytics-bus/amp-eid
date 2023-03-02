@@ -93,6 +93,7 @@ export const query = graphql`
       nodes {
         data {
           Subtopic
+          Subtopic_sources
           Subtopic_description
           Subtopic_define_status_link {
             data {
