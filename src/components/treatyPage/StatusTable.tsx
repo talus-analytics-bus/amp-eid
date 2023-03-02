@@ -36,7 +36,7 @@ const StatusTable = ({
     )
 
   const [page, setPage] = useState(0)
-  const [pageSize, setPageSize] = useState(5)
+  const [pageSize, setPageSize] = useState(10)
   const [searchTerm, setSearchTerm] = useState('')
 
   type Writeable<T> = { -readonly [P in keyof T]: T[P] }

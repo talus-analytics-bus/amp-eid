@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Dropdown, { DropdownProps } from '@talus-analytics/library.ui.dropdown'
 
 const DropdownButton = styled.button<{ open: boolean; animDuration: number }>`
-  ${({ theme }) => theme.bigParagraphMedium};
+  ${({ theme }) => theme.h4};
   border: none;
   background: ${({ theme, open }) =>
     open ? theme.lightGray : theme.veryLightGray};

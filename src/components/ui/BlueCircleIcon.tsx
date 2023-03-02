@@ -4,11 +4,10 @@ import styled, { useTheme } from 'styled-components'
 
 const Container = styled.div`
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.ampEidLightBlue};
-  padding: calc(0.5% + 1px);
+  // padding: calc(0.5% + 1px);
   flex-shrink: 0;
-  position: relative;
-  top: -0.04em;
+  // position: relative;
+  // top: -0.04em;
 `
 
 interface BlueCircleIconProps extends CMSIconProps {

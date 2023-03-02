@@ -6,12 +6,16 @@ import Dropdown from '@talus-analytics/library.ui.dropdown'
 const Container = styled.div`
   position: relative;
 `
-const DropdownButton = styled.button`
+const DropdownButton = styled.button<{ open: boolean }>`
   ${({ theme }) => theme.paragraph};
   border: none;
   background: none;
   color: ${({ theme }) => theme.white};
   padding: 14px;
+  &:hover {
+    color: ${({ theme }) => theme.ampEidMedLightBlue};
+  }
+  ${({ theme, open }) => open && `color: ${theme.ampEidMedLightBlue}`}
 `
 interface TopicsDropdownProps {
   title: React.ReactNode
@@ -23,7 +27,10 @@ const NavbarDropdown = ({ title, children }: TopicsDropdownProps) => {
     <Container>
       <Dropdown
         hover
-        renderButton={() => <DropdownButton>{title}</DropdownButton>}
+        animDuration={100}
+        renderButton={open => (
+          <DropdownButton open={open}>{title}</DropdownButton>
+        )}
         expanderStyle={{ right: 0, top: 42, borderRadius: 5 }}
       >
         {children}

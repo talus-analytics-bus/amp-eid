@@ -39,7 +39,6 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
       <NavBar />
       <Main>
         <MainHeader>
-          <h2>COUNTRY</h2>
           <H1>
             <Flag country={data.countryData} />
             <span style={{ marginTop: '.25em' }}>{countryName}</span>

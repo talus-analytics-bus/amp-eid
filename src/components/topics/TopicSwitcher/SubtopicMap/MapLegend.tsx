@@ -5,10 +5,13 @@ import MapStatusKey from './MapStatusKey'
 import { SubtopicContext } from '../TopicSwitcher'
 
 const Container = styled(AccordionParent)`
-  border: 1px solid ${({ theme }) => theme.black};
+  border: 1px solid ${({ theme }) => theme.ampEidDarkBlue};
+  border-radius: 5px;
+  overflow: hidden;
 `
 
 const TopicButton = styled.button`
+  ${({ theme }) => theme.paragraph};
   border: none;
   margin: 0;
   background: none;
@@ -18,6 +21,12 @@ const TopicButton = styled.button`
   color: ${({ theme }) => theme.white};
   transition: 250ms ease;
   border-top: 1px solid ${({ theme }) => theme.medDarkGray};
+  font-size: 16px;
+  padding: 8px 12px;
+
+  &:hover {
+    background: ${({ theme }) => theme.medGray};
+  }
 
   &:first-of-type {
     border-top: none;
@@ -49,7 +58,7 @@ const MapLegend = () => {
               aria-selected={open}
               aria-controls={`tabpanel-${index}`}
               style={{
-                background: open ? theme.ampEidDarkBlue : theme.lightGray,
+                backgroundColor: open ? theme.ampEidDarkBlue : theme.lightGray,
                 color: open ? theme.white : theme.black,
                 borderColor: open ? theme.black : theme.medDarkGray,
               }}

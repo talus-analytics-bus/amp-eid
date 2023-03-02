@@ -45,6 +45,9 @@ const NavLink = styled(Link)`
   text-decoration: none;
   transition: 500ms ease;
   font-weight: 400;
+  &:hover {
+    color: ${({ theme }) => theme.ampEidLightBlue2};
+  }
 `
 const HomeLink = styled(NavLink)`
   font-family: 'Overpass', sans-serif !important;

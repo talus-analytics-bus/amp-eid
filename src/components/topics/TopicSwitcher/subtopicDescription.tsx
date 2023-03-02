@@ -4,11 +4,12 @@ import { SubtopicContext } from './TopicSwitcher'
 import { RenderCMSRichText } from '@talus-analytics/library.airtable.cms-rich-text'
 
 const Description = styled.p`
-  ${({ theme }) => theme.bigParagraph};
+  ${({ theme }) => theme.paragraph};
   color: ${({ theme }) => theme.black};
   margin: 0;
   padding: 0;
   padding-bottom: 20px;
+  line-height: 28px; ;
 `
 const Citation = styled(RenderCMSRichText)`
   > p {

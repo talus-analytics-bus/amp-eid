@@ -6,7 +6,7 @@ const TopicList = styled.ul`
   color: ${({ theme }) => theme.black};
   list-style: none;
   padding: 5px 0px;
-  min-width: 350px;
+  min-width: 400px;
 `
 const Li = styled.li`
   display: block;
