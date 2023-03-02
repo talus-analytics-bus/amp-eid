@@ -6,6 +6,7 @@ import Thumbnail from 'components/ui/DocumentThumbnail'
 
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import getMostRecentFilePublishDate from 'utilities/getMostRecentFilePublishDate'
+import { IGatsbyImageData } from 'gatsby-plugin-image'
 
 const StyledLink = styled(Link)`
   display: flex;
@@ -34,13 +35,31 @@ const DateText = styled.div`
 `
 
 interface DocumentLinkProps {
-  document: Exclude<
-    Queries.TopicPageQuery['topicDocuments']['nodes'][number],
-    null
-  >
+  document: {
+    readonly data: {
+      readonly Document_name: string | null
+      readonly File_publish_date: readonly (string | null)[] | null
+      readonly Authoring_country:
+        | readonly ({
+            readonly data: {
+              readonly Country_name: string | null
+            } | null
+          } | null)[]
+        | null
+    } | null
+    readonly documentThumbnail:
+      | readonly ({
+          childImageSharp: {
+            gatsbyImageData: IGatsbyImageData
+          } | null
+        } | null)[]
+      | null
+  } | null
 }
 
 const DocumentLink = ({ document }: DocumentLinkProps) => {
+  if (!document) return <></>
+
   const name = document?.data?.Document_name
 
   const image =
