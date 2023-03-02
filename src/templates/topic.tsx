@@ -49,7 +49,6 @@ const TripsPage = ({
       <NavBar />
       <Main>
         <MainHeader>
-          <h2>TOPIC</h2>
           <h1>
             <BlueCircleIcon name={topic} size={40} />
             {topic}
