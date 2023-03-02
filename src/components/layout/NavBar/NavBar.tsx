@@ -12,6 +12,7 @@ import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import LinksList from './LinksList'
 import CountrySearch from 'components/landing/CountrySearch'
+import useTopics from 'queryHooks/useTopics'
 
 const Nav = styled.nav`
   background-color: ${({ theme }) => theme.ampEidDarkBlue};
@@ -75,20 +76,18 @@ const NavLogo = styled(CMS.Image)`
 
 const NavBar = () => {
   const data = useIndexPageData()
-  const treaties = useShortTreatyNames()
 
   const links = [{ to: '/about/overview/', children: 'About' }]
 
-  const topicsLinks = [
-    {
-      to: '/topics/trade-and-intellectual-property/',
-      children: <CMS.Text name="Topic 1 text" data={data} />,
-    },
-    { to: '', children: 'Coming soon: Childhood vaccination', disabled: true },
-    { to: '', children: 'Coming soon: Non-human vaccination', disabled: true },
-  ]
+  const topics = useTopics()
+  const topicsLinks = topics.map(({ data }) => ({
+    to: `/topics/${simplifyForUrl(data?.Topic ?? '')}/`,
+    children: data?.Topic ?? '',
+    disabled: data?.Disable ?? false,
+  }))
 
-  const treatyLinks = treaties.distinct.map(treaty => ({
+  const treaties = useShortTreatyNames()
+  const treatyLinks = treaties.map(treaty => ({
     to: `/treaties/${simplifyForUrl(treaty)}`,
     children: treaty,
   }))

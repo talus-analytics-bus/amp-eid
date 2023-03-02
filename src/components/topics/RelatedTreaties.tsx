@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import ColumnSection from 'components/layout/ColumnSection'
-
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import { Link } from 'gatsby'
 
@@ -26,7 +24,7 @@ const TreatyLink = styled(Link)`
 `
 
 interface RelatedTreatiesProps {
-  relatedTreaties: Queries.TripsPageQuery['relatedTreaties']['nodes']
+  relatedTreaties: Queries.TopicPageQuery['relatedTreaties']['nodes']
 }
 
 const RelatedTreaties = ({ relatedTreaties }: RelatedTreatiesProps) => {

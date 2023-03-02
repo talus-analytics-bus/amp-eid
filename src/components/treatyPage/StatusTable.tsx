@@ -27,9 +27,9 @@ const Search = styled.input`
 const StatusTable = ({
   treatyData,
 }: {
-  treatyData: Queries.TreatyPageQuery['general']['nodes'][number]
+  treatyData: Exclude<Queries.TreatyPageQuery['treaty'], null>
 }) => {
-  const countryList = treatyData.data?.Country_link
+  const countryList = treatyData.data?.Treaty_status
   if (!countryList || countryList.length === 0 || !countryList[0]?.data)
     throw new Error(
       `Country list not found for treaty ${treatyData.data?.Document_name}`
@@ -38,12 +38,6 @@ const StatusTable = ({
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(5)
   const [searchTerm, setSearchTerm] = useState('')
-
-  // // removing 'readonly' from the gatsby-generated type
-  // // so we can sort without typescript complaining
-  // type countriesMutable = {
-  //   -readonly [key in keyof typeof countryList[number]]: typeof countryList[key]
-  // }
 
   type Writeable<T> = { -readonly [P in keyof T]: T[P] }
   type countriesMutable = Writeable<typeof countryList>

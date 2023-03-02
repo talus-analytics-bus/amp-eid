@@ -4,16 +4,23 @@ import React from 'react'
 import formatAirtableDate from 'utilities/formatDate'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 
-const CountryTreaties = ({
-  countryData,
-  treaties,
-}: Queries.CountryPageQuery) => {
-  const treatyList = treaties?.data?.Treaty_link
-  if (!treatyList || treatyList.length === 0)
-    throw new Error(`Treaties not found for ${countryData?.data?.Country_name}`)
+interface CountryTreatiesProps {
+  countryName: string
+  // prettier-ignore
+  treaties:
+    Exclude<
+      Exclude<
+        Queries.CountryPageQuery['countryData'], null
+      >['data'], null
+    >['Country_treaty_status_link']
+}
+
+const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
+  if (!treaties || treaties.length === 0)
+    throw new Error(`Treaties not found for ${countryName}`)
 
   type TreatyData = Exclude<
-    [Exclude<typeof treatyList[number], null>][number]['data'],
+    [Exclude<typeof treaties[number], null>][number]['data'],
     null
   >
 
@@ -73,7 +80,7 @@ const CountryTreaties = ({
         </tr>
       </thead>
       <tbody>
-        {treaties.data.Treaty_link.map(treaty => (
+        {treaties.map(treaty => (
           <tr key={treaty?.data?.Treaty_name?.[0]?.data?.Treaty_short_name}>
             {columns.map(col => (
               // @ts-expect-error: The types of col.parse

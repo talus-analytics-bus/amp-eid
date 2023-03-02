@@ -11,7 +11,7 @@ const TreatySearch = () => {
 
   const searchItems = useMemo(
     () =>
-      treatyNames.distinct
+      treatyNames
         .map(name => ({ key: name, label: name }))
         .sort((a, b) => a.label.localeCompare(b.label)),
     [treatyNames]

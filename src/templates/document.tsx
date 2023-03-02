@@ -74,10 +74,8 @@ const DocumentPage = ({
 }
 
 export const query = graphql`
-  query DocumentPage($recordId: String) {
-    document: airtableDocuments(recordId: { eq: $recordId }) {
-      recordId
-      rowIndex
+  query DocumentPage($document_id: String) {
+    document: airtableDatabase(id: { eq: $document_id }) {
       data {
         Topic
         Document_name
@@ -87,14 +85,13 @@ export const query = graphql`
         File_publish_date
         Chaper__Section_or_Article
         Document_note
+        Language
+        Original_language_title
         All_applicable_countries {
           data {
             Country_name
-            ISO3
           }
         }
-        Language
-        Original_language_title
         PDF {
           localFiles {
             publicURL

@@ -55,11 +55,14 @@ const config: GatsbyConfig = {
             mapping: { Image: `fileNode` },
           },
           // Data Tables
-          // Master document library
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `LOOKUP: Country`,
-            queryName: `Documents`,
+            tableLinks: [
+              `All_applicable_countries_link`,
+              `Country_treaty_status_link`,
+            ],
+            queryName: `Database`,
             separateNodeType: true,
             tableView: `CMS`,
           },
@@ -67,100 +70,69 @@ const config: GatsbyConfig = {
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `Document library`,
-            tableLinks: [`All_applicable_countries`, `Authoring_country`],
-            queryName: `Documents`,
+            tableLinks: [
+              `Document_topic_link`,
+              `All_applicable_countries`,
+              `Authoring_country`,
+              `Related_document`,
+              `Treaty_status`,
+            ],
+            queryName: `Database`,
             separateNodeType: true,
             mapping: { PDF: `fileNode` },
             tableView: `CMS`,
           },
-          // Double-linking the documents table appears to
-          // make thumbnail generation work consistenly
+          // Documents table for thumbnails
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `Document library`,
-            queryName: `Documents`,
+            queryName: `Database`,
             separateNodeType: true,
             tableView: `CMS`,
           },
-          // Trips
           {
-            baseId: `appryZVvEysrHZL0S`,
-            tableName: `3. Define status`,
-            tableView: `CMS`,
-            queryName: `Trips`,
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Define status`,
+            tableLinks: [],
+            queryName: `Database`,
             separateNodeType: true,
+            tableView: `CMS`,
           },
           {
-            baseId: `appryZVvEysrHZL0S`,
-            tableName: `LOOKUP: Country (imported)`,
-            tableLinks: [`All_applicable_countries_link`],
-            tableView: `CMS`,
-            queryName: `Trips`,
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Treaty status`,
+            tableLinks: [`Country`, `Treaty_name`],
+            queryName: `Database`,
             separateNodeType: true,
+            tableView: `CMS`,
           },
           {
-            baseId: `appryZVvEysrHZL0S`,
-            tableName: `LOOKUP: Document (imported)`,
-            tableLinks: [`Authoring_country`, `All_applicable_countries`],
-            tableView: `CMS`,
-            queryName: `Trips`,
-            separateNodeType: true,
-          },
-          {
-            baseId: `appryZVvEysrHZL0S`,
-            tableName: `LOOKUP: Document (imported)`,
-            tableView: `CMS`,
-            queryName: `Trips`,
-            separateNodeType: true,
-          },
-          {
-            baseId: `appryZVvEysrHZL0S`,
-            tableName: `4. Assign status`,
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Assign status`,
             tableLinks: [`Country`, `Status_link`],
-            tableView: `CMS`,
-            queryName: `Trips`,
+            queryName: `Database`,
             separateNodeType: true,
+            tableView: `CMS`,
           },
           {
-            baseId: `appryZVvEysrHZL0S`,
-            tableName: `1. Subtopic`,
-            tableView: `CMS`,
-            tableLinks: [`Define_status`, `Assign_status`],
-            queryName: `Trips`,
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Subtopic`,
+            tableLinks: [
+              `Subtopic_topic_link`,
+              `Subtopic_define_status_link`,
+              `Subtopic_assign_status_link`,
+            ],
+            queryName: `Database`,
             separateNodeType: true,
-          },
-          // Treaties
-          {
-            baseId: `app6WOQpwEJy3B88C`,
-            tableName: `LOOKUP: Treaty`,
             tableView: `CMS`,
-            queryName: `Treaties`,
-            tableLinks: [`Country_link`, `Related_document`],
-            mapping: { PDF: `fileNode` },
-            separateNodeType: true,
           },
           {
-            baseId: `app6WOQpwEJy3B88C`,
-            tableName: `LOOKUP: Treaty`,
-            tableView: `CMS`,
-            queryName: `Treaties`,
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `Topic`,
+            tableLinks: [`Topic_subtopic_link`],
+            queryName: `Database`,
             separateNodeType: true,
-          },
-          {
-            baseId: `app6WOQpwEJy3B88C`,
-            tableName: `LOOKUP: Country`,
-            tableLinks: [`Treaty_link`],
             tableView: `CMS`,
-            queryName: `Treaties`,
-            separateNodeType: true,
-          },
-          {
-            baseId: `app6WOQpwEJy3B88C`,
-            tableName: `All treaties and countries`,
-            tableLinks: [`Treaty_name`, `Country`],
-            tableView: `CMS`,
-            queryName: `Treaties`,
-            separateNodeType: true,
           },
         ],
       },
@@ -168,7 +140,21 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-remote-images`,
       options: {
-        nodeType: 'AirtableTrips',
+        nodeType: 'AirtableDatabase',
+        imagePath: 'data.PDF[].thumbnails.large.url',
+        // ** ALL OPTIONAL BELOW HERE: **
+        name: 'documentThumbnail',
+        skipUndefinedUrls: true,
+        prepareUrl: (url: string) => {
+          if (!url || url === 'N/A') return undefined
+          return url
+        },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-remote-images`,
+      options: {
+        nodeType: 'AirtableDatabase',
         imagePath: 'data.ISO2',
         // ** ALL OPTIONAL BELOW HERE: **
         name: 'flag',
@@ -176,49 +162,6 @@ const config: GatsbyConfig = {
         prepareUrl: (url: string) => {
           if (!url || url === 'N/A') return undefined
           return `https://flags.talusanalytics.com/300px/${url.toLowerCase()}.png`
-        },
-      },
-    },
-    {
-      resolve: `gatsby-plugin-remote-images`,
-      options: {
-        nodeType: 'AirtableDocuments',
-        imagePath: 'data.PDF[].thumbnails.large.url',
-        // ** ALL OPTIONAL BELOW HERE: **
-        name: 'documentThumbnail',
-        skipUndefinedUrls: true,
-        prepareUrl: (url: string) => {
-          if (!url || url === 'N/A') return undefined
-          return url
-        },
-      },
-    },
-    {
-      resolve: `gatsby-plugin-remote-images`,
-      options: {
-        nodeType: 'AirtableTrips',
-        imagePath: 'data.PDF[].thumbnails.large.url',
-        // ** ALL OPTIONAL BELOW HERE: **
-        name: 'documentThumbnail',
-        skipUndefinedUrls: true,
-        prepareUrl: (url: string) => {
-          if (!url || url === 'N/A') return undefined
-          return url
-        },
-      },
-    },
-    {
-      resolve: `gatsby-plugin-remote-images`,
-      options: {
-        nodeType: 'AirtableTreaties',
-        imagePath: 'data.PDF[].thumbnails.large.url',
-        // imagePath: 'data.PDF.raw[].thumbnails.large.url',
-        // ** ALL OPTIONAL BELOW HERE: **
-        name: 'documentThumbnail',
-        skipUndefinedUrls: true,
-        prepareUrl: (url: string) => {
-          if (!url || url === 'N/A') return undefined
-          return url
         },
       },
     },

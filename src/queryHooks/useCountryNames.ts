@@ -4,9 +4,8 @@ const useCountryNames = () => {
   const { countries } =
     useStaticQuery<Queries.CountryNamesForSearchQuery>(graphql`
       query CountryNamesForSearch {
-        countries: allAirtableDocuments(
+        countries: allAirtableDatabase(
           filter: {
-            table: { eq: "LOOKUP: Country" }
             data: {
               Country_name: {
                 nin: ["Regional", "Treaty", "European Union", null]
