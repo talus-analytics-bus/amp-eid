@@ -42,15 +42,18 @@ interface DocumentLinkProps {
 
 const DocumentLink = ({ document }: DocumentLinkProps) => {
   const name = document?.data?.Document_name
-  if (!name) throw new Error('Document missing name')
 
   const image =
     document.documentThumbnail?.at(0)?.childImageSharp?.gatsbyImageData
 
-  if (!image) throw new Error(`Document ${name} missing thumbnail`)
   const countryName = document?.data?.Authoring_country?.[0]?.data?.Country_name
-  if (!countryName)
-    throw new Error(`Document ${name} missing authoring country`)
+
+  if (!name || !image || !countryName) {
+    console.log(
+      `Document ${name} is missing name, image, or authoring country name`
+    )
+    return <></>
+  }
 
   const date = getMostRecentFilePublishDate(document.data.File_publish_date)
 
