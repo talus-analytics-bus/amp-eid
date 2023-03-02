@@ -1,3 +1,4 @@
+import BlueCircleIcon from 'components/ui/BlueCircleIcon'
 import DocumentLink from 'components/ui/DocumentLink'
 import ExploreDropdown from 'components/ui/ExploreDropdown'
 import React, { useMemo } from 'react'
@@ -21,16 +22,26 @@ const CountryPolicies = ({ policies }: CountryPoliciesProps) => {
 
   return (
     <>
-      {topicsList.map(topic => (
-        <ExploreDropdown label={topic.topic?.data?.Topic}>
-          {topic.documents.map(document => (
-            <DocumentLink
-              key={document?.data?.Document_name}
-              document={document}
-            />
-          ))}
-        </ExploreDropdown>
-      ))}
+      {topicsList.map(
+        topic =>
+          topic.topic?.data?.Topic && (
+            <ExploreDropdown
+              label={
+                <>
+                  <BlueCircleIcon name={topic.topic.data.Topic} size={40} />
+                  {topic.topic?.data?.Topic}
+                </>
+              }
+            >
+              {topic.documents.map(document => (
+                <DocumentLink
+                  key={document?.data?.Document_name}
+                  document={document}
+                />
+              ))}
+            </ExploreDropdown>
+          )
+      )}
     </>
   )
 }

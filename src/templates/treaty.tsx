@@ -61,7 +61,6 @@ const TreatyPage = ({
             {treatyData.data.Document_name}
           </h1>
         </MainHeader>
-
         <ColumnSection>
           <Sidebar treatyData={treatyData} />
           <MainContent>
