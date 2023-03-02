@@ -5,7 +5,10 @@ import styled, { useTheme } from 'styled-components'
 const Container = styled.div`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.ampEidLightBlue};
-  padding: calc(0.7% - 6px);
+  padding: calc(0.8% - 6px);
+  flex-shrink: 0;
+  position: relative;
+  top: 0.15em;
 `
 
 interface BlueCircleIconProps extends CMSIconProps {

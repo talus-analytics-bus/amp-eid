@@ -12,7 +12,7 @@ const MainHeader = styled.header`
     color: ${({ theme }) => theme.black};
     margin: 0;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 15px;
   }
 `
