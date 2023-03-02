@@ -38,7 +38,7 @@ const restructureDocuments = (topicDocuments: TopicDocuments) => {
   const countriesList = Object.entries(countriesObj).sort((a, b) =>
     a[0].localeCompare(b[0])
   )
-  return countriesList
+  return countriesList.map(([_, v]) => v)
 }
 
 export default restructureDocuments
