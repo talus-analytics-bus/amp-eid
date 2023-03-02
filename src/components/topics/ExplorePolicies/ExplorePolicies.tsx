@@ -9,6 +9,7 @@ import DocumentLink from 'components/ui/DocumentLink'
 import ExploreDropdown from 'components/ui/ExploreDropdown'
 
 import PaginationControls from './PaginationControls'
+import restructureDocuments from './restructureDocuments'
 
 const H3 = styled.h3`
   ${({ theme }) => theme.h2};
@@ -31,50 +32,28 @@ const Search = styled.input`
 `
 
 interface ExplorePoliciesProps {
-  countryDocuments: Queries.TripsPageQuery['countryDocuments']
-  thumbnails: Queries.TripsPageQuery['thumbnails']
+  topicDocuments: Queries.TopicPageQuery['topicDocuments']
 }
 
-const ExplorePolicies = ({
-  countryDocuments,
-  thumbnails,
-}: ExplorePoliciesProps) => {
+const ExplorePolicies = ({ topicDocuments }: ExplorePoliciesProps) => {
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(5)
   const [searchTerm, setSearchTerm] = useState('')
 
-  // map between document name and thumbnail data
-  const thumbnailMap = useMemo(() => {
-    return thumbnails.nodes.reduce(
-      (obj, doc) => ({
-        ...obj,
-        [doc.data!.Document_name!]: doc.documentThumbnail?.[0],
-      }),
-      {}
-    )
-  }, [thumbnails])
+  const countryDocuments = useMemo(() => {
+    return restructureDocuments(topicDocuments)
+  }, [topicDocuments])
 
-  // removing 'readonly' from the gatsby-generated type
-  // so we can sort without typescript complaining
-  type countriesMutable = {
-    -readonly [key in keyof typeof countryDocuments.nodes[0]]: typeof countryDocuments.nodes[0][key]
-  }
-  const countries = countryDocuments.nodes as countriesMutable[]
+  let displayCountries = countryDocuments
 
-  const fuse = new Fuse(countries, {
+  const fuse = new Fuse(countryDocuments, {
     keys: ['data.Country_name', 'data.ISO3'],
   })
 
-  let sorted: typeof countries
+  if (searchTerm !== '')
+    displayCountries = fuse.search(searchTerm).map(result => result.item)
 
-  if (searchTerm === '')
-    sorted = countries.sort(
-      (a, b) =>
-        a.data?.Country_name?.localeCompare(b.data?.Country_name ?? '') ?? -1
-    )
-  else sorted = fuse.search(searchTerm).map(result => result.item)
-
-  const total = sorted.length
+  const total = displayCountries.length
 
   return (
     <ColumnSection>
@@ -94,9 +73,9 @@ const ExplorePolicies = ({
         </Label>
       </div>
       <div>
-        {sorted.map((country, index) => (
-          <React.Fragment key={country.data?.ISO3}>
-            {country.data?.ISO3 && (
+        {displayCountries.map(([name, data], index) => (
+          <React.Fragment key={name}>
+            {data?.country?.data?.Country_name && (
               <ExploreDropdown
                 style={{
                   display:
@@ -107,28 +86,17 @@ const ExplorePolicies = ({
                 }}
                 label={
                   <>
-                    <Flag country={country} />
-                    {country.data?.Country_name}
+                    <Flag country={data.country} />
+                    {name}
                   </>
                 }
               >
-                {country.data.All_applicable_countries_link &&
-                country.data.All_applicable_countries_link.length > 0 ? (
-                  country.data?.All_applicable_countries_link?.map(document => (
-                    <DocumentLink
-                      key={document?.data?.Document_name}
-                      document={document}
-                      thumbnail={
-                        thumbnailMap[
-                          document?.data
-                            ?.Document_name as keyof typeof thumbnailMap
-                        ]
-                      }
-                    />
-                  ))
-                ) : (
-                  <p>No document</p>
-                )}
+                {data.documents.map(document => (
+                  <DocumentLink
+                    key={document?.data?.Document_name}
+                    document={document}
+                  />
+                ))}
               </ExploreDropdown>
             )}
           </React.Fragment>

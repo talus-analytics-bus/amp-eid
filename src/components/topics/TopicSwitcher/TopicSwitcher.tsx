@@ -6,7 +6,7 @@ import MapLegend from './SubtopicMap/MapLegend'
 import SubtopicMap from './SubtopicMap/SubtopicMap'
 
 interface SubtopicContextProps {
-  subtopicData: Queries.TripsPageQuery['subtopics']['nodes']
+  subtopicData: Queries.TopicPageQuery['subtopics']['nodes']
   subtopicIndex: number | null
   setSubtopicIndex: React.Dispatch<React.SetStateAction<number | null>>
 }
@@ -30,7 +30,7 @@ const NoGapColumnSection = styled(ColumnSection)`
 `
 
 interface TopicSwitcherProps {
-  data: Queries.TripsPageQuery
+  data: Queries.TopicPageQuery
 }
 
 const TopicSwitcher = ({ data }: TopicSwitcherProps) => {

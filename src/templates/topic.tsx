@@ -9,7 +9,6 @@ import MainHeader from 'components/layout/MainHeader'
 import NavBar from 'components/layout/NavBar/NavBar'
 import Providers from 'components/layout/Providers'
 
-import useIndexPageData from 'cmsHooks/useIndexPageData'
 import TopicSwitcher from 'components/topics/TopicSwitcher/TopicSwitcher'
 import RelatedTreaties from 'components/topics/RelatedTreaties'
 import ExplorePolicies from 'components/topics/ExplorePolicies/ExplorePolicies'
@@ -39,9 +38,7 @@ const H3 = styled.h3`
 
 const TripsPage = ({
   data,
-}: PageProps<Queries.TripsPageQuery>): JSX.Element => {
-  const indexPageCMSData = useIndexPageData()
-
+}: PageProps<Queries.TopicPageQuery>): JSX.Element => {
   return (
     <Providers>
       <CMS.SEO />
@@ -49,19 +46,14 @@ const TripsPage = ({
       <Main>
         <MainHeader>
           <h2>TOPIC</h2>
-          <h1>
-            <CMS.Text name="Topic 1 text" data={indexPageCMSData} />
-          </h1>
+          <h1>{data.topic?.data?.Topic}</h1>
         </MainHeader>
         <TopicSwitcher data={data} />
         <ColumnSection>
           <H3>Treaty</H3>
           <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
         </ColumnSection>
-        <ExplorePolicies
-          countryDocuments={data.countryDocuments}
-          thumbnails={data.thumbnails}
-        />
+        <ExplorePolicies topicDocuments={data.topicDocuments} />
       </Main>
       <Footer />
     </Providers>
@@ -69,25 +61,48 @@ const TripsPage = ({
 }
 
 export const query = graphql`
-  query TripsPage {
-    subtopics: allAirtableTrips(
-      filter: { table: { eq: "1. Subtopic" } }
+  query TopicPage($topic_id: String) {
+    topic: airtableDatabase(id: { eq: $topic_id }) {
+      data {
+        Topic
+      }
+    }
+    relatedTreaties: allAirtableDatabase(
+      filter: {
+        table: { eq: "Document library" }
+        data: {
+          Document_type: { eq: "Treaty" }
+          Document_topic_link: { elemMatch: { id: { eq: $topic_id } } }
+        }
+      }
+    ) {
+      nodes {
+        data {
+          Document_name
+          Treaty_short_name
+        }
+      }
+    }
+    subtopics: allAirtableDatabase(
+      filter: {
+        table: { eq: "Subtopic" }
+        data: { Subtopic_topic_link: { elemMatch: { id: { eq: $topic_id } } } }
+      }
       sort: { data: { Order: ASC } }
     ) {
       nodes {
         data {
           Subtopic
-          Subtopic_description
           Subtopic_sources
-          Order
-          Define_status {
+          Subtopic_description
+          Subtopic_define_status_link {
             data {
-              Map_color
               Status
+              Map_color
               Status_description
             }
           }
-          Assign_status {
+          Subtopic_assign_status_link {
             data {
               Country {
                 data {
@@ -104,59 +119,39 @@ export const query = graphql`
         }
       }
     }
-    relatedTreaties: allAirtableTrips(
+    topicDocuments: allAirtableDatabase(
       filter: {
-        table: { eq: "LOOKUP: Document (imported)" }
-        data: { Document_type: { eq: "Treaty" } }
+        table: { eq: "Document library" }
+        data: {
+          Document_type: { ne: "Treaty" }
+          Document_topic_link: { elemMatch: { id: { eq: $topic_id } } }
+        }
       }
     ) {
       nodes {
         data {
           Document_name
-          Treaty_short_name
-        }
-      }
-    }
-    countryDocuments: allAirtableTrips(
-      filter: {
-        table: { eq: "LOOKUP: Country (imported)" }
-        data: { Country_name: { nin: ["Regional", "Treaty", null] } }
-      }
-    ) {
-      nodes {
-        flag {
-          childImageSharp {
-            gatsbyImageData(width: 40, placeholder: BLURRED)
-          }
-        }
-        data {
-          Country_name
-          ISO3
-          All_applicable_countries_link {
-            data {
-              Document_name
-              File_publish_date
-              Authoring_country {
-                data {
-                  Country_name
-                }
+          File_publish_date
+          All_applicable_countries {
+            flag {
+              childImageSharp {
+                gatsbyImageData(width: 40, placeholder: BLURRED)
               }
+            }
+            data {
+              Country_name
+            }
+          }
+          Authoring_country {
+            data {
+              Country_name
             }
           }
         }
-      }
-    }
-    thumbnails: allAirtableDocuments(
-      filter: { data: { Topic: { eq: "Trade and intellectual property" } } }
-    ) {
-      nodes {
         documentThumbnail {
           childImageSharp {
             gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
           }
-        }
-        data {
-          Document_name
         }
       }
     }

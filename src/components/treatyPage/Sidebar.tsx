@@ -27,7 +27,7 @@ const ButtonLink = styled.a`
 const Sidebar = ({
   treatyData,
 }: {
-  treatyData: Queries.TreatyPageQuery['general']['nodes'][0]
+  treatyData: Exclude<Queries.TreatyPageQuery['treaty'], null>
 }) => {
   const fileData = treatyData.data?.PDF?.localFiles?.[0]
 
@@ -56,11 +56,13 @@ const Sidebar = ({
         Download treaty ({fileData.ext.toUpperCase().replace('.', '')},{' '}
         {fileData.prettySize})
       </ButtonLink>
-      {treatyData.data?.File_source_URL && (
-        <ButtonLink href={treatyData.data?.File_source_URL}>
-          Open link to treaty
-        </ButtonLink>
-      )}
+      {
+        // {treatyData.data?.File_source_URL && (
+        //   <ButtonLink href={treatyData.data.File_source_URL}>
+        //     Open link to treaty
+        //   </ButtonLink>
+        // )}
+      }
     </Container>
   )
 }

@@ -13,7 +13,12 @@ const MetadataTable = styled.table`
   border-collapse: collapse;
   margin-top: 30px;
 
+  table {
+    border-collapse: collapse;
+  }
+
   & td {
+    padding: 0;
     padding-bottom: 15px;
     vertical-align: top;
 
@@ -22,7 +27,6 @@ const MetadataTable = styled.table`
     }
 
     a {
-      // display: block;
       text-decoration: none;
       color: ${({ theme }) => theme.black};
       font-weight: 100;

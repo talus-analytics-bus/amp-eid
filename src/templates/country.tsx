@@ -54,10 +54,15 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
           </div>
           <div>
             <H2>Explore policies</H2>
-            <CountryPolicies {...data} />
+            <CountryPolicies
+              policies={data.countryData.data.All_applicable_countries_link}
+            />
             <SubSection>
               <H2>Treaties</H2>
-              <CountryTreaties {...data} />
+              <CountryTreaties
+                countryName={data.countryData.data.Country_name}
+                treaties={data.countryData.data.Country_treaty_status_link}
+              />
             </SubSection>
           </div>
         </ColumnSection>
@@ -67,8 +72,8 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
 }
 
 export const query = graphql`
-  query CountryPage($iso3: String) {
-    countryData: airtableTrips(data: { ISO3: { eq: $iso3 } }) {
+  query CountryPage($country_id: String) {
+    countryData: airtableDatabase(id: { eq: $country_id }) {
       flag {
         childImageSharp {
           gatsbyImageData(placeholder: BLURRED, width: 55, quality: 80)
@@ -76,31 +81,7 @@ export const query = graphql`
       }
       data {
         Country_name
-      }
-    }
-    trips: airtableTrips(data: { ISO3: { eq: $iso3 } }) {
-      data {
-        All_applicable_countries_link {
-          data {
-            Document_name
-            Authoring_country {
-              data {
-                Country_name
-              }
-            }
-            File_publish_date
-          }
-          documentThumbnail {
-            childImageSharp {
-              gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
-            }
-          }
-        }
-      }
-    }
-    treaties: airtableTreaties(data: { ISO3: { eq: $iso3 } }) {
-      data {
-        Treaty_link {
+        Country_treaty_status_link {
           data {
             Treaty_name {
               data {
@@ -111,6 +92,28 @@ export const query = graphql`
             Date_signed
             Date_ratified
             Date_became_a_party
+          }
+        }
+        All_applicable_countries_link {
+          data {
+            Document_name
+            File_publish_date
+            Authoring_country {
+              data {
+                Country_name
+              }
+            }
+            Document_topic_link {
+              data {
+                Topic
+                Order
+              }
+            }
+          }
+          documentThumbnail {
+            childImageSharp {
+              gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
+            }
           }
         }
       }

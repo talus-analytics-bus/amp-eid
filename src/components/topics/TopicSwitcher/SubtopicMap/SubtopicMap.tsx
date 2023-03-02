@@ -42,7 +42,8 @@ const SubtopicMap = () => {
   const { subtopicIndex, subtopicData } = context
 
   // select the subtopic
-  const countryData = subtopicData[subtopicIndex ?? 0].data?.Assign_status
+  const countryData =
+    subtopicData[subtopicIndex ?? 0].data?.Subtopic_assign_status_link
   if (!countryData)
     throw new Error(`Country data not found for subtopic ${subtopicIndex}`)
 

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { RenderCMSRichText } from '@talus-analytics/library.airtable.cms-rich-text'
 import formatAirtableDate from 'utilities/formatDate'
-import parseAirtableDate from 'utilities/parseDate'
+import getMostRecentFilePublishDate from 'utilities/getMostRecentFilePublishDate'
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.veryLightGray};
@@ -34,9 +34,14 @@ const Description = styled(RenderCMSRichText)`
 const MainInfoSection = ({
   treatyData,
 }: {
-  treatyData: Queries.TreatyPageQuery['general']['nodes'][0]
+  treatyData: Exclude<Queries.TreatyPageQuery['treaty'], null>
 }) => {
   const fileData = treatyData.data?.PDF?.localFiles?.[0]
+
+  if (!treatyData.data?.Treaty_description)
+    throw new Error(
+      `Treaty description not found for treaty ${treatyData.data?.Document_name}`
+    )
 
   if (!fileData?.prettySize || !fileData.publicURL)
     throw new Error(
@@ -45,19 +50,10 @@ const MainInfoSection = ({
 
   const openedForSignature = treatyData.data?.Date_opened_for_signature
   const originalPublication = treatyData.data?.Date_of_original_publication
-  const fileDates = treatyData.data?.File_publish_date
 
-  let latestUpdate
-
-  if (fileDates) {
-    const mostRecent = fileDates
-      .split(',')
-      .map(string => parseAirtableDate(string))
-      .sort((a, b) => b.getTime() - a.getTime())
-      .at(0)
-
-    if (mostRecent) latestUpdate = formatAirtableDate(mostRecent)
-  }
+  const latestUpdate = getMostRecentFilePublishDate(
+    treatyData.data?.File_publish_date
+  )
 
   return (
     <Container>
@@ -83,7 +79,7 @@ const MainInfoSection = ({
           )}
         </tbody>
       </DateTable>
-      <Description markdown={treatyData.data?.Treaty_description ?? ''} />
+      <Description markdown={treatyData.data?.Treaty_description} />
     </Container>
   )
 }
