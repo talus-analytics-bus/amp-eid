@@ -53,13 +53,16 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
             }
           </div>
           <div>
-            <H2>Explore policies</H2>
-            // <CountryPolicies {...data} />
+            {
+              // <H2>Explore policies</H2>
+              // <CountryPolicies {...data} />
+            }
             <SubSection>
               <H2>Treaties</H2>
-              {
-                // <CountryTreaties {...data} />
-              }
+              <CountryTreaties
+                countryName={data.countryData.data.Country_name}
+                treaties={data.countryData.data.Country_treaty_status_link}
+              />
             </SubSection>
           </div>
         </ColumnSection>
