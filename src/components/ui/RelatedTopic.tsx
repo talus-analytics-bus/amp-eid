@@ -3,6 +3,7 @@ import { Link } from 'gatsby'
 import styled from 'styled-components'
 import SubSection from 'components/layout/SubSection'
 import simplifyForUrl from 'utilities/simplifyForUrl'
+import BlueCircleIcon from './BlueCircleIcon'
 
 const H3 = styled.h3`
   margin: 0;
@@ -16,6 +17,9 @@ const StyledLink = styled(Link)`
   background-color: ${({ theme }) => theme.veryLightGray};
   transition: 150ms ease;
   color: ${({ theme }) => theme.black};
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 
   &:hover {
     background-color: ${({ theme }) => theme.lightGray};
@@ -50,6 +54,7 @@ const RelatedTopics = ({ topic_link }: RelatedTopicsProps) => {
           topic?.data?.Topic &&
           (topic?.data?.Publish !== null || undefined) && (
             <StyledLink to={`/topics/${simplifyForUrl(topic.data.Topic)}`}>
+              <BlueCircleIcon name={topic.data.Topic} size={40} />
               {topic.data.Topic}
             </StyledLink>
           )

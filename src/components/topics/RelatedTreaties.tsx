@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import { Link } from 'gatsby'
+import BlueCircleIcon from 'components/ui/BlueCircleIcon'
 
 const TreatiesContainer = styled.div`
   display: flex;
@@ -16,6 +17,9 @@ const TreatyLink = styled(Link)`
   background-color: ${({ theme }) => theme.veryLightGray};
   transition: 150ms ease;
   color: ${({ theme }) => theme.black};
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 
   &:hover {
     background-color: ${({ theme }) => theme.lightGray};
@@ -41,6 +45,7 @@ const RelatedTreaties = ({ relatedTreaties }: RelatedTreatiesProps) => {
             key={treaty.data?.Document_name}
             to={`/treaties/${simplifyForUrl(treaty.data?.Treaty_short_name)}`}
           >
+            <BlueCircleIcon name="Treaty" size={40} />
             {treaty.data?.Document_name}
           </TreatyLink>
         )
