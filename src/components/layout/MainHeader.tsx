@@ -11,6 +11,9 @@ const MainHeader = styled.header`
     ${({ theme }) => theme.h1};
     color: ${({ theme }) => theme.black};
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
   }
 `
 
