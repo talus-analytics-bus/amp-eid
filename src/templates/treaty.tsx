@@ -16,6 +16,7 @@ import SubSection from 'components/layout/SubSection'
 import Footer from 'components/layout/Footer'
 import RelatedTreaties from 'components/topics/RelatedTreaties'
 import RelatedTopics from 'components/ui/RelatedTopic'
+import BlueCircleIcon from 'components/ui/BlueCircleIcon'
 
 const MainContent = styled.div``
 const H3 = styled.h3`
@@ -55,8 +56,10 @@ const TreatyPage = ({
       <NavBar />
       <Main>
         <MainHeader>
-          <h2>TREATY</h2>
-          <h1>{treatyData.data.Document_name}</h1>
+          <h1>
+            <BlueCircleIcon name="Treaty" size={40} />
+            {treatyData.data.Document_name}
+          </h1>
         </MainHeader>
 
         <ColumnSection>
