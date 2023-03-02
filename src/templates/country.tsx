@@ -53,10 +53,10 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
             }
           </div>
           <div>
-            {
-              // <H2>Explore policies</H2>
-              // <CountryPolicies {...data} />
-            }
+            <H2>Explore policies</H2>
+            <CountryPolicies
+              policies={data.countryData.data.All_applicable_countries_link}
+            />
             <SubSection>
               <H2>Treaties</H2>
               <CountryTreaties
@@ -106,6 +106,7 @@ export const query = graphql`
             Document_topic_link {
               data {
                 Topic
+                Order
               }
             }
           }
