@@ -95,15 +95,13 @@ const NavBar = () => {
   return (
     <Nav>
       <Container>
-        <LinkList>
-          <HomeLink to="/">
-            <NavLogo
-              imgStyle={{ objectFit: 'contain' }}
-              name="Site logo"
-              data={data}
-            />
-          </HomeLink>
-        </LinkList>
+        <HomeLink to="/">
+          <NavLogo
+            imgStyle={{ objectFit: 'contain' }}
+            name="Site logo"
+            data={data}
+          />
+        </HomeLink>
         <DesktopNavList>
           <NavbarDropdown title="Topics">
             <LinksList links={topicsLinks} />
