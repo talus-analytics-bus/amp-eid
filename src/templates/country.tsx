@@ -42,7 +42,7 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
           <h2>COUNTRY</h2>
           <H1>
             <Flag country={data.countryData} />
-            {countryName}
+            <span style={{ marginTop: '.25em' }}>{countryName}</span>
           </H1>
         </MainHeader>
         <ColumnSection>
