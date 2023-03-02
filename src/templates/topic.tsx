@@ -14,6 +14,7 @@ import RelatedTreaties from 'components/topics/RelatedTreaties'
 import ExplorePolicies from 'components/topics/ExplorePolicies/ExplorePolicies'
 import Footer from 'components/layout/Footer'
 import ColumnSection from 'components/layout/ColumnSection'
+import BlueCircleIcon from 'components/ui/BlueCircleIcon'
 
 // Trips page data sources
 
@@ -39,6 +40,9 @@ const H3 = styled.h3`
 const TripsPage = ({
   data,
 }: PageProps<Queries.TopicPageQuery>): JSX.Element => {
+  const topic = data.topic?.data?.Topic
+  if (!topic) throw new Error(`All topic pages must have topic names`)
+
   return (
     <Providers>
       <CMS.SEO />
@@ -46,7 +50,10 @@ const TripsPage = ({
       <Main>
         <MainHeader>
           <h2>TOPIC</h2>
-          <h1>{data.topic?.data?.Topic}</h1>
+          <h1>
+            <BlueCircleIcon name={topic} size={40} />
+            {topic}
+          </h1>
         </MainHeader>
         <TopicSwitcher data={data} />
         <ColumnSection>
