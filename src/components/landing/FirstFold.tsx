@@ -41,13 +41,13 @@ const JumpLinks = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 `
 const JumpLink = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 70px;
-
   text-decoration: none;
   color: ${({ theme }) => theme.ampEidDarkBlue};
   ${({ theme }) => theme.h2};
