@@ -1,7 +1,9 @@
+import React, { useMemo } from 'react'
+
 import BlueCircleIcon from 'components/ui/BlueCircleIcon'
 import DocumentLink from 'components/ui/DocumentLink'
 import ExploreDropdown from 'components/ui/ExploreDropdown'
-import React, { useMemo } from 'react'
+
 import restructureTopicDocuments from './restructureTopicDocuments'
 
 export type Policies =
