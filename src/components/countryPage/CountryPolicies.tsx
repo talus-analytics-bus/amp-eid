@@ -4,13 +4,15 @@ import ExploreDropdown from 'components/ui/ExploreDropdown'
 import React, { useMemo } from 'react'
 import restructureTopicDocuments from './restructureTopicDocuments'
 
-export type Policies = Exclude<
-  Exclude<Queries.CountryPageQuery['countryData'], null>['data'],
-  null
->['All_applicable_countries_link']
+export type Policies =
+  // prettier-ignore
+  Exclude<
+    Exclude<
+      Queries.CountryPageQuery['countryData'], null
+    >['data'], null
+  >['All_applicable_countries_link']
 
 interface CountryPoliciesProps {
-  // prettier-ignore
   policies: Policies
 }
 
