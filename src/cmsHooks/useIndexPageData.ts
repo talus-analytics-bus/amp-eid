@@ -16,7 +16,7 @@ const useIndexPageData = () => {
               Image {
                 localFiles {
                   childImageSharp {
-                    gatsbyImageData(height: 450, placeholder: NONE)
+                    gatsbyImageData(height: 600, placeholder: NONE)
                   }
                 }
               }

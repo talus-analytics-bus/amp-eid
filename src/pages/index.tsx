@@ -4,41 +4,23 @@ import styled from 'styled-components'
 import CMS from '@talus-analytics/library.airtable-cms'
 import Providers from '../components/layout/Providers'
 
-import useIndexPageData from '../cmsHooks/useIndexPageData'
 import NavBar from 'components/layout/NavBar/NavBar'
 import TopicList from 'components/landing/TopicList'
 import CountrySearch from 'components/landing/CountrySearch'
 import Footer from 'components/layout/Footer'
 import TreatySearch from 'components/landing/TreatySearch'
+import Background from 'components/landing/Background'
+import FirstFold from 'components/landing/FirstFold'
+
+import useIndexPageData from '../cmsHooks/useIndexPageData'
 
 const ContentContainer = styled.div`
+  position: relative;
   max-width: 920px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 30px;
   padding-right: 30px;
-`
-const Header = styled.header`
-  text-align: center;
-  max-width: 1000px;
-  margin: auto;
-  margin-top: 50px;
-`
-const IntroParagraph = styled.p`
-  ${({ theme }) => theme.bigParagraph};
-  color: ${({ theme }) => theme.black};
-`
-const H1 = styled.h1`
-  color: ${({ theme }) => theme.veryDarkGray};
-  ${({ theme }) => theme.landingPageSmall};
-  margin: 0;
-  margin-bottom: 10px;
-`
-const H2 = styled.h2`
-  ${({ theme }) => theme.landingPageH1};
-  color: ${({ theme }) => theme.ampEidMedBlue};
-  margin: 0;
-  margin-bottom: 60px;
 `
 const TopicSection = styled.section`
   display: flex;
@@ -81,19 +63,8 @@ const IndexPage = (): JSX.Element => {
     <Providers>
       <CMS.SEO />
       <NavBar />
-      <ContentContainer>
-        <Header>
-          <H1>
-            <CMS.Text name="H2" data={cmsData} />
-          </H1>
-          <H2>
-            <CMS.Text name="H1" data={cmsData} />
-          </H2>
-        </Header>
-        <IntroParagraph>
-          <CMS.Text name="Paragraph 1" data={cmsData} />
-        </IntroParagraph>
-      </ContentContainer>
+      <Background />
+      <FirstFold />
       <TopicSection>
         <ContentContainer>
           <H3>
