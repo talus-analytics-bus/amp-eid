@@ -12,6 +12,7 @@ const Container = styled.div`
   margin-right: auto;
   padding-left: 30px;
   padding-right: 30px;
+  margin-bottom: 80px;
 `
 const Header = styled.header`
   text-align: center;
@@ -54,6 +55,14 @@ const JumpLink = styled(Link)`
   gap: 20px;
   padding: 30px;
   width: 200px;
+  transition: 250ms;
+  border-radius: 5px;
+  background-color: white;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.veryLightGray};
+    transition: 100ms;
+  }
 `
 const Icon = styled(CMS.Icon)`
   height: 45px;
