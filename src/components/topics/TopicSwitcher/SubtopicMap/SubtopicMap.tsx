@@ -66,12 +66,21 @@ const SubtopicMap = () => {
     'source-layer': 'ne_10m_admin_0_countries-6llcvl',
     paint: {
       'fill-outline-color': 'white',
+      // outline color for saving images from the map to use on the homepage
+      // 'fill-outline-color': theme.ampEidDarkBlue,
       'fill-color': [
         'match',
         ['get', 'ADM0_ISO'],
         ...countryColorMatch,
+        //
+        // to disable highlighting:
+        // ...['NOT', 'RED'],
+        //
         // last color in the array is the "default color"
         theme.option7,
+        //
+        // for making disabled map for homepage
+        // theme.darkGray,
       ],
     },
     beforeId: 'country-label',
@@ -99,6 +108,11 @@ const SubtopicMap = () => {
           }}
           maxZoom={5}
           minZoom={0}
+          // easy way to dump the canvas content as PNG to use on the homepage
+          // onLoad={map => {
+          //   const content = map.target.getCanvas().toDataURL()
+          //   console.log(content)
+          // }}
         >
           {/* This source provides country shapes and their ISO codes */}
           <Source id="my-data" type="vector" url="mapbox://ryan-talus.0h741z23">
