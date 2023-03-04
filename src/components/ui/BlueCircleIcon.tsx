@@ -3,18 +3,26 @@ import React from 'react'
 import styled, { useTheme } from 'styled-components'
 
 const Container = styled.div<{ hideBG: boolean | undefined; bgColor: string }>`
-  border-radius: 50%;
-
   background-color: ${({ bgColor, hideBG }) => !hideBG && bgColor};
   padding: ${({ hideBG }) => !hideBG && `calc(0.5% + 1px)`};
-  flex-shrink: 0;
-  position: relative;
   top: ${({ hideBG }) => !hideBG && `-0.04em`};
+  position: relative;
+  border-radius: 50%;
+  flex-shrink: 0;
 `
 
 interface BlueCircleIconProps extends CMSIconProps {
+  /**
+   * Size of the icon in pixels
+   */
   size: number
+  /**
+   * Whether to hide the background circle
+   */
   hideBG?: boolean
+  /**
+   * Background color of the circle
+   */
   bgColor?: string
 }
 
