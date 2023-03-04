@@ -13,6 +13,7 @@ import Background from 'components/landing/Background'
 import FirstFold from 'components/landing/FirstFold'
 
 import useIndexPageData from '../cmsHooks/useIndexPageData'
+import HealthTopics from 'components/landing/HealthTopics'
 
 const ContentContainer = styled.div`
   position: relative;
@@ -65,17 +66,7 @@ const IndexPage = (): JSX.Element => {
       <NavBar />
       <Background />
       <FirstFold />
-      <TopicSection>
-        <ContentContainer>
-          <H3>
-            <CMS.Text name="H3" data={cmsData} />
-          </H3>
-          <Paragraph>
-            <CMS.Text name="Paragraph 2" data={cmsData} />
-          </Paragraph>
-          <TopicList />
-        </ContentContainer>
-      </TopicSection>
+      <HealthTopics />
       <ContentContainer>
         <H3>
           <CMS.Text name="H4" data={cmsData} />
