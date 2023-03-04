@@ -130,6 +130,7 @@ const config: GatsbyConfig = {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `Topic`,
             tableLinks: [`Topic_subtopic_link`],
+            mapping: { Image: `fileNode` },
             queryName: `Database`,
             separateNodeType: true,
             tableView: `CMS`,
