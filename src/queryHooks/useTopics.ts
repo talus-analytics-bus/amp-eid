@@ -11,6 +11,13 @@ const useTopics = () => {
           data {
             Topic
             Disable
+            Image {
+              localFiles {
+                childImageSharp {
+                  gatsbyImageData(width: 500, placeholder: NONE)
+                }
+              }
+            }
           }
         }
       }
