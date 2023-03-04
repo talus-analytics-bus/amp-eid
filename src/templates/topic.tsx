@@ -50,7 +50,7 @@ const TripsPage = ({
       <Main>
         <MainHeader>
           <h1>
-            <BlueCircleIcon name={topic} size={40} />
+            <BlueCircleIcon hideBG name={topic} size={40} />
             {topic}
           </h1>
         </MainHeader>

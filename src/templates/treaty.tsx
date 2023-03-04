@@ -57,7 +57,7 @@ const TreatyPage = ({
       <Main>
         <MainHeader>
           <h1>
-            <BlueCircleIcon name="Treaty" size={40} />
+            <BlueCircleIcon hideBG name="Treaty" size={40} />
             {treatyData.data.Document_name}
           </h1>
         </MainHeader>
