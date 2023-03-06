@@ -21,7 +21,7 @@ const ContentContainer = styled.div`
 const H3 = styled.h3`
   margin: 80px 0 30px 0;
   ${({ theme }) => theme.h2};
-  color: ${({ theme }) => theme.black};
+  color: ${({ theme }) => theme.ampEidDarkBlue};
 `
 const Paragraph = styled.p`
   ${({ theme }) => theme.paragraph};
