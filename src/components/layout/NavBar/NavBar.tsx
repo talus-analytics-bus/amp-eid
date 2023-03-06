@@ -125,13 +125,6 @@ const NavBar = () => {
           <NavbarDropdown title="About">
             <LinksList links={aboutLinks} />
           </NavbarDropdown>
-          {
-            // {links.map(linkProps => (
-            //   <Li key={linkProps.to}>
-            //     <NavLink {...linkProps} />
-            //   </Li>
-            // ))}
-          }
         </DesktopNavList>
         <MobileMenu>
           <MobileLinkList>
