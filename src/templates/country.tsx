@@ -44,27 +44,31 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
             <span style={{ marginTop: '.25em' }}>{countryName}</span>
           </H1>
         </MainHeader>
-        <ColumnSection>
-          <div>
-            {
-              // <div>Map Here</div>
-              // <div>Download country policies here</div>
-            }
-          </div>
-          <div>
-            <H2>Explore policies</H2>
-            <CountryPolicies
-              policies={data.countryData.data.All_applicable_countries_link}
+        {
+          // <ColumnSection>
+          //   <div>
+          // <div>Map Here</div>
+          // <div>Download country policies here</div>
+          // </div>
+          // <div>
+        }
+        <SubSection>
+          <H2>Explore policies</H2>
+          <CountryPolicies
+            policies={data.countryData.data.All_applicable_countries_link}
+          />
+          <SubSection>
+            <H2>Treaties</H2>
+            <CountryTreaties
+              countryName={data.countryData.data.Country_name}
+              treaties={data.countryData.data.Country_treaty_status_link}
             />
-            <SubSection>
-              <H2>Treaties</H2>
-              <CountryTreaties
-                countryName={data.countryData.data.Country_name}
-                treaties={data.countryData.data.Country_treaty_status_link}
-              />
-            </SubSection>
-          </div>
-        </ColumnSection>
+          </SubSection>
+        </SubSection>
+        {
+          // </div>
+          // </ColumnSection>
+        }
       </Main>
     </Providers>
   )
