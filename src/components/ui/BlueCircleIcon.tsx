@@ -4,7 +4,7 @@ import styled, { useTheme } from 'styled-components'
 
 const Container = styled.div<{ hideBG: boolean | undefined; bgColor: string }>`
   background-color: ${({ bgColor, hideBG }) => !hideBG && bgColor};
-  padding: ${({ hideBG }) => !hideBG && `calc(0.5% + 1px)`};
+  padding: ${({ hideBG }) => !hideBG && `calc(0.6% + 1px)`};
   top: ${({ hideBG }) => !hideBG && `-0.04em`};
   position: relative;
   border-radius: 50%;
@@ -30,7 +30,10 @@ const BlueCircleIcon = (props: BlueCircleIconProps) => {
   const theme = useTheme()
   const { size, hideBG, bgColor = theme.option1Lighter, ...iconProps } = props
   return (
-    <Container {...{ hideBG, bgColor }} style={{ width: size, height: size }}>
+    <Container
+      {...{ hideBG, bgColor }}
+      style={{ width: size, height: size, ...props.style }}
+    >
       <CMS.Icon color={theme.black} {...iconProps} />
     </Container>
   )
