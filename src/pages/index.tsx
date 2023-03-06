@@ -13,6 +13,7 @@ import HealthTopics from 'components/landing/HealthTopics'
 
 import useIndexPageData from '../cmsHooks/useIndexPageData'
 import TreatySearch from 'components/landing/TreatySearch'
+import CountrySection from 'components/landing/CountrySection'
 
 const ContentContainer = styled.div`
   position: relative;
@@ -60,21 +61,7 @@ const IndexPage = (): JSX.Element => {
       <FirstFold />
       <HealthTopics />
       <TreatySearch />
-      <ContentContainer>
-        <H3>
-          <CMS.Text name="H5" data={cmsData} />
-        </H3>
-        <Columns>
-          <Column>
-            <Paragraph>
-              <CMS.Text name="Paragraph 4" data={cmsData} />
-            </Paragraph>
-          </Column>
-          <Column>
-            <CountrySearch />
-          </Column>
-        </Columns>
-      </ContentContainer>
+      <CountrySection />
       <Footer />
     </Providers>
   )
