@@ -17,7 +17,7 @@ const LinkList = styled.ul`
 
 const PaddedLink = styled(Link)`
   ${({ theme }) => theme.h3};
-  padding: 5px 20px;
+  padding: 8px 20px 3px 20px;
   background-color: white;
   border-radius: 10px;
   transition: 150ms ease;

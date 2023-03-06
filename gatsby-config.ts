@@ -44,6 +44,12 @@ const config: GatsbyConfig = {
           },
           {
             baseId: `appAUZi15WZodq9QW`,
+            tableName: `About Method`,
+            tableView: `CMS`,
+            mapping: { Image: `fileNode` },
+          },
+          {
+            baseId: `appAUZi15WZodq9QW`,
             tableName: `Site metadata`,
             tableView: `CMS`,
             mapping: { Image: `fileNode` },
