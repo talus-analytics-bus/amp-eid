@@ -7,12 +7,12 @@ import Providers from '../components/layout/Providers'
 import NavBar from 'components/layout/NavBar/NavBar'
 import CountrySearch from 'components/landing/CountrySearch'
 import Footer from 'components/layout/Footer'
-import TreatySearch from 'components/landing/TreatySearch'
 import Background from 'components/landing/Background'
 import FirstFold from 'components/landing/FirstFold'
 import HealthTopics from 'components/landing/HealthTopics'
 
 import useIndexPageData from '../cmsHooks/useIndexPageData'
+import TreatySearch from 'components/landing/TreatySearch'
 
 const ContentContainer = styled.div`
   position: relative;
@@ -59,20 +59,8 @@ const IndexPage = (): JSX.Element => {
       <Background />
       <FirstFold />
       <HealthTopics />
+      <TreatySearch />
       <ContentContainer>
-        <H3>
-          <CMS.Text name="H4" data={cmsData} />
-        </H3>
-        <Columns>
-          <Column>
-            <Paragraph>
-              <CMS.Text name="Paragraph 3" data={cmsData} />
-            </Paragraph>
-          </Column>
-          <Column>
-            <TreatySearch />
-          </Column>
-        </Columns>
         <H3>
           <CMS.Text name="H5" data={cmsData} />
         </H3>
