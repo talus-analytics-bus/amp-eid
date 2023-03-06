@@ -10,6 +10,7 @@ import FirstFold from 'components/landing/FirstFold'
 import HealthTopics from 'components/landing/HealthTopics'
 import TreatySearch from 'components/landing/TreatySearch'
 import CountrySection from 'components/landing/CountrySection'
+import TopicIconsRow from 'components/landing/TopicIconsRow'
 
 const IndexPage = (): JSX.Element => (
   <Providers>
@@ -19,6 +20,7 @@ const IndexPage = (): JSX.Element => (
     <FirstFold />
     <HealthTopics />
     <TreatySearch />
+    <TopicIconsRow />
     <CountrySection />
     <Footer />
   </Providers>
