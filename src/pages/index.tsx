@@ -5,15 +5,14 @@ import CMS from '@talus-analytics/library.airtable-cms'
 import Providers from '../components/layout/Providers'
 
 import NavBar from 'components/layout/NavBar/NavBar'
-import TopicList from 'components/landing/TopicList'
 import CountrySearch from 'components/landing/CountrySearch'
 import Footer from 'components/layout/Footer'
 import TreatySearch from 'components/landing/TreatySearch'
 import Background from 'components/landing/Background'
 import FirstFold from 'components/landing/FirstFold'
+import HealthTopics from 'components/landing/HealthTopics'
 
 import useIndexPageData from '../cmsHooks/useIndexPageData'
-import HealthTopics from 'components/landing/HealthTopics'
 
 const ContentContainer = styled.div`
   position: relative;
@@ -22,13 +21,6 @@ const ContentContainer = styled.div`
   margin-right: auto;
   padding-left: 30px;
   padding-right: 30px;
-`
-const TopicSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  margin-top: 80px;
-  padding-bottom: 80px;
-  background-color: ${({ theme }) => theme.veryLightGray};
 `
 const H3 = styled.h3`
   margin: 0;
