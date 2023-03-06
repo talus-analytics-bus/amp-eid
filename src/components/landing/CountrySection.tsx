@@ -32,7 +32,7 @@ const Paragraph = styled.p`
 const SearchBarContainer = styled.div`
   max-width: 450px;
   width: 100%;
-  margin-bottom: 240px;
+  margin-bottom: 120px;
 `
 
 const CountrySection = () => {
