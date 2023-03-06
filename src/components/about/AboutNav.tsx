@@ -14,7 +14,6 @@ const LinkList = styled.ul`
   padding: 0 0 30px 0;
   border-bottom: 3px solid ${({ theme }) => theme.lightGray};
 `
-
 const PaddedLink = styled(Link)`
   ${({ theme }) => theme.h3};
   padding: 8px 20px 3px 20px;

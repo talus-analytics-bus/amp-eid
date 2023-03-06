@@ -80,7 +80,14 @@ const NavLogo = styled(CMS.Image)`
 const NavBar = () => {
   const data = useIndexPageData()
 
-  const links = [{ to: '/about/overview/', children: 'About' }]
+  const aboutLinks = [
+    { to: '/about/overview/', children: 'Overview' },
+    {
+      to: '/about/downloads-and-citations/',
+      children: 'Downloads & Citations',
+    },
+    { to: '/about/methods/', children: 'Methods' },
+  ]
 
   const topics = useTopics()
   const topicsLinks = topics.map(({ data }) => ({
@@ -115,11 +122,16 @@ const NavBar = () => {
           <NavbarDropdown title="Countries">
             <CountrySearch style={{ minWidth: 350, margin: '0' }} />
           </NavbarDropdown>
-          {links.map(linkProps => (
-            <Li key={linkProps.to}>
-              <NavLink {...linkProps} />
-            </Li>
-          ))}
+          <NavbarDropdown title="About">
+            <LinksList links={aboutLinks} />
+          </NavbarDropdown>
+          {
+            // {links.map(linkProps => (
+            //   <Li key={linkProps.to}>
+            //     <NavLink {...linkProps} />
+            //   </Li>
+            // ))}
+          }
         </DesktopNavList>
         <MobileMenu>
           <MobileLinkList>
@@ -136,7 +148,7 @@ const NavBar = () => {
               </Li>
             ))}
             <h3 style={{ color: 'white' }}>General</h3>
-            {links.map(linkProps => (
+            {aboutLinks.map(linkProps => (
               <Li key={linkProps.to}>
                 <NavLink {...linkProps} />
               </Li>
