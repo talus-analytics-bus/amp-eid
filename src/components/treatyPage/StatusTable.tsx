@@ -41,9 +41,9 @@ const StatusPill = styled.span<{ status: Status }>`
       [Status.Party]: theme.option3Lighter,
       [Status.Member]: theme.option1Lighter,
       [Status.Observer]: theme.option5Lighter,
-      [Status.Signatory]: theme.option1Lighter,
+      [Status.Signatory]: theme.option4Lighter,
       [Status['Non-party']]: theme.option5Lighter,
-      [Status['Associate Member']]: theme.option1Lighter,
+      [Status['Associate Member']]: theme.option2Lighter,
     }[status] ?? theme.veryLightGray)};
 `
 
@@ -112,15 +112,12 @@ const StatusTable = ({
     {
       displayName: 'Country',
       key: 'Country',
-      parse: val => (
-        <Link
-          to={`/countries/${simplifyForUrl(
-            val?.[0]?.data?.Country_name ?? '#'
-          )}`}
-        >
-          {val?.[0]?.data?.Country_name}
-        </Link>
-      ),
+      parse: val =>
+        val?.[0]?.data?.Country_name && (
+          <Link to={`/countries/${simplifyForUrl(val[0].data.Country_name)}`}>
+            {val[0].data.Country_name}
+          </Link>
+        ),
     },
     {
       displayName: 'Status',
