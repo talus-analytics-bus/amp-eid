@@ -107,6 +107,8 @@ export const query = graphql`
         Date_opened_for_signature
         Date_of_original_publication
         Treaty_footnotes
+        Original_language_title
+        Language
         Document_topic_link {
           data {
             Topic

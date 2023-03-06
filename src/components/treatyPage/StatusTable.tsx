@@ -24,6 +24,29 @@ const Search = styled.input`
   border-radius: 5px;
 `
 
+enum Status {
+  Party = 'Party',
+  Member = 'Member',
+  Observer = 'Observer',
+  Signatory = 'Signatory',
+  'Non-party' = 'Non-party',
+  'Associate Member' = 'Associate Member',
+}
+
+const StatusPill = styled.span<{ status: Status }>`
+  padding: 2px 10px;
+  border-radius: 15px;
+  background: ${({ theme, status }) =>
+    ({
+      [Status.Party]: theme.option3Lighter,
+      [Status.Member]: theme.option1Lighter,
+      [Status.Observer]: theme.option5Lighter,
+      [Status.Signatory]: theme.option1Lighter,
+      [Status['Non-party']]: theme.option5Lighter,
+      [Status['Associate Member']]: theme.option1Lighter,
+    }[status] ?? theme.veryLightGray)};
+`
+
 const StatusTable = ({
   treatyData,
 }: {
@@ -99,7 +122,13 @@ const StatusTable = ({
         </Link>
       ),
     },
-    { displayName: 'Status', key: 'Status', parse: val => val },
+    {
+      displayName: 'Status',
+      key: 'Status',
+      parse: val => (
+        <StatusPill status={val as unknown as Status}>{val}</StatusPill>
+      ),
+    },
     {
       displayName: 'Signed',
       key: 'Date_signed',
