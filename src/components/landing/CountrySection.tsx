@@ -1,14 +1,10 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { navigate } from 'gatsby'
 
 import CMS from '@talus-analytics/library.airtable-cms'
-import Typeahead from '@talus-analytics/library.ui.typeahead'
 
-import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
 import useIndexPageData from 'cmsHooks/useIndexPageData'
 
-import simplifyForUrl from 'utilities/simplifyForUrl'
 import CountrySearch from './CountrySearch'
 
 const ContentContainer = styled.div`
