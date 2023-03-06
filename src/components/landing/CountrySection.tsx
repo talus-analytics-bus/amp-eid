@@ -3,9 +3,9 @@ import styled from 'styled-components'
 
 import CMS from '@talus-analytics/library.airtable-cms'
 
-import useIndexPageData from 'cmsHooks/useIndexPageData'
-
 import CountrySearch from './CountrySearch'
+
+import useIndexPageData from 'cmsHooks/useIndexPageData'
 
 const ContentContainer = styled.div`
   position: relative;
