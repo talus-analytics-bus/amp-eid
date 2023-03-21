@@ -1,8 +1,32 @@
 import StyledTable from 'components/ui/StyledTable'
 import { Link } from 'gatsby'
 import React from 'react'
+import styled from 'styled-components'
 import formatAirtableDate from 'utilities/formatDate'
 import simplifyForUrl from 'utilities/simplifyForUrl'
+
+enum Status {
+  Party = 'Party',
+  Member = 'Member',
+  Observer = 'Observer',
+  Signatory = 'Signatory',
+  'Non-party' = 'Non-party',
+  'Associate Member' = 'Associate Member',
+}
+
+const StatusPill = styled.span<{ status: Status }>`
+  padding: 2px 10px;
+  border-radius: 15px;
+  background: ${({ theme, status }) =>
+    ({
+      [Status.Party]: theme.option3Lighter,
+      [Status.Member]: theme.option1Lighter,
+      [Status.Observer]: theme.option5Lighter,
+      [Status.Signatory]: theme.option4Lighter,
+      [Status['Non-party']]: theme.option5Lighter,
+      [Status['Associate Member']]: theme.option2Lighter,
+    }[status] ?? theme.veryLightGray)};
+`
 
 interface CountryTreatiesProps {
   countryName: string
@@ -20,9 +44,20 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
     throw new Error(`Treaties not found for ${countryName}`)
 
   type TreatyData = Exclude<
-    [Exclude<typeof treaties[number], null>][number]['data'],
+    [Exclude<(typeof treaties)[number], null>][number]['data'],
     null
   >
+
+  type Writeable<T> = { -readonly [P in keyof T]: T[P] }
+
+  const readTreaties = treaties as Writeable<typeof treaties>
+
+  const sortedTreaties = readTreaties.sort(
+    (a, b) =>
+      a?.data?.Treaty_name?.[0]?.data?.Treaty_short_name?.localeCompare(
+        b?.data?.Treaty_name?.[0]?.data?.Treaty_short_name ?? ''
+      ) ?? -1
+  )
 
   // This approach adapted from:
   // https://stackoverflow.com/questions/50870423/discriminated-union-of-generic-type
@@ -52,7 +87,13 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
         </Link>
       ),
     },
-    { displayName: 'Status', key: 'Status', parse: val => val },
+    {
+      displayName: 'Status',
+      key: 'Status',
+      parse: val => (
+        <StatusPill status={val as unknown as Status}>{val}</StatusPill>
+      ),
+    },
     {
       displayName: 'Signed',
       key: 'Date_signed',
@@ -64,8 +105,8 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
       parse: val => (val ? formatAirtableDate(val) : ''),
     },
     {
-      displayName: 'Became a party',
-      key: 'Date_became_a_party',
+      displayName: 'Entered into force',
+      key: 'Date_entered_into_force',
       parse: val => (val ? formatAirtableDate(val) : ''),
     },
   ]
@@ -80,7 +121,7 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
         </tr>
       </thead>
       <tbody>
-        {treaties.map(treaty => (
+        {sortedTreaties.map(treaty => (
           <tr key={treaty?.data?.Treaty_name?.[0]?.data?.Treaty_short_name}>
             {columns.map(col => (
               // @ts-expect-error: The types of col.parse

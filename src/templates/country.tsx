@@ -94,7 +94,7 @@ export const query = graphql`
             Status
             Date_signed
             Date_ratified
-            Date_became_a_party
+            Date_entered_into_force
           }
         }
         All_applicable_countries_link {

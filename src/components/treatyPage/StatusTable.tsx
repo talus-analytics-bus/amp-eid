@@ -137,8 +137,8 @@ const StatusTable = ({
       parse: val => (val ? formatAirtableDate(val) : ''),
     },
     {
-      displayName: 'Became a party',
-      key: 'Date_became_a_party',
+      displayName: 'Entered into force',
+      key: 'Date_entered_into_force',
       parse: val => (val ? formatAirtableDate(val) : ''),
     },
   ]

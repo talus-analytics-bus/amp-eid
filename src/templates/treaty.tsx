@@ -131,7 +131,7 @@ export const query = graphql`
         Treaty_status {
           data {
             Status
-            Date_became_a_party
+            Date_entered_into_force
             Date_ratified
             Date_signed
             Country {
