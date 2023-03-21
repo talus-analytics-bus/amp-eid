@@ -90,7 +90,7 @@ const StatusTable = ({
   const paginated = sorted.slice(page * pageSize, page * pageSize + pageSize)
 
   type CountryData = Exclude<
-    [Exclude<typeof countryList[number], null>][number]['data'],
+    [Exclude<(typeof countryList)[number], null>][number]['data'],
     null
   >
 

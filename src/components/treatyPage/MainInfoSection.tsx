@@ -83,7 +83,7 @@ const MainInfoSection = ({
       `File metadata not found for treaty ${treatyData.data?.Document_name}`
     )
 
-  const openedForSignature = treatyData.data?.Date_opened_for_signature
+  const enteredIntoForce = treatyData.data?.Date_entered_into_force
   const originalPublication = treatyData.data?.Date_of_original_publication
 
   const latestUpdate = getMostRecentFilePublishDate(
@@ -106,16 +106,16 @@ const MainInfoSection = ({
       <Description markdown={treatyData.data?.Document_description} />
       <MetadataTable>
         <tbody>
-          {openedForSignature && (
-            <tr>
-              <td>Date opened for signature</td>
-              <td>{formatAirtableDate(openedForSignature)}</td>
-            </tr>
-          )}
           {originalPublication && (
             <tr>
-              <td>Date of original publication</td>
+              <td>Opened for signature</td>
               <td>{formatAirtableDate(originalPublication)}</td>
+            </tr>
+          )}
+          {enteredIntoForce && (
+            <tr>
+              <td>Entered into force</td>
+              <td>{formatAirtableDate(enteredIntoForce)}</td>
             </tr>
           )}
           {latestUpdate && (

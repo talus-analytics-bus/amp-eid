@@ -104,8 +104,8 @@ export const query = graphql`
         File_source_URL
         Document_description
         File_publish_date
-        Date_opened_for_signature
         Date_of_original_publication
+        Date_entered_into_force
         Treaty_footnotes
         Original_language_title
         Language
