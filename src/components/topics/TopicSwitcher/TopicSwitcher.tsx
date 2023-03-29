@@ -5,7 +5,7 @@ import SubtopicDescription from './subtopicDescription'
 import MapLegend from './SubtopicMap/MapLegend'
 import SubtopicMap from './SubtopicMap/SubtopicMap'
 
-interface SubtopicContextProps {
+export interface SubtopicContextProps {
   subtopicData: Queries.TopicPageQuery['subtopics']['nodes']
   subtopicIndex: number | null
   setSubtopicIndex: React.Dispatch<React.SetStateAction<number | null>>

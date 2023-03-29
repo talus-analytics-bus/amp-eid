@@ -1,12 +1,10 @@
-import React, { useCallback, useContext, useMemo } from 'react'
-import styled, { useTheme } from 'styled-components'
+import React, { useCallback, useContext } from 'react'
+import styled from 'styled-components'
 import { SubtopicContext } from '../TopicSwitcher'
 import Map, { Layer, MapLayerMouseEvent, Source } from 'react-map-gl'
-import { Expression } from 'mapbox-gl'
-
-import camelCase from 'utilities/camelCase'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
+import useCountryLayer from './useCountryLayer'
 
 const mapboxAccessToken = process.env.GATSBY_MAPBOX_API_KEY
 
@@ -52,13 +50,12 @@ const outlineLayer = {
 }
 
 const SubtopicMap = () => {
-  const theme = useTheme()
-  const context = useContext(SubtopicContext)
-
   const [hoveredISO, setHoveredISO] = React.useState('')
 
+  const context = useContext(SubtopicContext)
   if (!context) throw new Error('SubtopicMap must be inside SubtopicContext')
-  const { subtopicIndex, subtopicData } = context
+
+  const countryLayer = useCountryLayer(context)
 
   const onHover = useCallback(
     (event: MapLayerMouseEvent) =>
@@ -66,58 +63,11 @@ const SubtopicMap = () => {
     []
   )
 
-  const countryLayer = useMemo(() => {
-    // select the subtopic
-    const countryData =
-      subtopicData[subtopicIndex ?? 0].data?.Subtopic_assign_status_link
-    if (!countryData)
-      throw new Error(`Country data not found for subtopic ${subtopicIndex}`)
-
-    // creat a string array of [iso, color, iso, color] for all countries
-    // to populate the mapbox fill-color match statement format
-    const countryColorMatch: string[] = []
-    for (const country of countryData) {
-      const iso = country?.data?.Country?.[0]?.data?.ISO3
-      const layer = country?.data?.Status_link?.[0]?.data?.Map_color
-
-      if (layer && iso)
-        countryColorMatch.push(
-          iso,
-          theme[camelCase(layer) as keyof typeof theme]
-        )
-      else
-        console.log(`Country status not found for ${JSON.stringify(country)}`)
-    }
-
-    const countryLayer = {
-      id: `countries-highlight`,
-      type: `fill` as `fill`,
-      source: `countries`,
-      'source-layer': 'ne_10m_admin_0_countries-6llcvl',
-      paint: {
-        'fill-outline-color': 'white',
-        // outline color for saving images from the map to use on the homepage
-        // 'fill-outline-color': theme.ampEidDarkBlue,
-        'fill-color': [
-          'match',
-          ['get', 'ADM0_ISO'],
-          ...countryColorMatch,
-          // last color in the array is the "default color"
-          theme.option7,
-          //
-          // for making disabled map for homepage
-          // theme.darkGray,
-        ] as Expression,
-      },
-      beforeId: 'countries-outline',
-    }
-
-    return countryLayer
-  }, [subtopicIndex, subtopicData, theme])
-
   return (
     <MapSection>
-      <MapTitle>{subtopicData[subtopicIndex ?? 0].data?.Subtopic}</MapTitle>
+      <MapTitle>
+        {context.subtopicData[context.subtopicIndex ?? 0].data?.Subtopic}
+      </MapTitle>
       <MapContainer>
         <Map
           // map style is just the labels when you zoom in
