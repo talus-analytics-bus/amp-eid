@@ -40,11 +40,8 @@ const outlineLayer = {
   source: `countries`,
   'source-layer': 'ne_10m_admin_0_countries-6llcvl',
   paint: {
-    // 'line-color': 'white',
     'line-color': 'rgb(65, 101, 131)',
     'line-width': 1,
-    // outline color for saving images from the map to use on the homepage
-    // 'fill-outline-color': theme.ampEidDarkBlue,
   },
   beforeId: 'country-label',
 }
