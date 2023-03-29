@@ -1,7 +1,13 @@
 import React, { useCallback, useContext } from 'react'
 import styled from 'styled-components'
 import { SubtopicContext } from '../TopicSwitcher'
-import Map, { Layer, MapLayerMouseEvent, Source } from 'react-map-gl'
+import Map, {
+  Layer,
+  LngLat,
+  MapLayerMouseEvent,
+  Popup,
+  Source,
+} from 'react-map-gl'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 import useCountryLayer from './useCountryLayer'
@@ -46,8 +52,14 @@ const outlineLayer = {
   beforeId: 'country-label',
 }
 
+interface PopupState {
+  iso: string
+  lnglat: LngLat
+}
+
 const SubtopicMap = () => {
   const [hoveredISO, setHoveredISO] = React.useState('')
+  const [popupState, setPopupState] = React.useState<PopupState | null>(null)
 
   const context = useContext(SubtopicContext)
   if (!context) throw new Error('SubtopicMap must be inside SubtopicContext')
@@ -60,6 +72,16 @@ const SubtopicMap = () => {
     []
   )
 
+  const onClick = useCallback((event: MapLayerMouseEvent) => {
+    const iso = event.features?.[0]?.properties?.ADM0_ISO
+    if (!iso || !event.lngLat) setPopupState(null)
+    else
+      setPopupState({
+        iso,
+        lnglat: event.lngLat,
+      })
+  }, [])
+
   return (
     <MapSection>
       <MapTitle>
@@ -71,7 +93,9 @@ const SubtopicMap = () => {
           mapStyle="mapbox://styles/ryan-talus/clddahzv7007j01qbgn0bba8w"
           mapboxAccessToken={mapboxAccessToken}
           projection="naturalEarth"
+          // projection="mercator"
           onMouseMove={onHover}
+          onClick={onClick}
           interactiveLayerIds={[countryLayer.id]}
           initialViewState={{
             longitude: 0,
@@ -102,6 +126,16 @@ const SubtopicMap = () => {
             />
             <Layer key={countryLayer.id} {...countryLayer} />
           </Source>
+          {popupState && (
+            <Popup
+              closeOnClick={false}
+              onClose={() => setPopupState(null)}
+              latitude={popupState.lnglat.lat}
+              longitude={popupState.lnglat.lng}
+            >
+              {popupState.iso}
+            </Popup>
+          )}
         </Map>
       </MapContainer>
     </MapSection>
