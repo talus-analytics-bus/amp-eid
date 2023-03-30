@@ -4,11 +4,13 @@ import ColumnSection from 'components/layout/ColumnSection'
 import SubtopicDescription from './subtopicDescription'
 import MapLegend from './SubtopicMap/MapLegend'
 import SubtopicMap from './SubtopicMap/SubtopicMap'
+import { CountryDocuments } from '../ExplorePolicies/restructureDocuments'
 
 export interface SubtopicContextProps {
   subtopicData: Queries.TopicPageQuery['subtopics']['nodes']
   subtopicIndex: number | null
   setSubtopicIndex: React.Dispatch<React.SetStateAction<number | null>>
+  countryDocuments: CountryDocuments
 }
 
 export const SubtopicContext = createContext<SubtopicContextProps | null>(null)
@@ -31,9 +33,10 @@ const NoGapColumnSection = styled(ColumnSection)`
 
 interface TopicSwitcherProps {
   data: Queries.TopicPageQuery
+  countryDocuments: CountryDocuments
 }
 
-const TopicSwitcher = ({ data }: TopicSwitcherProps) => {
+const TopicSwitcher = ({ data, countryDocuments }: TopicSwitcherProps) => {
   if (!data) throw new Error('No subtopics found')
 
   const [subtopicIndex, setSubtopicIndex] = useState<number | null>(0)
@@ -44,6 +47,7 @@ const TopicSwitcher = ({ data }: TopicSwitcherProps) => {
         subtopicData: data.subtopics.nodes,
         subtopicIndex,
         setSubtopicIndex,
+        countryDocuments,
       }}
     >
       <ColumnSection columnReverse>

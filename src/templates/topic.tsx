@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import { graphql, PageProps } from 'gatsby'
 
@@ -15,6 +15,7 @@ import ExplorePolicies from 'components/topics/ExplorePolicies/ExplorePolicies'
 import Footer from 'components/layout/Footer'
 import ColumnSection from 'components/layout/ColumnSection'
 import BlueCircleIcon from 'components/ui/BlueCircleIcon'
+import restructureDocuments from 'components/topics/ExplorePolicies/restructureDocuments'
 
 // Trips page data sources
 
@@ -43,6 +44,10 @@ const TripsPage = ({
   const topic = data.topic?.data?.Topic
   if (!topic) throw new Error(`All topic pages must have topic names`)
 
+  const countryDocuments = useMemo(() => {
+    return restructureDocuments(data.topicDocuments)
+  }, [data.topicDocuments])
+
   return (
     <Providers>
       <CMS.SEO />
@@ -54,12 +59,12 @@ const TripsPage = ({
             {topic}
           </h1>
         </MainHeader>
-        <TopicSwitcher data={data} />
+        <TopicSwitcher {...{ data, countryDocuments }} />
         <ColumnSection>
           <H3>Treaty</H3>
           <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
         </ColumnSection>
-        <ExplorePolicies topicDocuments={data.topicDocuments} />
+        <ExplorePolicies countryDocuments={countryDocuments} />
       </Main>
       <Footer />
     </Providers>
@@ -146,6 +151,7 @@ export const query = graphql`
             }
             data {
               Country_name
+              ISO3
             }
           }
           Authoring_country {

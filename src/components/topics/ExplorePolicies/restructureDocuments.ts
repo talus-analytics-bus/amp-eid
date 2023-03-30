@@ -1,7 +1,7 @@
 type TopicDocuments = Queries.TopicPageQuery['topicDocuments']
 type TopicDocument = TopicDocuments['nodes'][number]
 
-interface CountriesObj {
+export interface CountryDocuments {
   // prettier-ignore
   [key: string]: {
     country:
@@ -18,27 +18,25 @@ interface CountriesObj {
 }
 
 const restructureDocuments = (topicDocuments: TopicDocuments) => {
-  const countriesObj: CountriesObj = {}
+  const countriesObj: CountryDocuments = {}
 
   for (const document of topicDocuments.nodes) {
     const countries = document.data?.All_applicable_countries
     if (!countries) break
 
     for (const country of countries) {
-      if (!country?.data?.Country_name) break
+      if (!country?.data?.ISO3) break
 
-      if (!countriesObj[country.data.Country_name])
-        countriesObj[country.data.Country_name] = {
+      if (!countriesObj[country.data.ISO3])
+        countriesObj[country.data.ISO3] = {
           country,
           documents: [document],
         }
-      else countriesObj[country.data.Country_name].documents.push(document)
+      else countriesObj[country.data.ISO3].documents.push(document)
     }
   }
-  const countriesList = Object.entries(countriesObj).sort((a, b) =>
-    a[0].localeCompare(b[0])
-  )
-  return countriesList.map(([_, v]) => v)
+  console.log(countriesObj)
+  return countriesObj
 }
 
 export default restructureDocuments

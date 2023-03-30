@@ -9,7 +9,9 @@ import DocumentLink from 'components/ui/DocumentLink'
 import ExploreDropdown from 'components/ui/ExploreDropdown'
 
 import PaginationControls from './PaginationControls'
-import restructureDocuments from './restructureDocuments'
+import restructureDocuments, {
+  CountriesObj as CountryDocuments,
+} from './restructureDocuments'
 
 const H3 = styled.h3`
   ${({ theme }) => theme.h2};
@@ -32,19 +34,23 @@ const Search = styled.input`
 `
 
 interface ExplorePoliciesProps {
-  topicDocuments: Queries.TopicPageQuery['topicDocuments']
+  countryDocuments: CountryDocuments
 }
 
-const ExplorePolicies = ({ topicDocuments }: ExplorePoliciesProps) => {
+const ExplorePolicies = ({ countryDocuments }: ExplorePoliciesProps) => {
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(5)
   const [searchTerm, setSearchTerm] = useState('')
 
-  const countryDocuments = useMemo(() => {
-    return restructureDocuments(topicDocuments)
-  }, [topicDocuments])
+  const countriesList = useMemo(
+    () =>
+      Object.entries(countryDocuments)
+        .sort((a, b) => a[0].localeCompare(b[0]))
+        .map(([_, v]) => v),
+    [countryDocuments]
+  )
 
-  let displayCountries = countryDocuments
+  let displayCountries = countriesList
 
   const fuse = new Fuse(displayCountries, {
     keys: ['country.data.Country_name', 'country.data.ISO3'],

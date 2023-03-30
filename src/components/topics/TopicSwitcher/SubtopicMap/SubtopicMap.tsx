@@ -1,16 +1,11 @@
 import React, { useCallback, useContext } from 'react'
 import styled from 'styled-components'
 import { SubtopicContext } from '../TopicSwitcher'
-import Map, {
-  Layer,
-  LngLat,
-  MapLayerMouseEvent,
-  Popup,
-  Source,
-} from 'react-map-gl'
+import Map, { Layer, LngLat, MapLayerMouseEvent, Source } from 'react-map-gl'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 import useCountryLayer from './useCountryLayer'
+import MapPopup, { PopupState } from './MapPopup'
 
 const mapboxAccessToken = process.env.GATSBY_MAPBOX_API_KEY
 
@@ -50,11 +45,6 @@ const outlineLayer = {
     'line-width': 1,
   },
   beforeId: 'country-label',
-}
-
-interface PopupState {
-  iso: string
-  lnglat: LngLat
 }
 
 const SubtopicMap = () => {
@@ -126,16 +116,7 @@ const SubtopicMap = () => {
             />
             <Layer key={countryLayer.id} {...countryLayer} />
           </Source>
-          {popupState && (
-            <Popup
-              closeOnClick={false}
-              onClose={() => setPopupState(null)}
-              latitude={popupState.lnglat.lat}
-              longitude={popupState.lnglat.lng}
-            >
-              {popupState.iso}
-            </Popup>
-          )}
+          <MapPopup {...{ popupState, setPopupState }} />
         </Map>
       </MapContainer>
     </MapSection>
