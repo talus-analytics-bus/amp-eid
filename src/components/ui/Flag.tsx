@@ -1,7 +1,11 @@
 import React from 'react'
-import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
+import {
+  GatsbyImage,
+  GatsbyImageProps,
+  IGatsbyImageData,
+} from 'gatsby-plugin-image'
 
-interface FlagProps {
+interface FlagProps extends Omit<GatsbyImageProps, 'image' | 'alt'> {
   country: {
     data: {
       Country_name: string | null | undefined
@@ -14,7 +18,7 @@ interface FlagProps {
   } | null
 }
 
-const Flag = ({ country }: FlagProps) => {
+const Flag = ({ country, style, ...props }: FlagProps) => {
   const imageData = country?.flag?.childImageSharp?.gatsbyImageData
   const countryName = country?.data?.Country_name
 
@@ -26,7 +30,9 @@ const Flag = ({ country }: FlagProps) => {
       alt={`Flag of ${countryName} `}
       style={{
         filter: 'drop-shadow(.5px 0.5px 1px rgba(0, 0, 0, 0.35))',
+        ...style,
       }}
+      {...props}
     />
   )
 }
