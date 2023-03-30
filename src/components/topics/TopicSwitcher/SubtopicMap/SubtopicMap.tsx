@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react'
 import styled from 'styled-components'
 import { SubtopicContext } from '../TopicSwitcher'
-import Map, { Layer, LngLat, MapLayerMouseEvent, Source } from 'react-map-gl'
+import Map, { Layer, MapLayerMouseEvent, Source } from 'react-map-gl'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 import useCountryLayer from './useCountryLayer'
@@ -27,7 +27,7 @@ const MapSection = styled.section`
 `
 const MapContainer = styled.div`
   width: 100%;
-  aspect-ratio: 16/8;
+  aspect-ratio: 16/9;
   background: ${({ theme }) => theme.veryLightGray};
   border-radius: 5px;
   overflow: hidden;
@@ -48,6 +48,18 @@ const outlineLayer = {
   paint: {
     'line-color': 'rgb(65, 101, 131)',
     'line-width': 1,
+  },
+  beforeId: 'country-label',
+}
+
+const selectedLayer = {
+  id: `countries-selected`,
+  type: `line` as `line`,
+  source: `countries`,
+  'source-layer': 'ne_10m_admin_0_countries-6llcvl',
+  paint: {
+    'line-color': 'rgb(65, 101, 131)',
+    'line-width': 2,
   },
   beforeId: 'country-label',
 }
@@ -124,6 +136,7 @@ const SubtopicMap = () => {
           //   console.log(content)
           // }}
         >
+          {console.log(popupState)}
           {/* This source provides country shapes and their ISO codes */}
           <Source id="my-data" type="vector" url="mapbox://ryan-talus.0h741z23">
             {/* This layer paints all colors including grey background color */}
@@ -131,6 +144,11 @@ const SubtopicMap = () => {
               key={outlineLayer.id}
               {...outlineLayer}
               filter={['==', 'ADM0_ISO', hoveredISO]}
+            />
+            <Layer
+              key={selectedLayer.id}
+              {...selectedLayer}
+              filter={['==', 'ADM0_ISO', popupState?.iso ?? '']}
             />
             <Layer key={countryLayer.id} {...countryLayer} />
           </Source>

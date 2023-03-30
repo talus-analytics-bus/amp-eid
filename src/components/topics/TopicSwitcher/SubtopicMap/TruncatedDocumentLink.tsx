@@ -43,8 +43,8 @@ const TruncatedDocumentLink = ({ document }: DocumentLinkProps) => {
     document.data?.Authoring_country?.[0]?.data?.Country_name ?? ''
 
   let displayName = documentName
-  if (documentName && documentName.length > 46)
-    displayName = documentName.slice(0, 46) + '...'
+  if (documentName && documentName.length > 42)
+    displayName = documentName.slice(0, 42) + '...'
   return (
     <DocumentLink
       to={`/documents/${simplifyForUrl(authoringCountryName)}/${simplifyForUrl(

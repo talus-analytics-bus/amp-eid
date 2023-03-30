@@ -1,12 +1,9 @@
 import React, { useContext } from 'react'
 import { LngLat } from 'mapbox-gl'
-import { Popup } from 'react-map-gl'
 import { SubtopicContext } from '../TopicSwitcher'
 import Flag from 'components/ui/Flag'
 import styled, { useTheme } from 'styled-components'
 import camelCase from 'utilities/camelCase'
-import { Link } from 'gatsby'
-import simplifyForUrl from 'utilities/simplifyForUrl'
 import TruncatedDocumentLink from './TruncatedDocumentLink'
 
 const CountryName = styled.div`
@@ -78,13 +75,6 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
   const color = map_color && theme[camelCase(map_color) as keyof typeof theme]
 
   return (
-    // <Popup
-    //   closeOnClick={false}
-    //   onClose={() => setPopupState(null)}
-    //   latitude={popupState.lnglat.lat}
-    //   longitude={popupState.lnglat.lng}
-    //   style={{ maxWidth: '450px' }}
-    // >
     <>
       {documents && (
         <>
@@ -116,7 +106,6 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
         </>
       )}
     </>
-    // </Popup>
   )
 }
 

@@ -38,7 +38,7 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
         description={`Policies and topics related to emerging infectious diseases in ${countryName}`}
       />
       <NavBar />
-      <Main>
+      <Main style={{ maxWidth: 1500 }}>
         <MainHeader>
           <H1>
             <Flag country={data.countryData} />
