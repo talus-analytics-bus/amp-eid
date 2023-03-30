@@ -7,6 +7,7 @@ import styled, { useTheme } from 'styled-components'
 import camelCase from 'utilities/camelCase'
 import { Link } from 'gatsby'
 import simplifyForUrl from 'utilities/simplifyForUrl'
+import TruncatedDocumentLink from './TruncatedDocumentLink'
 
 const CountryName = styled.div`
   position: relative;
@@ -45,11 +46,6 @@ const SeeDocumentHeader = styled.div`
   margin-top: 15px;
   margin-bottom: 5px;
 `
-const DocumentLink = styled(Link)`
-  ${({ theme }) => theme.smallParagraph};
-  color: ${({ theme }) => theme.link};
-`
-
 export interface PopupState {
   iso: string
   lnglat: LngLat
@@ -112,13 +108,7 @@ const MapPopup = ({ popupState, setPopupState }: MapPopupProps) => {
           </StatusDescription>
           <SeeDocumentHeader>See document:</SeeDocumentHeader>
           {documents.documents.map(document => (
-            <DocumentLink
-              to={`/documents/${simplifyForUrl(
-                document.data?.Authoring_country?.[0]?.data?.Country_name ?? ''
-              )}/${simplifyForUrl(document.data?.Document_name ?? '')}`}
-            >
-              {document.data?.Document_name}
-            </DocumentLink>
+            <TruncatedDocumentLink document={document} />
           ))}
         </>
       )}
