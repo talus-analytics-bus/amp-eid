@@ -29,17 +29,6 @@ const Citation = styled(RenderCMSRichText)`
     }
   }
 `
-const SideBySide = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-
-  @media (max-width: 1000px) {
-    flex-direction: column;
-    gap: 0px;
-  }
-`
-
 // Note on accessibility and SEO:
 // https://www.w3.org/WAI/ARIA/apg/example-index/tabs/tabs-manual.html
 

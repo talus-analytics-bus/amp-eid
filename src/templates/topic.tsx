@@ -16,7 +16,6 @@ import Footer from 'components/layout/Footer'
 import ColumnSection from 'components/layout/ColumnSection'
 import BlueCircleIcon from 'components/ui/BlueCircleIcon'
 import restructureDocuments from 'components/topics/ExplorePolicies/restructureDocuments'
-import SubSection from 'components/layout/SubSection'
 
 // Trips page data sources
 

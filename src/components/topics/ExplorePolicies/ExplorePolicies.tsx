@@ -9,7 +9,7 @@ import DocumentLink from 'components/ui/DocumentLink'
 import ExploreDropdown from 'components/ui/ExploreDropdown'
 
 import PaginationControls from './PaginationControls'
-import restructureDocuments, { CountryDocuments } from './restructureDocuments'
+import { CountryDocuments } from './restructureDocuments'
 
 const H3 = styled.h3`
   ${({ theme }) => theme.h2};
