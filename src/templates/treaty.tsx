@@ -25,8 +25,9 @@ const H3 = styled.h3`
   color: ${({ theme }) => theme.black};
 `
 const Footnote = styled(RenderCMSRichText)`
+  // max-width: 1000px;
   > p {
-    margin-top: 30px 0 0 0;
+    margin-top: 0;
     ${({ theme }) => theme.paragraph}
     color: ${({ theme }) => theme.black};
     > a {
@@ -54,13 +55,16 @@ const TreatyPage = ({
         description={treatyData.data.Document_description ?? undefined}
       />
       <NavBar />
-      <Main>
+      <Main style={{ maxWidth: 1500 }}>
         <MainHeader>
           <h1>
             <BlueCircleIcon hideBG name="Treaty" size={40} />
             {treatyData.data.Document_name}
           </h1>
         </MainHeader>
+        {
+          // <ColumnSection>
+        }
         <ColumnSection>
           <Sidebar treatyData={treatyData} />
           <MainContent>
@@ -68,7 +72,7 @@ const TreatyPage = ({
             {treatyData.data.Related_document &&
               treatyData.data.Related_document?.[0]?.data && (
                 <SubSection>
-                  <H3>Related Treaties</H3>
+                  <H3>Related treaties</H3>
                   <RelatedTreaties
                     relatedTreaties={
                       treatyData.data.Related_document as NoUndefinedField<
@@ -80,7 +84,7 @@ const TreatyPage = ({
               )}
             <RelatedTopics topic_link={treatyData.data.Document_topic_link} />
             <SubSection>
-              <H3>States Parties</H3>
+              {<H3>States parties</H3>}
               {treatyData.data.Treaty_footnotes && (
                 <Footnote markdown={treatyData.data.Treaty_footnotes} />
               )}
@@ -88,6 +92,9 @@ const TreatyPage = ({
             </SubSection>
           </MainContent>
         </ColumnSection>
+        {
+          // </ColumnSection>
+        }
       </Main>
       <Footer />
     </Providers>

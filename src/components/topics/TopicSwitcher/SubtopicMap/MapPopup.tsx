@@ -26,13 +26,13 @@ const MapKey = styled.div`
   ${({ theme }) => theme.paragraph};
 `
 const MapStatusName = styled.div`
-  ${({ theme }) => theme.paragraph};
+  ${({ theme }) => theme.labels};
 `
 const ColorBlock = styled.div`
   flex-shrink: 0;
   margin-right: 15px;
   margin-top: 0.15em;
-  width: 20px;
+  width: 23px;
   // height: 20px;
 `
 const StatusDescription = styled.div`
@@ -56,7 +56,7 @@ interface MapPopupProps {
   setPopupState: React.Dispatch<React.SetStateAction<PopupState | null>>
 }
 
-const MapPopup = ({ popupState, setPopupState }: MapPopupProps) => {
+const MapPopup = ({ popupState }: MapPopupProps) => {
   const { subtopicData, subtopicIndex, countryDocuments } =
     useContext(SubtopicContext)!
 
@@ -97,7 +97,7 @@ const MapPopup = ({ popupState, setPopupState }: MapPopupProps) => {
               style={{
                 backgroundColor: color ?? theme.option7,
                 position: 'relative',
-                top: -1,
+                top: -2,
               }}
             />
             <MapStatusName>{statusDesciption?.data?.Status}</MapStatusName>

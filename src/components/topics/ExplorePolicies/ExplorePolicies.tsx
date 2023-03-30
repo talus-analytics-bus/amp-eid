@@ -9,9 +9,7 @@ import DocumentLink from 'components/ui/DocumentLink'
 import ExploreDropdown from 'components/ui/ExploreDropdown'
 
 import PaginationControls from './PaginationControls'
-import restructureDocuments, {
-  CountriesObj as CountryDocuments,
-} from './restructureDocuments'
+import restructureDocuments, { CountryDocuments } from './restructureDocuments'
 
 const H3 = styled.h3`
   ${({ theme }) => theme.h2};
@@ -62,9 +60,9 @@ const ExplorePolicies = ({ countryDocuments }: ExplorePoliciesProps) => {
   const total = displayCountries.length
 
   return (
-    <ColumnSection>
+    <ColumnSection rowReverse>
       <div>
-        <H3>Explore Policies</H3>
+        <H3>Explore policies</H3>
         <Label>
           Country
           <Search

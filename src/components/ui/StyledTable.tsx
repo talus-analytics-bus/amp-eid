@@ -18,6 +18,12 @@ const StyledTable = styled.table`
       }
     }
   }
+  td {
+    width: 15%;
+  }
+  td:nth-child(1) {
+    width: 40%;
+  }
   tr:nth-child(odd) {
     background: ${({ theme }) => theme.ampEidVeryLightBlue};
   }

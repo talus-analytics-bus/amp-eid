@@ -22,7 +22,7 @@ const ModalBackgroundButton = styled.button`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.1);
   border: none;
   border-radius: 0;
 `
@@ -32,6 +32,7 @@ const ModalBackground = styled.div`
   padding: 15px;
   background-color: #fff;
   max-height: 80vh;
+  width: 450px;
   max-width: 90vw;
   border-radius: 0px;
   box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.25);

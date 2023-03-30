@@ -11,7 +11,7 @@ const Container = styled(AccordionParent)`
 `
 
 const TopicButton = styled.button`
-  ${({ theme }) => theme.paragraph};
+  ${({ theme }) => theme.labels};
   border: none;
   margin: 0;
   background: none;

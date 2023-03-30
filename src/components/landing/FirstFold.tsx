@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 
 import useIndexPageData from 'cmsHooks/useIndexPageData'
 import CMS from '@talus-analytics/library.airtable-cms'
@@ -70,6 +70,7 @@ const Icon = styled(CMS.Icon)`
 
 const FirstFold = () => {
   const cmsData = useIndexPageData()
+  const theme = useTheme()
 
   return (
     <Container>
@@ -86,15 +87,15 @@ const FirstFold = () => {
       </IntroParagraph>
       <JumpLinks>
         <JumpLink to="#topics">
-          <Icon name="Topic" />
+          <Icon name="Topic" color={theme.ampEidDarkBlue} />
           Topics
         </JumpLink>
         <JumpLink to="#treaties">
-          <Icon name="Treaty" />
+          <Icon name="Treaty" color={theme.ampEidDarkBlue} />
           Treaties
         </JumpLink>
         <JumpLink to="#countries">
-          <Icon name="Country" />
+          <Icon name="Country" color={theme.ampEidDarkBlue} />
           Countries
         </JumpLink>
       </JumpLinks>

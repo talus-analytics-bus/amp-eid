@@ -67,7 +67,7 @@ export default {
 	font-family: "Open Sans";
 	font-weight: 400;
 	font-style: normal;
-	line-height: 25px;
+	line-height: 30px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -127,6 +127,15 @@ export default {
 	font-size: 16px;
 	font-family: "Tapas";
 	line-height: 22px;
+	text-decoration: none;
+	text-transform: none;
+`,
+  labels: `
+	font-size: 18px;
+	font-family: "Open Sans";
+	font-weight: 400;
+	font-style: normal;
+	line-height: 25px;
 	text-decoration: none;
 	text-transform: none;
 `,

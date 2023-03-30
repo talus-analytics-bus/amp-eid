@@ -7,6 +7,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import useCountryLayer from './useCountryLayer'
 import MapPopup, { PopupState } from './MapPopup'
 import useModal from 'components/ui/Modal/useModal'
+import MapBottomCornerModal from './MapBottomCornerModal'
 
 const mapboxAccessToken = process.env.GATSBY_MAPBOX_API_KEY
 
@@ -23,17 +24,20 @@ const MapSection = styled.section`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  background: ${({ theme }) => theme.veryLightGray};
 `
 const MapContainer = styled.div`
   width: 100%;
   aspect-ratio: 16/8;
+  background: ${({ theme }) => theme.veryLightGray};
+  border-radius: 5px;
+  overflow: hidden;
 `
 const MapTitle = styled.h3`
-  ${({ theme }) => theme.h3};
+  ${({ theme }) => theme.bigParagraph};
   color: ${({ theme }) => theme.black};
   margin: 0;
   padding: 10px 20px;
+  margin-bottom: 10px;
 `
 
 const outlineLayer = {
@@ -64,30 +68,33 @@ const SubtopicMap = () => {
     []
   )
 
-  const onClick = useCallback((event: MapLayerMouseEvent) => {
-    const iso = event.features?.[0]?.properties?.ADM0_ISO
-    setModal(
-      <MapPopup
-        popupState={{ iso, lnglat: event.lngLat }}
-        {...{ setPopupState }}
-      />,
-      {
-        closeable: true,
-      }
-    )
-    // if (!iso || !event.lngLat) setPopupState(null)
-    // else
-    //   setPopupState({
-    //     iso,
-    //     lnglat: event.lngLat,
-    //   })
-  }, [])
+  const onClick = useCallback(
+    (event: MapLayerMouseEvent) => {
+      const iso = event.features?.[0]?.properties?.ADM0_ISO
+      // setModal(
+      //   <MapPopup
+      //     popupState={{ iso, lnglat: event.lngLat }}
+      //     {...{ setPopupState }}
+      //   />,
+      //   { closeable: true }
+      // )
+      if (!iso || !event.lngLat) setPopupState(null)
+      else
+        setPopupState({
+          iso,
+          lnglat: event.lngLat,
+        })
+    },
+    [setModal]
+  )
 
   return (
     <MapSection>
-      <MapTitle>
-        {context.subtopicData[context.subtopicIndex ?? 0].data?.Subtopic}
-      </MapTitle>
+      {
+        // <MapTitle>
+        //   {context.subtopicData[context.subtopicIndex ?? 0].data?.Subtopic}
+        // </MapTitle>
+      }
       <MapContainer>
         <Map
           // map style is just the labels when you zoom in
@@ -130,6 +137,11 @@ const SubtopicMap = () => {
           {
             // <MapPopup {...{ popupState, setPopupState }} />
           }
+          {popupState && (
+            <MapBottomCornerModal>
+              <MapPopup {...{ popupState, setPopupState }} />
+            </MapBottomCornerModal>
+          )}
         </Map>
       </MapContainer>
     </MapSection>

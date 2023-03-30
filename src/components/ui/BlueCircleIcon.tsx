@@ -34,7 +34,7 @@ const BlueCircleIcon = (props: BlueCircleIconProps) => {
       {...{ hideBG, bgColor }}
       style={{ width: size, height: size, ...props.style }}
     >
-      <CMS.Icon color={theme.black} {...iconProps} />
+      <CMS.Icon color={theme.ampEidDarkBlue} {...iconProps} />
     </Container>
   )
 }

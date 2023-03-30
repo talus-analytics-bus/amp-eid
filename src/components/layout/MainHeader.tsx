@@ -9,7 +9,7 @@ const MainHeader = styled.header`
 
   > h1 {
     ${({ theme }) => theme.h1};
-    color: ${({ theme }) => theme.black};
+    color: ${({ theme }) => theme.ampEidDarkBlue};
     margin: 0;
     display: flex;
     align-items: flex-start;

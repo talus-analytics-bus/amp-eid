@@ -3,6 +3,7 @@ import styled, { useTheme } from 'styled-components'
 import camelCase from 'utilities/camelCase'
 
 const MapKey = styled.div`
+  ${({ theme }) => theme.smallParagraph};
   display: flex;
   flex-direction: column;
   justify-content: stretch;
@@ -16,7 +17,7 @@ const KeyEntry = styled.div`
 const ColorBlock = styled.div`
   flex-shrink: 0;
   margin-right: 15px;
-  margin-top: 0.15em;
+  // margin-top: 0.15em;
   width: 20px;
   height: 20px;
 `

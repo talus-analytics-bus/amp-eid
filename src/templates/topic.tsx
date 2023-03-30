@@ -16,6 +16,7 @@ import Footer from 'components/layout/Footer'
 import ColumnSection from 'components/layout/ColumnSection'
 import BlueCircleIcon from 'components/ui/BlueCircleIcon'
 import restructureDocuments from 'components/topics/ExplorePolicies/restructureDocuments'
+import SubSection from 'components/layout/SubSection'
 
 // Trips page data sources
 
@@ -60,8 +61,8 @@ const TripsPage = ({
           </h1>
         </MainHeader>
         <TopicSwitcher {...{ data, countryDocuments }} />
-        <ColumnSection>
-          <H3>Treaty</H3>
+        <ColumnSection rowReverse>
+          <H3>Related treaty</H3>
           <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
         </ColumnSection>
         <ExplorePolicies countryDocuments={countryDocuments} />

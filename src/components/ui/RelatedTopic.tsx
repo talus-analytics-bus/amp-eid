@@ -32,7 +32,7 @@ const RelatedTopics = ({ topic_link }: RelatedTopicsProps) => {
 
   return (
     <SubSection>
-      <H3>Related {topic_link.length === 1 ? 'Topic' : 'Topics'}</H3>
+      <H3>Related {topic_link.length === 1 ? 'topic' : 'topics'}</H3>
       {topic_link.map(
         topic =>
           topic?.data?.Topic &&

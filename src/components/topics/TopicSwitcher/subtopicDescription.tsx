@@ -2,16 +2,20 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { SubtopicContext } from './TopicSwitcher'
 import { RenderCMSRichText } from '@talus-analytics/library.airtable.cms-rich-text'
+import ColumnSection from 'components/layout/ColumnSection'
 
 const Description = styled.p`
   ${({ theme }) => theme.paragraph};
   color: ${({ theme }) => theme.black};
   margin: 0;
   padding: 0;
-  padding-bottom: 20px;
-  line-height: 28px; ;
+  // padding-bottom: 20px;
+  line-height: 28px;
+  flex-basis: 60%;
+  flex-grow: 1;
 `
 const Citation = styled(RenderCMSRichText)`
+  width: 350px;
   > p {
     ${({ theme }) => theme.smallParagraph};
     color: ${({ theme }) => theme.darkGray};
@@ -23,6 +27,16 @@ const Citation = styled(RenderCMSRichText)`
       color: ${({ theme }) => theme.darkGray};
       text-decoration: underline;
     }
+  }
+`
+const SideBySide = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    gap: 0px;
   }
 `
 
@@ -42,16 +56,25 @@ const SubtopicDescription = () => {
           id={`tabpanel-${index}`}
           role="tabpanel"
           aria-labelledby={`tab-${index}`}
-          style={{ display: subtopicIndex === index ? 'block' : 'none' }}
+          style={{
+            display: subtopicIndex === index ? 'block' : 'none',
+          }}
         >
-          <Description>{subtopic.data?.Subtopic_description}</Description>
-          <Citation
-            markdown={
-              subtopic.data?.Subtopic_sources
-                ? 'Source: ' + subtopic.data?.Subtopic_sources
-                : ''
-            }
-          />
+          <ColumnSection
+            noBorder
+            rowReverse
+            columnReverse
+            style={{ paddingTop: 0 }}
+          >
+            <Citation
+              markdown={
+                subtopic.data?.Subtopic_sources
+                  ? 'Source: ' + subtopic.data?.Subtopic_sources
+                  : ''
+              }
+            />
+            <Description>{subtopic.data?.Subtopic_description}</Description>
+          </ColumnSection>
         </div>
       ))}
     </>

@@ -45,6 +45,10 @@ const ImageLink = styled(Link)`
     background: ${({ theme }) => theme.ampEidDarkBlue};
     transition: 250ms ease;
   }
+
+  > div {
+    color: ${({ theme }) => theme.white};
+  }
 `
 const ComingSoonLinkPlaceholder = styled.span`
   position: relative;
@@ -52,9 +56,13 @@ const ComingSoonLinkPlaceholder = styled.span`
   flex-direction: column;
   align-items: center;
   padding-top: 5px;
+  gap: 15px;
+  > div {
+    color: ${({ theme }) => theme.darkGray};
+  }
 `
 const ImageLinkTextContainer = styled.div`
-  ${({ theme }) => theme.bigParagraph};
+  ${({ theme }) => theme.h4};
   color: ${({ theme }) => theme.white};
   border-radius: 5px;
   text-align: center;

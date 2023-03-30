@@ -27,7 +27,7 @@ const Column = styled.div`
 const NoGapColumnSection = styled(ColumnSection)`
   margin-top: 0;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1300px) {
     gap: 0;
   }
 `

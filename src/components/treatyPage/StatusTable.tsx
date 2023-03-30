@@ -16,12 +16,15 @@ const Container = styled.div`
 `
 const SearchControlContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 `
 const Search = styled.input`
+  ${({ theme }) => theme.smallParagraph};
   padding: 6px 12px;
-  border: 1px solid ${({ theme }) => theme.black};
+  border: 1px solid ${({ theme }) => theme.medGray};
   border-radius: 5px;
+  width: 40%;
+  min-width: 300px;
 `
 
 enum Status {
@@ -90,7 +93,7 @@ const StatusTable = ({
   const paginated = sorted.slice(page * pageSize, page * pageSize + pageSize)
 
   type CountryData = Exclude<
-    [Exclude<(typeof countryList)[number], null>][number]['data'],
+    [Exclude<typeof countryList[number], null>][number]['data'],
     null
   >
 

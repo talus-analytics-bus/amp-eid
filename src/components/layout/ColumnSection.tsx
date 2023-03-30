@@ -3,16 +3,24 @@ import styled from 'styled-components'
 const ColumnSection = styled.section<{
   noBorder?: boolean
   columnReverse?: boolean
+  rowReverse?: boolean
 }>`
-  margin-top: 20px;
+  margin-top: 50px;
+  &:first-of-type {
+    margin-top: 20px;
+  }
+  // &:last-of-type {
+  //   margin-bottom: 50px;
+  // }
   display: flex;
-  flex-direction: row;
+  flex-direction: ${({ rowReverse }) => (rowReverse ? 'row' : 'row-reverse')};
+
   justify-content: flex-start;
   gap: 30px;
 
   padding-top: 20px;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1300px) {
     flex-direction: ${({ columnReverse }) =>
       columnReverse ? 'column-reverse' : 'column'};
   }
@@ -22,7 +30,7 @@ const ColumnSection = styled.section<{
     width: 350px;
     flex-shrink: 0;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1300px) {
       min-width: auto;
       width: auto;
     }
