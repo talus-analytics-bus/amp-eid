@@ -13,6 +13,7 @@ import Flag from 'components/ui/Flag'
 import CountryPolicies from 'components/countryPage/CountryPolicies'
 import SubSection from 'components/layout/SubSection'
 import CountryTreaties from 'components/countryPage/CountryTreaties'
+import Footer from 'components/layout/Footer'
 
 const H1 = styled.h1`
   display: flex;
@@ -70,6 +71,7 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
           // </ColumnSection>
         }
       </Main>
+      <Footer />
     </Providers>
   )
 }
