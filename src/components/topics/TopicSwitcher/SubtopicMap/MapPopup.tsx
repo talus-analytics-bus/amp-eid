@@ -24,6 +24,9 @@ const MapKey = styled.div`
   align-items: center;
   ${({ theme }) => theme.paragraph};
 `
+const MapStatusName = styled.div`
+  ${({ theme }) => theme.paragraph};
+`
 const ColorBlock = styled.div`
   flex-shrink: 0;
   margin-right: 15px;
@@ -102,7 +105,7 @@ const MapPopup = ({ popupState, setPopupState }: MapPopupProps) => {
                 top: -1,
               }}
             />
-            {statusDesciption?.data?.Status}
+            <MapStatusName>{statusDesciption?.data?.Status}</MapStatusName>
           </MapKey>
           <StatusDescription>
             {statusDesciption?.data?.Status_description}
