@@ -36,6 +36,7 @@ export default {
 	font-family: "Open Sans";
 	font-weight: 400;
 	font-style: normal;
+	line-height: 28px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -44,6 +45,7 @@ export default {
 	font-family: "Open Sans";
 	font-weight: 600;
 	font-style: normal;
+	line-height: 28px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -52,6 +54,7 @@ export default {
 	font-family: "Open Sans";
 	font-weight: 700;
 	font-style: normal;
+	line-height: 28px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -87,11 +90,20 @@ export default {
 	text-decoration: none;
 	text-transform: none;
 `,
+  paragraphItalic: `
+	font-size: 18px;
+	font-family: "Open Sans";
+	font-weight: 400;
+	font-style: italic;
+	text-decoration: none;
+	text-transform: none;
+`,
   smallParagraph: `
 	font-size: 15px;
 	font-family: "Open Sans";
 	font-weight: 400;
 	font-style: normal;
+	line-height: 21px;
 	text-decoration: none;
 	text-transform: none;
 `,
