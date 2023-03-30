@@ -4,6 +4,7 @@ export default {
 	font-family: "Overpass";
 	font-weight: 500;
 	font-style: normal;
+	line-height: 46px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -12,6 +13,7 @@ export default {
 	font-family: "Overpass";
 	font-weight: 500;
 	font-style: normal;
+	line-height: 38px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -20,6 +22,7 @@ export default {
 	font-family: "Overpass";
 	font-weight: 500;
 	font-style: normal;
+	line-height: 33px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -28,6 +31,7 @@ export default {
 	font-family: "Overpass";
 	font-weight: 500;
 	font-style: normal;
+	line-height: 27px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -63,6 +67,7 @@ export default {
 	font-family: "Open Sans";
 	font-weight: 400;
 	font-style: normal;
+	line-height: 25px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -71,6 +76,7 @@ export default {
 	font-family: "Open Sans";
 	font-weight: 600;
 	font-style: normal;
+	line-height: 25px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -79,6 +85,7 @@ export default {
 	font-family: "Poppins";
 	font-weight: 500;
 	font-style: italic;
+	line-height: 25px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -87,6 +94,7 @@ export default {
 	font-family: "Open Sans";
 	font-weight: 700;
 	font-style: normal;
+	line-height: 25px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -95,6 +103,7 @@ export default {
 	font-family: "Open Sans";
 	font-weight: 400;
 	font-style: italic;
+	line-height: 25px;
 	text-decoration: none;
 	text-transform: none;
 `,
@@ -110,12 +119,14 @@ export default {
   landingPageH1: `
 	font-size: 40px;
 	font-family: "Tapas";
+	line-height: 53px;
 	text-decoration: none;
 	text-transform: none;
 `,
   landingPageSmall: `
 	font-size: 16px;
 	font-family: "Tapas";
+	line-height: 22px;
 	text-decoration: none;
 	text-transform: none;
 `,
