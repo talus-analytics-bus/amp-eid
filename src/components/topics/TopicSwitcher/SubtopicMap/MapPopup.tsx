@@ -17,12 +17,12 @@ const CountryName = styled.div`
   margin-bottom: 15px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 `
 const MapKey = styled.div`
   position: relative;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   ${({ theme }) => theme.paragraph};
 `
 const MapStatusName = styled.div`
@@ -33,7 +33,7 @@ const ColorBlock = styled.div`
   margin-right: 15px;
   margin-top: 0.15em;
   width: 20px;
-  height: 20px;
+  // height: 20px;
 `
 const StatusDescription = styled.div`
   ${({ theme }) => theme.smallParagraph};
@@ -77,16 +77,15 @@ const MapPopup = ({ popupState, setPopupState }: MapPopupProps) => {
 
   const color = map_color && theme[camelCase(map_color) as keyof typeof theme]
 
-  console.log(documents)
-
   return (
-    <Popup
-      closeOnClick={false}
-      onClose={() => setPopupState(null)}
-      latitude={popupState.lnglat.lat}
-      longitude={popupState.lnglat.lng}
-      style={{ maxWidth: '400px' }}
-    >
+    // <Popup
+    //   closeOnClick={false}
+    //   onClose={() => setPopupState(null)}
+    //   latitude={popupState.lnglat.lat}
+    //   longitude={popupState.lnglat.lng}
+    //   style={{ maxWidth: '450px' }}
+    // >
+    <>
       {documents && (
         <>
           <CountryName>
@@ -96,7 +95,7 @@ const MapPopup = ({ popupState, setPopupState }: MapPopupProps) => {
           <MapKey>
             <ColorBlock
               style={{
-                backgroundColor: color ?? 'white',
+                backgroundColor: color ?? theme.option7,
                 position: 'relative',
                 top: -1,
               }}
@@ -106,13 +105,18 @@ const MapPopup = ({ popupState, setPopupState }: MapPopupProps) => {
           <StatusDescription>
             {statusDesciption?.data?.Status_description}
           </StatusDescription>
+        </>
+      )}
+      {documents && documents.documents.length > 0 && (
+        <>
           <SeeDocumentHeader>See document:</SeeDocumentHeader>
           {documents.documents.map(document => (
             <TruncatedDocumentLink document={document} />
           ))}
         </>
       )}
-    </Popup>
+    </>
+    // </Popup>
   )
 }
 

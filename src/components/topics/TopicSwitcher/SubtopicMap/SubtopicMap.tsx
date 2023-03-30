@@ -6,6 +6,7 @@ import Map, { Layer, LngLat, MapLayerMouseEvent, Source } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import useCountryLayer from './useCountryLayer'
 import MapPopup, { PopupState } from './MapPopup'
+import useModal from 'components/ui/Modal/useModal'
 
 const mapboxAccessToken = process.env.GATSBY_MAPBOX_API_KEY
 
@@ -50,6 +51,7 @@ const outlineLayer = {
 const SubtopicMap = () => {
   const [hoveredISO, setHoveredISO] = React.useState('')
   const [popupState, setPopupState] = React.useState<PopupState | null>(null)
+  const setModal = useModal()
 
   const context = useContext(SubtopicContext)
   if (!context) throw new Error('SubtopicMap must be inside SubtopicContext')
@@ -64,12 +66,21 @@ const SubtopicMap = () => {
 
   const onClick = useCallback((event: MapLayerMouseEvent) => {
     const iso = event.features?.[0]?.properties?.ADM0_ISO
-    if (!iso || !event.lngLat) setPopupState(null)
-    else
-      setPopupState({
-        iso,
-        lnglat: event.lngLat,
-      })
+    setModal(
+      <MapPopup
+        popupState={{ iso, lnglat: event.lngLat }}
+        {...{ setPopupState }}
+      />,
+      {
+        closeable: true,
+      }
+    )
+    // if (!iso || !event.lngLat) setPopupState(null)
+    // else
+    //   setPopupState({
+    //     iso,
+    //     lnglat: event.lngLat,
+    //   })
   }, [])
 
   return (
@@ -116,7 +127,9 @@ const SubtopicMap = () => {
             />
             <Layer key={countryLayer.id} {...countryLayer} />
           </Source>
-          <MapPopup {...{ popupState, setPopupState }} />
+          {
+            // <MapPopup {...{ popupState, setPopupState }} />
+          }
         </Map>
       </MapContainer>
     </MapSection>

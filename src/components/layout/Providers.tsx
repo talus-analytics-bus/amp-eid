@@ -15,6 +15,7 @@ import '../../../static/assets/fonts/fonts.css'
 
 // typescript really strict mode
 import '@total-typescript/ts-reset'
+import ModalMessageProvider from 'components/ui/Modal/ModalMessageProvider'
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -42,8 +43,10 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     <CMS.IconProvider data={icons}>
       <CMS.SiteMetadataProvider data={siteMetadata} trackingId={trackingId}>
         <ThemeProvider theme={{ ...textStyles, ...colorPalette }}>
-          <GlobalStyle />
-          {children}
+          <ModalMessageProvider>
+            <GlobalStyle />
+            {children}
+          </ModalMessageProvider>
         </ThemeProvider>
       </CMS.SiteMetadataProvider>
     </CMS.IconProvider>

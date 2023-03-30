@@ -8,6 +8,10 @@ const DocumentLink = styled(Link)`
   display: block;
   ${({ theme }) => theme.smallParagraph};
   color: ${({ theme }) => theme.link};
+
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 interface DocumentLinkProps {

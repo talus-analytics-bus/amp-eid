@@ -5,6 +5,7 @@ import SubtopicDescription from './subtopicDescription'
 import MapLegend from './SubtopicMap/MapLegend'
 import SubtopicMap from './SubtopicMap/SubtopicMap'
 import { CountryDocuments } from '../ExplorePolicies/restructureDocuments'
+import ModalMessageProvider from 'components/ui/Modal/ModalMessageProvider'
 
 export interface SubtopicContextProps {
   subtopicData: Queries.TopicPageQuery['subtopics']['nodes']
@@ -50,18 +51,20 @@ const TopicSwitcher = ({ data, countryDocuments }: TopicSwitcherProps) => {
         countryDocuments,
       }}
     >
-      <ColumnSection columnReverse>
-        <Column>
-          <MapLegend />
-        </Column>
-        <Column>
-          <SubtopicMap />
-        </Column>
-      </ColumnSection>
-      <NoGapColumnSection noBorder>
-        <span></span>
-        <SubtopicDescription />
-      </NoGapColumnSection>
+      <ModalMessageProvider>
+        <ColumnSection columnReverse>
+          <Column>
+            <MapLegend />
+          </Column>
+          <Column>
+            <SubtopicMap />
+          </Column>
+        </ColumnSection>
+        <NoGapColumnSection noBorder>
+          <span></span>
+          <SubtopicDescription />
+        </NoGapColumnSection>
+      </ModalMessageProvider>
     </SubtopicContext.Provider>
   )
 }
