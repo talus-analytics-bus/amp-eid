@@ -32,13 +32,13 @@ const MapContainer = styled.div`
   border-radius: 5px;
   overflow: hidden;
 `
-const MapTitle = styled.h3`
-  ${({ theme }) => theme.bigParagraph};
-  color: ${({ theme }) => theme.black};
-  margin: 0;
-  padding: 10px 20px;
-  margin-bottom: 10px;
-`
+// const MapTitle = styled.h3`
+//   ${({ theme }) => theme.bigParagraph};
+//   color: ${({ theme }) => theme.black};
+//   margin: 0;
+//   padding: 10px 20px;
+//   margin-bottom: 10px;
+// `
 
 const outlineLayer = {
   id: `countries-outline`,
