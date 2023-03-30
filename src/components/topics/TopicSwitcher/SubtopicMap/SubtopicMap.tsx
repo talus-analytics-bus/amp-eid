@@ -83,19 +83,28 @@ const SubtopicMap = () => {
   const onClick = useCallback(
     (event: MapLayerMouseEvent) => {
       const iso = event.features?.[0]?.properties?.ADM0_ISO
-      // setModal(
-      //   <MapPopup
-      //     popupState={{ iso, lnglat: event.lngLat }}
-      //     {...{ setPopupState }}
-      //   />,
-      //   { closeable: true }
-      // )
-      if (!iso || !event.lngLat) setPopupState(null)
-      else
-        setPopupState({
-          iso,
-          lnglat: event.lngLat,
-        })
+
+      if (!iso || !event.lngLat) {
+        setPopupState(null)
+        return
+      }
+
+      if (window.innerWidth <= 900) {
+        setPopupState(null)
+        setModal(
+          <MapPopup
+            popupState={{ iso, lnglat: event.lngLat }}
+            {...{ setPopupState }}
+          />,
+          { closeable: true }
+        )
+        return
+      }
+
+      setPopupState({
+        iso,
+        lnglat: event.lngLat,
+      })
     },
     [setModal]
   )

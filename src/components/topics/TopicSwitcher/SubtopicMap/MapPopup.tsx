@@ -11,6 +11,7 @@ const CountryName = styled.div`
   ${({ theme }) => theme.h3};
   border-bottom: 1px solid ${({ theme }) => theme.darkGray};
   padding-bottom: 10px;
+  padding-right: 15px;
   margin-bottom: 15px;
   display: flex;
   align-items: center;
