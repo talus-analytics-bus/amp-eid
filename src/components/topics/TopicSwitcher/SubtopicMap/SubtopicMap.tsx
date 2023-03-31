@@ -1,7 +1,12 @@
 import React, { useCallback, useContext } from 'react'
 import styled from 'styled-components'
 import { SubtopicContext } from '../TopicSwitcher'
-import Map, { Layer, MapLayerMouseEvent, Source } from 'react-map-gl'
+import Map, {
+  Layer,
+  MapLayerMouseEvent,
+  Source,
+  NavigationControl,
+} from 'react-map-gl'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 import useCountryLayer from './useCountryLayer'
@@ -169,6 +174,7 @@ const SubtopicMap = () => {
               <MapPopup {...{ popupState, setPopupState }} />
             </MapBottomCornerModal>
           )}
+          <NavigationControl position="top-left" showCompass={false} />
         </Map>
       </MapContainer>
     </MapSection>

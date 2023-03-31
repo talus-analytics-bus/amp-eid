@@ -5,8 +5,10 @@ import Flag from 'components/ui/Flag'
 import styled, { useTheme } from 'styled-components'
 import camelCase from 'utilities/camelCase'
 import TruncatedDocumentLink from './TruncatedDocumentLink'
+import { Link } from 'gatsby'
+import simplifyForUrl from 'utilities/simplifyForUrl'
 
-const CountryName = styled.div`
+const CountryName = styled(Link)`
   position: relative;
   ${({ theme }) => theme.h3};
   border-bottom: 1px solid ${({ theme }) => theme.darkGray};
@@ -16,6 +18,11 @@ const CountryName = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
+  color: ${({ theme }) => theme.ampEidDarkBlue};
+
+  &:hover {
+    text-decoration: underline;
+  }
 `
 const MapKey = styled.div`
   position: relative;
@@ -74,14 +81,15 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
   )
 
   const color = map_color && theme[camelCase(map_color) as keyof typeof theme]
+  const countryName = documents?.country?.data?.Country_name
 
   return (
     <>
-      {documents && (
+      {documents && countryName && (
         <>
-          <CountryName>
+          <CountryName to={`/countries/${simplifyForUrl(countryName)}`}>
             <Flag country={documents.country} style={{ top: -3 }} />
-            {documents.country?.data?.Country_name}
+            {countryName}
           </CountryName>
           <MapKey>
             <ColorBlock
