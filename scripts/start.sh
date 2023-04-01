@@ -43,7 +43,8 @@ if [ "$clean" == "1" ]; then
   gatsby clean
 fi
 
-gatsby develop -p 8008 --host=0.0.0.0;
+# gatsby develop -p 8008 --host=0.0.0.0;
+gatsby develop
 
 
 
