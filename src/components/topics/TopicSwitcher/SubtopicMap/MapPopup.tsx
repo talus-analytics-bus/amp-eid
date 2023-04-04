@@ -69,28 +69,38 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
 
   if (!popupState) return <></>
 
-  const subtopic = subtopicData[subtopicIndex ?? 0]
-  const documents = countryDocuments[popupState.iso]
+  console.log({ popupState })
 
-  const map_color = subtopic.data?.Subtopic_assign_status_link?.find(
+  const subtopic = subtopicData[subtopicIndex ?? 0]
+
+  const statusLink = subtopic.data?.Subtopic_assign_status_link?.find(
     status => status?.data?.Country?.[0]?.data?.ISO3 === popupState.iso
-  )?.data?.Status_link?.[0]?.data?.Map_color
+  )
+
+  const map_color = statusLink?.data?.Status_link?.[0]?.data?.Map_color
+  const countryName = statusLink?.data?.Country?.[0]?.data?.Country_name
+
+  console.log(subtopic)
+
+  const documents = countryDocuments[countryName ?? '']
 
   const statusDesciption = subtopic.data?.Subtopic_define_status_link?.find(
     status_link => status_link?.data?.Map_color === map_color
   )
 
   const color = map_color && theme[camelCase(map_color) as keyof typeof theme]
-  const countryName = documents?.country?.data?.Country_name
+  // const countryName = documents?.country?.data?.Country_name
+
+  // if (!countryName) return <></>
 
   return (
     <>
+      <CountryName to={`/countries/${simplifyForUrl(countryName ?? '')}`}>
+        {documents && <Flag country={documents.country} style={{ top: -3 }} />}
+        {countryName}
+      </CountryName>
       {documents && countryName && (
         <>
-          <CountryName to={`/countries/${simplifyForUrl(countryName)}`}>
-            <Flag country={documents.country} style={{ top: -3 }} />
-            {countryName}
-          </CountryName>
           <MapKey>
             <ColorBlock
               style={{
@@ -110,7 +120,10 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
         <>
           <SeeDocumentHeader>See document:</SeeDocumentHeader>
           {documents.documents.map(document => (
-            <TruncatedDocumentLink document={document} />
+            <TruncatedDocumentLink
+              key={document.data?.Document_name}
+              document={document}
+            />
           ))}
         </>
       )}

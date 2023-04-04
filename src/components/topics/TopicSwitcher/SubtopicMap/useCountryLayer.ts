@@ -37,15 +37,15 @@ const useCountryLayer = ({
     const countryLayer = {
       id: `countries-highlight`,
       type: `fill` as `fill`,
-      source: `countries`,
-      'source-layer': 'ne_10m_admin_0_countries-6llcvl',
+      source: `countries_v13c-6uk894`,
+      'source-layer': 'countries_v13c-6uk894',
       paint: {
         'fill-outline-color': 'white',
         // outline color for saving images from the map to use on the homepage
         // 'fill-outline-color': theme.ampEidDarkBlue,
         'fill-color': [
           'match',
-          ['get', 'ADM0_ISO'],
+          ['get', 'ISO_A3'],
           ...countryColorMatch,
           // last color in the array is the "default color"
           theme.option7,

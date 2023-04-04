@@ -48,8 +48,8 @@ const MapContainer = styled.div`
 const outlineLayer = {
   id: `countries-outline`,
   type: `line` as `line`,
-  source: `countries`,
-  'source-layer': 'ne_10m_admin_0_countries-6llcvl',
+  source: `countries_v13c-6uk894`,
+  'source-layer': 'countries_v13c-6uk894',
   paint: {
     'line-color': 'rgb(65, 101, 131)',
     'line-width': 1,
@@ -60,8 +60,8 @@ const outlineLayer = {
 const selectedLayer = {
   id: `countries-selected`,
   type: `line` as `line`,
-  source: `countries`,
-  'source-layer': 'ne_10m_admin_0_countries-6llcvl',
+  source: `countries_v13c-6uk894`,
+  'source-layer': 'countries_v13c-6uk894',
   paint: {
     'line-color': 'rgb(65, 101, 131)',
     'line-width': 2,
@@ -70,7 +70,9 @@ const selectedLayer = {
 }
 
 const SubtopicMap = () => {
-  const [hoveredISO, setHoveredISO] = React.useState('')
+  // setting the default state here to ' ' intentionally
+  // because there is a polygon with an iso of '' (empty string)
+  const [hoveredISO, setHoveredISO] = React.useState(' ')
   const [popupState, setPopupState] = React.useState<PopupState | null>(null)
   const setModal = useModal()
 
@@ -81,15 +83,15 @@ const SubtopicMap = () => {
 
   const onHover = useCallback(
     (event: MapLayerMouseEvent) =>
-      setHoveredISO(event.features?.[0]?.properties?.ADM0_ISO ?? ''),
+      setHoveredISO(event.features?.[0]?.properties?.ISO_A3 ?? ' '),
     []
   )
 
   const onClick = useCallback(
     (event: MapLayerMouseEvent) => {
-      const iso = event.features?.[0]?.properties?.ADM0_ISO
+      const iso = event.features?.[0]?.properties?.ISO_A3 ?? ' '
 
-      if (!iso || !event.lngLat) {
+      if (!iso || iso === ' ' || !event.lngLat) {
         setPopupState(null)
         return
       }
@@ -125,6 +127,8 @@ const SubtopicMap = () => {
         <Map
           // map style is just the labels when you zoom in
           mapStyle="mapbox://styles/ryan-talus/clddahzv7007j01qbgn0bba8w"
+          // mapStyle="mapbox://styles/nicoletalus/ck36gyk4d03vq1coaj7rzzoc2"
+          // mapStyle="mapbox://styles/nicoletalus/clg0ykvpz006d01pee2j1uzev"
           mapboxAccessToken={mapboxAccessToken}
           projection="naturalEarth"
           // projection="mercator"
@@ -150,19 +154,22 @@ const SubtopicMap = () => {
           //   console.log(content)
           // }}
         >
-          {console.log(popupState)}
           {/* This source provides country shapes and their ISO codes */}
-          <Source id="my-data" type="vector" url="mapbox://ryan-talus.0h741z23">
+          <Source
+            id="country-borders"
+            type="vector"
+            url="mapbox://ryan-talus.2o1iyjoj"
+          >
             {/* This layer paints all colors including grey background color */}
             <Layer
               key={outlineLayer.id}
               {...outlineLayer}
-              filter={['==', 'ADM0_ISO', hoveredISO]}
+              filter={['==', 'ISO_A3', hoveredISO]}
             />
             <Layer
               key={selectedLayer.id}
               {...selectedLayer}
-              filter={['==', 'ADM0_ISO', popupState?.iso ?? '']}
+              filter={['==', 'ISO_A3', popupState?.iso ?? ' ']}
             />
             <Layer key={countryLayer.id} {...countryLayer} />
           </Source>
