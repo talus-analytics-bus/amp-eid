@@ -87,7 +87,7 @@ const TopicLink = ({ topic }: { topic: Topic }) => {
   return (
     <Li>
       <ImageLink to={`/topics/${simplifyForUrl(topicName)}`}>
-        <BlueCircleIcon name={topicName} size={40} />
+        <BlueCircleIcon name={topicName} size={40} style={{ padding: 4 }} />
         <ImageLinkTextContainer>{topicName}</ImageLinkTextContainer>
         <GatsbyImage image={image} alt={`${topicName} preview map`} />
       </ImageLink>
@@ -101,7 +101,12 @@ const DisabledTopicLink = ({ topic }: { topic: Topic }) => {
   return (
     <Li>
       <ComingSoonLinkPlaceholder>
-        <BlueCircleIcon name={topicName} size={40} bgColor={theme.darkGray} />
+        <BlueCircleIcon
+          name={topicName}
+          size={40}
+          bgColor={theme.darkGray}
+          style={{ padding: 4 }}
+        />
         <ImageLinkTextContainer>{topicName}</ImageLinkTextContainer>
         <GatsbyImage image={image} alt={`${topicName} map coming soon`} />
       </ComingSoonLinkPlaceholder>
