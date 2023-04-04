@@ -79,6 +79,8 @@ const SubtopicMap = () => {
   const context = useContext(SubtopicContext)
   if (!context) throw new Error('SubtopicMap must be inside SubtopicContext')
 
+  const { countryMetadata } = context
+
   const countryLayer = useCountryLayer(context)
 
   const onHover = useCallback(
@@ -89,9 +91,9 @@ const SubtopicMap = () => {
 
   const onClick = useCallback(
     (event: MapLayerMouseEvent) => {
-      const iso = event.features?.[0]?.properties?.ISO_A3 ?? ' '
+      const iso = event.features?.[0]?.properties?.ISO_A3
 
-      if (!iso || iso === ' ' || !event.lngLat) {
+      if (!iso || !event.lngLat || !countryMetadata[iso]) {
         setPopupState(null)
         return
       }
@@ -113,7 +115,7 @@ const SubtopicMap = () => {
         lnglat: event.lngLat,
       })
     },
-    [setModal]
+    [setModal, countryMetadata]
   )
 
   return (
