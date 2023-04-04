@@ -1,32 +1,9 @@
+import { Status, StatusPill } from 'components/treatyPage/StatusTable'
 import StyledTable from 'components/ui/StyledTable'
 import { Link } from 'gatsby'
 import React from 'react'
-import styled from 'styled-components'
 import formatAirtableDate from 'utilities/formatDate'
 import simplifyForUrl from 'utilities/simplifyForUrl'
-
-enum Status {
-  Party = 'Party',
-  Member = 'Member',
-  Observer = 'Observer',
-  Signatory = 'Signatory',
-  'Non-party' = 'Non-party',
-  'Associate Member' = 'Associate Member',
-}
-
-const StatusPill = styled.span<{ status: Status }>`
-  padding: 2px 10px;
-  border-radius: 15px;
-  background: ${({ theme, status }) =>
-    ({
-      [Status.Party]: theme.option3Lighter,
-      [Status.Member]: theme.option1Lighter,
-      [Status.Observer]: theme.option5Lighter,
-      [Status.Signatory]: theme.option4Lighter,
-      [Status['Non-party']]: theme.option5Lighter,
-      [Status['Associate Member']]: theme.option2Lighter,
-    }[status] ?? theme.veryLightGray)};
-`
 
 interface CountryTreatiesProps {
   countryName: string

@@ -27,7 +27,7 @@ const Search = styled.input`
   min-width: 300px;
 `
 
-enum Status {
+export enum Status {
   Party = 'Party',
   Member = 'Member',
   Observer = 'Observer',
@@ -36,7 +36,7 @@ enum Status {
   'Associate Member' = 'Associate Member',
 }
 
-const StatusPill = styled.span<{ status: Status }>`
+export const StatusPill = styled.span<{ status: Status }>`
   padding: 2px 10px;
   border-radius: 15px;
   background: ${({ theme, status }) =>
