@@ -38,7 +38,7 @@ const DocumentPage = ({
         description={`Applicable countries, metadata, and download links for ${name}`}
       />
       <NavBar />
-      <Main>
+      <Main style={{ maxWidth: 1500 }}>
         <MainHeader>
           <h2>{document.data.Topic}</h2>
           <h1>{name}</h1>
