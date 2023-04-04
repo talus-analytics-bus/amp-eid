@@ -170,9 +170,7 @@ const DocumentInfoSection = ({
               <td>Subtopic</td>
               <td>
                 {subtopics.map(topic => (
-                  <React.Fragment key={topic?.data?.Subtopic}>
-                    {topic?.data?.Subtopic}
-                  </React.Fragment>
+                  <div key={topic?.data?.Subtopic}>{topic?.data?.Subtopic}</div>
                 ))}
               </td>
             </tr>
