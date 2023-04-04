@@ -151,13 +151,25 @@ const DocumentInfoSection = ({
           {topics && !treatyPage && (
             <tr>
               <td>Topic</td>
-              <td>{topics.map(topic => topic?.data?.Topic)}</td>
+              <td>
+                {topics.map(topic => (
+                  <React.Fragment key={topic?.data?.Topic}>
+                    {topic?.data?.Topic}
+                  </React.Fragment>
+                ))}
+              </td>
             </tr>
           )}
           {subtopics && !treatyPage && (
             <tr>
               <td>Subtopic</td>
-              <td>{subtopics.map(topic => topic?.data?.Subtopic)}</td>
+              <td>
+                {subtopics.map(topic => (
+                  <React.Fragment key={topic?.data?.Subtopic}>
+                    {topic?.data?.Subtopic}
+                  </React.Fragment>
+                ))}
+              </td>
             </tr>
           )}
           {originalPublication && (
@@ -193,7 +205,7 @@ const DocumentInfoSection = ({
               <table>
                 <tbody>
                   {languages.map(language => (
-                    <tr>
+                    <tr key={language.language}>
                       <td style={{ textAlign: 'left', width: 'min-content' }}>
                         <strong style={{}}>{language.language} </strong>
                       </td>
