@@ -9,6 +9,7 @@ import Providers from 'components/layout/Providers'
 
 import useAboutMethodPageData from 'cmsHooks/useAboutMethodData'
 import { AboutStyle, H1 } from 'components/about/AboutStyle'
+import Footer from 'components/layout/Footer'
 
 const MethodsPage = (): JSX.Element => {
   const cmsData = useAboutMethodPageData()
@@ -23,6 +24,7 @@ const MethodsPage = (): JSX.Element => {
         </H1>
         <AboutStyle name="Method overview" data={cmsData} />
       </Main>
+      <Footer />
     </Providers>
   )
 }

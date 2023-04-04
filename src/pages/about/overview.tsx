@@ -9,6 +9,7 @@ import AboutNav from 'components/about/AboutNav'
 import Providers from 'components/layout/Providers'
 
 import useAboutOverviewPageData from 'cmsHooks/useAboutOverviewQuery'
+import Footer from 'components/layout/Footer'
 
 const Paragraph = styled.p`
   ${({ theme }) => theme.paragraph};
@@ -73,6 +74,7 @@ const OverviewPage = (): JSX.Element => {
           <CMS.Text name="Contributors paragraph" data={cmsData} />
         </Paragraph>
       </Main>
+      <Footer />
     </Providers>
   )
 }

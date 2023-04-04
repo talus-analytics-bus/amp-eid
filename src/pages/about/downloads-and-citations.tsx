@@ -8,6 +8,7 @@ import AboutNav from 'components/about/AboutNav'
 import styled from 'styled-components'
 
 import useAboutDownloadAndCitationsPageData from 'cmsHooks/useAboutDownloadAndCitationsQuery'
+import Footer from 'components/layout/Footer'
 
 const Paragraph = styled.p`
   color: ${({ theme }) => theme.black};
@@ -67,6 +68,7 @@ const DownloadsPage = (): JSX.Element => {
           <CMS.Text name="Downloads paragraph" data={cmsData} />
         </Paragraph>
       </Main>
+      <Footer />
     </Providers>
   )
 }
