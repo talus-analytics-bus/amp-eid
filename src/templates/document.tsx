@@ -14,6 +14,7 @@ import ThumbnailHolder from 'components/ui/ThumbnailHolder'
 // import DocumentMetadata from 'components/documentPage/DocumentMetadata'
 import SubSection from 'components/layout/SubSection'
 import DocumentInfoSection from 'components/treatyPage/DocumentInfoSection'
+import Footer from 'components/layout/Footer'
 
 const DocumentPage = ({
   data: { document },
@@ -69,6 +70,7 @@ const DocumentPage = ({
           </div>
         </ColumnSection>
       </Main>
+      <Footer />
     </Providers>
   )
 }
