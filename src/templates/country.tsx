@@ -107,6 +107,11 @@ export const query = graphql`
                 Country_name
               }
             }
+            Document_subtopic_link {
+              data {
+                Subtopic
+              }
+            }
             Document_topic_link {
               data {
                 Topic
