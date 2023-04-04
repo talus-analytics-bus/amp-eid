@@ -155,9 +155,12 @@ const DocumentInfoSection = ({
               <td>Topic</td>
               <td>
                 {topics.map(topic => (
-                  <React.Fragment key={topic?.data?.Topic}>
+                  <Link
+                    key={topic?.data?.Topic}
+                    to={`/topics/${simplifyForUrl(topic?.data?.Topic ?? '')}`}
+                  >
                     {topic?.data?.Topic}
-                  </React.Fragment>
+                  </Link>
                 ))}
               </td>
             </tr>
