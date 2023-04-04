@@ -16,6 +16,7 @@ import Footer from 'components/layout/Footer'
 import ColumnSection from 'components/layout/ColumnSection'
 import BlueCircleIcon from 'components/ui/BlueCircleIcon'
 import restructureDocuments from 'components/topics/ExplorePolicies/restructureDocuments'
+import restructureCountryMetadata from 'components/topics/ExplorePolicies/restructureCountryMetadata'
 
 // Trips page data sources
 
@@ -44,6 +45,10 @@ const TripsPage = ({
   const topic = data.topic?.data?.Topic
   if (!topic) throw new Error(`All topic pages must have topic names`)
 
+  const countryMetadata = useMemo(() => {
+    return restructureCountryMetadata(data.countryMetadata)
+  }, [data.countryMetadata])
+
   const countryDocuments = useMemo(() => {
     return restructureDocuments(data.topicDocuments)
   }, [data.topicDocuments])
@@ -59,12 +64,12 @@ const TripsPage = ({
             {topic}
           </h1>
         </MainHeader>
-        <TopicSwitcher {...{ data, countryDocuments }} />
+        <TopicSwitcher {...{ data, countryDocuments, countryMetadata }} />
         <ColumnSection rowReverse>
           <H3>Related treaty</H3>
           <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
         </ColumnSection>
-        <ExplorePolicies countryDocuments={countryDocuments} />
+        <ExplorePolicies {...{ countryDocuments, countryMetadata }} />
       </Main>
       <Footer />
     </Providers>
@@ -118,7 +123,6 @@ export const query = graphql`
               Country {
                 data {
                   ISO3
-                  Country_name
                 }
               }
               Status_link {
@@ -145,13 +149,8 @@ export const query = graphql`
           Document_name
           File_publish_date
           All_applicable_countries {
-            flag {
-              childImageSharp {
-                gatsbyImageData(width: 40, placeholder: BLURRED)
-              }
-            }
             data {
-              Country_name
+              ISO3
             }
           }
           Authoring_country {
@@ -164,6 +163,21 @@ export const query = graphql`
           childImageSharp {
             gatsbyImageData(width: 100, placeholder: DOMINANT_COLOR)
           }
+        }
+      }
+    }
+    countryMetadata: allAirtableDatabase(
+      filter: { data: { ISO3: { ne: null } } }
+    ) {
+      nodes {
+        flag {
+          childImageSharp {
+            gatsbyImageData(width: 40, placeholder: BLURRED)
+          }
+        }
+        data {
+          Country_name
+          ISO3
         }
       }
     }

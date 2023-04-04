@@ -62,27 +62,30 @@ interface MapPopupProps {
 }
 
 const MapPopup = ({ popupState }: MapPopupProps) => {
-  const { subtopicData, subtopicIndex, countryDocuments } =
+  const { subtopicData, subtopicIndex, countryDocuments, countryMetadata } =
     useContext(SubtopicContext)!
 
   const theme = useTheme()
 
   if (!popupState) return <></>
 
-  console.log({ popupState })
+  const iso = popupState.iso
+
+  const countryName = countryMetadata[iso]?.data?.Country_name
+  if (!countryName) return <></>
 
   const subtopic = subtopicData[subtopicIndex ?? 0]
 
   const statusLink = subtopic.data?.Subtopic_assign_status_link?.find(
-    status => status?.data?.Country?.[0]?.data?.ISO3 === popupState.iso
+    status => status?.data?.Country?.[0]?.data?.ISO3 === iso
   )
 
-  const map_color = statusLink?.data?.Status_link?.[0]?.data?.Map_color
-  const countryName = statusLink?.data?.Country?.[0]?.data?.Country_name
+  let map_color = statusLink?.data?.Status_link?.[0]?.data?.Map_color
 
-  console.log(subtopic)
+  if (!map_color) map_color = 'Option 7'
+  console.log(subtopic.data?.Subtopic_define_status_link)
 
-  const documents = countryDocuments[countryName ?? '']
+  const documents = countryDocuments[iso ?? '']
 
   const statusDesciption = subtopic.data?.Subtopic_define_status_link?.find(
     status_link => status_link?.data?.Map_color === map_color
@@ -91,31 +94,29 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
   const color = map_color && theme[camelCase(map_color) as keyof typeof theme]
   // const countryName = documents?.country?.data?.Country_name
 
-  // if (!countryName) return <></>
+  console.log({ map_color, statusLink, documents, statusDesciption })
 
   return (
     <>
       <CountryName to={`/countries/${simplifyForUrl(countryName ?? '')}`}>
-        {documents && <Flag country={documents.country} style={{ top: -3 }} />}
+        {countryMetadata[iso] && (
+          <Flag country={countryMetadata[iso]} style={{ top: -3 }} />
+        )}
         {countryName}
       </CountryName>
-      {documents && countryName && (
-        <>
-          <MapKey>
-            <ColorBlock
-              style={{
-                backgroundColor: color ?? theme.option7,
-                position: 'relative',
-                top: -2,
-              }}
-            />
-            <MapStatusName>{statusDesciption?.data?.Status}</MapStatusName>
-          </MapKey>
-          <StatusDescription>
-            {statusDesciption?.data?.Status_description}
-          </StatusDescription>
-        </>
-      )}
+      <MapKey>
+        <ColorBlock
+          style={{
+            backgroundColor: color ?? theme.option7,
+            position: 'relative',
+            top: -2,
+          }}
+        />
+        <MapStatusName>{statusDesciption?.data?.Status}</MapStatusName>
+      </MapKey>
+      <StatusDescription>
+        {statusDesciption?.data?.Status_description}
+      </StatusDescription>
       {documents && documents.documents.length > 0 && (
         <>
           <SeeDocumentHeader>See document:</SeeDocumentHeader>

@@ -25,14 +25,14 @@ const restructureDocuments = (topicDocuments: TopicDocuments) => {
     if (!countries) break
 
     for (const country of countries) {
-      if (!country?.data?.Country_name) break
+      if (!country?.data?.ISO3) break
 
-      if (!countriesObj[country.data.Country_name])
-        countriesObj[country.data.Country_name] = {
+      if (!countriesObj[country.data.ISO3])
+        countriesObj[country.data.ISO3] = {
           country,
           documents: [document],
         }
-      else countriesObj[country.data.Country_name].documents.push(document)
+      else countriesObj[country.data.ISO3].documents.push(document)
     }
   }
   console.log(countriesObj)

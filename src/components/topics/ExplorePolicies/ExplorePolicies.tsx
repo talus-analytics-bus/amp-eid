@@ -10,6 +10,7 @@ import ExploreDropdown from 'components/ui/ExploreDropdown'
 
 import PaginationControls from './PaginationControls'
 import { CountryDocuments } from './restructureDocuments'
+import { CountryMetadata } from './restructureCountryMetadata'
 
 const H3 = styled.h3`
   ${({ theme }) => theme.h2};
@@ -33,9 +34,13 @@ const Search = styled.input`
 
 interface ExplorePoliciesProps {
   countryDocuments: CountryDocuments
+  countryMetadata: CountryMetadata
 }
 
-const ExplorePolicies = ({ countryDocuments }: ExplorePoliciesProps) => {
+const ExplorePolicies = ({
+  countryDocuments,
+  countryMetadata,
+}: ExplorePoliciesProps) => {
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(5)
   const [searchTerm, setSearchTerm] = useState('')
@@ -44,8 +49,11 @@ const ExplorePolicies = ({ countryDocuments }: ExplorePoliciesProps) => {
     () =>
       Object.entries(countryDocuments)
         .sort((a, b) => a[0].localeCompare(b[0]))
-        .map(([_, v]) => v),
-    [countryDocuments]
+        .map(([_, v]) => ({
+          ...v,
+          country: { ...countryMetadata[v.country?.data?.ISO3 ?? ''] },
+        })),
+    [countryDocuments, countryMetadata]
   )
 
   let displayCountries = countriesList
@@ -78,8 +86,8 @@ const ExplorePolicies = ({ countryDocuments }: ExplorePoliciesProps) => {
       </div>
       <div>
         {displayCountries.map((data, index) => (
-          <React.Fragment key={data.country?.data?.Country_name}>
-            {data?.country?.data?.Country_name && (
+          <React.Fragment key={data.country?.data?.ISO3}>
+            {data?.country?.data?.ISO3 && (
               <ExploreDropdown
                 style={{
                   display:
@@ -91,7 +99,7 @@ const ExplorePolicies = ({ countryDocuments }: ExplorePoliciesProps) => {
                 label={
                   <>
                     <Flag country={data.country} />
-                    {data.country.data.Country_name}
+                    {data.country?.data?.Country_name}
                   </>
                 }
               >

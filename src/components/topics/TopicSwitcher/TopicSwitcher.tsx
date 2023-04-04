@@ -6,12 +6,14 @@ import MapLegend from './SubtopicMap/MapLegend'
 import SubtopicMap from './SubtopicMap/SubtopicMap'
 import { CountryDocuments } from '../ExplorePolicies/restructureDocuments'
 import ModalMessageProvider from 'components/ui/Modal/ModalMessageProvider'
+import { CountryMetadata } from '../ExplorePolicies/restructureCountryMetadata'
 
 export interface SubtopicContextProps {
   subtopicData: Queries.TopicPageQuery['subtopics']['nodes']
   subtopicIndex: number | null
   setSubtopicIndex: React.Dispatch<React.SetStateAction<number | null>>
   countryDocuments: CountryDocuments
+  countryMetadata: CountryMetadata
 }
 
 export const SubtopicContext = createContext<SubtopicContextProps | null>(null)
@@ -35,9 +37,14 @@ const NoGapColumnSection = styled(ColumnSection)`
 interface TopicSwitcherProps {
   data: Queries.TopicPageQuery
   countryDocuments: CountryDocuments
+  countryMetadata: CountryMetadata
 }
 
-const TopicSwitcher = ({ data, countryDocuments }: TopicSwitcherProps) => {
+const TopicSwitcher = ({
+  data,
+  countryDocuments,
+  countryMetadata,
+}: TopicSwitcherProps) => {
   if (!data) throw new Error('No subtopics found')
 
   const [subtopicIndex, setSubtopicIndex] = useState<number | null>(0)
@@ -49,6 +56,7 @@ const TopicSwitcher = ({ data, countryDocuments }: TopicSwitcherProps) => {
         subtopicIndex,
         setSubtopicIndex,
         countryDocuments,
+        countryMetadata,
       }}
     >
       <ModalMessageProvider>
