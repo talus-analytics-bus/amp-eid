@@ -18,8 +18,16 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 
   &:hover {
-    text-decoration: underline;
-    text-decoration-color: ${({ theme }) => theme.black};
+    text-decoration: none;
+
+    > div > div {
+      text-decoration: none;
+    }
+
+    > div > div:nth-child(2) {
+      color: ${({ theme }) => theme.link};
+      text-decoration: underline;
+    }
   }
 `
 const Metadata = styled.div`
@@ -28,10 +36,31 @@ const Metadata = styled.div`
 const Name = styled.div`
   ${({ theme }) => theme.bigParagraph};
   color: ${({ theme }) => theme.black};
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 `
 const DateText = styled.div`
   ${({ theme }) => theme.smallParagraph};
   color: ${({ theme }) => theme.veryDarkGray};
+`
+const Subtopics = styled.div`
+  ${({ theme }) => theme.smallParagraph};
+  color: ${({ theme }) => theme.veryDarkGray};
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  > span {
+    display: block;
+
+    &:not(:last-child)::after {
+      position: relative;
+      content: '•';
+      padding: 5px;
+      // background-color: ${({ theme }) => theme.veryDarkGray};
+      border-radius: 50%;
+    }
+  }
 `
 
 interface DocumentLinkProps {
@@ -39,6 +68,13 @@ interface DocumentLinkProps {
     readonly data: {
       readonly Document_name: string | null
       readonly File_publish_date: readonly (string | null)[] | null
+      readonly Document_subtopic_link:
+        | readonly ({
+            readonly data: {
+              readonly Subtopic: string | null
+            } | null
+          } | null)[]
+        | null
       readonly Authoring_country:
         | readonly ({
             readonly data: {
@@ -85,6 +121,11 @@ const DocumentLink = ({ document }: DocumentLinkProps) => {
       <Metadata>
         <DateText>{date}</DateText>
         <Name>{name}</Name>
+        <Subtopics>
+          {document.data.Document_subtopic_link?.map(subtopic => (
+            <span>{subtopic?.data?.Subtopic}</span>
+          ))}
+        </Subtopics>
       </Metadata>
     </StyledLink>
   )
