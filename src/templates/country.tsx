@@ -40,8 +40,8 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
       <Main style={{ maxWidth: 1500 }}>
         <MainHeader>
           <H1>
-            <Flag country={data.countryData} />
-            <span style={{ marginTop: '.25em' }}>{countryName}</span>
+            <Flag country={data.countryData} style={{ marginTop: '-.25em' }} />
+            <span>{countryName}</span>
           </H1>
         </MainHeader>
         {
@@ -52,7 +52,7 @@ const CountryPage = ({ data }: PageProps<Queries.CountryPageQuery>) => {
           // </div>
           // <div>
         }
-        <SubSection>
+        <SubSection style={{ marginTop: 20 }}>
           <H2>Explore policies</H2>
           <CountryPolicies
             policies={data.countryData.data.All_applicable_countries_link}
