@@ -11,7 +11,7 @@ import useAboutDownloadAndCitationsPageData from 'cmsHooks/useAboutDownloadAndCi
 
 const Paragraph = styled.p`
   color: ${({ theme }) => theme.black};
-  ${({ theme }) => theme.bigParagraph};
+  ${({ theme }) => theme.paragraph};
   max-width: 1000px;
 `
 const ItalicParagraph = styled.p`
@@ -40,7 +40,7 @@ const DownloadsPage = (): JSX.Element => {
     <Providers>
       <CMS.SEO />
       <NavBar />
-      <Main>
+      <Main style={{ maxWidth: 1000 }}>
         <AboutNav />
         <H1>
           <CMS.Text name="H1" data={cmsData} />

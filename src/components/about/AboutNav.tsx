@@ -11,6 +11,7 @@ const LinkList = styled.ul`
   flex-wrap: wrap;
   gap: 40px;
   margin: 0;
+  margin-top: 10px;
   padding: 0 0 30px 0;
   border-bottom: 3px solid ${({ theme }) => theme.lightGray};
 `
@@ -21,6 +22,11 @@ const PaddedLink = styled(Link)`
   border-radius: 10px;
   transition: 150ms ease;
   color: ${({ theme }) => theme.black};
+
+  &:hover {
+    transition: 250ms ease;
+    background-color: ${({ theme }) => theme.lightGray};
+  }
 `
 
 const AboutNav = (): JSX.Element => {

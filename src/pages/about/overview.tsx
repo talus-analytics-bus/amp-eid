@@ -11,13 +11,13 @@ import Providers from 'components/layout/Providers'
 import useAboutOverviewPageData from 'cmsHooks/useAboutOverviewQuery'
 
 const Paragraph = styled.p`
-  ${({ theme }) => theme.bigParagraph};
+  ${({ theme }) => theme.paragraph};
   color: ${({ theme }) => theme.black};
   max-width: 1000px;
 `
 const MainTextSection = styled(CMS.RichText)`
   > p {
-    ${({ theme }) => theme.bigParagraph};
+    ${({ theme }) => theme.paragraph};
     color: ${({ theme }) => theme.black};
     max-width: 1000px;
   }
@@ -44,7 +44,7 @@ const OverviewPage = (): JSX.Element => {
     <Providers>
       <CMS.SEO />
       <NavBar />
-      <Main>
+      <Main style={{ maxWidth: 1000 }}>
         <AboutNav />
         <H1>
           <CMS.Text name="H1" data={cmsData} />
