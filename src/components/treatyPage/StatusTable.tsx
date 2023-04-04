@@ -119,7 +119,11 @@ const StatusTable = ({
         const countryName = val?.[0]?.data?.Country_name
         if (!countryName) return <></>
         if (countryName === 'European Union') return <span>{countryName}</span>
-        return <Link to={`/countries/${countryName}`}>{countryName}</Link>
+        return (
+          <Link to={`/countries/${simplifyForUrl(countryName)}`}>
+            {countryName}
+          </Link>
+        )
       },
     },
     {
