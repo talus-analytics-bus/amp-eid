@@ -48,11 +48,16 @@ const ExplorePolicies = ({
   const countriesList = useMemo(
     () =>
       Object.entries(countryDocuments)
-        .sort((a, b) => a[0].localeCompare(b[0]))
         .map(([_, v]) => ({
           ...v,
           country: { ...countryMetadata[v.country?.data?.ISO3 ?? ''] },
-        })),
+        }))
+        .sort(
+          (a, b) =>
+            a.country.data?.Country_name?.localeCompare(
+              b.country.data?.Country_name ?? ''
+            ) ?? -1
+        ),
     [countryDocuments, countryMetadata]
   )
 
