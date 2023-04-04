@@ -74,7 +74,7 @@ const TreatyPage = ({
           <MainContent>
             <DocumentInfoSection treatyPage treatyData={treatyData} />
             {treatyData.data.Related_document &&
-              treatyData.data.Related_document?.[0]?.data && (
+              treatyData.data.Related_document.length > 0 && (
                 <SubSection>
                   <H3>Related treaties</H3>
                   <RelatedTreaties

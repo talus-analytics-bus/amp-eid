@@ -65,10 +65,12 @@ const TripsPage = ({
           </h1>
         </MainHeader>
         <TopicSwitcher {...{ data, countryDocuments, countryMetadata }} />
-        <ColumnSection rowReverse>
-          <H3>Related treaty</H3>
-          <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
-        </ColumnSection>
+        {data.relatedTreaties.nodes.length > 0 && (
+          <ColumnSection rowReverse>
+            <H3>Related treaty</H3>
+            <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
+          </ColumnSection>
+        )}
         <ExplorePolicies {...{ countryDocuments, countryMetadata }} />
       </Main>
       <Footer />
