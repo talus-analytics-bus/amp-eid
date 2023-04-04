@@ -115,12 +115,12 @@ const StatusTable = ({
     {
       displayName: 'Country',
       key: 'Country',
-      parse: val =>
-        val?.[0]?.data?.Country_name && (
-          <Link to={`/countries/${simplifyForUrl(val[0].data.Country_name)}`}>
-            {val[0].data.Country_name}
-          </Link>
-        ),
+      parse: val => {
+        const countryName = val?.[0]?.data?.Country_name
+        if (!countryName) return <></>
+        if (countryName === 'European Union') return <span>{countryName}</span>
+        return <Link to={`/countries/${countryName}`}>{countryName}</Link>
+      },
     },
     {
       displayName: 'Status',
