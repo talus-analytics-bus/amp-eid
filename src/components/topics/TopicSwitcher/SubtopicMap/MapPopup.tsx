@@ -98,6 +98,12 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
 
   console.log({ map_color, statusLink, documents, statusDesciption })
 
+  const filteredDocuments = documents?.documents?.filter(doc =>
+    doc.data?.Document_subtopic_link?.some(
+      data => data?.data?.Subtopic === subtopicName
+    )
+  )
+
   return (
     <>
       <CountryName to={`/countries/${simplifyForUrl(countryName ?? '')}`}>
@@ -117,21 +123,15 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
         <MapStatusName>{statusDesciption?.data?.Status}</MapStatusName>
       </MapKey>
       <StatusDescription>{justification}</StatusDescription>
-      {documents && documents.documents.length > 0 && (
+      {filteredDocuments && filteredDocuments.length > 0 && (
         <>
           <SeeDocumentHeader>See document:</SeeDocumentHeader>
-          {documents.documents
-            .filter(doc =>
-              doc.data?.Document_subtopic_link?.some(
-                data => data?.data?.Subtopic === subtopicName
-              )
-            )
-            .map(document => (
-              <TruncatedDocumentLink
-                key={document.data?.Document_name}
-                document={document}
-              />
-            ))}
+          {documents.documents.map(document => (
+            <TruncatedDocumentLink
+              key={document.data?.Document_name}
+              document={document}
+            />
+          ))}
         </>
       )}
     </>
