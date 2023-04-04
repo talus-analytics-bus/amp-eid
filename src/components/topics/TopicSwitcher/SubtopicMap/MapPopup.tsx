@@ -126,7 +126,7 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
       {filteredDocuments && filteredDocuments.length > 0 && (
         <>
           <SeeDocumentHeader>See document:</SeeDocumentHeader>
-          {documents.documents.map(document => (
+          {filteredDocuments.map(document => (
             <TruncatedDocumentLink
               key={document.data?.Document_name}
               document={document}
