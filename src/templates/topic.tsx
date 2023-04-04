@@ -120,6 +120,7 @@ export const query = graphql`
           }
           Subtopic_assign_status_link {
             data {
+              Status_justification
               Country {
                 data {
                   ISO3
@@ -148,6 +149,11 @@ export const query = graphql`
         data {
           Document_name
           File_publish_date
+          Document_subtopic_link {
+            data {
+              Subtopic
+            }
+          }
           All_applicable_countries {
             data {
               ISO3

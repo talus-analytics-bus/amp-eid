@@ -75,12 +75,14 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
   if (!countryName) return <></>
 
   const subtopic = subtopicData[subtopicIndex ?? 0]
+  const subtopicName = subtopic.data?.Subtopic
 
   const statusLink = subtopic.data?.Subtopic_assign_status_link?.find(
     status => status?.data?.Country?.[0]?.data?.ISO3 === iso
   )
 
   let map_color = statusLink?.data?.Status_link?.[0]?.data?.Map_color
+  const justification = statusLink?.data?.Status_justification
 
   if (!map_color) map_color = 'Option 7'
   console.log(subtopic.data?.Subtopic_define_status_link)
@@ -114,18 +116,22 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
         />
         <MapStatusName>{statusDesciption?.data?.Status}</MapStatusName>
       </MapKey>
-      <StatusDescription>
-        {statusDesciption?.data?.Status_description}
-      </StatusDescription>
+      <StatusDescription>{justification}</StatusDescription>
       {documents && documents.documents.length > 0 && (
         <>
           <SeeDocumentHeader>See document:</SeeDocumentHeader>
-          {documents.documents.map(document => (
-            <TruncatedDocumentLink
-              key={document.data?.Document_name}
-              document={document}
-            />
-          ))}
+          {documents.documents
+            .filter(doc =>
+              doc.data?.Document_subtopic_link?.some(
+                data => data?.data?.Subtopic === subtopicName
+              )
+            )
+            .map(document => (
+              <TruncatedDocumentLink
+                key={document.data?.Document_name}
+                document={document}
+              />
+            ))}
         </>
       )}
     </>

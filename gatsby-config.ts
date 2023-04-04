@@ -84,6 +84,7 @@ const config: GatsbyConfig = {
             tableName: `Document library`,
             tableLinks: [
               `Document_topic_link`,
+              `Document_subtopic_link`,
               `All_applicable_countries`,
               `Authoring_country`,
               `Related_document`,
