@@ -118,6 +118,7 @@ export const query = graphql`
               Country {
                 data {
                   ISO3
+                  Country_name
                 }
               }
               Status_link {
@@ -151,7 +152,6 @@ export const query = graphql`
             }
             data {
               Country_name
-              ISO3
             }
           }
           Authoring_country {
