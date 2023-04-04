@@ -11,7 +11,7 @@ import Thumbnail from 'components/ui/DocumentThumbnail'
 import ApplicableCountries from 'components/documentPage/RelatedCountries'
 import ColumnSection from 'components/layout/ColumnSection'
 import ThumbnailHolder from 'components/ui/ThumbnailHolder'
-import DocumentMetadata from 'components/documentPage/DocumentMetadata'
+// import DocumentMetadata from 'components/documentPage/DocumentMetadata'
 import SubSection from 'components/layout/SubSection'
 import DocumentInfoSection from 'components/treatyPage/DocumentInfoSection'
 
@@ -58,7 +58,7 @@ const DocumentPage = ({
             }
           </div>
           <div>
-            <DocumentInfoSection treatyData={document} />
+            <DocumentInfoSection document={document} />
             <SubSection>
               <iframe
                 title="document preview"

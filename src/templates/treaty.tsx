@@ -72,7 +72,7 @@ const TreatyPage = ({
         <ColumnSection>
           <Sidebar treatyData={treatyData} />
           <MainContent>
-            <DocumentInfoSection treatyPage treatyData={treatyData} />
+            <DocumentInfoSection treatyPage document={treatyData} />
             {treatyData.data.Related_document &&
               treatyData.data.Related_document.length > 0 && (
                 <SubSection>

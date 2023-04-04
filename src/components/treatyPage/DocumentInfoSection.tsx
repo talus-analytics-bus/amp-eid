@@ -74,25 +74,25 @@ const Description = styled(RenderCMSRichText)`
 `
 
 // treatyData: Exclude<Queries.TreatyPageQuery['treaty'], null>
-interface MainInfoSectionProps {
-  treatyData: Exclude<Queries.DocumentPageQuery['document'], null>
+interface DocumentInfoSectionProps {
+  document: Exclude<Queries.DocumentPageQuery['document'], null>
   treatyPage: boolean
 }
 
 const DocumentInfoSection = ({
-  treatyData,
+  document: treatyData,
   treatyPage,
-}: MainInfoSectionProps) => {
+}: DocumentInfoSectionProps) => {
   const fileData = treatyData.data?.PDF?.localFiles?.[0]
 
-  if (!treatyData.data?.Document_description)
+  if (treatyPage && !treatyData.data?.Document_description)
     throw new Error(
-      `Treaty description not found for treaty ${treatyData.data?.Document_name}`
+      `Document description not found for treaty ${treatyData.data?.Document_name}`
     )
 
   if (!fileData?.prettySize || !fileData.publicURL)
     throw new Error(
-      `File metadata not found for treaty ${treatyData.data?.Document_name}`
+      `File metadata not found for document ${treatyData.data?.Document_name}`
     )
 
   const enteredIntoForce = treatyData.data?.Date_entered_into_force
@@ -113,16 +113,18 @@ const DocumentInfoSection = ({
     }
   }
 
-  const applicableCountries = treatyData.data.All_applicable_countries
+  const applicableCountries = treatyData?.data?.All_applicable_countries
 
   const topics = treatyData.data?.Document_topic_link
-  const subtopics = treatyData.data.Document_subtopic_link
+  const subtopics = treatyData.data?.Document_subtopic_link
 
-  const relevantArticles = treatyData.data.Chaper__Section_or_Article
+  const relevantArticles = treatyData.data?.Chaper__Section_or_Article
 
   return (
     <Container>
-      <Description markdown={treatyData.data?.Document_description} />
+      {treatyData.data?.Document_description && (
+        <Description markdown={treatyData.data?.Document_description} />
+      )}
       <MetadataTable>
         <tbody>
           {applicableCountries && (
