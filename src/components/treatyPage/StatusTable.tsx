@@ -43,7 +43,7 @@ const StatusPill = styled.span<{ status: Status }>`
     ({
       [Status.Party]: theme.option3Lighter,
       [Status.Member]: theme.option1Lighter,
-      [Status.Observer]: theme.option5Lighter,
+      [Status.Observer]: theme.option1Lighter,
       [Status.Signatory]: theme.option4Lighter,
       [Status['Non-party']]: theme.option5Lighter,
       [Status['Associate Member']]: theme.option2Lighter,
@@ -93,7 +93,7 @@ const StatusTable = ({
   const paginated = sorted.slice(page * pageSize, page * pageSize + pageSize)
 
   type CountryData = Exclude<
-    [Exclude<typeof countryList[number], null>][number]['data'],
+    [Exclude<(typeof countryList)[number], null>][number]['data'],
     null
   >
 
