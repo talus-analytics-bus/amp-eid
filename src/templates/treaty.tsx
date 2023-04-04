@@ -11,7 +11,7 @@ import NavBar from 'components/layout/NavBar/NavBar'
 import Sidebar from 'components/treatyPage/Sidebar'
 import StatusTable from 'components/treatyPage/StatusTable'
 import ColumnSection from 'components/layout/ColumnSection'
-import MainInfoSection from 'components/treatyPage/MainInfoSection'
+import DocumentInfoSection from 'components/treatyPage/DocumentInfoSection'
 import SubSection from 'components/layout/SubSection'
 import Footer from 'components/layout/Footer'
 import RelatedTreaties from 'components/topics/RelatedTreaties'
@@ -31,8 +31,12 @@ const Footnote = styled(RenderCMSRichText)`
     ${({ theme }) => theme.paragraph}
     color: ${({ theme }) => theme.black};
     > a {
-      color: ${({ theme }) => theme.ampEidMedBlue};
-      text-decoration: underline;
+      color: ${({ theme }) => theme.link};
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 `
@@ -68,7 +72,7 @@ const TreatyPage = ({
         <ColumnSection>
           <Sidebar treatyData={treatyData} />
           <MainContent>
-            <MainInfoSection treatyData={treatyData} />
+            <DocumentInfoSection treatyPage treatyData={treatyData} />
             {treatyData.data.Related_document &&
               treatyData.data.Related_document?.[0]?.data && (
                 <SubSection>

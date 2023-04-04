@@ -13,6 +13,7 @@ import ColumnSection from 'components/layout/ColumnSection'
 import ThumbnailHolder from 'components/ui/ThumbnailHolder'
 import DocumentMetadata from 'components/documentPage/DocumentMetadata'
 import SubSection from 'components/layout/SubSection'
+import DocumentInfoSection from 'components/treatyPage/DocumentInfoSection'
 
 const DocumentPage = ({
   data: { document },
@@ -40,7 +41,6 @@ const DocumentPage = ({
       <NavBar />
       <Main style={{ maxWidth: 1500 }}>
         <MainHeader>
-          <h2>{document.data.Topic}</h2>
           <h1>{name}</h1>
           <h2>{document.data.Document_subtitle}</h2>
           <ApplicableCountries
@@ -58,7 +58,7 @@ const DocumentPage = ({
             }
           </div>
           <div>
-            <DocumentMetadata document={document} />
+            <DocumentInfoSection treatyData={document} />
             <SubSection>
               <iframe
                 title="document preview"
@@ -77,7 +77,6 @@ export const query = graphql`
   query DocumentPage($document_id: String) {
     document: airtableDatabase(id: { eq: $document_id }) {
       data {
-        Topic
         Document_name
         Document_subtitle
         Date_entered_into_force
@@ -87,6 +86,16 @@ export const query = graphql`
         Document_description
         Language
         Original_language_title
+        Document_topic_link {
+          data {
+            Topic
+          }
+        }
+        Document_subtopic_link {
+          data {
+            Subtopic
+          }
+        }
         All_applicable_countries {
           data {
             Country_name

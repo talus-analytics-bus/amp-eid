@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import { RenderCMSRichText } from '@talus-analytics/library.airtable.cms-rich-text'
 import formatAirtableDate from 'utilities/formatDate'
 import getMostRecentFilePublishDate from 'utilities/getMostRecentFilePublishDate'
+import { Link } from 'gatsby'
+import simplifyForUrl from 'utilities/simplifyForUrl'
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.veryLightGray};
@@ -59,18 +61,28 @@ const Description = styled(RenderCMSRichText)`
     margin-top: 30px 0 0 0;
     ${({ theme }) => theme.paragraph}
     color: ${({ theme }) => theme.black};
+
     > a {
-      color: ${({ theme }) => theme.ampEidMedBlue};
-      text-decoration: underline;
+      color: ${({ theme }) => theme.link};
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 `
 
-const MainInfoSection = ({
+// treatyData: Exclude<Queries.TreatyPageQuery['treaty'], null>
+interface MainInfoSectionProps {
+  treatyData: Exclude<Queries.DocumentPageQuery['document'], null>
+  treatyPage: boolean
+}
+
+const DocumentInfoSection = ({
   treatyData,
-}: {
-  treatyData: Exclude<Queries.TreatyPageQuery['treaty'], null>
-}) => {
+  treatyPage,
+}: MainInfoSectionProps) => {
   const fileData = treatyData.data?.PDF?.localFiles?.[0]
 
   if (!treatyData.data?.Document_description)
@@ -101,14 +113,58 @@ const MainInfoSection = ({
     }
   }
 
+  const applicableCountries = treatyData.data.All_applicable_countries
+
+  const topics = treatyData.data?.Document_topic_link
+  const subtopics = treatyData.data.Document_subtopic_link
+
+  const relevantArticles = treatyData.data.Chaper__Section_or_Article
+
   return (
     <Container>
       <Description markdown={treatyData.data?.Document_description} />
       <MetadataTable>
         <tbody>
+          {applicableCountries && (
+            <tr>
+              <td>
+                Applicable{' '}
+                {applicableCountries.length === 1 ? 'country' : 'countries'}
+              </td>
+              <td>
+                {applicableCountries.map((country, index) => (
+                  <React.Fragment key={country?.data?.Country_name}>
+                    {index > 0 && ' '}
+                    <Link
+                      to={`/countries/${simplifyForUrl(
+                        country?.data?.Country_name ?? ''
+                      )}`}
+                    >
+                      {country?.data?.Country_name}
+                      {index < applicableCountries.length - 1 ? ',' : ''}
+                    </Link>
+                  </React.Fragment>
+                ))}
+              </td>
+            </tr>
+          )}
+          {topics && !treatyPage && (
+            <tr>
+              <td>Topic</td>
+              <td>{topics.map(topic => topic?.data?.Topic)}</td>
+            </tr>
+          )}
+          {subtopics && !treatyPage && (
+            <tr>
+              <td>Subtopic</td>
+              <td>{subtopics.map(topic => topic?.data?.Subtopic)}</td>
+            </tr>
+          )}
           {originalPublication && (
             <tr>
-              <td>Opened for signature</td>
+              <td>
+                {treatyPage ? 'Opened for signature' : 'Original publication'}
+              </td>
               <td>{formatAirtableDate(originalPublication)}</td>
             </tr>
           )}
@@ -122,6 +178,12 @@ const MainInfoSection = ({
             <tr>
               <td>Latest update</td>
               <td>{latestUpdate}</td>
+            </tr>
+          )}
+          {relevantArticles && !treatyPage && (
+            <tr>
+              <td>Relevant articles</td>
+              <td>{relevantArticles}</td>
             </tr>
           )}
 
@@ -150,4 +212,4 @@ const MainInfoSection = ({
   )
 }
 
-export default MainInfoSection
+export default DocumentInfoSection
