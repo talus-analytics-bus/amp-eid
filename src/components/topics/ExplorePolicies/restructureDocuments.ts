@@ -35,7 +35,6 @@ const restructureDocuments = (topicDocuments: TopicDocuments) => {
       else countriesObj[country.data.ISO3].documents.push(document)
     }
   }
-  console.log(countriesObj)
   return countriesObj
 }
 

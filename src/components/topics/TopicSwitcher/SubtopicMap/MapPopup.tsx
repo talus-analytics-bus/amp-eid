@@ -85,7 +85,6 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
   const justification = statusLink?.data?.Status_justification
 
   if (!map_color) map_color = 'Option 7'
-  console.log(subtopic.data?.Subtopic_define_status_link)
 
   const documents = countryDocuments[iso ?? '']
 
@@ -94,9 +93,6 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
   )
 
   const color = map_color && theme[camelCase(map_color) as keyof typeof theme]
-  // const countryName = documents?.country?.data?.Country_name
-
-  console.log({ map_color, statusLink, documents, statusDesciption })
 
   const filteredDocuments = documents?.documents?.filter(doc =>
     doc.data?.Document_subtopic_link?.some(
