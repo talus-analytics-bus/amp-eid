@@ -1,5 +1,7 @@
+import { Link } from 'gatsby'
 import React from 'react'
 import styled from 'styled-components'
+import simplifyForUrl from 'utilities/simplifyForUrl'
 
 const Container = styled.div`
   display: flex;
@@ -8,10 +10,16 @@ const Container = styled.div`
   margin-top: 10px;
   margin-bottom: 10px;
 `
-const Country = styled.div`
+const Country = styled(Link)`
   padding: 5px 10px;
   background-color: ${({ theme }) => theme.ampEidLightBlue2};
+  color: ${({ theme }) => theme.black};
+  text-decoration: none;
   border-radius: 5px;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `
 
 interface ApplicableCountriesProps {
@@ -26,11 +34,17 @@ interface ApplicableCountriesProps {
 
 const ApplicableCountries = ({ countries }: ApplicableCountriesProps) => (
   <Container>
-    {countries?.map(country => (
-      <Country key={country?.data?.Country_name}>
-        {country?.data?.Country_name}
-      </Country>
-    ))}
+    {countries?.map(
+      country =>
+        country?.data?.Country_name && (
+          <Country
+            to={`/countries/${simplifyForUrl(country?.data?.Country_name)}`}
+            key={country?.data?.Country_name}
+          >
+            {country?.data?.Country_name}
+          </Country>
+        )
+    )}
   </Container>
 )
 
