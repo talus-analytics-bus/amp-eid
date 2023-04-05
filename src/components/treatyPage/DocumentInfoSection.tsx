@@ -29,14 +29,15 @@ const MetadataTable = styled.table`
       margin-bottom: 10px;
     }
 
+    strong {
+      font-weight: normal;
+      ${({ theme }) => theme.paragraphMedium};
+    }
+
     a {
       text-decoration: none;
       color: ${({ theme }) => theme.black};
       font-weight: 100;
-
-      strong {
-        font-weight: 500;
-      }
 
       &:hover {
         text-decoration: underline;
@@ -47,10 +48,11 @@ const MetadataTable = styled.table`
 
   td:nth-child(1) {
     text-align: right;
+    ${({ theme }) => theme.paragraphMedium};
     // width: 11em;
   }
   td:nth-child(2) {
-    ${({ theme }) => theme.paragraphMedium};
+    ${({ theme }) => theme.paragraph};
     color: ${({ theme }) => theme.black};
     padding-left: 15px;
   }
