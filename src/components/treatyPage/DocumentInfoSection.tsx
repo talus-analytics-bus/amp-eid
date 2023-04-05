@@ -118,7 +118,7 @@ const DocumentInfoSection = ({
   const topics = treatyData.data?.Document_topic_link
   const subtopics = treatyData.data?.Document_subtopic_link
 
-  const relevantArticles = treatyData.data?.Chaper__Section_or_Article
+  const relevantArticles = treatyData.data?.Chaper__Section_or_Article?.trim()
 
   return (
     <Container>
