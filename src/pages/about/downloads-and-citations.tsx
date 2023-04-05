@@ -17,7 +17,7 @@ const Paragraph = styled.p`
 `
 const ItalicParagraph = styled.p`
   color: ${({ theme }) => theme.black};
-  font-family: 'Poppins';
+  ${({ theme }) => theme.paragraph};
   font-style: italic;
   max-width: 970px;
   font-size: 20px;
