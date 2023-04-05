@@ -123,7 +123,9 @@ const DocumentLink = ({ document }: DocumentLinkProps) => {
         <Name>{name}</Name>
         <Subtopics>
           {document.data.Document_subtopic_link?.map(subtopic => (
-            <span>{subtopic?.data?.Subtopic}</span>
+            <span key={subtopic?.data?.Subtopic}>
+              {subtopic?.data?.Subtopic}
+            </span>
           ))}
         </Subtopics>
       </Metadata>
