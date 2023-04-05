@@ -17,6 +17,7 @@ import ColumnSection from 'components/layout/ColumnSection'
 import BlueCircleIcon from 'components/ui/BlueCircleIcon'
 import restructureDocuments from 'components/topics/ExplorePolicies/restructureDocuments'
 import restructureCountryMetadata from 'components/topics/ExplorePolicies/restructureCountryMetadata'
+import formatAirtableDate from 'utilities/formatDate'
 
 // Trips page data sources
 
@@ -33,6 +34,19 @@ import restructureCountryMetadata from 'components/topics/ExplorePolicies/restru
 
 // Find a country => use mapbox search
 
+const DateHolder = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+`
+const Date = styled.div`
+  ${({ theme }) => theme.smallParagraph};
+  justify-self: flex-end;
+  margin-left: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+`
 const H3 = styled.h3`
   ${({ theme }) => theme.h2};
   color: ${({ theme }) => theme.black};
@@ -59,10 +73,16 @@ const TripsPage = ({
       <NavBar />
       <Main>
         <MainHeader>
-          <h1>
-            <BlueCircleIcon hideBG name={topic} size={40} />
-            {topic}
-          </h1>
+          <DateHolder>
+            <h1>
+              <BlueCircleIcon hideBG name={topic} size={40} />
+              {topic}
+            </h1>
+            <Date>
+              Last updated{' '}
+              {formatAirtableDate(data.topic.data.Last_updated ?? '')}
+            </Date>
+          </DateHolder>
         </MainHeader>
         <TopicSwitcher {...{ data, countryDocuments, countryMetadata }} />
         {data.relatedTreaties.nodes.length > 0 && (
@@ -83,6 +103,7 @@ export const query = graphql`
     topic: airtableDatabase(id: { eq: $topic_id }) {
       data {
         Topic
+        Last_updated
       }
     }
     relatedTreaties: allAirtableDatabase(
