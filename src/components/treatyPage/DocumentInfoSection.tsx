@@ -25,6 +25,13 @@ const MetadataTable = styled.table`
     padding-bottom: 15px;
     vertical-align: top;
 
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
     div {
       margin-bottom: 10px;
     }
