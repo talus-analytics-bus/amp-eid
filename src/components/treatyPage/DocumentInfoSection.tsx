@@ -32,6 +32,7 @@ const MetadataTable = styled.table`
     strong {
       font-weight: normal;
       ${({ theme }) => theme.paragraphMedium};
+      line-height: 28px;
     }
 
     a {
@@ -49,12 +50,14 @@ const MetadataTable = styled.table`
   td:nth-child(1) {
     text-align: right;
     ${({ theme }) => theme.paragraphMedium};
+    line-height: 28px;
     // width: 11em;
   }
   td:nth-child(2) {
     ${({ theme }) => theme.paragraph};
     color: ${({ theme }) => theme.black};
     padding-left: 15px;
+    line-height: 28px;
   }
 `
 
