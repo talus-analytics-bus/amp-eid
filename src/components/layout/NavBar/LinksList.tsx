@@ -22,6 +22,7 @@ const DropdownLink = styled(Link)`
 
   &:hover {
     background-color: ${({ theme }) => theme.ampEidLightBlue2};
+    background-color: rgb(236, 239, 243);
   }
 `
 const ComingSoon = styled.span`
