@@ -42,7 +42,7 @@ const ColorBlock = styled.div`
 `
 const StatusDescription = styled.div`
   ${({ theme }) => theme.smallParagraph};
-  color: ${({ theme }) => theme.darkGray};
+  color: ${({ theme }) => theme.veryDarkGray};
   margin-top: 15px;
 `
 const SeeDocumentHeader = styled.div`
