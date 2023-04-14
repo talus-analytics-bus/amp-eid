@@ -28,7 +28,7 @@ const H3 = styled.h3`
   color: ${({ theme }) => theme.white};
 `
 const Paragraph = styled.p`
-  ${({ theme }) => theme.bigParagraph};
+  ${({ theme }) => theme.paragraph};
   color: ${({ theme }) => theme.white};
   text-align: center;
   max-width: 900px;
