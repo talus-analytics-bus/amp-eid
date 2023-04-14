@@ -116,7 +116,7 @@ const NavBar = () => {
           <NavbarDropdown title="Topics">
             <LinksList links={topicsLinks} />
           </NavbarDropdown>
-          <NavbarDropdown title="Treaties">
+          <NavbarDropdown title="Treaty library">
             <LinksList links={treatyLinks} />
           </NavbarDropdown>
           <NavbarDropdown title="Countries">
