@@ -14,7 +14,8 @@ const ContentContainer = styled.div`
   max-width: 1500px;
   margin-left: auto;
   margin-right: auto;
-  padding: 80px 30px;
+  margin-bottom: 60px;
+  padding: 60px 30px 120px 30px;
 `
 const SectionHeader = styled.div`
   display: flex;
