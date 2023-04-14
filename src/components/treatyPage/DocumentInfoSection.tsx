@@ -10,7 +10,7 @@ import simplifyForUrl from 'utilities/simplifyForUrl'
 const Container = styled.div`
   background-color: ${({ theme }) => theme.veryLightGray};
   border-radius: 5px;
-  padding: 0px 20px 30px 20px;
+  padding: 0px 20px 20px 20px;
 `
 const MetadataTable = styled.table`
   border-collapse: collapse;
@@ -65,6 +65,9 @@ const MetadataTable = styled.table`
     color: ${({ theme }) => theme.black};
     padding-left: 15px;
     line-height: 28px;
+  }
+  & tr:last-child > td {
+    padding-bottom: 0;
   }
 `
 
@@ -216,7 +219,7 @@ const DocumentInfoSection = ({
 
           <tr>
             <td>Available languages</td>
-            <td>
+            <td style={{ paddingBottom: 0 }}>
               <table>
                 <tbody>
                   {languages.map(language => (
