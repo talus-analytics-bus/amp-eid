@@ -12,10 +12,10 @@ AWSTemplateFormatVersion: 2010-09-09
 Parameters:
   DomainName:
     Type: String
-    Default: 'talusanalytics.com'
+    Default: 'ampeid.org'
   CertificateArn:
     Type: String
-    Default: 'arn:aws:acm:us-east-1:560812044035:certificate/d98e831c-999b-4d94-8d09-5b8922f2fcb8'
+    Default: 'arn:aws:acm:us-east-1:560812044035:certificate/fc04392b-10ad-45bc-8d9e-2647d0318174'
 
 Conditions:
   # This conditional checks if the domain name is project-specific, or
