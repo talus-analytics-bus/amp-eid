@@ -15,7 +15,7 @@ Parameters:
     Default: 'ampeid.org'
   CertificateArn:
     Type: String
-    Default: 'arn:aws:acm:us-east-1:560812044035:certificate/fc04392b-10ad-45bc-8d9e-2647d0318174'
+    Default: 'arn:aws:acm:us-east-1:560812044035:certificate/7b7cc4b0-20b9-4829-9c74-eddf49df2011'
 
 Conditions:
   # This conditional checks if the domain name is project-specific, or
@@ -153,9 +153,10 @@ Resources:
             const containsTerm = (term) => host.includes(term);
             let subdomain;
             if (host.includes('dev')) subdomain = 'dev';
-            if (host.includes('review')) subdomain = 'review';
-            if (host.includes('staging')) subdomain = 'staging';
-            if (host.includes('prod')) subdomain = 'prod';
+            elif (host.includes('review')) subdomain = 'review';
+            elif (host.includes('staging')) subdomain = 'staging';
+            elif (host.includes('prod')) subdomain = 'prod';
+            else subdomain = 'prod';
 
             const authObj = {
               dev: ['dev', '********************'],
@@ -541,7 +542,8 @@ Resources:
         Aliases:
           - !If [
               CustomDomainProvided,
-              !Ref DomainName,
+              # !Ref DomainName,
+              !Join ['.', ['prod', !Ref DomainName]],
               !Join ['', ['prod-', !Ref AWS::StackName, '.', !Ref DomainName]],
             ]
           - !If [
@@ -598,10 +600,10 @@ Resources:
         - AliasTarget:
             DNSName: !GetAtt ProdDistribution.DomainName
             HostedZoneId: Z2FDTNDATAQYW2
-          Name:
-            !If [
+          Name: !If [
               CustomDomainProvided,
-              !Ref DomainName,
+              # !Ref DomainName,
+              !Join ['.', ['prod', !Ref DomainName]],
               !Join ['', ['prod-', !Ref AWS::StackName, '.', !Ref DomainName]],
             ]
           Type: A
