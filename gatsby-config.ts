@@ -2,8 +2,8 @@ import type { GatsbyConfig } from 'gatsby'
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    siteUrl: 'https://example.talusanalytics.com/',
-    title: 'Talus Analytics',
+    siteUrl: 'https://ampeid.org',
+    title: 'Analysis and Mapping of Policies for Emerging Infectious Diseases.',
     cookieConsent: {
       cookieMessage:
         'Talus sites use cookies to ensure you get the best experience possible.',
@@ -189,6 +189,55 @@ const config: GatsbyConfig = {
         trackingId: `G-XXXXXXXXXX`,
         anonymize: true,
         head: false,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                siteUrl
+              }
+            }
+            allAirtableDatabase(filter: {table: {eq: "Document library"}}) {
+              edges {
+                node {
+                  data {
+                    PDF {
+                      localFiles {
+                        publicURL
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+          }
+        `,
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+        resolvePages: (query: any) => {
+          const allPages = query.allSitePage.nodes
+          const allDocuments = query.allAirtableDatabase.edges
+          const pages = allPages.map((page: { path: string }) => page.path)
+          const siteUrl = query.site.siteMetadata.siteUrl
+          const documents = allDocuments.map(
+            // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+            (doc: any) => doc.node.data?.PDF?.localFiles?.[0]?.publicURL
+          )
+          const urls = [...pages, ...documents].map((url: string) => ({
+            path: `${siteUrl}${url}`,
+            changeFreq: 'monthly',
+            priority: 0.7,
+          }))
+          return urls
+        },
       },
     },
     {
