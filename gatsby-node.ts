@@ -371,12 +371,14 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
 
   format(result)
 
-  fs.writeFileSync(`${dir}/index.json`, JSON.stringify(result))
+  fs.writeFileSync(`${dir}/index.json`, JSON.stringify(result.data))
 
-  for (const [section, data] of Object.entries(result)) {
-    if (!fs.existsSync(`${dir}/${section}`)) {
-      fs.mkdirSync(`${dir}/${section}`, { recursive: true })
+  if (result.data) {
+    for (const [section, data] of Object.entries(result.data)) {
+      if (!fs.existsSync(`${dir}/${section}`)) {
+        fs.mkdirSync(`${dir}/${section}`, { recursive: true })
+      }
+      fs.writeFileSync(`${dir}/${section}/index.json`, JSON.stringify(data))
     }
-    fs.writeFileSync(`${dir}/${section}/index.json`, JSON.stringify(data))
   }
 }
