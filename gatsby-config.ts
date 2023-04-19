@@ -78,6 +78,13 @@ const config: GatsbyConfig = {
             separateNodeType: true,
             tableView: `CMS`,
           },
+          {
+            baseId: `appC6ldXKPoY3bIwz`,
+            tableName: `LOOKUP: Regional organization`,
+            queryName: `Database`,
+            separateNodeType: true,
+            tableView: `CMS`,
+          },
           // Documents table for pulling files
           {
             baseId: `appC6ldXKPoY3bIwz`,
@@ -87,6 +94,7 @@ const config: GatsbyConfig = {
               `Document_subtopic_link`,
               `All_applicable_countries`,
               `Authoring_country`,
+              `Authoring_regional_organization`,
               `Related_document`,
               `Treaty_status`,
             ],
@@ -106,7 +114,7 @@ const config: GatsbyConfig = {
           {
             baseId: `appC6ldXKPoY3bIwz`,
             tableName: `Define status`,
-            tableLinks: [],
+            tableLinks: [`Define_status_assign_status_link`],
             queryName: `Database`,
             separateNodeType: true,
             tableView: `CMS`,
