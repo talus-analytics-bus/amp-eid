@@ -334,7 +334,7 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
     fs.mkdirSync(dir, { recursive: true })
   }
 
-  fs.writeFileSync(`${dir}/raw.json`, JSON.stringify(result))
+  // fs.writeFileSync(`${dir}/raw.json`, JSON.stringify(result))
 
   // strip out all levels of nesting where there is only one key
   // in the object. This happens a lot with "data" and "nodes"

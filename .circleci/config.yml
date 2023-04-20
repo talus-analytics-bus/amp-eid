@@ -101,6 +101,20 @@ jobs:
           command: aws s3 sync public/ <<parameters.bucket>> --delete
 
       - run:
+          name: Change the API files content-type
+          command: |
+            aws s3 cp public/api/v1/index.html <<parameters.bucket>>/api/v1/index.html \
+              --content-type application/json;
+            aws s3 cp public/api/v1/topics/index.html <<parameters.bucket>>/api/v1/topics/index.html \
+              --content-type application/json;
+            aws s3 cp public/api/v1/documents/index.html <<parameters.bucket>>/api/v1/documents/index.html \
+              --content-type application/json;
+            aws s3 cp public/api/v1/countries/index.html <<parameters.bucket>>/api/v1/countries/index.html \
+              --content-type application/json;
+            aws s3 cp public/api/v1/treaties/index.html <<parameters.bucket>>/api/v1/treaties/index.html \
+              --content-type application/json;
+
+      - run:
           name: Run cloudfront invalidation
           command: |
             aws cloudfront create-invalidation \
