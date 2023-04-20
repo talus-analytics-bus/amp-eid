@@ -765,7 +765,7 @@ const APIPage = (): JSX.Element => {
             >
               <RouteContainer>
                 <Paragraph>{route.description}</Paragraph>
-                <H3>Link</H3>
+                <H3>Direct download</H3>
                 <StyledLink
                   href={route.route}
                 >{`https://ampeid.org${route.route}`}</StyledLink>
