@@ -552,7 +552,8 @@ const routes = {
     name: 'Download All Data',
     method: 'GET',
     route: '/api/v1/',
-    description: 'Download all data in JSON format',
+    description:
+      'Download all data in JSON format, organized by topics, countries, treaties, and documents. ',
     schemaName: 'All data',
     schema: schema,
     example: '',
@@ -561,7 +562,8 @@ const routes = {
     name: 'Download All Topics',
     method: 'GET',
     route: '/api/v1/topics',
-    description: 'Download all topics in JSON format',
+    description:
+      'Download all topics in JSON format, including all subtopics and all countries organized by status.',
     schemaName: 'Topics',
     schema: schema.properties.Topics,
     example: `[
@@ -607,7 +609,8 @@ const routes = {
     name: 'Download All Countries',
     method: 'GET',
     route: '/api/v1/countries',
-    description: 'Download all countries in JSON format',
+    description:
+      'Download all countries in JSON format along with their status relative to each treaty and all applicable documents.',
     schemaName: 'Countries',
     schema: schema.properties.Countries,
     example: `[
@@ -641,10 +644,11 @@ const routes = {
     ]`,
   },
   treaties: {
-    name: 'Download All Treaties',
+    name: 'Download all treaties',
     method: 'GET',
     route: '/api/v1/treaties',
-    description: 'Download all treaties in JSON format',
+    description:
+      'Download all treaties in JSON format, including related treaties and states parties.',
     schemaName: 'Treaties',
     schema: schema.properties.Treaties,
     example: `[
@@ -684,10 +688,11 @@ const routes = {
     ]`,
   },
   documents: {
-    name: 'Download All Documents',
+    name: 'Download all document metadata',
     method: 'GET',
     route: '/api/v1/documents',
-    description: 'Download all documents in JSON format',
+    description:
+      'Download all document metadata in JSON format including their authoring and applicable countries, key dates, and associated topics and subtopics.',
     schemaName: 'Documents',
     schema: schema.properties.Documents,
     example: ` [
