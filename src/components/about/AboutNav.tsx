@@ -42,14 +42,16 @@ const AboutNav = (): JSX.Element => {
           Overview
         </PaddedLink>
       </li>
-      <li>
-        <PaddedLink
-          activeStyle={{ background: theme.ampEidLightBlue2 }}
-          to="/about/downloads-and-citations/"
-        >
-          Downloads and citations
-        </PaddedLink>
-      </li>
+      {
+        // <li>
+        //   <PaddedLink
+        //     activeStyle={{ background: theme.ampEidLightBlue2 }}
+        //     to="/about/downloads-and-citations/"
+        //   >
+        //     Downloads and citations
+        //   </PaddedLink>
+        // </li>
+      }
       <li>
         <PaddedLink
           activeStyle={{ background: theme.ampEidLightBlue2 }}
@@ -63,7 +65,7 @@ const AboutNav = (): JSX.Element => {
           activeStyle={{ background: theme.ampEidLightBlue2 }}
           to="/about/api/"
         >
-          API
+          Data & API
         </PaddedLink>
       </li>
     </LinkList>
