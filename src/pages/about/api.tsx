@@ -11,6 +11,7 @@ import Providers from 'components/layout/Providers'
 import Footer from 'components/layout/Footer'
 import ExploreDropdown from 'components/ui/ExploreDropdown'
 import Dropdown from '@talus-analytics/library.ui.dropdown'
+import useAboutDownloadAndCitationsPageData from 'cmsHooks/useAboutDownloadAndCitationsQuery'
 
 const Paragraph = styled.p`
   ${({ theme }) => theme.paragraph};
@@ -20,8 +21,20 @@ const Paragraph = styled.p`
   padding-top: 10px;
   padding-bottom: 10px;
 `
+const ItalicParagraph = styled.p`
+  color: ${({ theme }) => theme.black};
+  ${({ theme }) => theme.paragraph};
+  font-style: italic;
+  max-width: 970px;
+  font-size: 20px;
+  padding: 15px;
+`
 const H1 = styled.h1`
   ${({ theme }) => theme.h1}
+  color: ${({ theme }) => theme.black};
+`
+const TextHeader2 = styled.h2`
+  ${({ theme }) => theme.h2}
   color: ${({ theme }) => theme.black};
 `
 const H2 = styled.h2`
@@ -739,18 +752,35 @@ routes.all.example = `
 `
 
 const APIPage = (): JSX.Element => {
+  const cmsData = useAboutDownloadAndCitationsPageData()
+
   return (
     <Providers>
       <CMS.SEO />
       <NavBar />
       <Main style={{ maxWidth: 1000 }}>
         <AboutNav />
-        <H1>AMP EID API Documentation</H1>
+        <H1>
+          <CMS.Text name="H2" data={cmsData} />
+        </H1>
         <Paragraph>
-          The AMP EID API provides programattic access to the AMP EID data, both
-          as a single JSON file and as individual routes for each section of the
-          data.
+          <CMS.Text name="Bottom paragraph" data={cmsData} />
         </Paragraph>
+        <ItalicParagraph>
+          <CMS.Text name="CGHSS paragraph" data={cmsData} />
+        </ItalicParagraph>
+        <Paragraph>
+          <CMS.Text name="Contact paragraph" data={cmsData} />
+        </Paragraph>
+        {
+          // <Paragraph>
+          //   <CMS.Text name="Tools paragraph" data={cmsData} />
+          // </Paragraph>
+          // <Paragraph>
+          //   <CMS.Text name="Downloads paragraph" data={cmsData} />
+          // </Paragraph>
+        }
+        <TextHeader2>API documentation</TextHeader2>
         <Routes>
           {Object.values(routes).map(route => (
             <ExploreDropdown
