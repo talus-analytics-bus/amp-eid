@@ -549,7 +549,7 @@ const RenderString = ({ data }: { data: SchemaString }) => (
 
 const routes = {
   all: {
-    name: 'Download All Data',
+    name: 'Download all data',
     method: 'GET',
     route: '/api/v1/',
     description:
@@ -559,7 +559,7 @@ const routes = {
     example: '',
   },
   topics: {
-    name: 'Download All Topics',
+    name: 'Download all topics',
     method: 'GET',
     route: '/api/v1/topics',
     description:
@@ -606,7 +606,7 @@ const routes = {
     ]`,
   },
   countries: {
-    name: 'Download All Countries',
+    name: 'Download all countries',
     method: 'GET',
     route: '/api/v1/countries',
     description:
