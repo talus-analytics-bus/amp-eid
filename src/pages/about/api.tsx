@@ -129,7 +129,7 @@ const schema = {
                       Name: {
                         type: 'string',
                         definition:
-                          'Name of the status, the same as the color on the map',
+                          'Name of the status, the same as the key on the map',
                       },
                       Description: {
                         type: 'string',
