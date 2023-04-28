@@ -88,6 +88,7 @@ const NavBar = () => {
     // },
     { to: '/about/methods/', children: 'Methods' },
     { to: '/about/api/', children: 'Data & API' },
+    { to: '/about/user-guide/', children: 'User guide' },
   ]
 
   const topics = useTopics()
