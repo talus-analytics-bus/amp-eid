@@ -9,6 +9,10 @@ export const AboutStyle = styled(CMS.RichText)`
   > h2 {
     ${({ theme }) => theme.h2};
     color: ${({ theme }) => theme.ampEidMedBlue};
+
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 2px solid ${({ theme }) => theme.lightGray};
   }
   > h3 {
     ${({ theme }) => theme.paragraphMedium};

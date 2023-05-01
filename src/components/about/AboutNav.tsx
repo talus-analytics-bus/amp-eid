@@ -68,6 +68,14 @@ const AboutNav = (): JSX.Element => {
           Data & API
         </PaddedLink>
       </li>
+      <li>
+        <PaddedLink
+          activeStyle={{ background: theme.ampEidLightBlue2 }}
+          to="/about/user-guide/"
+        >
+          User guide
+        </PaddedLink>
+      </li>
     </LinkList>
   )
 }
