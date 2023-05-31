@@ -121,12 +121,10 @@ const NavBar = () => {
           <NavbarDropdown title="Treaty library">
             <LinksList links={treatyLinks} />
           </NavbarDropdown>
-          <NavbarDropdown title="Countries">
-            <CountrySearch style={{ minWidth: 350, margin: '0' }} />
-          </NavbarDropdown>
           <NavbarDropdown title="About">
             <LinksList links={aboutLinks} />
           </NavbarDropdown>
+          <CountrySearch style={{ minWidth: 350, margin: '0' }} />
         </DesktopNavList>
         <MobileMenu>
           <MobileLinkList>
