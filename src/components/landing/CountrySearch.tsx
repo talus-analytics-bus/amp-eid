@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import Typeahead from '@talus-analytics/library.ui.typeahead'
 
@@ -22,6 +22,8 @@ const CountrySearch = ({ style }: CoutnrySearchProps) => {
   const countries = useCountryNames()
   const theme = useTheme()
 
+  const [focusInSearch, setFocusInSearch] = useState(false)
+
   const searchItems = useMemo(
     () =>
       countries.nodes
@@ -39,15 +41,20 @@ const CountrySearch = ({ style }: CoutnrySearchProps) => {
   )
 
   return (
-    <Container>
+    <Container
+      onFocus={() => setFocusInSearch(true)}
+      onBlur={() => setTimeout(() => setFocusInSearch(false), 200)}
+    >
       <Typeahead
         iconLeft
         style={style}
         // TODO: Add autoFocus Prop to this component
         // autoFocus
-        backgroundColor={theme.ampEidEvenDarkerBlue}
-        borderColor={theme.ampEidEvenDarkerBlue}
-        fontColor={theme.medDarkGray}
+        backgroundColor={
+          focusInSearch ? theme.white : theme.ampEidEvenDarkerBlue
+        }
+        borderColor={focusInSearch ? theme.white : theme.ampEidEvenDarkerBlue}
+        fontColor={focusInSearch ? theme.black : theme.medDarkGray}
         items={searchItems}
         placeholder={`Search for a country`}
         onAdd={item => navigate(`/countries/${simplifyForUrl(item.label)}`)}
