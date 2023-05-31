@@ -5,7 +5,7 @@ import Typeahead from '@talus-analytics/library.ui.typeahead'
 import useCountryNames from 'queryHooks/useCountryNames'
 import { navigate } from 'gatsby'
 import simplifyForUrl from 'utilities/simplifyForUrl'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 
 interface CoutnrySearchProps {
   style?: React.CSSProperties
@@ -20,6 +20,7 @@ const Container = styled.div`
 
 const CountrySearch = ({ style }: CoutnrySearchProps) => {
   const countries = useCountryNames()
+  const theme = useTheme()
 
   const searchItems = useMemo(
     () =>
@@ -44,6 +45,9 @@ const CountrySearch = ({ style }: CoutnrySearchProps) => {
         style={style}
         // TODO: Add autoFocus Prop to this component
         // autoFocus
+        backgroundColor={theme.ampEidEvenDarkerBlue}
+        borderColor={theme.ampEidEvenDarkerBlue}
+        fontColor={theme.medDarkGray}
         items={searchItems}
         placeholder={`Search for a country`}
         onAdd={item => navigate(`/countries/${simplifyForUrl(item.label)}`)}
