@@ -124,7 +124,7 @@ const NavBar = () => {
           <NavbarDropdown title="About">
             <LinksList links={aboutLinks} />
           </NavbarDropdown>
-          <CountrySearch style={{ minWidth: 350, margin: '0' }} />
+          <CountrySearch style={{ minWidth: 250, margin: '0' }} />
         </DesktopNavList>
         <MobileMenu>
           <MobileLinkList>

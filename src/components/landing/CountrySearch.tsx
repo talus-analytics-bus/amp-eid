@@ -16,6 +16,11 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-grow: 1;
+  margin: 0 15px;
+
+  input::placeholder {
+    ${({ theme }) => theme.paragraph};
+  }
 `
 
 const CountrySearch = ({ style }: CoutnrySearchProps) => {
@@ -43,13 +48,11 @@ const CountrySearch = ({ style }: CoutnrySearchProps) => {
   return (
     <Container
       onFocus={() => setFocusInSearch(true)}
-      onBlur={() => setTimeout(() => setFocusInSearch(false), 200)}
+      onBlur={() => setTimeout(() => setFocusInSearch(false), 150)}
     >
       <Typeahead
         iconLeft
         style={style}
-        // TODO: Add autoFocus Prop to this component
-        // autoFocus
         backgroundColor={
           focusInSearch ? theme.white : theme.ampEidEvenDarkerBlue
         }
