@@ -11,7 +11,7 @@ import NavbarDropdown from './NavbarDropdown'
 import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import LinksList from './LinksList'
-import CountrySearch from 'components/landing/CountrySearch'
+import NavBarCountrySearch from './NavBarCountrySearch'
 import useTopics from 'queryHooks/useTopics'
 
 const Nav = styled.nav`
@@ -120,7 +120,7 @@ const NavBar = () => {
           <NavbarDropdown title="About">
             <LinksList links={aboutLinks} />
           </NavbarDropdown>
-          <CountrySearch style={{ minWidth: 250, margin: '0' }} />
+          <NavBarCountrySearch style={{ minWidth: 250, margin: '0' }} />
         </DesktopNavList>
         <MobileMenu>
           <MobileLinkList>
