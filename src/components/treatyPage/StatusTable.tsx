@@ -93,7 +93,7 @@ const StatusTable = ({
   const paginated = sorted.slice(page * pageSize, page * pageSize + pageSize)
 
   type CountryData = Exclude<
-    [Exclude<(typeof countryList)[number], null>][number]['data'],
+    [Exclude<typeof countryList[number], null>][number]['data'],
     null
   >
 
@@ -102,7 +102,7 @@ const StatusTable = ({
   interface Column<T extends keyof CountryData> {
     key: T
     displayName: string
-    parse: (val: CountryData[T] | undefined) => React.ReactNode
+    render: (val: CountryData[T] | undefined) => React.ReactNode
   }
 
   // create type to take keyos of CountryData and return Column<'key 1'> | Column<'key 2'>
@@ -115,7 +115,7 @@ const StatusTable = ({
     {
       displayName: 'Country',
       key: 'Country',
-      parse: val => {
+      render: val => {
         const countryName = val?.[0]?.data?.Country_name
         if (!countryName) return <></>
         if (countryName === 'European Union') return <span>{countryName}</span>
@@ -129,24 +129,24 @@ const StatusTable = ({
     {
       displayName: 'Status',
       key: 'Status',
-      parse: val => (
+      render: val => (
         <StatusPill status={val as unknown as Status}>{val}</StatusPill>
       ),
     },
     {
       displayName: 'Signed',
       key: 'Date_signed',
-      parse: val => (val ? formatAirtableDate(val) : ''),
+      render: val => (val ? formatAirtableDate(val) : ''),
     },
     {
       displayName: 'Ratified',
       key: 'Date_ratified',
-      parse: val => (val ? formatAirtableDate(val) : ''),
+      render: val => (val ? formatAirtableDate(val) : ''),
     },
     {
       displayName: 'Entered into force',
       key: 'Date_entered_into_force',
-      parse: val => (val ? formatAirtableDate(val) : ''),
+      render: val => (val ? formatAirtableDate(val) : ''),
     },
   ]
 
@@ -177,7 +177,7 @@ const StatusTable = ({
               {columns.map(col => (
                 // @ts-expect-error: The types of col.parse
                 // and col.key are guaranteed by the types above
-                <td key={col.key}>{col.parse(country?.data?.[col.key])}</td>
+                <td key={col.key}>{col.render(country?.data?.[col.key])}</td>
               ))}
             </tr>
           ))}
