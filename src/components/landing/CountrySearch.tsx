@@ -17,15 +17,6 @@ const Container = styled.div`
   justify-content: center;
   flex-grow: 1;
   margin: 0 15px;
-  input {
-    ${({ theme }) => theme.paragraph};
-
-    &::placeholder {
-      ${({ theme }) => theme.paragraph};
-      color: ${({ theme }) => theme.white};
-      opacity: 1;
-    }
-  }
 `
 
 enum SearchStatus {
@@ -78,9 +69,9 @@ const CountrySearch = ({ style }: CoutnrySearchProps) => {
         iconLeft
         multiselect
         style={style}
-        backgroundColor={lightMode ? theme.white : theme.ampEidEvenDarkerBlue}
-        borderColor={lightMode ? theme.white : theme.ampEidEvenDarkerBlue}
-        fontColor={lightMode ? theme.black : theme.medDarkGray}
+        backgroundColor={theme.white}
+        borderColor={theme.ampEidEvenDarkerBlue}
+        fontColor={theme.black}
         items={searchItems}
         placeholder={`Search for a country`}
         onAdd={item => {
