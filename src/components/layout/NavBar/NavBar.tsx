@@ -82,10 +82,6 @@ const NavBar = () => {
 
   const aboutLinks = [
     { to: '/about/overview/', children: 'Overview' },
-    // {
-    //   to: '/about/downloads-and-citations/',
-    //   children: 'Downloads & Citations',
-    // },
     { to: '/about/methods/', children: 'Methods' },
     { to: '/about/api/', children: 'Data & API' },
     { to: '/about/user-guide/', children: 'User guide' },

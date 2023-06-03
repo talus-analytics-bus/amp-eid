@@ -17,6 +17,7 @@ const DropdownButton = styled.button<{ open: boolean }>`
   }
   ${({ theme, open }) => open && `color: ${theme.ampEidMedLightBlue}`}
 `
+
 interface TopicsDropdownProps {
   title: React.ReactNode
   children: React.ReactNode
