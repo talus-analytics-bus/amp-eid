@@ -56,13 +56,10 @@ const CountrySearch = ({ style }: CoutnrySearchProps) => {
     [countries]
   )
 
-  const iconColor = searchStatus ? '192C3C' : 'ffffff'
-
   const lightMode = [SearchStatus.Loading, SearchStatus.Focused].includes(
     searchStatus
   )
-
-  console.log(lightMode)
+  const iconColor = lightMode ? '192C3C' : 'ffffff'
 
   return (
     <Container
