@@ -17,7 +17,6 @@ const DropdownLink = styled(Link)<{ darkMode?: boolean }>`
   display: block;
   width: 100%;
   padding: 5px 15px;
-  // background-color: white;
   color: ${({ theme }) => theme.black};
   color: inherit;
   text-decoration: none;
