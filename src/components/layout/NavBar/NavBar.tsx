@@ -13,6 +13,7 @@ import simplifyForUrl from 'utilities/simplifyForUrl'
 import LinksList from './LinksList'
 import NavBarCountrySearch from './NavBarCountrySearch'
 import useTopics from 'queryHooks/useTopics'
+import MobileMenuDropdown from './MobileMenu/MobileMenuDropdown'
 
 const Nav = styled.nav`
   background-color: ${({ theme }) => theme.ampEidDarkBlue};
@@ -35,9 +36,6 @@ const LinkList = styled.ul`
   display: flex;
   padding: 0;
   margin: 0;
-`
-const Li = styled.li`
-  display: flex;
 `
 const NavLink = styled(Link)`
   color: white !important;
@@ -63,12 +61,6 @@ const DesktopNavList = styled(LinkList)`
   @media (max-width: 1200px) {
     display: none;
   }
-`
-const MobileLinkList = styled(LinkList)`
-  flex-direction: column;
-  background-color: ${({ theme }) => theme.ampEidDarkBlue};
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
 `
 const NavLogo = styled(CMS.Image)`
   height: 50px;
@@ -123,26 +115,12 @@ const NavBar = () => {
           <NavBarCountrySearch style={{ minWidth: 250, margin: '0' }} />
         </DesktopNavList>
         <MobileMenu>
-          <MobileLinkList>
-            <h3 style={{ color: 'white' }}>Topics</h3>
-            <Li key={'trips'}>
-              <NavLink to="/topics/trade-and-intellectual-property/">
-                Trade and intellectual property
-              </NavLink>
-            </Li>
-            <h3 style={{ color: 'white' }}>Treaties</h3>
-            {treatyLinks.map(linkProps => (
-              <Li key={linkProps.to}>
-                <NavLink {...linkProps} />
-              </Li>
-            ))}
-            <h3 style={{ color: 'white' }}>General</h3>
-            {aboutLinks.map(linkProps => (
-              <Li key={linkProps.to}>
-                <NavLink {...linkProps} />
-              </Li>
-            ))}
-          </MobileLinkList>
+          <MobileMenuDropdown title="Topics">
+            <LinksList links={topicsLinks.filter(topic => !topic.disabled)} />
+          </MobileMenuDropdown>
+          <MobileMenuDropdown title="Treaty library">
+            <LinksList links={treatyLinks} />
+          </MobileMenuDropdown>
         </MobileMenu>
       </Container>
     </Nav>

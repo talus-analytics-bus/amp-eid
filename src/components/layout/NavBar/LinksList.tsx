@@ -3,10 +3,11 @@ import { Link } from 'gatsby'
 import styled from 'styled-components'
 
 const TopicList = styled.ul`
-  color: ${({ theme }) => theme.black};
+  // color: ${({ theme }) => theme.black};
   list-style: none;
   padding: 5px 0px;
   min-width: 400px;
+  margin: 0;
 `
 const Li = styled.li`
   display: block;
@@ -16,8 +17,9 @@ const DropdownLink = styled(Link)`
   display: block;
   width: 100%;
   padding: 5px 15px;
-  background-color: white;
+  // background-color: white;
   color: ${({ theme }) => theme.black};
+  color: inherit;
   text-decoration: none;
 
   &:hover {
@@ -29,8 +31,7 @@ const ComingSoon = styled.span`
   display: block;
   width: 100%;
   padding: 5px 15px;
-  background-color: white;
-  color: ${({ theme }) => theme.black};
+  // color: ${({ theme }) => theme.black};
   text-decoration: none;
 
   &:hover {

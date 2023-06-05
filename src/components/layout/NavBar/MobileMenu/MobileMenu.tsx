@@ -10,7 +10,12 @@ const MenuContainer = styled.div`
     display: none;
   }
 `
-
+const MobileNavContainer = styled.div`
+  background-color: ${({ theme }) => theme.ampEidDarkBlue};
+  flex-direction: column;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+`
 interface MobileMenuProps {
   children: React.ReactNode
 }
@@ -27,7 +32,7 @@ const MobileMenu = ({ children }: MobileMenuProps) => {
         }}
         renderButton={open => <HamburgerButton open={open} />}
       >
-        {children}
+        <MobileNavContainer>{children}</MobileNavContainer>
       </Dropdown>
     </MenuContainer>
   )
