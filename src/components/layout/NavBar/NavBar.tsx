@@ -31,12 +31,6 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 8px;
 `
-const LinkList = styled.ul`
-  list-style: none;
-  display: flex;
-  padding: 0;
-  margin: 0;
-`
 const NavLink = styled(Link)`
   color: white !important;
   padding: 14px;
@@ -57,7 +51,11 @@ const HomeLink = styled(NavLink)`
   align-items: center;
   margin-left: 20px;
 `
-const DesktopNavList = styled(LinkList)`
+const DesktopNavList = styled.ul`
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
   @media (max-width: 1200px) {
     display: none;
   }
@@ -116,13 +114,16 @@ const NavBar = () => {
         </DesktopNavList>
         <MobileMenu>
           <MobileMenuDropdown title="Topics">
-            <LinksList links={topicsLinks.filter(topic => !topic.disabled)} />
+            <LinksList
+              darkMode
+              links={topicsLinks.filter(topic => !topic.disabled)}
+            />
           </MobileMenuDropdown>
           <MobileMenuDropdown title="Treaty library">
-            <LinksList links={treatyLinks} />
+            <LinksList darkMode links={treatyLinks} />
           </MobileMenuDropdown>
           <MobileMenuDropdown title="About">
-            <LinksList links={aboutLinks} />
+            <LinksList darkMode links={aboutLinks} />
           </MobileMenuDropdown>
           <NavBarCountrySearch style={{ width: '100%', margin: '0' }} />
         </MobileMenu>

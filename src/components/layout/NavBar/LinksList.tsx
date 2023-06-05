@@ -13,7 +13,7 @@ const Li = styled.li`
   display: block;
   width: 100%;
 `
-const DropdownLink = styled(Link)`
+const DropdownLink = styled(Link)<{ darkMode?: boolean }>`
   display: block;
   width: 100%;
   padding: 5px 15px;
@@ -23,8 +23,8 @@ const DropdownLink = styled(Link)`
   text-decoration: none;
 
   &:hover {
-    background-color: ${({ theme }) => theme.ampEidLightBlue2};
-    // background-color: rgb(236, 239, 243);
+    background-color: ${({ theme, darkMode }) =>
+      darkMode ? theme.ampEidDarkBlue : theme.ampEidLightBlue2};
   }
 `
 const ComingSoon = styled.span`
@@ -45,16 +45,17 @@ interface LinksListProps {
     children: React.ReactNode
     disabled?: boolean
   }[]
+  darkMode?: boolean
 }
 
-const LinksList = ({ links }: LinksListProps) => (
+const LinksList = ({ links, darkMode }: LinksListProps) => (
   <TopicList>
     {links.map(link => (
       <Li key={link.to}>
         {link.disabled ? (
           <ComingSoon>{link.children}</ComingSoon>
         ) : (
-          <DropdownLink {...link} />
+          <DropdownLink {...link} darkMode={darkMode} />
         )}
       </Li>
     ))}
