@@ -60,7 +60,7 @@ const HomeLink = styled(NavLink)`
   margin-left: 20px;
 `
 const DesktopNavList = styled(LinkList)`
-  @media (max-width: 950px) {
+  @media (max-width: 1200px) {
     display: none;
   }
 `
