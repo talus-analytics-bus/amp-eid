@@ -72,13 +72,6 @@ const NavLogo = styled(CMS.Image)`
 const NavBar = () => {
   const data = useIndexPageData()
 
-  const aboutLinks = [
-    { to: '/about/overview/', children: 'Overview' },
-    { to: '/about/methods/', children: 'Methods' },
-    { to: '/about/api/', children: 'Data & API' },
-    { to: '/about/user-guide/', children: 'User guide' },
-  ]
-
   const topics = useTopics()
   const topicsLinks = topics.map(({ data }) => ({
     to: `/topics/${simplifyForUrl(data?.Topic ?? '')}/`,
@@ -91,6 +84,13 @@ const NavBar = () => {
     to: `/treaties/${simplifyForUrl(treaty)}`,
     children: treaty,
   }))
+
+  const aboutLinks = [
+    { to: '/about/overview/', children: 'Overview' },
+    { to: '/about/methods/', children: 'Methods' },
+    { to: '/about/api/', children: 'Data & API' },
+    { to: '/about/user-guide/', children: 'User guide' },
+  ]
 
   return (
     <Nav>
@@ -121,6 +121,10 @@ const NavBar = () => {
           <MobileMenuDropdown title="Treaty library">
             <LinksList links={treatyLinks} />
           </MobileMenuDropdown>
+          <MobileMenuDropdown title="About">
+            <LinksList links={aboutLinks} />
+          </MobileMenuDropdown>
+          <NavBarCountrySearch style={{ width: '100%', margin: '0' }} />
         </MobileMenu>
       </Container>
     </Nav>

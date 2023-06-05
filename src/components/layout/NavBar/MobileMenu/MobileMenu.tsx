@@ -12,9 +12,14 @@ const MenuContainer = styled.div`
 `
 const MobileNavContainer = styled.div`
   background-color: ${({ theme }) => theme.ampEidDarkBlue};
+  display: flex;
   flex-direction: column;
+  gap: 10px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  overflow-y: scroll;
+  padding-bottom: calc(30em + 20px);
+  max-height: calc(100vh - 70px);
 `
 interface MobileMenuProps {
   children: React.ReactNode
