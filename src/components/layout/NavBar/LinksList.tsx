@@ -16,7 +16,7 @@ const Li = styled.li`
 const DropdownLink = styled(Link)<{ darkMode?: boolean }>`
   display: block;
   width: 100%;
-  padding: 5px 15px;
+  padding: 10px 15px;
   color: ${({ theme }) => theme.black};
   color: inherit;
   text-decoration: none;
@@ -29,8 +29,7 @@ const DropdownLink = styled(Link)<{ darkMode?: boolean }>`
 const ComingSoon = styled.span`
   display: block;
   width: 100%;
-  padding: 5px 15px;
-  // color: ${({ theme }) => theme.black};
+  padding: 10px 15px;
   text-decoration: none;
 
   &:hover {
