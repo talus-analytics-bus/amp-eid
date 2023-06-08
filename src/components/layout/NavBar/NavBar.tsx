@@ -4,16 +4,16 @@ import styled from 'styled-components'
 
 import CMS from '@talus-analytics/library.airtable-cms'
 
-import MobileMenu from './MobileMenu/MobileMenu'
-
-import useIndexPageData from 'cmsHooks/useIndexPageData'
-import NavbarDropdown from './NavbarDropdown'
-import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
-import simplifyForUrl from 'utilities/simplifyForUrl'
 import LinksList from './LinksList'
-import NavBarCountrySearch from './NavBarCountrySearch'
-import useTopics from 'queryHooks/useTopics'
+import MobileMenu from './MobileMenu/MobileMenu'
+import NavbarDropdown from './NavbarDropdown'
 import MobileMenuDropdown from './MobileMenu/MobileMenuDropdown'
+import NavBarCountrySearch from './NavBarCountrySearch'
+
+import useTopics from 'queryHooks/useTopics'
+import simplifyForUrl from 'utilities/simplifyForUrl'
+import useIndexPageData from 'cmsHooks/useIndexPageData'
+import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
 
 const Nav = styled.nav`
   background-color: ${({ theme }) => theme.ampEidDarkBlue};
@@ -76,7 +76,6 @@ const NavBar = () => {
     children: data?.Topic ?? '',
     disabled: data?.Disable ?? false,
   }))
-
   const treaties = useShortTreatyNames()
   const treatyLinks = treaties.map(treaty => ({
     to: `/treaties/${simplifyForUrl(treaty)}`,
