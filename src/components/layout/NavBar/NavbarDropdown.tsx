@@ -6,6 +6,9 @@ import Dropdown from '@talus-analytics/library.ui.dropdown'
 const Container = styled.div`
   position: relative;
 `
+const ChildContainer = styled.div`
+  min-width: 400px;
+`
 const DropdownButton = styled.button<{ open: boolean }>`
   ${({ theme }) => theme.paragraph};
   border: none;
@@ -32,9 +35,9 @@ const NavbarDropdown = ({ title, children }: TopicsDropdownProps) => {
         renderButton={open => (
           <DropdownButton open={open}>{title}</DropdownButton>
         )}
-        expanderStyle={{ right: 0, top: 42, borderRadius: 5 }}
+        expanderStyle={{ right: 0, top: 52, borderRadius: 5 }}
       >
-        {children}
+        <ChildContainer>{children}</ChildContainer>
       </Dropdown>
     </Container>
   )

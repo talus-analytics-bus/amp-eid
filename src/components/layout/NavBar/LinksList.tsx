@@ -3,10 +3,8 @@ import { Link } from 'gatsby'
 import styled from 'styled-components'
 
 const TopicList = styled.ul`
-  // color: ${({ theme }) => theme.black};
   list-style: none;
   padding: 5px 0px;
-  min-width: 400px;
   margin: 0;
 `
 const Li = styled.li`
@@ -16,6 +14,7 @@ const Li = styled.li`
 const DropdownLink = styled(Link)<{ darkMode?: boolean }>`
   display: block;
   width: 100%;
+  max-width: 80vw;
   padding: 10px 15px;
   color: ${({ theme }) => theme.black};
   color: inherit;
