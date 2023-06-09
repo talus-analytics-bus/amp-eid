@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import Fuse from 'fuse.js'
 
@@ -8,6 +8,7 @@ import formatAirtableDate from 'utilities/formatDate'
 import StyledTable from 'components/ui/StyledTable'
 import { Link } from 'gatsby'
 import simplifyForUrl from 'utilities/simplifyForUrl'
+import CSVDownloadLink from 'components/ui/CSVDownloadLink'
 
 const Container = styled.div`
   display: flex;
@@ -103,6 +104,7 @@ const StatusTable = ({
     key: T
     displayName: string
     render: (val: CountryData[T] | undefined) => React.ReactNode
+    stringify: (val: CountryData[T] | undefined) => string
   }
 
   // create type to take keyos of CountryData and return Column<'key 1'> | Column<'key 2'>
@@ -111,44 +113,68 @@ const StatusTable = ({
     [key in T]: Column<key>
   }>
 
-  const columns: ColumnTypeUnion<Exclude<keyof CountryData, ''>>[] = [
-    {
-      displayName: 'Country',
-      key: 'Country',
-      render: val => {
-        const countryName = val?.[0]?.data?.Country_name
-        if (!countryName) return <></>
-        if (countryName === 'European Union') return <span>{countryName}</span>
-        return (
-          <Link to={`/countries/${simplifyForUrl(countryName)}`}>
-            {countryName}
-          </Link>
-        )
+  const columns: ColumnTypeUnion<Exclude<keyof CountryData, ''>>[] = useMemo(
+    () => [
+      {
+        displayName: 'Country',
+        key: 'Country',
+        render: val => {
+          const countryName = val?.[0]?.data?.Country_name
+          if (!countryName) return <></>
+          if (countryName === 'European Union')
+            return <span>{countryName}</span>
+          return (
+            <Link to={`/countries/${simplifyForUrl(countryName)}`}>
+              {countryName}
+            </Link>
+          )
+        },
+        stringify: val => val?.[0]?.data?.Country_name ?? '',
       },
-    },
-    {
-      displayName: 'Status',
-      key: 'Status',
-      render: val => (
-        <StatusPill status={val as unknown as Status}>{val}</StatusPill>
-      ),
-    },
-    {
-      displayName: 'Signed',
-      key: 'Date_signed',
-      render: val => (val ? formatAirtableDate(val) : ''),
-    },
-    {
-      displayName: 'Ratified',
-      key: 'Date_ratified',
-      render: val => (val ? formatAirtableDate(val) : ''),
-    },
-    {
-      displayName: 'Entered into force',
-      key: 'Date_entered_into_force',
-      render: val => (val ? formatAirtableDate(val) : ''),
-    },
-  ]
+      {
+        displayName: 'Status',
+        key: 'Status',
+        render: val => (
+          <StatusPill status={val as unknown as Status}>{val}</StatusPill>
+        ),
+        stringify: val => val ?? '',
+      },
+      {
+        displayName: 'Signed',
+        key: 'Date_signed',
+        render: val => (val ? formatAirtableDate(val) : ''),
+        stringify: val => (val ? formatAirtableDate(val) : ''),
+      },
+      {
+        displayName: 'Ratified',
+        key: 'Date_ratified',
+        render: val => (val ? formatAirtableDate(val) : ''),
+        stringify: val => (val ? formatAirtableDate(val) : ''),
+      },
+      {
+        displayName: 'Entered into force',
+        key: 'Date_entered_into_force',
+        render: val => (val ? formatAirtableDate(val) : ''),
+        stringify: val => (val ? formatAirtableDate(val) : ''),
+      },
+    ],
+    []
+  )
+
+  const csvData = useMemo(
+    () =>
+      countries.map(country => {
+        const row: { [key: string]: string } = {}
+        columns.forEach(
+          column =>
+            // @ts-expect-error: The types of col.parse
+            // and col.key are guaranteed by the types above
+            (row[column.key] = column.stringify(country?.data?.[column.key]))
+        )
+        return row
+      }),
+    [countries, columns]
+  )
 
   return (
     <Container>
@@ -186,6 +212,7 @@ const StatusTable = ({
       <PaginationControls
         {...{ page, setPage, pageSize, setPageSize, total }}
       />
+      <CSVDownloadLink csvData={csvData} />
     </Container>
   )
 }
