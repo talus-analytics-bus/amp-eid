@@ -196,8 +196,9 @@ const StatusTable = ({
     <Container>
       <CSVDownloadLink
         label="Download states parties"
-        style={{ width: 'fit-content' }}
         data={csvData}
+        filename={`AMP EID ${treatyData.data?.Document_name} states parties`}
+        style={{ width: 'fit-content', marginBottom: 8 }}
       />
       <SearchControlContainer>
         <Search

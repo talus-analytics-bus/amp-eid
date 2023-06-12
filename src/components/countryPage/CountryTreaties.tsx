@@ -135,6 +135,7 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
         data={csvData}
         label="Download treaties"
         style={{ width: 'fit-content' }}
+        filename={`AMP EID ${countryName} treaties`}
       />
       <StyledTable>
         <thead>
