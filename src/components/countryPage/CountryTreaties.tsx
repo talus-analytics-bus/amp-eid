@@ -76,16 +76,29 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
       displayName: 'Signed',
       key: 'Date_signed',
       render: val => (val ? formatAirtableDate(val) : ''),
+      stringify: val => (val ? new Date(val).toISOString().split('T')[0] : ''),
     },
     {
       displayName: 'Ratified',
       key: 'Date_ratified',
       render: val => (val ? formatAirtableDate(val) : ''),
+      stringify: val => (val ? new Date(val).toISOString().split('T')[0] : ''),
     },
     {
       displayName: 'Entered into force',
       key: 'Date_entered_into_force',
       render: val => (val ? formatAirtableDate(val) : ''),
+      stringify: val => (val ? new Date(val).toISOString().split('T')[0] : ''),
+    },
+    {
+      displayName: 'Reservations, understandings, and declarations',
+      key: 'Reservations__understandings__and_declarations',
+      stringify: val => (val && val.join(', ')) ?? '',
+    },
+    {
+      displayName: 'Reservations, understandings, and declarations text',
+      key: 'RUDs_text',
+      stringify: val => val ?? '',
     },
   ]
 
