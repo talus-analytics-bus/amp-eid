@@ -143,19 +143,22 @@ const StatusTable = ({
         displayName: 'Signed',
         key: 'Date_signed',
         render: val => (val ? formatAirtableDate(val) : ''),
-        stringify: val => (val ? formatAirtableDate(val) : ''),
+        stringify: val =>
+          val ? new Date(val).toISOString().split('T')[0] : '',
       },
       {
         displayName: 'Ratified',
         key: 'Date_ratified',
         render: val => (val ? formatAirtableDate(val) : ''),
-        stringify: val => (val ? formatAirtableDate(val) : ''),
+        stringify: val =>
+          val ? new Date(val).toISOString().split('T')[0] : '',
       },
       {
         displayName: 'Entered into force',
         key: 'Date_entered_into_force',
         render: val => (val ? formatAirtableDate(val) : ''),
-        stringify: val => (val ? formatAirtableDate(val) : ''),
+        stringify: val =>
+          val ? new Date(val).toISOString().split('T')[0] : '',
       },
     ],
     []
