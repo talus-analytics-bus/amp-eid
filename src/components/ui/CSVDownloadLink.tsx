@@ -8,8 +8,8 @@ interface CSVDownloadLinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
 }
 
 const CSVDownloadLink = memo(
-  ({ label, data: csvData, ...props }: CSVDownloadLinkProps) => {
-    const csv = Papa.unparse(csvData)
+  ({ label, data, ...props }: CSVDownloadLinkProps) => {
+    const csv = Papa.unparse(data)
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
 
     return (
