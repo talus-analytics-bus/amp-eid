@@ -178,6 +178,11 @@ const StatusTable = ({
 
   return (
     <Container>
+      <CSVDownloadLink
+        label={'States parties'}
+        style={{ width: 'fit-content' }}
+        csvData={csvData}
+      />
       <SearchControlContainer>
         <Search
           type="search"
@@ -212,7 +217,6 @@ const StatusTable = ({
       <PaginationControls
         {...{ page, setPage, pageSize, setPageSize, total }}
       />
-      <CSVDownloadLink csvData={csvData} />
     </Container>
   )
 }
