@@ -21,7 +21,7 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
     throw new Error(`Treaties not found for ${countryName}`)
 
   type TreatyData = Exclude<
-    [Exclude<(typeof treaties)[number], null>][number]['data'],
+    [Exclude<typeof treaties[number], null>][number]['data'],
     null
   >
 
@@ -41,7 +41,7 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
   interface Column<T extends keyof TreatyData> {
     key: T
     displayName: string
-    parse: (val: TreatyData[T] | undefined) => React.ReactNode
+    render: (val: TreatyData[T] | undefined) => React.ReactNode
   }
 
   // create type to take keyos of CountryData and return Column<'key 1'> | Column<'key 2'>
@@ -54,7 +54,7 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
     {
       displayName: 'Treaty',
       key: 'Treaty_name',
-      parse: val => (
+      render: val => (
         <Link
           to={`/treaties/${simplifyForUrl(
             val?.[0]?.data?.Treaty_short_name ?? '#'
@@ -67,24 +67,24 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
     {
       displayName: 'Status',
       key: 'Status',
-      parse: val => (
+      render: val => (
         <StatusPill status={val as unknown as Status}>{val}</StatusPill>
       ),
     },
     {
       displayName: 'Signed',
       key: 'Date_signed',
-      parse: val => (val ? formatAirtableDate(val) : ''),
+      render: val => (val ? formatAirtableDate(val) : ''),
     },
     {
       displayName: 'Ratified',
       key: 'Date_ratified',
-      parse: val => (val ? formatAirtableDate(val) : ''),
+      render: val => (val ? formatAirtableDate(val) : ''),
     },
     {
       displayName: 'Entered into force',
       key: 'Date_entered_into_force',
-      parse: val => (val ? formatAirtableDate(val) : ''),
+      render: val => (val ? formatAirtableDate(val) : ''),
     },
   ]
 
@@ -103,7 +103,7 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
             {columns.map(col => (
               // @ts-expect-error: The types of col.parse
               // and col.key are guaranteed by the types above
-              <td key={col.key}>{col.parse(treaty?.data?.[col.key])}</td>
+              <td key={col.key}>{col.render(treaty?.data?.[col.key])}</td>
             ))}
           </tr>
         ))}
