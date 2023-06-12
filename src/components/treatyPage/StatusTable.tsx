@@ -167,9 +167,11 @@ const StatusTable = ({
         const row: { [key: string]: string } = {}
         columns.forEach(
           column =>
-            // @ts-expect-error: The types of col.parse
-            // and col.key are guaranteed by the types above
-            (row[column.key] = column.stringify(country?.data?.[column.key]))
+            (row[column.displayName] = column.stringify(
+              // @ts-expect-error: The types of col.parse
+              // and col.key are guaranteed by the types above
+              country?.data?.[column.key]
+            ))
         )
         return row
       }),
