@@ -103,8 +103,8 @@ const StatusTable = ({
   interface Column<T extends keyof CountryData> {
     key: T
     displayName: string
-    render: (val: CountryData[T] | undefined) => React.ReactNode
-    stringify: (val: CountryData[T] | undefined) => string
+    render?: (val: CountryData[T] | undefined) => React.ReactNode
+    stringify?: (val: CountryData[T] | undefined) => string
   }
 
   // create type to take keyos of CountryData and return Column<'key 1'> | Column<'key 2'>
@@ -160,6 +160,16 @@ const StatusTable = ({
         stringify: val =>
           val ? new Date(val).toISOString().split('T')[0] : '',
       },
+      {
+        displayName: 'Reservations, understandings, and declarations',
+        key: 'Reservations__understandings__and_declarations',
+        stringify: val => (val && val.join(', ')) ?? '',
+      },
+      {
+        displayName: 'Reservations, understandings, and declarations text',
+        key: 'RUDs_text',
+        stringify: val => val ?? '',
+      },
     ],
     []
   )
@@ -170,6 +180,7 @@ const StatusTable = ({
         const row: { [key: string]: string } = {}
         columns.forEach(
           column =>
+            column.stringify &&
             (row[column.displayName] = column.stringify(
               // @ts-expect-error: The types of col.parse
               // and col.key are guaranteed by the types above
@@ -202,19 +213,27 @@ const StatusTable = ({
       <StyledTable>
         <thead>
           <tr>
-            {columns.map(col => (
-              <th key={col.displayName}>{col.displayName}</th>
-            ))}
+            {columns.map(
+              col =>
+                col.render && <th key={col.displayName}>{col.displayName}</th>
+            )}
           </tr>
         </thead>
         <tbody>
           {paginated.map(country => (
             <tr key={country?.data?.Country?.[0]?.data?.Country_name}>
-              {columns.map(col => (
-                // @ts-expect-error: The types of col.parse
-                // and col.key are guaranteed by the types above
-                <td key={col.key}>{col.render(country?.data?.[col.key])}</td>
-              ))}
+              {columns.map(
+                col =>
+                  col.render && (
+                    <td key={col.key}>
+                      {
+                        // @ts-expect-error: The types of col.parse
+                        // and col.key are guaranteed by the types above
+                        col.render(country?.data?.[col.key])
+                      }
+                    </td>
+                  )
+              )}
             </tr>
           ))}
         </tbody>

@@ -143,6 +143,8 @@ export const query = graphql`
           data {
             Status
             Date_entered_into_force
+            Reservations__understandings__and_declarations
+            RUDs_text
             Date_ratified
             Date_signed
             Country {
