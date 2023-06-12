@@ -41,7 +41,8 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
   interface Column<T extends keyof TreatyData> {
     key: T
     displayName: string
-    render: (val: TreatyData[T] | undefined) => React.ReactNode
+    render?: (val: TreatyData[T] | undefined) => React.ReactNode
+    stringify?: (val: TreatyData[T] | undefined) => string
   }
 
   // create type to take keyos of CountryData and return Column<'key 1'> | Column<'key 2'>
@@ -92,19 +93,23 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
     <StyledTable>
       <thead>
         <tr>
-          {columns.map(col => (
-            <th key={col.displayName}>{col.displayName}</th>
-          ))}
+          {columns.map(
+            col =>
+              col.render && <th key={col.displayName}>{col.displayName}</th>
+          )}
         </tr>
       </thead>
       <tbody>
         {sortedTreaties.map(treaty => (
           <tr key={treaty?.data?.Treaty_name?.[0]?.data?.Treaty_short_name}>
-            {columns.map(col => (
-              // @ts-expect-error: The types of col.parse
-              // and col.key are guaranteed by the types above
-              <td key={col.key}>{col.render(treaty?.data?.[col.key])}</td>
-            ))}
+            {columns.map(
+              col =>
+                col.render && (
+                  // @ts-expect-error: The types of col.parse
+                  // and col.key are guaranteed by the types above
+                  <td key={col.key}>{col.render(treaty?.data?.[col.key])}</td>
+                )
+            )}
           </tr>
         ))}
       </tbody>
