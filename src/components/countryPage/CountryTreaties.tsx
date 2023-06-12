@@ -133,7 +133,7 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
     <>
       <CSVDownloadLink
         data={csvData}
-        label="States parties"
+        label="Download treaties"
         style={{ width: 'fit-content' }}
       />
       <StyledTable>

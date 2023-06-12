@@ -195,7 +195,7 @@ const StatusTable = ({
   return (
     <Container>
       <CSVDownloadLink
-        label={'States parties'}
+        label="Download states parties"
         style={{ width: 'fit-content' }}
         data={csvData}
       />
