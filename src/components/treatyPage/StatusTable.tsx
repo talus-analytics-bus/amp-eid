@@ -197,7 +197,7 @@ const StatusTable = ({
       <CSVDownloadLink
         label={'States parties'}
         style={{ width: 'fit-content' }}
-        csvData={csvData}
+        data={csvData}
       />
       <SearchControlContainer>
         <Search

@@ -4,11 +4,11 @@ import ButtonLink from './ButtonLink'
 
 interface CSVDownloadLinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
   label: React.ReactNode
-  csvData: { [key: string]: string }[]
+  data: { [key: string]: string }[]
 }
 
 const CSVDownloadLink = memo(
-  ({ label, csvData, ...props }: CSVDownloadLinkProps) => {
+  ({ label, data: csvData, ...props }: CSVDownloadLinkProps) => {
     const csv = Papa.unparse(csvData)
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
 

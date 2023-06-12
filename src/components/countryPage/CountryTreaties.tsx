@@ -132,7 +132,7 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
   return (
     <>
       <CSVDownloadLink
-        csvData={csvData}
+        data={csvData}
         label="States parties"
         style={{ width: 'fit-content' }}
       />
