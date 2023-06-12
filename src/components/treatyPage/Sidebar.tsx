@@ -1,3 +1,4 @@
+import ButtonLink from 'components/ui/ButtonLink'
 import Thumbnail from 'components/ui/DocumentThumbnail'
 import ThumbnailHolder from 'components/ui/ThumbnailHolder'
 import React from 'react'
@@ -8,20 +9,6 @@ const Container = styled.section`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-`
-const ButtonLink = styled.a`
-  ${({ theme }) => theme.paragraph};
-  color: ${({ theme }) => theme.white};
-  text-decoration: none;
-  background: linear-gradient(
-    180deg,
-    rgba(69, 128, 162, 0.85) 0%,
-    #4580a2 100%
-  );
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin-top: 20px;
-  display: block;
 `
 
 const Sidebar = ({
