@@ -1,0 +1,51 @@
+import CSVDownloadLink from 'components/ui/CSVDownloadLink'
+import React, { memo } from 'react'
+
+interface SubtopicDataDownloadProps {
+  topic: string
+  subtopics: Queries.TopicPageQuery['subtopics']
+}
+
+const SubtopicDataDownload = memo(
+  ({ topic, subtopics }: SubtopicDataDownloadProps) => {
+    const data: { [key: string]: string }[] = []
+
+    const statusNames = subtopics.nodes?.[0]?.data?.Subtopic_define_status_link
+    if (!statusNames) throw new Error('Missing status definitions')
+
+    const statusNamesMap: { [key: string]: string } = statusNames.reduce(
+      (acc, status) =>
+        status?.data?.Map_color
+          ? {
+              ...acc,
+              [status.data.Map_color]: status?.data?.Status ?? '',
+            }
+          : acc,
+      {}
+    )
+
+    subtopics.nodes?.forEach(subtopic => {
+      subtopic.data?.Subtopic_assign_status_link?.forEach(country => {
+        data.push({
+          Subtopic: subtopic.data?.Subtopic ?? '',
+          Country: country?.data?.Country?.[0]?.data?.ISO3 ?? '',
+          Status:
+            statusNamesMap[
+              country?.data?.Status_link?.[0]?.data?.Map_color ?? ''
+            ],
+          'Status justification': country?.data?.Status_justification ?? '',
+        })
+      })
+    })
+
+    return (
+      <CSVDownloadLink
+        filename={`AMP EID ${topic}`}
+        label="Download topic data"
+        data={data}
+      />
+    )
+  }
+)
+
+export default SubtopicDataDownload
