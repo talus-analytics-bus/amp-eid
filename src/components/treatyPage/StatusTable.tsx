@@ -9,6 +9,7 @@ import StyledTable from 'components/ui/StyledTable'
 import { Link } from 'gatsby'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import CSVDownloadLink from 'components/ui/CSVDownloadLink'
+import StatusPill, { isStatus } from 'components/ui/StatusPill'
 
 const Container = styled.div`
   display: flex;
@@ -26,29 +27,6 @@ const Search = styled.input`
   border-radius: 5px;
   width: 40%;
   min-width: 300px;
-`
-
-export enum Status {
-  Party = 'Party',
-  Member = 'Member',
-  Observer = 'Observer',
-  Signatory = 'Signatory',
-  'Non-party' = 'Non-party',
-  'Associate Member' = 'Associate Member',
-}
-
-export const StatusPill = styled.span<{ status: Status }>`
-  padding: 2px 10px;
-  border-radius: 15px;
-  background: ${({ theme, status }) =>
-    ({
-      [Status.Party]: theme.option3Lighter,
-      [Status.Member]: theme.option1Lighter,
-      [Status.Observer]: theme.option1Lighter,
-      [Status.Signatory]: theme.option4Lighter,
-      [Status['Non-party']]: theme.option5Lighter,
-      [Status['Associate Member']]: theme.option2Lighter,
-    }[status] ?? theme.veryLightGray)};
 `
 
 const StatusTable = ({
@@ -98,9 +76,8 @@ const StatusTable = ({
       {
         displayName: 'Status',
         key: 'Status',
-        render: val => (
-          <StatusPill status={val as unknown as Status}>{val}</StatusPill>
-        ),
+        render: val =>
+          isStatus(val) && <StatusPill status={val}>{val}</StatusPill>,
         stringify: val => val ?? '',
         sort: (a, b) => {
           console.log({ a, b })

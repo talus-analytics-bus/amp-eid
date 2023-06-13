@@ -1,5 +1,5 @@
-import { Status, StatusPill } from 'components/treatyPage/StatusTable'
 import CSVDownloadLink from 'components/ui/CSVDownloadLink'
+import StatusPill, { isStatus } from 'components/ui/StatusPill'
 import StyledTable from 'components/ui/StyledTable'
 import { Link } from 'gatsby'
 import React, { useMemo } from 'react'
@@ -71,9 +71,8 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
       {
         displayName: 'Status',
         key: 'Status',
-        render: val => (
-          <StatusPill status={val as unknown as Status}>{val}</StatusPill>
-        ),
+        render: val =>
+          isStatus(val) && <StatusPill status={val}>{val}</StatusPill>,
         stringify: val => val ?? '',
       },
       {
