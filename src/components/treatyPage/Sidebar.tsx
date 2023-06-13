@@ -1,5 +1,6 @@
 import ButtonLink from 'components/ui/ButtonLink'
 import Thumbnail from 'components/ui/DocumentThumbnail'
+import DownloadIcon from 'components/ui/DownloadIcon'
 import ThumbnailHolder from 'components/ui/ThumbnailHolder'
 import React from 'react'
 import styled from 'styled-components'
@@ -40,6 +41,7 @@ const Sidebar = ({
         />
       </ThumbnailHolder>
       <ButtonLink href={fileData.publicURL}>
+        <DownloadIcon />
         Download treaty ({fileData.ext.toUpperCase().replace('.', '')},{' '}
         {fileData.prettySize})
       </ButtonLink>
