@@ -469,7 +469,6 @@ const SchemaSection = styled.div`
   font-family: monospace;
   font-size: 14px;
 `
-
 const SchemaButton = styled.button`
   background: none;
   border: none;
@@ -477,10 +476,6 @@ const SchemaButton = styled.button`
   padding: 3px 5px;
   font-size: 16px;
   font-family: monospace;
-`
-
-const Name = styled.p`
-  margin: 0;
 `
 const Type = styled.p`
   margin: 0;
