@@ -91,12 +91,12 @@ const Description = styled(RenderCMSRichText)`
 // treatyData: Exclude<Queries.TreatyPageQuery['treaty'], null>
 interface DocumentInfoSectionProps {
   document: Exclude<Queries.DocumentPageQuery['document'], null>
-  treatyPage: boolean
+  treatyPage?: boolean
 }
 
 const DocumentInfoSection = ({
   document: treatyData,
-  treatyPage,
+  treatyPage = false,
 }: DocumentInfoSectionProps) => {
   const fileData = treatyData.data?.PDF?.localFiles?.[0]
 
