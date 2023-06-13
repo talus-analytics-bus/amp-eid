@@ -79,7 +79,7 @@ const TripsPage = ({
               {topic}
             </h1>
             <Date>
-              Last updated{' '}
+              Data last updated{' '}
               {formatAirtableDate(data.topic.data.Last_updated ?? '')}
             </Date>
           </DateHolder>
