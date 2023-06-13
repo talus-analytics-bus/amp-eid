@@ -66,52 +66,12 @@ const StatusTable = ({
   const [pageSize, setPageSize] = useState(10)
   const [searchTerm, setSearchTerm] = useState('')
 
-  type Writeable<T> = { -readonly [P in keyof T]: T[P] }
-  type countriesMutable = Writeable<typeof countryList>
-  const countries = countryList as unknown as countriesMutable
+  const [sortColumn, setSortColumn] = useState<{
+    column: keyof CountryData
+    reverse: boolean
+  }>({ column: 'Country', reverse: false })
 
-  let sorted: typeof countries
-
-  const fuse = new Fuse(countries, {
-    keys: [
-      {
-        name: 'name',
-        getFn: country => country?.data?.Country?.[0]?.data?.Country_name ?? '',
-      },
-    ],
-  })
-
-  if (searchTerm === '')
-    sorted = countries.sort(
-      (a, b) =>
-        a?.data?.Country?.[0]?.data?.Country_name?.localeCompare(
-          b?.data?.Country?.[0]?.data?.Country_name ?? ''
-        ) ?? -1
-    )
-  else sorted = fuse.search(searchTerm).map(result => result.item)
-
-  const total = sorted.length
-  const paginated = sorted.slice(page * pageSize, page * pageSize + pageSize)
-
-  type CountryData = Exclude<
-    [Exclude<typeof countryList[number], null>][number]['data'],
-    null
-  >
-
-  // This approach adapted from:
-  // https://stackoverflow.com/questions/50870423/discriminated-union-of-generic-type
-  interface Column<T extends keyof CountryData> {
-    key: T
-    displayName: string
-    render?: (val: CountryData[T] | undefined) => React.ReactNode
-    stringify?: (val: CountryData[T] | undefined) => string
-  }
-
-  // create type to take keyos of CountryData and return Column<'key 1'> | Column<'key 2'>
-  type ConvertToUnion<T> = T[keyof T]
-  type ColumnTypeUnion<T extends keyof CountryData> = ConvertToUnion<{
-    [key in T]: Column<key>
-  }>
+  const countries = [...countryList]
 
   const columns: ColumnTypeUnion<Exclude<keyof CountryData, ''>>[] = useMemo(
     () => [
@@ -130,6 +90,10 @@ const StatusTable = ({
           )
         },
         stringify: val => val?.[0]?.data?.Country_name ?? '',
+        sort: (a, b) =>
+          a?.[0]?.data?.Country_name?.localeCompare(
+            b?.[0]?.data?.Country_name ?? ''
+          ) ?? -1,
       },
       {
         displayName: 'Status',
@@ -138,6 +102,23 @@ const StatusTable = ({
           <StatusPill status={val as unknown as Status}>{val}</StatusPill>
         ),
         stringify: val => val ?? '',
+        sort: (a, b) => {
+          console.log({ a, b })
+          return a && b ? a.localeCompare(b ?? '') : -1
+        },
+      },
+      {
+        displayName: 'Reservations, understandings, and declarations',
+        key: 'Reservations__understandings__and_declarations',
+        stringify: val => (val && val.join(', ')) ?? '',
+        sort: (a, b) =>
+          a && b ? a.join(', ').localeCompare(b.join(', ') ?? '') : -1,
+      },
+      {
+        displayName: 'Reservations, understandings, and declarations text',
+        key: 'RUDs_text',
+        stringify: val => val ?? '',
+        sort: (a, b) => (a && b ? a.localeCompare(b ?? '') : -1),
       },
       {
         displayName: 'Signed',
@@ -145,6 +126,8 @@ const StatusTable = ({
         render: val => (val ? formatAirtableDate(val) : ''),
         stringify: val =>
           val ? new Date(val).toISOString().split('T')[0] : '',
+        sort: (a, b) =>
+          !a ? -1 : !b ? 1 : new Date(a).getTime() - new Date(b).getTime(),
       },
       {
         displayName: 'Ratified',
@@ -152,6 +135,8 @@ const StatusTable = ({
         render: val => (val ? formatAirtableDate(val) : ''),
         stringify: val =>
           val ? new Date(val).toISOString().split('T')[0] : '',
+        sort: (a, b) =>
+          !a ? -1 : !b ? 1 : new Date(a).getTime() - new Date(b).getTime(),
       },
       {
         displayName: 'Entered into force',
@@ -159,24 +144,85 @@ const StatusTable = ({
         render: val => (val ? formatAirtableDate(val) : ''),
         stringify: val =>
           val ? new Date(val).toISOString().split('T')[0] : '',
+        sort: (a, b) =>
+          !a ? -1 : !b ? 1 : new Date(a).getTime() - new Date(b).getTime(),
       },
       {
         displayName: 'Reservations, understandings, and declarations',
         key: 'Reservations__understandings__and_declarations',
         stringify: val => (val && val.join(', ')) ?? '',
+        sort: (a, b) =>
+          a && b ? a.join(', ').localeCompare(b.join(', ') ?? '') : -1,
       },
       {
         displayName: 'Reservations, understandings, and declarations text',
         key: 'RUDs_text',
         stringify: val => val ?? '',
+        sort: (a, b) => (a && b ? a.localeCompare(b ?? '') : -1),
       },
     ],
     []
   )
 
+  let sorted: typeof countries
+
+  const fuse = new Fuse(countries, {
+    keys: [
+      {
+        name: 'name',
+        getFn: country => country?.data?.Country?.[0]?.data?.Country_name ?? '',
+      },
+    ],
+  })
+
+  if (searchTerm === '') {
+    const sortFunction = columns.find(
+      col => col.key === sortColumn.column
+    )?.sort
+
+    sorted = sortFunction
+      ? countries.sort((dataA, dataB) =>
+          sortFunction(
+            // @ts-expect-error: The types of a, b, and the
+            // sort funtion are guaranteed by the types above
+            dataA?.data?.[sortColumn.column],
+            dataB?.data?.[sortColumn.column]
+          )
+        )
+      : countries
+    if (sortColumn.reverse) sorted = sorted.reverse()
+  } else sorted = fuse.search(searchTerm).map(result => result.item)
+
+  const total = sorted.length
+  const paginated = sorted.slice(page * pageSize, page * pageSize + pageSize)
+
+  type CountryData = Exclude<
+    [Exclude<typeof countryList[number], null>][number]['data'],
+    null
+  >
+
+  // This approach adapted from:
+  // https://stackoverflow.com/questions/50870423/discriminated-union-of-generic-type
+  interface Column<T extends keyof CountryData> {
+    key: T
+    displayName: string
+    render?: (val: CountryData[T] | undefined) => React.ReactNode
+    stringify: (val: CountryData[T] | undefined) => string
+    sort?: (
+      a: CountryData[T] | undefined,
+      b: CountryData[T] | undefined
+    ) => number
+  }
+
+  // create type to take keyos of CountryData and return Column<'key 1'> | Column<'key 2'>
+  type ConvertToUnion<T> = T[keyof T]
+  type ColumnTypeUnion<T extends keyof CountryData> = ConvertToUnion<{
+    [key in T]: Column<key>
+  }>
+
   const csvData = useMemo(
     () =>
-      countries.map(country => {
+      countryList.map(country => {
         const row: { [key: string]: string } = {}
         columns.forEach(
           column =>
@@ -189,8 +235,31 @@ const StatusTable = ({
         )
         return row
       }),
-    [countries, columns]
+    [countryList, columns]
   )
+
+  function isColumnKey(colKey: string): colKey is keyof CountryData {
+    return Object.keys(countryList?.[0]?.data ?? {}).includes(colKey)
+  }
+
+  const handleColumnClick = (colKey: string) => {
+    setPage(0)
+    setSearchTerm('')
+
+    if (!isColumnKey(colKey)) return
+
+    setSortColumn(prev => {
+      if (prev.column === colKey)
+        return {
+          column: colKey,
+          reverse: !prev.reverse,
+        }
+      return {
+        column: colKey,
+        reverse: false,
+      }
+    })
+  }
 
   return (
     <Container>
@@ -216,7 +285,14 @@ const StatusTable = ({
           <tr>
             {columns.map(
               col =>
-                col.render && <th key={col.displayName}>{col.displayName}</th>
+                col.render && (
+                  <th
+                    onClick={() => handleColumnClick(col.key)}
+                    key={col.displayName}
+                  >
+                    {col.displayName}
+                  </th>
+                )
             )}
           </tr>
         </thead>
@@ -226,7 +302,7 @@ const StatusTable = ({
               {columns.map(
                 col =>
                   col.render && (
-                    <td key={col.key}>
+                    <td key={col.displayName}>
                       {
                         // @ts-expect-error: The types of col.parse
                         // and col.key are guaranteed by the types above
