@@ -94,9 +94,9 @@ const StyledLink = styled.a`
 `
 
 enum SchemaObjectTypes {
-  Object,
-  Array,
-  String,
+  Object = 'object',
+  Array = 'array',
+  String = 'string',
 }
 
 const schema = {
