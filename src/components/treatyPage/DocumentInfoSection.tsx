@@ -88,16 +88,20 @@ const Description = styled(RenderCMSRichText)`
   }
 `
 
-// treatyData: Exclude<Queries.TreatyPageQuery['treaty'], null>
 interface DocumentInfoSectionProps {
   document: Exclude<Queries.DocumentPageQuery['document'], null>
-  treatyPage?: boolean
+  treatyPage?: false | undefined
+}
+
+interface TreatyInfoSectionProps {
+  document: Exclude<Queries.TreatyPageQuery['treaty'], null>
+  treatyPage: true
 }
 
 const DocumentInfoSection = ({
   document: treatyData,
-  treatyPage = false,
-}: DocumentInfoSectionProps) => {
+  treatyPage,
+}: DocumentInfoSectionProps | TreatyInfoSectionProps) => {
   const fileData = treatyData.data?.PDF?.localFiles?.[0]
 
   if (treatyPage && !treatyData.data?.Document_description)
@@ -128,12 +132,16 @@ const DocumentInfoSection = ({
     }
   }
 
-  const applicableCountries = treatyData?.data?.All_applicable_countries
+  // handle document page specific metadata
+  let applicableCountries, topics, subtopics, relevantArticles
+  if (!treatyPage) {
+    applicableCountries = treatyData?.data?.All_applicable_countries
 
-  const topics = treatyData.data?.Document_topic_link
-  const subtopics = treatyData.data?.Document_subtopic_link
+    topics = treatyData.data?.Document_topic_link
+    subtopics = treatyData.data?.Document_subtopic_link
 
-  const relevantArticles = treatyData.data?.Chaper__Section_or_Article?.trim()
+    relevantArticles = treatyData.data?.Chaper__Section_or_Article?.trim()
+  }
 
   return (
     <Container>
