@@ -1,5 +1,18 @@
-import CSVDownloadLink from 'components/ui/CSVDownloadLink'
 import React, { memo } from 'react'
+import styled from 'styled-components'
+import ColumnSection from 'components/layout/ColumnSection'
+import CSVDownloadLink from 'components/ui/CSVDownloadLink'
+
+const H3 = styled.h3`
+  ${({ theme }) => theme.h2};
+  color: ${({ theme }) => theme.black};
+  margin: 0;
+`
+const P = styled.p`
+  ${({ theme }) => theme.paragraph};
+  color: ${({ theme }) => theme.black};
+  margin: 0;
+`
 
 interface SubtopicDataDownloadProps {
   topic: string
@@ -39,11 +52,23 @@ const SubtopicDataDownload = memo(
     })
 
     return (
-      <CSVDownloadLink
-        filename={`AMP EID ${topic}`}
-        label="Download topic data"
-        data={data}
-      />
+      <ColumnSection rowReverse>
+        <div>
+          <H3>Download</H3>
+        </div>
+        <div>
+          <P>
+            Download a CSV of the country information that is displayed in the
+            map above.
+          </P>
+          <CSVDownloadLink
+            filename={`AMP EID ${topic}`}
+            label="Download topic data"
+            data={data}
+            style={{ maxWidth: 'fit-content', margin: 0 }}
+          />
+        </div>
+      </ColumnSection>
     )
   }
 )
