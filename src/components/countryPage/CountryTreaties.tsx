@@ -2,7 +2,7 @@ import CSVDownloadLink from 'components/ui/CSVDownloadLink'
 import StatusPill, { isStatus } from 'components/ui/StatusPill'
 import StyledTable from 'components/ui/StyledTable'
 import { Link } from 'gatsby'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import formatAirtableDate from 'utilities/formatDate'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 
@@ -20,6 +20,11 @@ interface CountryTreatiesProps {
 const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
   if (!treaties || treaties.length === 0)
     throw new Error(`Treaties not found for ${countryName}`)
+
+  const [sortColumn, setSortColumn] = useState<{
+    column: keyof TreatyData
+    reverse: boolean
+  }>({ column: 'Treaty_name', reverse: false })
 
   const flatTreaties = treaties.map(treaty => treaty?.data)
   type TreatyData = Exclude<typeof flatTreaties[number], null | undefined>
@@ -115,12 +120,37 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
     []
   )
 
-  const sortedTreaties = flatTreaties.sort(
-    (a, b) =>
-      a?.Treaty_name?.[0]?.data?.Treaty_short_name?.localeCompare(
-        b?.Treaty_name?.[0]?.data?.Treaty_short_name ?? ''
-      ) ?? -1
-  )
+  const sortFunction = columns.find(col => col.key === sortColumn.column)?.sort
+
+  const sortedTreaties = sortFunction
+    ? flatTreaties.sort((dataA, dataB) =>
+        // @ts-expect-error: The types of a, b, and the
+        // sort funtion are guaranteed by the types above
+        sortFunction(dataA?.[sortColumn.column], dataB?.[sortColumn.column])
+      )
+    : flatTreaties
+
+  if (sortColumn.reverse) sortedTreaties.reverse()
+
+  function isColumnKey(colKey: string): colKey is keyof TreatyData {
+    return Object.keys(treaties?.[0]?.data ?? {}).includes(colKey)
+  }
+
+  const handleColumnClick = (colKey: string) => {
+    if (!isColumnKey(colKey)) return
+
+    setSortColumn(prev => {
+      if (prev.column === colKey)
+        return {
+          column: colKey,
+          reverse: !prev.reverse,
+        }
+      return {
+        column: colKey,
+        reverse: false,
+      }
+    })
+  }
 
   const csvData = useMemo(
     () =>
@@ -153,7 +183,14 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
           <tr>
             {columns.map(
               col =>
-                col.render && <th key={col.displayName}>{col.displayName}</th>
+                col.render && (
+                  <th
+                    key={col.displayName}
+                    onClick={() => handleColumnClick(col.key)}
+                  >
+                    {col.displayName}
+                  </th>
+                )
             )}
           </tr>
         </thead>
