@@ -162,7 +162,7 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
             (row[column.displayName] = column.stringify(
               // @ts-expect-error: The types of col.parse
               // and col.key are guaranteed by the types above
-              treaty?.data?.[column.key]
+              treaty?.[column.key]
             ))
         )
         return row
