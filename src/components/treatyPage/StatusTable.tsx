@@ -49,9 +49,30 @@ const StatusTable = ({
     reverse: boolean
   }>({ column: 'Country', reverse: false })
 
-  const countries = [...countryList]
+  const flatCountries = countryList.map(country => country?.data)
 
-  const columns: ColumnTypeUnion<Exclude<keyof CountryData, ''>>[] = useMemo(
+  type CountryData = Exclude<typeof flatCountries[number], null | undefined>
+
+  // This approach adapted from:
+  // https://stackoverflow.com/questions/50870423/discriminated-union-of-generic-type
+  interface SingleColumn<T extends keyof CountryData> {
+    key: T
+    displayName: string
+    render?: (val: CountryData[T] | undefined) => React.ReactNode
+    stringify: (val: CountryData[T] | undefined) => string
+    sort?: (
+      a: CountryData[T] | undefined,
+      b: CountryData[T] | undefined
+    ) => number
+  }
+
+  // create type to take keys of CountryData and return Column<'key 1'> | Column<'key 2'>
+  type ConvertToUnion<T> = T[keyof T]
+  type ColumnTypeUnion<T extends keyof CountryData> = ConvertToUnion<{
+    [key in T]: SingleColumn<key>
+  }>
+
+  const columns: ColumnTypeUnion<keyof CountryData>[] = useMemo(
     () => [
       {
         displayName: 'Country',
@@ -80,7 +101,6 @@ const StatusTable = ({
           isStatus(val) && <StatusPill status={val}>{val}</StatusPill>,
         stringify: val => val ?? '',
         sort: (a, b) => {
-          console.log({ a, b })
           return a && b ? a.localeCompare(b ?? '') : -1
         },
       },
@@ -89,13 +109,13 @@ const StatusTable = ({
         key: 'Reservations__understandings__and_declarations',
         stringify: val => (val && val.join(', ')) ?? '',
         sort: (a, b) =>
-          a && b ? a.join(', ').localeCompare(b.join(', ') ?? '') : -1,
+          !a ? -1 : !b ? 1 : a.join(', ').localeCompare(b.join(', ') ?? ''),
       },
       {
         displayName: 'Reservations, understandings, and declarations text',
         key: 'RUDs_text',
         stringify: val => val ?? '',
-        sort: (a, b) => (a && b ? a.localeCompare(b ?? '') : -1),
+        sort: (a, b) => (!a ? -1 : !b ? 1 : a.localeCompare(b ?? '')),
       },
       {
         displayName: 'Signed',
@@ -129,28 +149,28 @@ const StatusTable = ({
         key: 'Reservations__understandings__and_declarations',
         stringify: val => (val && val.join(', ')) ?? '',
         sort: (a, b) =>
-          a && b ? a.join(', ').localeCompare(b.join(', ') ?? '') : -1,
+          !a ? -1 : !b ? 1 : a.join(', ').localeCompare(b.join(', ') ?? ''),
       },
       {
         displayName: 'Reservations, understandings, and declarations text',
         key: 'RUDs_text',
         stringify: val => val ?? '',
-        sort: (a, b) => (a && b ? a.localeCompare(b ?? '') : -1),
+        sort: (a, b) => (!a ? -1 : !b ? 1 : a.localeCompare(b)),
       },
     ],
     []
   )
 
-  let sorted: typeof countries
-
-  const fuse = new Fuse(countries, {
+  const fuse = new Fuse(flatCountries, {
     keys: [
       {
         name: 'name',
-        getFn: country => country?.data?.Country?.[0]?.data?.Country_name ?? '',
+        getFn: country => country?.Country?.[0]?.data?.Country_name ?? '',
       },
     ],
   })
+
+  let sorted: typeof flatCountries
 
   if (searchTerm === '') {
     const sortFunction = columns.find(
@@ -158,44 +178,20 @@ const StatusTable = ({
     )?.sort
 
     sorted = sortFunction
-      ? countries.sort((dataA, dataB) =>
+      ? flatCountries.sort((dataA, dataB) =>
           sortFunction(
             // @ts-expect-error: The types of a, b, and the
             // sort funtion are guaranteed by the types above
-            dataA?.data?.[sortColumn.column],
-            dataB?.data?.[sortColumn.column]
+            dataA?.[sortColumn.column],
+            dataB?.[sortColumn.column]
           )
         )
-      : countries
+      : flatCountries
     if (sortColumn.reverse) sorted = sorted.reverse()
   } else sorted = fuse.search(searchTerm).map(result => result.item)
 
   const total = sorted.length
   const paginated = sorted.slice(page * pageSize, page * pageSize + pageSize)
-
-  type CountryData = Exclude<
-    [Exclude<typeof countryList[number], null>][number]['data'],
-    null
-  >
-
-  // This approach adapted from:
-  // https://stackoverflow.com/questions/50870423/discriminated-union-of-generic-type
-  interface Column<T extends keyof CountryData> {
-    key: T
-    displayName: string
-    render?: (val: CountryData[T] | undefined) => React.ReactNode
-    stringify: (val: CountryData[T] | undefined) => string
-    sort?: (
-      a: CountryData[T] | undefined,
-      b: CountryData[T] | undefined
-    ) => number
-  }
-
-  // create type to take keyos of CountryData and return Column<'key 1'> | Column<'key 2'>
-  type ConvertToUnion<T> = T[keyof T]
-  type ColumnTypeUnion<T extends keyof CountryData> = ConvertToUnion<{
-    [key in T]: Column<key>
-  }>
 
   const csvData = useMemo(
     () =>
@@ -207,13 +203,15 @@ const StatusTable = ({
             (row[column.displayName] = column.stringify(
               // @ts-expect-error: The types of col.parse
               // and col.key are guaranteed by the types above
-              country?.data?.[column.key]
+              country[column.key]
             ))
         )
         return row
       }),
     [countryList, columns]
   )
+
+  console.log(sorted)
 
   function isColumnKey(colKey: string): colKey is keyof CountryData {
     return Object.keys(countryList?.[0]?.data ?? {}).includes(colKey)
@@ -275,7 +273,7 @@ const StatusTable = ({
         </thead>
         <tbody>
           {paginated.map(country => (
-            <tr key={country?.data?.Country?.[0]?.data?.Country_name}>
+            <tr key={country?.Country?.[0]?.data?.Country_name}>
               {columns.map(
                 col =>
                   col.render && (
@@ -283,7 +281,7 @@ const StatusTable = ({
                       {
                         // @ts-expect-error: The types of col.parse
                         // and col.key are guaranteed by the types above
-                        col.render(country?.data?.[col.key])
+                        col.render(country[col.key])
                       }
                     </td>
                   )
