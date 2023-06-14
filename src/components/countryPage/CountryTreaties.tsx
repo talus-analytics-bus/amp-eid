@@ -21,21 +21,8 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
   if (!treaties || treaties.length === 0)
     throw new Error(`Treaties not found for ${countryName}`)
 
-  type TreatyData = Exclude<
-    [Exclude<typeof treaties[number], null>][number]['data'],
-    null
-  >
-
-  type Writeable<T> = { -readonly [P in keyof T]: T[P] }
-
-  const readTreaties = treaties as Writeable<typeof treaties>
-
-  const sortedTreaties = readTreaties.sort(
-    (a, b) =>
-      a?.data?.Treaty_name?.[0]?.data?.Treaty_short_name?.localeCompare(
-        b?.data?.Treaty_name?.[0]?.data?.Treaty_short_name ?? ''
-      ) ?? -1
-  )
+  const flatTreaties = treaties.map(treaty => treaty?.data)
+  type TreatyData = Exclude<typeof flatTreaties[number], null | undefined>
 
   // This approach adapted from:
   // https://stackoverflow.com/questions/50870423/discriminated-union-of-generic-type
@@ -43,7 +30,11 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
     key: T
     displayName: string
     render?: (val: TreatyData[T] | undefined) => React.ReactNode
-    stringify?: (val: TreatyData[T] | undefined) => string
+    stringify: (val: TreatyData[T] | undefined) => string
+    sort?: (
+      a: TreatyData[T] | undefined,
+      b: TreatyData[T] | undefined
+    ) => number
   }
 
   // create type to take keyos of CountryData and return Column<'key 1'> | Column<'key 2'>
@@ -67,6 +58,10 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
           </Link>
         ),
         stringify: val => val?.[0]?.data?.Treaty_short_name ?? '',
+        sort: (a, b) =>
+          a?.[0]?.data?.Treaty_short_name?.localeCompare(
+            b?.[0]?.data?.Treaty_short_name ?? ''
+          ) ?? -1,
       },
       {
         displayName: 'Status',
@@ -74,6 +69,7 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
         render: val =>
           isStatus(val) && <StatusPill status={val}>{val}</StatusPill>,
         stringify: val => val ?? '',
+        sort: (a, b) => (!a ? -1 : !b ? 1 : a.localeCompare(b)),
       },
       {
         displayName: 'Signed',
@@ -81,6 +77,8 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
         render: val => (val ? formatAirtableDate(val) : ''),
         stringify: val =>
           val ? new Date(val).toISOString().split('T')[0] : '',
+        sort: (a, b) =>
+          !a ? -1 : !b ? 1 : new Date(a).getTime() - new Date(b).getTime(),
       },
       {
         displayName: 'Ratified',
@@ -88,6 +86,8 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
         render: val => (val ? formatAirtableDate(val) : ''),
         stringify: val =>
           val ? new Date(val).toISOString().split('T')[0] : '',
+        sort: (a, b) =>
+          !a ? -1 : !b ? 1 : new Date(a).getTime() - new Date(b).getTime(),
       },
       {
         displayName: 'Entered into force',
@@ -95,19 +95,31 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
         render: val => (val ? formatAirtableDate(val) : ''),
         stringify: val =>
           val ? new Date(val).toISOString().split('T')[0] : '',
+        sort: (a, b) =>
+          !a ? -1 : !b ? 1 : new Date(a).getTime() - new Date(b).getTime(),
       },
       {
         displayName: 'Reservations, understandings, and declarations',
         key: 'Reservations__understandings__and_declarations',
         stringify: val => (val && val.join(', ')) ?? '',
+        sort: (a, b) =>
+          !a ? -1 : !b ? 1 : a.join(', ').localeCompare(b.join(', ') ?? ''),
       },
       {
         displayName: 'Reservations, understandings, and declarations text',
         key: 'RUDs_text',
         stringify: val => val ?? '',
+        sort: (a, b) => (!a ? -1 : !b ? 1 : a.localeCompare(b)),
       },
     ],
     []
+  )
+
+  const sortedTreaties = flatTreaties.sort(
+    (a, b) =>
+      a?.Treaty_name?.[0]?.data?.Treaty_short_name?.localeCompare(
+        b?.Treaty_name?.[0]?.data?.Treaty_short_name ?? ''
+      ) ?? -1
   )
 
   const csvData = useMemo(
@@ -147,13 +159,13 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
         </thead>
         <tbody>
           {sortedTreaties.map(treaty => (
-            <tr key={treaty?.data?.Treaty_name?.[0]?.data?.Treaty_short_name}>
+            <tr key={treaty?.Treaty_name?.[0]?.data?.Treaty_short_name}>
               {columns.map(
                 col =>
                   col.render && (
                     // @ts-expect-error: The types of col.parse
                     // and col.key are guaranteed by the types above
-                    <td key={col.key}>{col.render(treaty?.data?.[col.key])}</td>
+                    <td key={col.key}>{col.render(treaty[col.key])}</td>
                   )
               )}
             </tr>

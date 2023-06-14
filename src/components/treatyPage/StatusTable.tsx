@@ -115,7 +115,7 @@ const StatusTable = ({
         displayName: 'Reservations, understandings, and declarations text',
         key: 'RUDs_text',
         stringify: val => val ?? '',
-        sort: (a, b) => (!a ? -1 : !b ? 1 : a.localeCompare(b ?? '')),
+        sort: (a, b) => (!a ? -1 : !b ? 1 : a.localeCompare(b)),
       },
       {
         displayName: 'Signed',
