@@ -1,6 +1,7 @@
 import React from 'react'
+import { useTheme } from 'styled-components'
 
-enum SortStatus {
+export enum SortStatus {
   selected,
   reverse,
   unselected,
@@ -11,20 +12,23 @@ interface SortIconProps extends React.SVGProps<SVGSVGElement> {
 }
 
 const SortIcon = ({ status, ...props }: SortIconProps) => {
+  const theme = useTheme()
+  const transparent = `rgba(0, 0, 0, 0)`
+
   let upArrowFill, downArrowFill
 
   switch (status) {
     case SortStatus.selected:
-      upArrowFill = '#D4D8DC'
-      downArrowFill = '#D4D8DC'
+      upArrowFill = transparent
+      downArrowFill = theme.black
       break
     case SortStatus.reverse:
-      upArrowFill = '#D4D8DC'
-      downArrowFill = '#D4D8DC'
+      upArrowFill = theme.black
+      downArrowFill = transparent
       break
     case SortStatus.unselected:
-      upArrowFill = '#D4D8DC'
-      downArrowFill = '#D4D8DC'
+      upArrowFill = theme.medGray
+      downArrowFill = theme.medGray
       break
   }
 
@@ -37,7 +41,7 @@ const SortIcon = ({ status, ...props }: SortIconProps) => {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g clip-path="url(#clip0_1831_13593)">
+      <g clipPath="url(#clip0_1831_13593)">
         <path
           d="M5.83325 11.6666L9.99992 15.8333L14.1666 11.6666H5.83325Z"
           fill={upArrowFill}
