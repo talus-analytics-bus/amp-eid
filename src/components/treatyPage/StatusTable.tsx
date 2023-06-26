@@ -10,6 +10,7 @@ import { Link } from 'gatsby'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import CSVDownloadLink from 'components/ui/CSVDownloadLink'
 import StatusPill, { isStatus } from 'components/ui/StatusPill'
+import SortIcon, { SortStatus } from 'components/ui/SortIcon'
 
 const Container = styled.div`
   display: flex;
@@ -266,6 +267,16 @@ const StatusTable = ({
                     key={col.displayName}
                   >
                     {col.displayName}
+                    <SortIcon
+                      style={{ position: 'relative', top: 4 }}
+                      status={
+                        sortColumn.column === col.key
+                          ? sortColumn.reverse
+                            ? SortStatus.reverse
+                            : SortStatus.selected
+                          : SortStatus.unselected
+                      }
+                    />
                   </th>
                 )
             )}
