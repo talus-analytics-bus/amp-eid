@@ -56,6 +56,11 @@ const config: GatsbyConfig = {
           },
           {
             baseId: `appAUZi15WZodq9QW`,
+            tableName: `Glossary`,
+            tableView: `CMS`,
+          },
+          {
+            baseId: `appAUZi15WZodq9QW`,
             tableName: `Icons`,
             tableView: `CMS`,
             mapping: { SVG: `fileNode` },
