@@ -11,8 +11,23 @@ import routes, {
   SchemaString,
 } from 'components/about/api/apiSchema'
 
-import { APIH2, APIParagraph } from 'pages/about/api'
-
+const Paragraph = styled.p`
+  ${({ theme }) => theme.paragraph};
+  color: ${({ theme }) => theme.black};
+  max-width: 1000px;
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+`
+const H2 = styled.h2`
+  ${({ theme }) => theme.bigParagraph};
+  color: ${({ theme }) => theme.black};
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  align-items: baseline;
+  width: 100%;
+`
 const Routes = styled.div`
   display: flex;
   flex-direction: column;
@@ -154,15 +169,15 @@ const APIExplorer = () => (
       <ExploreDropdown
         key={route.route}
         label={
-          <APIH2>
+          <H2>
             <Method>{route.method}</Method>
             <Path>{route.route}</Path>
             <RouteName>{route.name}</RouteName>
-          </APIH2>
+          </H2>
         }
       >
         <RouteContainer>
-          <APIParagraph>{route.description}</APIParagraph>
+          <Paragraph>{route.description}</Paragraph>
           <H3>Direct download</H3>
           <StyledLink
             href={route.route}
