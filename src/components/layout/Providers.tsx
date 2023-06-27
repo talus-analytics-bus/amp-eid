@@ -24,8 +24,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: "Poppins", Arial, Helvetica, sans-serif;
     color: ${({ theme }) => theme.black};
+    ${({ theme }) => theme.paragraph};
   }
   * {
     box-sizing: border-box;

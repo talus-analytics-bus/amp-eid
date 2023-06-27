@@ -10,27 +10,8 @@ import Providers from 'components/layout/Providers'
 
 import useAboutOverviewPageData from 'cmsHooks/useAboutOverviewQuery'
 import Footer from 'components/layout/Footer'
+import AboutStyle from 'components/about/AboutStyle'
 
-const Paragraph = styled.p`
-  ${({ theme }) => theme.paragraph};
-  color: ${({ theme }) => theme.black};
-  max-width: 1000px;
-`
-const MainTextSection = styled(CMS.RichText)`
-  > p {
-    ${({ theme }) => theme.paragraph};
-    color: ${({ theme }) => theme.black};
-    max-width: 1000px;
-  }
-`
-const H1 = styled.h1`
-  ${({ theme }) => theme.h1}
-  color: ${({ theme }) => theme.black};
-`
-const H2 = styled.h2`
-  ${({ theme }) => theme.h2}
-  color: ${({ theme }) => theme.black};
-`
 const FunderImage = styled(CMS.Image)`
   max-width: 633px;
 `
@@ -47,32 +28,34 @@ const OverviewPage = (): JSX.Element => {
       <NavBar />
       <Main style={{ maxWidth: 1000 }}>
         <AboutNav />
-        <H1>
-          <CMS.Text name="H1" data={cmsData} />
-        </H1>
-        <MainTextSection name="Main content" data={cmsData} />
-        <H2>
-          <CMS.Text name="H2 funder" data={cmsData} />
-        </H2>
-        <FunderImage
-          imgStyle={{ objectFit: 'contain' }}
-          name="Funder icon"
-          data={cmsData}
-        />
-        <Paragraph>
-          <CMS.Text name="Funder paragraph" data={cmsData} />
-        </Paragraph>
-        <H2>
-          <CMS.Text name="H2 contributors" data={cmsData} />
-        </H2>
-        <GUImage
-          imgStyle={{ objectFit: 'contain' }}
-          name="Contributors icon"
-          data={cmsData}
-        />
-        <Paragraph>
-          <CMS.Text name="Contributors paragraph" data={cmsData} />
-        </Paragraph>
+        <AboutStyle>
+          <h1>
+            <CMS.Text name="H1" data={cmsData} />
+          </h1>
+          <CMS.RichText name="Main content" data={cmsData} />
+          <h2>
+            <CMS.Text name="H2 funder" data={cmsData} />
+          </h2>
+          <FunderImage
+            imgStyle={{ objectFit: 'contain' }}
+            name="Funder icon"
+            data={cmsData}
+          />
+          <p>
+            <CMS.Text name="Funder paragraph" data={cmsData} />
+          </p>
+          <h2>
+            <CMS.Text name="H2 contributors" data={cmsData} />
+          </h2>
+          <GUImage
+            imgStyle={{ objectFit: 'contain' }}
+            name="Contributors icon"
+            data={cmsData}
+          />
+          <p>
+            <CMS.Text name="Contributors paragraph" data={cmsData} />
+          </p>
+        </AboutStyle>
       </Main>
       <Footer />
     </Providers>
