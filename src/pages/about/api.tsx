@@ -29,15 +29,15 @@ const ItalicParagraph = styled.p`
   padding: 15px;
 `
 const H1 = styled.h1`
-  ${({ theme }) => theme.h1}
+  ${({ theme }) => theme.h1};
   color: ${({ theme }) => theme.black};
 `
 const TextHeader2 = styled.h2`
-  ${({ theme }) => theme.h2}
+  ${({ theme }) => theme.h2};
   color: ${({ theme }) => theme.black};
 `
 export const APIH2 = styled.h2`
-  ${({ theme }) => theme.bigParagraph}
+  ${({ theme }) => theme.bigParagraph};
   color: ${({ theme }) => theme.black};
   display: flex;
   gap: 10px;
