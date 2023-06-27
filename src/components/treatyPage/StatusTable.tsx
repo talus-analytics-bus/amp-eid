@@ -5,7 +5,9 @@ import Fuse from 'fuse.js'
 import PaginationControls from 'components/topics/ExplorePolicies/PaginationControls'
 
 import formatAirtableDate from 'utilities/formatDate'
-import StyledTable from 'components/ui/StyledTable'
+import StyledTable, {
+  StyledTableHeaderContainer,
+} from 'components/ui/StyledTable'
 import { Link } from 'gatsby'
 import simplifyForUrl from 'utilities/simplifyForUrl'
 import CSVDownloadLink from 'components/ui/CSVDownloadLink'
@@ -266,17 +268,18 @@ const StatusTable = ({
                     onClick={() => handleColumnClick(col.key)}
                     key={col.displayName}
                   >
-                    {col.displayName}
-                    <SortIcon
-                      style={{ position: 'relative', top: 4 }}
-                      status={
-                        sortColumn.column === col.key
-                          ? sortColumn.reverse
-                            ? SortStatus.reverse
-                            : SortStatus.selected
-                          : SortStatus.unselected
-                      }
-                    />
+                    <StyledTableHeaderContainer>
+                      {col.displayName}
+                      <SortIcon
+                        status={
+                          sortColumn.column === col.key
+                            ? sortColumn.reverse
+                              ? SortStatus.reverse
+                              : SortStatus.selected
+                            : SortStatus.unselected
+                        }
+                      />
+                    </StyledTableHeaderContainer>
                   </th>
                 )
             )}

@@ -1,7 +1,9 @@
 import CSVDownloadLink from 'components/ui/CSVDownloadLink'
 import SortIcon, { SortStatus } from 'components/ui/SortIcon'
 import StatusPill, { isStatus } from 'components/ui/StatusPill'
-import StyledTable from 'components/ui/StyledTable'
+import StyledTable, {
+  StyledTableHeaderContainer,
+} from 'components/ui/StyledTable'
 import { Link } from 'gatsby'
 import React, { useMemo, useState } from 'react'
 import formatAirtableDate from 'utilities/formatDate'
@@ -189,17 +191,18 @@ const CountryTreaties = ({ countryName, treaties }: CountryTreatiesProps) => {
                     key={col.displayName}
                     onClick={() => handleColumnClick(col.key)}
                   >
-                    {col.displayName}
-                    <SortIcon
-                      style={{ position: 'relative', top: 4 }}
-                      status={
-                        sortColumn.column === col.key
-                          ? sortColumn.reverse
-                            ? SortStatus.reverse
-                            : SortStatus.selected
-                          : SortStatus.unselected
-                      }
-                    />
+                    <StyledTableHeaderContainer>
+                      {col.displayName}
+                      <SortIcon
+                        status={
+                          sortColumn.column === col.key
+                            ? sortColumn.reverse
+                              ? SortStatus.reverse
+                              : SortStatus.selected
+                            : SortStatus.unselected
+                        }
+                      />
+                    </StyledTableHeaderContainer>
                   </th>
                 )
             )}

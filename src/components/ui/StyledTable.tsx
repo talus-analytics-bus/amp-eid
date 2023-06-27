@@ -37,4 +37,10 @@ const StyledTable = styled.table`
   }
 `
 
+export const StyledTableHeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
 export default StyledTable
