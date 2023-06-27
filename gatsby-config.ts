@@ -67,7 +67,7 @@ const config: GatsbyConfig = {
           },
           {
             baseId: `appAUZi15WZodq9QW`,
-            tableName: `About Download And Citations`,
+            tableName: `Data and API`,
             tableView: `CMS`,
             mapping: { Image: `fileNode` },
           },
