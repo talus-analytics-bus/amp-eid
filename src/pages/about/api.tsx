@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 
 import CMS from '@talus-analytics/library.airtable-cms'
 
@@ -11,6 +12,14 @@ import Footer from 'components/layout/Footer'
 import APIExplorer from 'components/about/api/APIExplorer'
 import useDataAndAPIPageData from 'cmsHooks/useAboutDataAndAPIQuery'
 import AboutStyle from 'components/about/AboutStyle'
+
+const Citation = styled(CMS.RichText)`
+  em {
+    display: block;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+`
 
 const APIPage = (): JSX.Element => {
   const cmsData = useDataAndAPIPageData()
@@ -26,7 +35,7 @@ const APIPage = (): JSX.Element => {
             <CMS.Text name="H1" data={cmsData} />
           </h1>
           <CMS.RichText name="Top paragraph" data={cmsData} />
-          <CMS.RichText name="Citation" data={cmsData} />
+          <Citation name="Citation" data={cmsData} />
           <h2>
             <CMS.Text name="H2 API documentation" data={cmsData} />
           </h2>

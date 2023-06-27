@@ -47,12 +47,6 @@ const AboutStyle = styled.div`
       text-decoration: underline;
     }
   }
-
-  em {
-    display: block;
-    padding-left: 30px;
-    padding-right: 30px;
-  }
 `
 
 export default AboutStyle
