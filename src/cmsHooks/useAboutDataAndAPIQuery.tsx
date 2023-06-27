@@ -4,13 +4,11 @@ import { AirtableCMSData } from '@talus-analytics/library.airtable-cms'
 
 // Sites will have many of these content hooks, each
 // of which corresponds to one table in Airtable.
-const useAboutDownloadAndCitationsPageData = () => {
+const useDataAndAPIPageData = () => {
   const { cmsContent }: { cmsContent: AirtableCMSData } =
     useStaticQuery(graphql`
       query {
-        cmsContent: allAirtable(
-          filter: { table: { eq: "About Download And Citations" } }
-        ) {
+        cmsContent: allAirtable(filter: { table: { eq: "Data and API" } }) {
           nodes {
             data {
               Name
@@ -31,4 +29,4 @@ const useAboutDownloadAndCitationsPageData = () => {
   return cmsContent
 }
 
-export default useAboutDownloadAndCitationsPageData
+export default useDataAndAPIPageData

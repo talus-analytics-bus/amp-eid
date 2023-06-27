@@ -9,8 +9,8 @@ import AboutNav from 'components/about/AboutNav'
 import Providers from 'components/layout/Providers'
 
 import Footer from 'components/layout/Footer'
-import useAboutDownloadAndCitationsPageData from 'cmsHooks/useAboutDownloadAndCitationsQuery'
 import APIExplorer from 'components/about/api/APIExplorer'
+import useDataAndAPIPageData from 'cmsHooks/useAboutDataAndAPIQuery'
 
 export const APIParagraph = styled.p`
   ${({ theme }) => theme.paragraph};
@@ -47,7 +47,7 @@ export const APIH2 = styled.h2`
 `
 
 const APIPage = (): JSX.Element => {
-  const cmsData = useAboutDownloadAndCitationsPageData()
+  const cmsData = useDataAndAPIPageData()
 
   return (
     <Providers>
