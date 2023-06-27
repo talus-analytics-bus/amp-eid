@@ -12,38 +12,34 @@ import Footer from 'components/layout/Footer'
 import APIExplorer from 'components/about/api/APIExplorer'
 import useDataAndAPIPageData from 'cmsHooks/useAboutDataAndAPIQuery'
 
-export const APIParagraph = styled.p`
-  ${({ theme }) => theme.paragraph};
-  color: ${({ theme }) => theme.black};
-  max-width: 1000px;
-  margin: 0;
-  padding-top: 10px;
-  padding-bottom: 10px;
-`
-const ItalicParagraph = styled.p`
-  color: ${({ theme }) => theme.black};
-  ${({ theme }) => theme.paragraph};
-  font-style: italic;
-  max-width: 970px;
-  font-size: 20px;
-  padding: 15px;
-`
-const H1 = styled.h1`
-  ${({ theme }) => theme.h1};
-  color: ${({ theme }) => theme.black};
-`
-const TextHeader2 = styled.h2`
-  ${({ theme }) => theme.h2};
-  color: ${({ theme }) => theme.black};
-`
-export const APIH2 = styled.h2`
-  ${({ theme }) => theme.bigParagraph};
-  color: ${({ theme }) => theme.black};
-  display: flex;
-  gap: 10px;
-  justify-content: flex-start;
-  align-items: baseline;
-  width: 100%;
+const CMSContentStyle = styled.div`
+  h1 {
+    ${({ theme }) => theme.h1};
+    color: ${({ theme }) => theme.black};
+  }
+
+  h2 {
+    ${({ theme }) => theme.h2};
+    color: ${({ theme }) => theme.ampEidMedBlue};
+    padding: 30px 0 0 0;
+    border-top: 3px solid ${({ theme }) => theme.lightGray};
+    margin-top: 30px;
+  }
+
+  em {
+    display: block;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  a {
+    text-decoration: none;
+    color: ${({ theme }) => theme.link};
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `
 
 const APIPage = (): JSX.Element => {
@@ -55,20 +51,21 @@ const APIPage = (): JSX.Element => {
       <NavBar />
       <Main style={{ maxWidth: 1000 }}>
         <AboutNav />
-        <H1>
-          <CMS.Text name="H2" data={cmsData} />
-        </H1>
-        <APIParagraph>
-          <CMS.Text name="Bottom paragraph" data={cmsData} />
-        </APIParagraph>
-        <ItalicParagraph>
-          <CMS.Text name="CGHSS paragraph" data={cmsData} />
-        </ItalicParagraph>
-        <APIParagraph>
-          <CMS.Text name="Contact paragraph" data={cmsData} />
-        </APIParagraph>
-        <TextHeader2>API documentation</TextHeader2>
+        <CMSContentStyle>
+          <h1>
+            <CMS.Text name="H1" data={cmsData} />
+          </h1>
+          <CMS.RichText name="Top paragraph" data={cmsData} />
+          <CMS.RichText name="Citation" data={cmsData} />
+          <h2>
+            <CMS.Text name="H2 API documentation" data={cmsData} />
+          </h2>
+          <CMS.RichText name="API intro paragraph" data={cmsData} />
+        </CMSContentStyle>
         <APIExplorer />
+        <CMSContentStyle>
+          <CMS.RichText name="Licensing" data={cmsData} />
+        </CMSContentStyle>
       </Main>
       <Footer />
     </Providers>

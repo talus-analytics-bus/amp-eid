@@ -32,7 +32,7 @@ const Routes = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-top: 15px;
+  margin-top: 30px;
 `
 const Path = styled.div`
   ${({ theme }) => theme.bigParagraph}
