@@ -210,14 +210,6 @@ const APIPage = (): JSX.Element => {
         <Paragraph>
           <CMS.Text name="Contact paragraph" data={cmsData} />
         </Paragraph>
-        {
-          // <Paragraph>
-          //   <CMS.Text name="Tools paragraph" data={cmsData} />
-          // </Paragraph>
-          // <Paragraph>
-          //   <CMS.Text name="Downloads paragraph" data={cmsData} />
-          // </Paragraph>
-        }
         <TextHeader2>API documentation</TextHeader2>
         <Routes>
           {Object.values(routes).map(route => (
