@@ -7,12 +7,16 @@ import NavBar from 'components/layout/NavBar/NavBar'
 import AboutNav from 'components/about/AboutNav'
 import Providers from 'components/layout/Providers'
 
-import useAboutMethodPageData from 'cmsHooks/useAboutMethodData'
 import AboutStyle from 'components/about/AboutStyle'
 import Footer from 'components/layout/Footer'
 
+import useAboutMethodPageData from 'cmsHooks/useAboutMethodData'
+import useTopicMethods from 'queryHooks/useTopicMethods'
+
 const MethodsPage = (): JSX.Element => {
   const cmsData = useAboutMethodPageData()
+  const methods = useTopicMethods()
+
   return (
     <Providers>
       <CMS.SEO />
@@ -24,6 +28,9 @@ const MethodsPage = (): JSX.Element => {
             <CMS.Text name="H1" data={cmsData} />
           </h1>
           <CMS.RichText name="Method overview" data={cmsData} />
+          {methods.nodes.map(({ data: method }, index) => (
+            <CMS.RenderRichText key={index} markdown={method?.Method ?? ''} />
+          ))}
         </AboutStyle>
       </Main>
       <Footer />
