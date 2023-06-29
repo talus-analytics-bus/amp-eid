@@ -5,6 +5,7 @@ import { GatsbyNode } from 'gatsby'
 import simplifyForUrl from './src/utilities/simplifyForUrl'
 
 import fs from 'fs'
+import Papa from 'papaparse'
 
 export const createPages: GatsbyNode['createPages'] = async ({
   actions,
@@ -181,6 +182,7 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
                         Country {
                           data {
                             ISO3
+                            Status_justification
                           }
                         }
                       }
@@ -384,4 +386,54 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
       )
     }
   }
+
+  // create the CSV files for download
+
+  const csvDir = './public/csv'
+
+  interface TopicJSON {
+    Subtopic: string
+    Country: string
+    Status: string
+    'Status justification': string
+  }
+
+  interface AllTopics {
+    [key: string]: TopicJSON[]
+  }
+
+  const allTopics: AllTopics = {}
+
+  result.data?.Topics?.nodes?.forEach(topic => {
+    allTopics[topic.data?.Name] = []
+    topic.data?.Subtopics?.nodes?.forEach(subtopic => {
+      subtopic.data?.Statuses?.forEach(status => {
+        status.data?.Countries?.forEach(country => {
+          allTopics[topic.data?.Name].push({
+            Subtopic: subtopic.data?.Name,
+            Country: country.data?.ISO3,
+            Status: status.data?.Name,
+            'Status justification': country.data?.Status_justification,
+          })
+        })
+      })
+    })
+
+    fs.writeFileSync(
+      `${csvDir}/${topic.data?.Name}.csv`,
+      Papa.unparse(allTopics[topic.data?.Name])
+    )
+  })
+
+  interface AllTopicsJSON extends TopicJSON {
+    Topic: string
+  }
+
+  const allTopicsFlat: AllTopicsJSON[] = []
+
+  Object.entries(allTopics).forEach((Topic, topicJSON) => {
+    allTopicsFlat.push({ Topic, ...topicJSON })
+  })
+
+  fs.writeFileSync(`${csvDir}/All topics.csv`, Papa.unparse(allTopicsFlat))
 }
