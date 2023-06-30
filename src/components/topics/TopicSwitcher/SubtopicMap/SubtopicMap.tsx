@@ -76,6 +76,8 @@ const SubtopicMap = () => {
   const [popupState, setPopupState] = React.useState<PopupState | null>(null)
   const setModal = useModal()
 
+  const [mapContent, setMapContent] = React.useState('')
+
   const context = useContext(SubtopicContext)
   if (!context) throw new Error('SubtopicMap must be inside SubtopicContext')
 
@@ -151,10 +153,11 @@ const SubtopicMap = () => {
           maxZoom={5}
           minZoom={0}
           // easy way to dump the canvas content as PNG to use on the homepage
-          // onLoad={map => {
-          //   const content = map.target.getCanvas().toDataURL()
-          //   console.log(content)
-          // }}
+          onLoad={map => {
+            const content = map.target.getCanvas().toDataURL()
+            console.log(content)
+            setMapContent(content)
+          }}
         >
           {/* This source provides country shapes and their ISO codes */}
           <Source
@@ -186,6 +189,10 @@ const SubtopicMap = () => {
           <NavigationControl position="top-left" showCompass={false} />
         </Map>
       </MapContainer>
+      <div>{mapContent}</div>
+      <a href={mapContent} download="map.png">
+        Download map
+      </a>
     </MapSection>
   )
 }
