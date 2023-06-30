@@ -30,6 +30,7 @@ const CountryPolicies = ({ policies }: CountryPoliciesProps) => {
         topic =>
           topic.topic?.data?.Topic && (
             <ExploreDropdown
+              key={topic.topic?.data?.Topic}
               label={
                 <>
                   <BlueCircleIcon name={topic.topic.data.Topic} size={40} />

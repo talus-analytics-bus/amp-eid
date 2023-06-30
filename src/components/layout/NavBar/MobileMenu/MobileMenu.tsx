@@ -6,11 +6,21 @@ import Dropdown from '@talus-analytics/library.ui.dropdown'
 import HamburgerButton from './HamburgerButton'
 
 const MenuContainer = styled.div`
-  @media (min-width: 950px) {
+  @media (min-width: 1200px) {
     display: none;
   }
 `
-
+const MobileNavContainer = styled.div`
+  background-color: ${({ theme }) => theme.ampEidDarkBlue};
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  overflow-y: scroll;
+  padding-bottom: calc(30em + 20px);
+  max-height: calc(100vh - 70px);
+`
 interface MobileMenuProps {
   children: React.ReactNode
 }
@@ -27,7 +37,7 @@ const MobileMenu = ({ children }: MobileMenuProps) => {
         }}
         renderButton={open => <HamburgerButton open={open} />}
       >
-        {children}
+        <MobileNavContainer>{children}</MobileNavContainer>
       </Dropdown>
     </MenuContainer>
   )

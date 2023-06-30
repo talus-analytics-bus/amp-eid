@@ -7,7 +7,7 @@ import NavBar from 'components/layout/NavBar/NavBar'
 import AboutNav from 'components/about/AboutNav'
 import Providers from 'components/layout/Providers'
 
-import { AboutStyle, H1 } from 'components/about/AboutStyle'
+import AboutStyle from 'components/about/AboutStyle'
 import Footer from 'components/layout/Footer'
 import useUserGuidePageData from 'cmsHooks/useUserGuideQuery'
 
@@ -19,10 +19,12 @@ const MethodsPage = (): JSX.Element => {
       <NavBar />
       <Main style={{ maxWidth: 1000 }}>
         <AboutNav />
-        <H1>
-          <CMS.Text name="H1" data={cmsData} />
-        </H1>
-        <AboutStyle name="User guide text" data={cmsData} />
+        <AboutStyle>
+          <h1>
+            <CMS.Text name="H1" data={cmsData} />
+          </h1>
+          <CMS.RichText name="User guide text" data={cmsData} />
+        </AboutStyle>
       </Main>
       <Footer />
     </Providers>

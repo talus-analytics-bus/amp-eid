@@ -4,15 +4,16 @@ import styled from 'styled-components'
 
 import CMS from '@talus-analytics/library.airtable-cms'
 
-import MobileMenu from './MobileMenu/MobileMenu'
-
-import useIndexPageData from 'cmsHooks/useIndexPageData'
-import NavbarDropdown from './NavbarDropdown'
-import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
-import simplifyForUrl from 'utilities/simplifyForUrl'
 import LinksList from './LinksList'
-import CountrySearch from 'components/landing/CountrySearch'
+import MobileMenu from './MobileMenu/MobileMenu'
+import NavbarDropdown from './NavbarDropdown'
+import MobileMenuDropdown from './MobileMenu/MobileMenuDropdown'
+import NavBarCountrySearch from './NavBarCountrySearch'
+
 import useTopics from 'queryHooks/useTopics'
+import simplifyForUrl from 'utilities/simplifyForUrl'
+import useIndexPageData from 'cmsHooks/useIndexPageData'
+import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
 
 const Nav = styled.nav`
   background-color: ${({ theme }) => theme.ampEidDarkBlue};
@@ -29,15 +30,6 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 8px;
-`
-const LinkList = styled.ul`
-  list-style: none;
-  display: flex;
-  padding: 0;
-  margin: 0;
-`
-const Li = styled.li`
-  display: flex;
 `
 const NavLink = styled(Link)`
   color: white !important;
@@ -59,16 +51,14 @@ const HomeLink = styled(NavLink)`
   align-items: center;
   margin-left: 20px;
 `
-const DesktopNavList = styled(LinkList)`
-  @media (max-width: 950px) {
+const DesktopNavList = styled.ul`
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  @media (max-width: 1200px) {
     display: none;
   }
-`
-const MobileLinkList = styled(LinkList)`
-  flex-direction: column;
-  background-color: ${({ theme }) => theme.ampEidDarkBlue};
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
 `
 const NavLogo = styled(CMS.Image)`
   height: 50px;
@@ -80,29 +70,24 @@ const NavLogo = styled(CMS.Image)`
 const NavBar = () => {
   const data = useIndexPageData()
 
-  const aboutLinks = [
-    { to: '/about/overview/', children: 'Overview' },
-    // {
-    //   to: '/about/downloads-and-citations/',
-    //   children: 'Downloads & Citations',
-    // },
-    { to: '/about/methods/', children: 'Methods' },
-    { to: '/about/api/', children: 'Data & API' },
-    { to: '/about/user-guide/', children: 'User guide' },
-  ]
-
   const topics = useTopics()
   const topicsLinks = topics.map(({ data }) => ({
     to: `/topics/${simplifyForUrl(data?.Topic ?? '')}/`,
     children: data?.Topic ?? '',
     disabled: data?.Disable ?? false,
   }))
-
   const treaties = useShortTreatyNames()
   const treatyLinks = treaties.map(treaty => ({
     to: `/treaties/${simplifyForUrl(treaty)}`,
     children: treaty,
   }))
+
+  const aboutLinks = [
+    { to: '/about/overview/', children: 'Overview' },
+    { to: '/about/methods/', children: 'Methods' },
+    { to: '/about/api/', children: 'Data & API' },
+    { to: '/about/user-guide/', children: 'User guide' },
+  ]
 
   return (
     <Nav>
@@ -121,34 +106,25 @@ const NavBar = () => {
           <NavbarDropdown title="Treaty library">
             <LinksList links={treatyLinks} />
           </NavbarDropdown>
-          <NavbarDropdown title="Countries">
-            <CountrySearch style={{ minWidth: 350, margin: '0' }} />
-          </NavbarDropdown>
           <NavbarDropdown title="About">
             <LinksList links={aboutLinks} />
           </NavbarDropdown>
+          <NavBarCountrySearch style={{ minWidth: 250, margin: '0' }} />
         </DesktopNavList>
         <MobileMenu>
-          <MobileLinkList>
-            <h3 style={{ color: 'white' }}>Topics</h3>
-            <Li key={'trips'}>
-              <NavLink to="/topics/trade-and-intellectual-property/">
-                Trade and intellectual property
-              </NavLink>
-            </Li>
-            <h3 style={{ color: 'white' }}>Treaties</h3>
-            {treatyLinks.map(linkProps => (
-              <Li key={linkProps.to}>
-                <NavLink {...linkProps} />
-              </Li>
-            ))}
-            <h3 style={{ color: 'white' }}>General</h3>
-            {aboutLinks.map(linkProps => (
-              <Li key={linkProps.to}>
-                <NavLink {...linkProps} />
-              </Li>
-            ))}
-          </MobileLinkList>
+          <MobileMenuDropdown title="Topics">
+            <LinksList
+              darkMode
+              links={topicsLinks.filter(topic => !topic.disabled)}
+            />
+          </MobileMenuDropdown>
+          <MobileMenuDropdown title="Treaty library">
+            <LinksList darkMode links={treatyLinks} />
+          </MobileMenuDropdown>
+          <MobileMenuDropdown title="About">
+            <LinksList darkMode links={aboutLinks} />
+          </MobileMenuDropdown>
+          <NavBarCountrySearch style={{ width: '100%', margin: '0' }} />
         </MobileMenu>
       </Container>
     </Nav>

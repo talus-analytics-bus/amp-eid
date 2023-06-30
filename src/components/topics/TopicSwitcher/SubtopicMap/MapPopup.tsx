@@ -7,6 +7,7 @@ import camelCase from 'utilities/camelCase'
 import TruncatedDocumentLink from './TruncatedDocumentLink'
 import { Link } from 'gatsby'
 import simplifyForUrl from 'utilities/simplifyForUrl'
+import CMS from '@talus-analytics/library.airtable-cms'
 
 const CountryName = styled(Link)`
   position: relative;
@@ -44,6 +45,15 @@ const StatusDescription = styled.div`
   ${({ theme }) => theme.smallParagraph};
   color: ${({ theme }) => theme.veryDarkGray};
   margin-top: 15px;
+
+  a {
+    color: ${({ theme }) => theme.link};
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `
 const SeeDocumentHeader = styled.div`
   ${({ theme }) => theme.smallParagraph};
@@ -118,7 +128,9 @@ const MapPopup = ({ popupState }: MapPopupProps) => {
         />
         <MapStatusName>{statusDesciption?.data?.Status}</MapStatusName>
       </MapKey>
-      <StatusDescription>{justification}</StatusDescription>
+      <StatusDescription>
+        <CMS.RenderRichText markdown={justification ?? ''} />
+      </StatusDescription>
       {filteredDocuments && filteredDocuments.length > 0 && (
         <>
           <SeeDocumentHeader>See document:</SeeDocumentHeader>

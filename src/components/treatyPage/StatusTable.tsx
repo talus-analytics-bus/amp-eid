@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import Fuse from 'fuse.js'
 
 import PaginationControls from 'components/topics/ExplorePolicies/PaginationControls'
 
 import formatAirtableDate from 'utilities/formatDate'
-import StyledTable from 'components/ui/StyledTable'
+import StyledTable, {
+  StyledTableHeaderContainer,
+} from 'components/ui/StyledTable'
 import { Link } from 'gatsby'
 import simplifyForUrl from 'utilities/simplifyForUrl'
+import CSVDownloadLink from 'components/ui/CSVDownloadLink'
+import StatusPill, { isStatus } from 'components/ui/StatusPill'
+import SortIcon, { SortStatus } from 'components/ui/SortIcon'
 
 const Container = styled.div`
   display: flex;
@@ -27,29 +32,6 @@ const Search = styled.input`
   min-width: 300px;
 `
 
-export enum Status {
-  Party = 'Party',
-  Member = 'Member',
-  Observer = 'Observer',
-  Signatory = 'Signatory',
-  'Non-party' = 'Non-party',
-  'Associate Member' = 'Associate Member',
-}
-
-export const StatusPill = styled.span<{ status: Status }>`
-  padding: 2px 10px;
-  border-radius: 15px;
-  background: ${({ theme, status }) =>
-    ({
-      [Status.Party]: theme.option3Lighter,
-      [Status.Member]: theme.option1Lighter,
-      [Status.Observer]: theme.option1Lighter,
-      [Status.Signatory]: theme.option4Lighter,
-      [Status['Non-party']]: theme.option5Lighter,
-      [Status['Associate Member']]: theme.option2Lighter,
-    }[status] ?? theme.veryLightGray)};
-`
-
 const StatusTable = ({
   treatyData,
 }: {
@@ -65,93 +47,206 @@ const StatusTable = ({
   const [pageSize, setPageSize] = useState(10)
   const [searchTerm, setSearchTerm] = useState('')
 
-  type Writeable<T> = { -readonly [P in keyof T]: T[P] }
-  type countriesMutable = Writeable<typeof countryList>
-  const countries = countryList as unknown as countriesMutable
+  const [sortColumn, setSortColumn] = useState<{
+    column: keyof CountryData
+    reverse: boolean
+  }>({ column: 'Country', reverse: false })
 
-  let sorted: typeof countries
+  const flatCountries = countryList.map(country => country?.data)
 
-  const fuse = new Fuse(countries, {
+  type CountryData = Exclude<typeof flatCountries[number], null | undefined>
+
+  // This approach adapted from:
+  // https://stackoverflow.com/questions/50870423/discriminated-union-of-generic-type
+  interface SingleColumn<T extends keyof CountryData> {
+    key: T
+    displayName: string
+    render?: (val: CountryData[T] | undefined) => React.ReactNode
+    stringify: (val: CountryData[T] | undefined) => string
+    sort?: (
+      a: CountryData[T] | undefined,
+      b: CountryData[T] | undefined
+    ) => number
+  }
+
+  // create type to take keys of CountryData and return Column<'key 1'> | Column<'key 2'>
+  type ConvertToUnion<T> = T[keyof T]
+  type ColumnTypeUnion<T extends keyof CountryData> = ConvertToUnion<{
+    [key in T]: SingleColumn<key>
+  }>
+
+  const columns: ColumnTypeUnion<keyof CountryData>[] = useMemo(
+    () => [
+      {
+        displayName: 'Country',
+        key: 'Country',
+        render: val => {
+          const countryName = val?.[0]?.data?.Country_name
+          if (!countryName) return <></>
+          if (countryName === 'European Union')
+            return <span>{countryName}</span>
+          return (
+            <Link to={`/countries/${simplifyForUrl(countryName)}`}>
+              {countryName}
+            </Link>
+          )
+        },
+        stringify: val => val?.[0]?.data?.Country_name ?? '',
+        sort: (a, b) =>
+          a?.[0]?.data?.Country_name?.localeCompare(
+            b?.[0]?.data?.Country_name ?? ''
+          ) ?? -1,
+      },
+      {
+        displayName: 'Status',
+        key: 'Status',
+        render: val =>
+          isStatus(val) && <StatusPill status={val}>{val}</StatusPill>,
+        stringify: val => val ?? '',
+        sort: (a, b) => {
+          return a && b ? a.localeCompare(b ?? '') : -1
+        },
+      },
+      {
+        displayName: 'Reservations, understandings, and declarations',
+        key: 'Reservations__understandings__and_declarations',
+        stringify: val => (val && val.join(', ')) ?? '',
+        sort: (a, b) =>
+          !a ? -1 : !b ? 1 : a.join(', ').localeCompare(b.join(', ') ?? ''),
+      },
+      {
+        displayName: 'Reservations, understandings, and declarations text',
+        key: 'RUDs_text',
+        stringify: val => val ?? '',
+        sort: (a, b) => (!a ? -1 : !b ? 1 : a.localeCompare(b)),
+      },
+      {
+        displayName: 'Signed',
+        key: 'Date_signed',
+        render: val => (val ? formatAirtableDate(val) : ''),
+        stringify: val =>
+          val ? new Date(val).toISOString().split('T')[0] : '',
+        sort: (a, b) =>
+          !a ? -1 : !b ? 1 : new Date(a).getTime() - new Date(b).getTime(),
+      },
+      {
+        displayName: 'Ratified',
+        key: 'Date_ratified',
+        render: val => (val ? formatAirtableDate(val) : ''),
+        stringify: val =>
+          val ? new Date(val).toISOString().split('T')[0] : '',
+        sort: (a, b) =>
+          !a ? -1 : !b ? 1 : new Date(a).getTime() - new Date(b).getTime(),
+      },
+      {
+        displayName: 'Entered into force',
+        key: 'Date_entered_into_force',
+        render: val => (val ? formatAirtableDate(val) : ''),
+        stringify: val =>
+          val ? new Date(val).toISOString().split('T')[0] : '',
+        sort: (a, b) =>
+          !a ? -1 : !b ? 1 : new Date(a).getTime() - new Date(b).getTime(),
+      },
+      {
+        displayName: 'Reservations, understandings, and declarations',
+        key: 'Reservations__understandings__and_declarations',
+        stringify: val => (val && val.join(', ')) ?? '',
+        sort: (a, b) =>
+          !a ? -1 : !b ? 1 : a.join(', ').localeCompare(b.join(', ') ?? ''),
+      },
+      {
+        displayName: 'Reservations, understandings, and declarations text',
+        key: 'RUDs_text',
+        stringify: val => val ?? '',
+        sort: (a, b) => (!a ? -1 : !b ? 1 : a.localeCompare(b)),
+      },
+    ],
+    []
+  )
+
+  const fuse = new Fuse(flatCountries, {
     keys: [
       {
         name: 'name',
-        getFn: country => country?.data?.Country?.[0]?.data?.Country_name ?? '',
+        getFn: country => country?.Country?.[0]?.data?.Country_name ?? '',
       },
     ],
   })
 
-  if (searchTerm === '')
-    sorted = countries.sort(
-      (a, b) =>
-        a?.data?.Country?.[0]?.data?.Country_name?.localeCompare(
-          b?.data?.Country?.[0]?.data?.Country_name ?? ''
-        ) ?? -1
-    )
-  else sorted = fuse.search(searchTerm).map(result => result.item)
+  let sorted: typeof flatCountries
+
+  if (searchTerm === '') {
+    const sortFunction = columns.find(
+      col => col.key === sortColumn.column
+    )?.sort
+
+    sorted = sortFunction
+      ? flatCountries.sort((dataA, dataB) =>
+          sortFunction(
+            // @ts-expect-error: The types of a, b, and the
+            // sort funtion are guaranteed by the types above
+            dataA?.[sortColumn.column],
+            dataB?.[sortColumn.column]
+          )
+        )
+      : flatCountries
+    if (sortColumn.reverse) sorted = sorted.reverse()
+  } else sorted = fuse.search(searchTerm).map(result => result.item)
 
   const total = sorted.length
   const paginated = sorted.slice(page * pageSize, page * pageSize + pageSize)
 
-  type CountryData = Exclude<
-    [Exclude<(typeof countryList)[number], null>][number]['data'],
-    null
-  >
+  const csvData = useMemo(
+    () =>
+      countryList.map(country => {
+        const row: { [key: string]: string } = {}
+        columns.forEach(
+          column =>
+            column.stringify &&
+            (row[column.displayName] = column.stringify(
+              // @ts-expect-error: The types of col.parse
+              // and col.key are guaranteed by the types above
+              country[column.key]
+            ))
+        )
+        return row
+      }),
+    [countryList, columns]
+  )
 
-  // This approach adapted from:
-  // https://stackoverflow.com/questions/50870423/discriminated-union-of-generic-type
-  interface Column<T extends keyof CountryData> {
-    key: T
-    displayName: string
-    parse: (val: CountryData[T] | undefined) => React.ReactNode
+  console.log(sorted)
+
+  function isColumnKey(colKey: string): colKey is keyof CountryData {
+    return Object.keys(countryList?.[0]?.data ?? {}).includes(colKey)
   }
 
-  // create type to take keyos of CountryData and return Column<'key 1'> | Column<'key 2'>
-  type ConvertToUnion<T> = T[keyof T]
-  type ColumnTypeUnion<T extends keyof CountryData> = ConvertToUnion<{
-    [key in T]: Column<key>
-  }>
+  const handleColumnClick = (colKey: string) => {
+    setPage(0)
+    setSearchTerm('')
 
-  const columns: ColumnTypeUnion<Exclude<keyof CountryData, ''>>[] = [
-    {
-      displayName: 'Country',
-      key: 'Country',
-      parse: val => {
-        const countryName = val?.[0]?.data?.Country_name
-        if (!countryName) return <></>
-        if (countryName === 'European Union') return <span>{countryName}</span>
-        return (
-          <Link to={`/countries/${simplifyForUrl(countryName)}`}>
-            {countryName}
-          </Link>
-        )
-      },
-    },
-    {
-      displayName: 'Status',
-      key: 'Status',
-      parse: val => (
-        <StatusPill status={val as unknown as Status}>{val}</StatusPill>
-      ),
-    },
-    {
-      displayName: 'Signed',
-      key: 'Date_signed',
-      parse: val => (val ? formatAirtableDate(val) : ''),
-    },
-    {
-      displayName: 'Ratified',
-      key: 'Date_ratified',
-      parse: val => (val ? formatAirtableDate(val) : ''),
-    },
-    {
-      displayName: 'Entered into force',
-      key: 'Date_entered_into_force',
-      parse: val => (val ? formatAirtableDate(val) : ''),
-    },
-  ]
+    if (!isColumnKey(colKey)) return
+
+    setSortColumn(prev => {
+      if (prev.column === colKey)
+        return {
+          column: colKey,
+          reverse: !prev.reverse,
+        }
+      return {
+        column: colKey,
+        reverse: false,
+      }
+    })
+  }
 
   return (
     <Container>
+      <CSVDownloadLink
+        label="Download states parties"
+        data={csvData}
+        filename={`AMP EID ${treatyData.data?.Document_name} states parties`}
+        style={{ width: 'fit-content', marginBottom: 8 }}
+      />
       <SearchControlContainer>
         <Search
           type="search"
@@ -166,19 +261,45 @@ const StatusTable = ({
       <StyledTable>
         <thead>
           <tr>
-            {columns.map(col => (
-              <th key={col.displayName}>{col.displayName}</th>
-            ))}
+            {columns.map(
+              col =>
+                col.render && (
+                  <th
+                    onClick={() => handleColumnClick(col.key)}
+                    key={col.displayName}
+                  >
+                    <StyledTableHeaderContainer>
+                      {col.displayName}
+                      <SortIcon
+                        status={
+                          sortColumn.column === col.key
+                            ? sortColumn.reverse
+                              ? SortStatus.reverse
+                              : SortStatus.selected
+                            : SortStatus.unselected
+                        }
+                      />
+                    </StyledTableHeaderContainer>
+                  </th>
+                )
+            )}
           </tr>
         </thead>
         <tbody>
           {paginated.map(country => (
-            <tr key={country?.data?.Country?.[0]?.data?.Country_name}>
-              {columns.map(col => (
-                // @ts-expect-error: The types of col.parse
-                // and col.key are guaranteed by the types above
-                <td key={col.key}>{col.parse(country?.data?.[col.key])}</td>
-              ))}
+            <tr key={country?.Country?.[0]?.data?.Country_name}>
+              {columns.map(
+                col =>
+                  col.render && (
+                    <td key={col.displayName}>
+                      {
+                        // @ts-expect-error: The types of col.parse
+                        // and col.key are guaranteed by the types above
+                        col.render(country[col.key])
+                      }
+                    </td>
+                  )
+              )}
             </tr>
           ))}
         </tbody>

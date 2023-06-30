@@ -96,6 +96,8 @@ export const query = graphql`
             Date_signed
             Date_ratified
             Date_entered_into_force
+            Reservations__understandings__and_declarations
+            RUDs_text
           }
         }
         All_applicable_countries_link {

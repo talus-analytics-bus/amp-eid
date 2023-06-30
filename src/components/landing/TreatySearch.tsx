@@ -54,7 +54,7 @@ const TreatySearch = () => {
         <CMS.Text name="Paragraph 3" data={cmsData} />
       </Paragraph>
       <Typeahead
-        style={{ minWidth: 450 }}
+        style={{ width: 450, maxWidth: '90%' }}
         iconLeft
         items={searchItems}
         placeholder={`Find a treaty`}

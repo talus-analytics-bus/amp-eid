@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled, { useTheme } from 'styled-components'
 import camelCase from 'utilities/camelCase'
 
@@ -29,31 +29,40 @@ interface MapStatusKeyProps {
 const MapStatusKey = ({ subtopic }: MapStatusKeyProps) => {
   const theme = useTheme()
 
-  if (!subtopic || !subtopic.Subtopic_define_status_link) return <></>
+  const sortedStatuses = useMemo(
+    () =>
+      subtopic?.Subtopic_define_status_link &&
+      [...subtopic.Subtopic_define_status_link].sort(
+        (a, b) =>
+          a?.data?.Map_color?.localeCompare(b?.data?.Map_color ?? '') ?? -1
+      ),
+    [subtopic]
+  )
+
+  if (!sortedStatuses) return <></>
 
   return (
     <MapKey>
-      {subtopic.Subtopic_define_status_link &&
-        subtopic.Subtopic_define_status_link.map(status => {
-          if (!status || !status.data || !status.data.Map_color)
-            throw new Error('Empty map legend entry')
+      {sortedStatuses.map(status => {
+        if (!status || !status.data || !status.data.Map_color)
+          throw new Error('Empty map legend entry')
 
-          const keyColor = camelCase(status.data.Map_color)
-          if (!keyColor)
-            throw new Error(
-              `Map legend color undefined for ${status.data.Status}`
-            )
-          return (
-            <KeyEntry key={status.data.Status}>
-              <ColorBlock
-                style={{
-                  background: theme[keyColor as keyof typeof theme],
-                }}
-              />
-              <span>{status?.data?.Status}</span>
-            </KeyEntry>
+        const keyColor = camelCase(status.data.Map_color)
+        if (!keyColor)
+          throw new Error(
+            `Map legend color undefined for ${status.data.Status}`
           )
-        })}
+        return (
+          <KeyEntry key={status.data.Status}>
+            <ColorBlock
+              style={{
+                background: theme[keyColor as keyof typeof theme],
+              }}
+            />
+            <span>{status?.data?.Status}</span>
+          </KeyEntry>
+        )
+      })}
     </MapKey>
   )
 }

@@ -18,6 +18,7 @@ import BlueCircleIcon from 'components/ui/BlueCircleIcon'
 import restructureDocuments from 'components/topics/ExplorePolicies/restructureDocuments'
 import restructureCountryMetadata from 'components/topics/ExplorePolicies/restructureCountryMetadata'
 import formatAirtableDate from 'utilities/formatDate'
+import SubtopicDataDownload from 'components/topics/TopicDownload'
 
 // Trips page data sources
 
@@ -79,7 +80,7 @@ const TripsPage = ({
               {topic}
             </h1>
             <Date>
-              Last updated{' '}
+              Data last updated{' '}
               {formatAirtableDate(data.topic.data.Last_updated ?? '')}
             </Date>
           </DateHolder>
@@ -92,6 +93,10 @@ const TripsPage = ({
           </ColumnSection>
         )}
         <ExplorePolicies {...{ countryDocuments, countryMetadata }} />
+        <SubtopicDataDownload
+          topic={data.topic.data.Topic}
+          subtopics={data.subtopics}
+        />
       </Main>
       <Footer />
     </Providers>

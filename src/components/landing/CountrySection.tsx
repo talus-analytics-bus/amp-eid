@@ -47,7 +47,7 @@ const CountrySection = () => {
         <CMS.Text name="Paragraph 4" data={cmsData} />
       </Paragraph>
       <SearchBarContainer>
-        <CountrySearch />
+        <CountrySearch style={{ width: 450, maxWidth: '90%' }} />
       </SearchBarContainer>
     </ContentContainer>
   )
