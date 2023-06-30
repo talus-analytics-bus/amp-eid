@@ -37,11 +37,11 @@ export const createPages: GatsbyNode['createPages'] = async ({
         'All topics must have a topic name in the "Topic" column.'
       )
 
-    actions.createPage({
-      path: `/topics/${simplifyForUrl(topic.data?.Topic)}/`,
-      component: topicPageTemplate,
-      context: { topic_id: topic.id },
-    })
+    // actions.createPage({
+    //   path: `/topics/${simplifyForUrl(topic.data?.Topic)}/`,
+    //   component: topicPageTemplate,
+    //   context: { topic_id: topic.id },
+    // })
   }
 
   const treatyPageTemplate = path.resolve('./src/templates/treaty.tsx')
@@ -69,11 +69,11 @@ export const createPages: GatsbyNode['createPages'] = async ({
     if (!treaty.data?.Treaty_short_name)
       throw new Error(`All treaties must have short names`)
 
-    actions.createPage({
-      path: `/treaties/${simplifyForUrl(treaty.data?.Treaty_short_name)}/`,
-      component: treatyPageTemplate,
-      context: { treaty_id: treaty.id },
-    })
+    // actions.createPage({
+    //   path: `/treaties/${simplifyForUrl(treaty.data?.Treaty_short_name)}/`,
+    //   component: treatyPageTemplate,
+    //   context: { treaty_id: treaty.id },
+    // })
   }
 
   const documentPageTemplate = path.resolve('./src/templates/document.tsx')
@@ -109,15 +109,15 @@ export const createPages: GatsbyNode['createPages'] = async ({
       throw new Error(
         `Document ${name} does not have an "Authoring country" which has a "Country name".`
       )
-    actions.createPage({
-      path: `/documents/${simplifyForUrl(authoringCountry)}/${simplifyForUrl(
-        name
-      )}/`,
-      component: documentPageTemplate,
-      context: {
-        document_id: document.id,
-      },
-    })
+    // actions.createPage({
+    //   path: `/documents/${simplifyForUrl(authoringCountry)}/${simplifyForUrl(
+    //     name
+    //   )}/`,
+    //   component: documentPageTemplate,
+    //   context: {
+    //     document_id: document.id,
+    //   },
+    // })
   }
 
   const countryPageTemplate = path.resolve('./src/templates/country.tsx')
@@ -149,11 +149,11 @@ export const createPages: GatsbyNode['createPages'] = async ({
     const countryName = country.data?.Country_name
     if (!iso3 || !countryName)
       throw new Error('All countries must have names and ISO3 codes')
-    actions.createPage({
-      path: `/countries/${simplifyForUrl(countryName)}/`,
-      component: countryPageTemplate,
-      context: { country_id: country.id },
-    })
+    // actions.createPage({
+    //   path: `/countries/${simplifyForUrl(countryName)}/`,
+    //   component: countryPageTemplate,
+    //   context: { country_id: country.id },
+    // })
   }
 }
 
@@ -321,14 +321,16 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
             Date_entered_into_force
             Languages: Language
             Original_language_titles: Original_language_title
+            File: PDF {
+              PDF: localFiles {
+                publicURL
+              }
+            }
           }
         }
       }
     }
   `)
-
-  console.log('write json file')
-  console.log(result)
 
   const dir = './public/api/v1'
 
@@ -352,6 +354,8 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
     'Reservations_understandings_and_declarations',
     'All_applicable_countries',
     'Related_treaties',
+    'PDF',
+    'File',
   ])
 
   type ObjLike = { [key: string]: unknown }
@@ -389,7 +393,13 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
 
   // create the CSV files for download
 
+  console.log('creating CSV files')
+
   const csvDir = './public/csv'
+
+  if (!fs.existsSync(csvDir)) {
+    fs.mkdirSync(csvDir, { recursive: true })
+  }
 
   interface TopicJSON {
     Subtopic: string
@@ -405,23 +415,30 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
   const allTopics: AllTopics = {}
 
   result.data?.Topics?.nodes?.forEach(topic => {
-    allTopics[topic.data?.Name] = []
-    topic.data?.Subtopics?.nodes?.forEach(subtopic => {
-      subtopic.data?.Statuses?.forEach(status => {
-        status.data?.Countries?.forEach(country => {
-          allTopics[topic.data?.Name].push({
-            Subtopic: subtopic.data?.Name,
-            Country: country.data?.ISO3,
-            Status: status.data?.Name,
-            'Status justification': country.data?.Status_justification,
+    const topicName = topic.data?.Name
+    console.log(topicName)
+    if (!topicName) throw new Error('Topic has no name')
+    allTopics[topicName] = []
+    topic.data?.Subtopics?.forEach(subtopic => {
+      subtopic?.data?.Statuses?.forEach(status => {
+        status?.data?.Countries?.forEach(country => {
+          console.log(country)
+          allTopics[topicName].push({
+            Subtopic: subtopic.data?.Name ?? '',
+            Country: country?.data?.Country?.[0]?.data?.ISO3 ?? '',
+            Status: status.data?.Name ?? '',
+            'Status justification':
+              country?.data?.Country?.[0]?.data?.Status_justification ?? '',
           })
         })
       })
     })
 
+    console.log(allTopics[topicName])
+
     fs.writeFileSync(
-      `${csvDir}/${topic.data?.Name}.csv`,
-      Papa.unparse(allTopics[topic.data?.Name])
+      `${csvDir}/${topicName}.csv`,
+      Papa.unparse(allTopics[topicName])
     )
   })
 
@@ -431,8 +448,10 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
 
   const allTopicsFlat: AllTopicsJSON[] = []
 
-  Object.entries(allTopics).forEach((Topic, topicJSON) => {
-    allTopicsFlat.push({ Topic, ...topicJSON })
+  Object.entries(allTopics).forEach(([Topic, topicJSON]) => {
+    topicJSON.forEach(row => {
+      allTopicsFlat.push({ Topic, ...row })
+    })
   })
 
   fs.writeFileSync(`${csvDir}/All topics.csv`, Papa.unparse(allTopicsFlat))
