@@ -84,6 +84,7 @@ const SchemaButton = styled.button`
   padding: 3px 5px;
   font-size: 16px;
   font-family: monospace;
+  color: ${({ theme }) => theme.black};
 `
 const Type = styled.p`
   margin: 0;
