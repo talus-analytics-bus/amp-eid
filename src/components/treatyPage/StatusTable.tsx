@@ -206,15 +206,13 @@ const StatusTable = ({
             (row[column.displayName] = column.stringify(
               // @ts-expect-error: The types of col.parse
               // and col.key are guaranteed by the types above
-              country[column.key]
+              country.data[column.key]
             ))
         )
         return row
       }),
     [countryList, columns]
   )
-
-  console.log(sorted)
 
   function isColumnKey(colKey: string): colKey is keyof CountryData {
     return Object.keys(countryList?.[0]?.data ?? {}).includes(colKey)
