@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import useTopics from 'queryHooks/useTopics'
 import styled from 'styled-components'
 import ButtonLink from 'components/ui/ButtonLink'
+import DownloadIcon from 'components/ui/DownloadIcon'
 
 const Container = styled.div`
   display: flex;
@@ -50,7 +51,10 @@ const CSVDownloads = () => {
           <option>{topic.name}</option>
         ))}
       </select>
-      <ButtonLink href={selectedTopic.link}>{selectedTopic.name}</ButtonLink>
+      <ButtonLink href={selectedTopic.link}>
+        <DownloadIcon />
+        Download topic data (CSV)
+      </ButtonLink>
     </Container>
   )
 }
