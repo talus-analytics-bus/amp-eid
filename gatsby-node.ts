@@ -37,11 +37,11 @@ export const createPages: GatsbyNode['createPages'] = async ({
         'All topics must have a topic name in the "Topic" column.'
       )
 
-    // actions.createPage({
-    //   path: `/topics/${simplifyForUrl(topic.data?.Topic)}/`,
-    //   component: topicPageTemplate,
-    //   context: { topic_id: topic.id },
-    // })
+    actions.createPage({
+      path: `/topics/${simplifyForUrl(topic.data?.Topic)}/`,
+      component: topicPageTemplate,
+      context: { topic_id: topic.id },
+    })
   }
 
   const treatyPageTemplate = path.resolve('./src/templates/treaty.tsx')
@@ -69,11 +69,11 @@ export const createPages: GatsbyNode['createPages'] = async ({
     if (!treaty.data?.Treaty_short_name)
       throw new Error(`All treaties must have short names`)
 
-    // actions.createPage({
-    //   path: `/treaties/${simplifyForUrl(treaty.data?.Treaty_short_name)}/`,
-    //   component: treatyPageTemplate,
-    //   context: { treaty_id: treaty.id },
-    // })
+    actions.createPage({
+      path: `/treaties/${simplifyForUrl(treaty.data?.Treaty_short_name)}/`,
+      component: treatyPageTemplate,
+      context: { treaty_id: treaty.id },
+    })
   }
 
   const documentPageTemplate = path.resolve('./src/templates/document.tsx')
@@ -109,15 +109,15 @@ export const createPages: GatsbyNode['createPages'] = async ({
       throw new Error(
         `Document ${name} does not have an "Authoring country" which has a "Country name".`
       )
-    // actions.createPage({
-    //   path: `/documents/${simplifyForUrl(authoringCountry)}/${simplifyForUrl(
-    //     name
-    //   )}/`,
-    //   component: documentPageTemplate,
-    //   context: {
-    //     document_id: document.id,
-    //   },
-    // })
+    actions.createPage({
+      path: `/documents/${simplifyForUrl(authoringCountry)}/${simplifyForUrl(
+        name
+      )}/`,
+      component: documentPageTemplate,
+      context: {
+        document_id: document.id,
+      },
+    })
   }
 
   const countryPageTemplate = path.resolve('./src/templates/country.tsx')
@@ -321,9 +321,11 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
             Date_entered_into_force
             Languages: Language
             Original_language_titles: Original_language_title
-            File: PDF {
-              PDF: localFiles {
+            Files: PDF {
+              Objects: localFiles {
                 publicURL
+                prettySize
+                ext
               }
             }
           }
@@ -354,17 +356,23 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
     'Reservations_understandings_and_declarations',
     'All_applicable_countries',
     'Related_treaties',
-    'PDF',
-    'File',
+    'Objects',
   ])
 
   type ObjLike = { [key: string]: unknown }
-  const format = (obj: ObjLike | null): unknown => {
+
+  const format = (obj: ObjLike | null | string): unknown => {
     if (!obj) return obj
+
     if (typeof obj !== 'object') return obj
 
     const keys = Object.keys(obj)
-    if (keys.length === 1) obj = format(obj[keys[0]] as ObjLike) as ObjLike
+    if (keys.length === 1)
+      if (preserveArray.has(keys[0]) && Array.isArray(obj[keys[0]]))
+        // handles the case of an object with one key and that key
+        // corresponds to a protected array; moves the array up one level
+        obj = obj[keys[0]] as ObjLike
+      else obj = format(obj[keys[0]] as ObjLike) as ObjLike
 
     if (keys.length > 1)
       for (const [key, child] of Object.entries(obj as ObjLike))
@@ -377,16 +385,26 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
 
   format(result)
 
-  fs.writeFileSync(`${dir}/index.html`, JSON.stringify(result.data))
+  const replaceURLs = JSON.stringify(result.data).replace(
+    /\/static/g,
+    'https://ampeid.org/static'
+  )
+
+  fs.writeFileSync(`${dir}/index.html`, replaceURLs)
 
   if (result.data) {
     for (const [section, data] of Object.entries(result.data)) {
       if (!fs.existsSync(`${dir}/${section.toLowerCase()}`)) {
         fs.mkdirSync(`${dir}/${section.toLowerCase()}`, { recursive: true })
       }
+      const replaceURLs = JSON.stringify(data).replace(
+        /\/static/g,
+        'https://ampeid.org/static'
+      )
+
       fs.writeFileSync(
         `${dir}/${section.toLowerCase()}/index.html`,
-        JSON.stringify(data)
+        replaceURLs
       )
     }
   }

@@ -353,6 +353,29 @@ const schema = {
                 'Original language title, order matches Languages array',
             },
           },
+          Files: {
+            type: SchemaObjectTypes.Array as const,
+            definition: 'List of files available for download',
+            items: {
+              type: SchemaObjectTypes.Object as const,
+              definition:
+                'File object, order matches Languages and Original_language_titles arrays',
+              properties: {
+                publicURL: {
+                  type: SchemaObjectTypes.String as const,
+                  definition: 'URL of the file, for download',
+                },
+                prettySize: {
+                  type: SchemaObjectTypes.String as const,
+                  definition: 'Size of the file, in human readable format',
+                },
+                ext: {
+                  type: SchemaObjectTypes.String as const,
+                  definition: 'File extension',
+                },
+              },
+            },
+          },
         },
       },
     },
@@ -553,6 +576,14 @@ const routes = {
         "Original_language_titles": [
           "Act No. XXXIII of 1995 on the Protection of...",
           "1995. évi XXXIII. törvény a találmányok szabadalmi..."
+        ]
+        "Files": [
+          {
+            "publicURL": "https://ampeid.org/static/7a45019257bcf36a6273abf3ec31d712/Hungary..pdf",
+            "prettySize": "667 kB",
+            "ext": ".pdf"
+          },
+          ...
         ]
       },
       ...
