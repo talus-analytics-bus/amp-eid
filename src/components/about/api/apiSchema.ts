@@ -4,6 +4,87 @@ export enum SchemaObjectTypes {
   String = 'string',
 }
 
+export interface APIType {
+  Topics: {
+    Name: string | undefined
+    Method: string | undefined
+    Subtopics?: {
+      Name: string | undefined
+      Description: string | undefined
+      Source: string | undefined
+      Statuses?: {
+        Name: string | undefined
+        Description: string | undefined
+        Countries?: {
+          ISO3: string | undefined
+          Status_justification: string | undefined
+        }[]
+      }[]
+    }[]
+  }[]
+
+  Countries: {
+    ISO3: string | undefined
+    Name: string | undefined
+    Treaties?: {
+      Name: string | undefined
+      Status: string | undefined
+      Date_signed: string | undefined
+      Date_ratified: string | undefined
+      Date_entered_into_force: string | undefined
+    }[]
+    Documents?: {
+      Name: string | undefined
+      Type: string | undefined
+      Date_of_original_publication: string | undefined
+      Relevant_articles: string | undefined
+      Topics: string[]
+      Subtopics: string[]
+    }[]
+  }
+
+  Treaties: {
+    Name: string | undefined
+    Short_name: string | undefined
+    Description: string | undefined
+    Date_of_original_publication: string | undefined
+    Languages: string[]
+    Original_language_titles: string[]
+    Related_treaties: string[]
+    States_parties?: {
+      ISO3: string | undefined
+      Name: string | undefined
+      Status: string | undefined
+      Date_entered_into_force: string | undefined
+      Date_ratified: string | undefined
+      Date_signed: string | undefined
+      Reservations_understandings_and_declarations: string | undefined
+      RUDs_text: string | undefined
+    }[]
+  }
+
+  Documents: {
+    Name: string | undefined
+    Subtitle: string | undefined
+    Authoring_country: string | undefined
+    Authoring_regional_organization: string | undefined
+    All_applicable_countries: string[]
+    Topics: string[]
+    Subtopics: string[]
+    Document_type: string | undefined
+    Description: string | undefined
+    Date_of_original_publication: string | undefined
+    Date_entered_into_force: string | undefined
+    Languages: string[]
+    Original_language_titles: string[]
+    Files?: {
+      publicURL: string | undefined
+      prettySize: string | undefined
+      ext: string | undefined
+    }[]
+  }
+}
+
 const schema = {
   type: SchemaObjectTypes.Object as const,
   definition: 'All data',
@@ -64,8 +145,19 @@ const schema = {
                         type: SchemaObjectTypes.Array as const,
                         definition: 'List of countries with the status',
                         items: {
-                          type: SchemaObjectTypes.String as const,
-                          definition: 'ISO3 code of the country',
+                          type: SchemaObjectTypes.Object as const,
+                          definition: 'Country-status object',
+                          properties: {
+                            ISO3: {
+                              type: SchemaObjectTypes.String as const,
+                              definition: 'ISO3 code of the country',
+                            },
+                            Status_justification: {
+                              type: SchemaObjectTypes.String as const,
+                              definition:
+                                'Short description of why this country was assigned this status',
+                            },
+                          },
                         },
                       },
                     },
@@ -124,41 +216,46 @@ const schema = {
             },
           },
           Documents: {
-            type: SchemaObjectTypes.Object as const,
+            type: SchemaObjectTypes.Array as const,
             definition: 'List of documents applicable to the country',
-            properties: {
-              Name: {
-                type: SchemaObjectTypes.String as const,
-                definition: 'Name of the document',
-              },
-              Type: {
-                type: SchemaObjectTypes.String as const,
-                definition:
-                  'Type of document, one of "Treaty", "Law", "Regulation", "Supporting document", or "Other"',
-              },
-              Date_of_original_publication: {
-                type: SchemaObjectTypes.String as const,
-                definition: 'Date the document was originally published',
-              },
-              Relevant_articles: {
-                type: SchemaObjectTypes.String as const,
-                definition:
-                  "Relevant document section or articles for determining the country's status in the appropriate topic",
-              },
-              Topics: {
-                type: SchemaObjectTypes.Array as const,
-                definition: 'List of topics where the document is relevant',
-                items: {
+            items: {
+              type: SchemaObjectTypes.Object as const,
+              definition: 'Country-document object',
+              properties: {
+                Name: {
                   type: SchemaObjectTypes.String as const,
-                  definition: 'Name of the topic',
+                  definition: 'Name of the document',
                 },
-              },
-              Subtopics: {
-                type: SchemaObjectTypes.Array as const,
-                definition: 'List of subtopics where the document is relevant',
-                items: {
+                Type: {
                   type: SchemaObjectTypes.String as const,
-                  definition: 'Name of the subtopic',
+                  definition:
+                    'Type of document, one of "Treaty", "Law", "Regulation", "Supporting document", or "Other"',
+                },
+                Date_of_original_publication: {
+                  type: SchemaObjectTypes.String as const,
+                  definition: 'Date the document was originally published',
+                },
+                Relevant_articles: {
+                  type: SchemaObjectTypes.String as const,
+                  definition:
+                    "Relevant document section or articles for determining the country's status in the appropriate topic",
+                },
+                Topics: {
+                  type: SchemaObjectTypes.Array as const,
+                  definition: 'List of topics where the document is relevant',
+                  items: {
+                    type: SchemaObjectTypes.String as const,
+                    definition: 'Name of the topic',
+                  },
+                },
+                Subtopics: {
+                  type: SchemaObjectTypes.Array as const,
+                  definition:
+                    'List of subtopics where the document is relevant',
+                  items: {
+                    type: SchemaObjectTypes.String as const,
+                    definition: 'Name of the subtopic',
+                  },
                 },
               },
             },
@@ -434,9 +531,14 @@ const routes = {
                 "Name": "WTO Member",
                 "Description": "Country is a member state...",
                 "Countries": [
-                  "AFG",
-                  "ALB",
-                  "AGO",
+                  {
+                    "ISO3": "AFG",
+                    "Status_justification": "Country is a...",
+                  },
+                  {
+                    "ISO3": "ALB",
+                    "Status_justification": "Country is a...",
+                  },
                   ...
                 ]
               },
@@ -444,9 +546,14 @@ const routes = {
                 "Name": "WTO Observer",
                 "Description": "Country is an observer...",
                 "Countries": [
-                  "DZA",
-                  "AND",
-                  "AZE",
+                  {
+                    "ISO3": "DZA",
+                    "Status_justification": "Country has...",
+                  },
+                  {
+                    "ISO3": "AND",
+                    "Status_justification": "Country has...",
+                  }
                   ...
                 ]
               },
@@ -481,18 +588,23 @@ const routes = {
           },
           ...
         ],
-        "Documents": {
-          "Name": "Patents Act (Chapter 26:03)",
-          "Type": "Law",
-          "Date_of_original_publication": "1972-02-01",
-          "Relevant_articles": "Sections 30A-31",
-          "Topics": [
-            "Trade and intellectual property"
-          ],
-          "Subtopics": [
-            "Compulsory licensing provision"
-          ]
-        }
+        "Documents": [
+          {
+            "Name": "Patents Act (Chapter 26:03)",
+            "Type": "Law",
+            "Date_of_original_publication": "1972-02-01",
+            "Relevant_articles": "Sections 30A-31",
+            "Topics": [
+              "Trade and intellectual property"
+              ...
+            ],
+            "Subtopics": [
+              "Compulsory licensing provision"
+              ...
+            ]
+          },
+        ...
+        ]
       },
       ...
     ]`,

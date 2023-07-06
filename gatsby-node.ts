@@ -6,6 +6,7 @@ import simplifyForUrl from './src/utilities/simplifyForUrl'
 
 import fs from 'fs'
 import Papa from 'papaparse'
+import { APIType } from 'components/about/api/apiSchema'
 
 export const createPages: GatsbyNode['createPages'] = async ({
   actions,
@@ -149,11 +150,11 @@ export const createPages: GatsbyNode['createPages'] = async ({
     const countryName = country.data?.Country_name
     if (!iso3 || !countryName)
       throw new Error('All countries must have names and ISO3 codes')
-    // actions.createPage({
-    //   path: `/countries/${simplifyForUrl(countryName)}/`,
-    //   component: countryPageTemplate,
-    //   context: { country_id: country.id },
-    // })
+    actions.createPage({
+      path: `/countries/${simplifyForUrl(countryName)}/`,
+      component: countryPageTemplate,
+      context: { country_id: country.id },
+    })
   }
 }
 
@@ -163,6 +164,7 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
     query APIQuery {
       Topics: allAirtableDatabase(
         filter: { table: { eq: "Topic" }, data: { Publish: { eq: true } } }
+        sort: { data: { Order: ASC } }
       ) {
         nodes {
           data {
@@ -179,12 +181,12 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
                     Description: Status_description
                     Countries: Define_status_assign_status_link {
                       data {
-                        Country {
+                        ISO3: Country {
                           data {
                             ISO3
-                            Status_justification
                           }
                         }
+                        Status_justification
                       }
                     }
                   }
@@ -336,9 +338,7 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
 
   const dir = './public/api/v1'
 
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true })
-  }
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
 
   // fs.writeFileSync(`${dir}/raw.json`, JSON.stringify(result))
 
@@ -363,7 +363,6 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
 
   const format = (obj: ObjLike | null | string): unknown => {
     if (!obj) return obj
-
     if (typeof obj !== 'object') return obj
 
     const keys = Object.keys(obj)
@@ -385,18 +384,20 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
 
   format(result)
 
-  const replaceURLs = JSON.stringify(result.data).replace(
+  const formatted = (result as unknown as { data: APIType }).data
+
+  const replaceURLs = JSON.stringify(formatted).replace(
     /\/static/g,
     'https://ampeid.org/static'
   )
 
   fs.writeFileSync(`${dir}/index.html`, replaceURLs)
 
-  if (result.data) {
-    for (const [section, data] of Object.entries(result.data)) {
-      if (!fs.existsSync(`${dir}/${section.toLowerCase()}`)) {
+  if (formatted) {
+    for (const [section, data] of Object.entries(formatted)) {
+      if (!fs.existsSync(`${dir}/${section.toLowerCase()}`))
         fs.mkdirSync(`${dir}/${section.toLowerCase()}`, { recursive: true })
-      }
+
       const replaceURLs = JSON.stringify(data).replace(
         /\/static/g,
         'https://ampeid.org/static'
@@ -415,9 +416,7 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
 
   const csvDir = './public/csv'
 
-  if (!fs.existsSync(csvDir)) {
-    fs.mkdirSync(csvDir, { recursive: true })
-  }
+  if (!fs.existsSync(csvDir)) fs.mkdirSync(csvDir, { recursive: true })
 
   interface TopicJSON {
     Subtopic: string
@@ -432,21 +431,19 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
 
   const allTopics: AllTopics = {}
 
-  result.data?.Topics?.nodes?.forEach(topic => {
-    const topicName = topic.data?.Name
-    console.log(topicName)
+  formatted.Topics.forEach(topic => {
+    console.log(topic)
+    const topicName = topic.Name
     if (!topicName) throw new Error('Topic has no name')
     allTopics[topicName] = []
-    topic.data?.Subtopics?.forEach(subtopic => {
-      subtopic?.data?.Statuses?.forEach(status => {
-        status?.data?.Countries?.forEach(country => {
-          console.log(country)
+    topic.Subtopics?.forEach(subtopic => {
+      subtopic.Statuses?.forEach(status => {
+        status.Countries?.forEach(country => {
           allTopics[topicName].push({
-            Subtopic: subtopic.data?.Name ?? '',
-            Country: country?.data?.Country?.[0]?.data?.ISO3 ?? '',
-            Status: status.data?.Name ?? '',
-            'Status justification':
-              country?.data?.Country?.[0]?.data?.Status_justification ?? '',
+            Subtopic: subtopic.Name ?? '',
+            Country: country.ISO3 ?? '',
+            Status: status.Name ?? '',
+            'Status justification': country.Status_justification ?? '',
           })
         })
       })

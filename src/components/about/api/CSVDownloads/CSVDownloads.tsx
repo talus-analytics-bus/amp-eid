@@ -1,11 +1,32 @@
 import React, { useState } from 'react'
 
 import useTopics from 'queryHooks/useTopics'
+import styled from 'styled-components'
+import ButtonLink from 'components/ui/ButtonLink'
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 450px;
+  margin-top: 20px;
+
+  select {
+    ${({ theme }) => theme.paragraphMedium};
+    padding: 5px 15px;
+  }
+`
+
+interface TopicOptions {
+  [key: string]: {
+    name: string
+    link: string
+  }
+}
 
 const CSVDownloads = () => {
   const topics = useTopics()
 
-  const topicOptions = {
+  const topicOptions: TopicOptions = {
     'All topics': {
       name: 'All topics',
       link: '/csv/All topics.csv',
@@ -13,6 +34,7 @@ const CSVDownloads = () => {
   }
 
   topics.forEach(topic => {
+    if (!topic.data?.Topic) return
     topicOptions[topic.data?.Topic] = {
       name: topic.data?.Topic,
       link: `/csv/${topic.data?.Topic}.csv`,
@@ -22,14 +44,14 @@ const CSVDownloads = () => {
   const [selectedTopic, setSelectedTopic] = useState(topicOptions['All topics'])
 
   return (
-    <>
+    <Container>
       <select onChange={e => setSelectedTopic(topicOptions[e.target.value])}>
-        {topicOptions.map(topic => (
-          <option>{topic.data?.Topic}</option>
+        {Object.values(topicOptions).map(topic => (
+          <option>{topic.name}</option>
         ))}
       </select>
-      <a href={selectedTopic.link}>{selectedTopic.name}</a>
-    </>
+      <ButtonLink href={selectedTopic.link}>{selectedTopic.name}</ButtonLink>
+    </Container>
   )
 }
 

@@ -39,7 +39,8 @@ const AboutStyle = styled.div`
     }
   }
 
-  a {
+  p > a,
+  em > a {
     text-decoration: none;
     color: ${({ theme }) => theme.link};
 
