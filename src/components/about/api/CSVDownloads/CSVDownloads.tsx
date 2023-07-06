@@ -35,7 +35,7 @@ const CSVDownloads = () => {
   }
 
   topics.forEach(topic => {
-    if (!topic.data?.Topic) return
+    if (!topic.data?.Topic || topic.data.Disable) return
     topicOptions[topic.data?.Topic] = {
       name: topic.data?.Topic,
       link: `/csv/${topic.data?.Topic}.csv`,
