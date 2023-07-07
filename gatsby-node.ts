@@ -366,6 +366,7 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
     if (typeof obj !== 'object') return obj
 
     const keys = Object.keys(obj)
+
     if (keys.length === 1)
       if (preserveArray.has(keys[0]) && Array.isArray(obj[keys[0]]))
         // handles the case of an object with one key and that key
@@ -385,6 +386,13 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
   format(result)
 
   const formatted = (result as unknown as { data: APIType }).data
+
+  // guarantee top-level keys are always arrays
+  // if there is only one thing in the top-level
+  // "nodes" arrays it will simplify to an object
+  for (const [key, value] of Object.entries(formatted))
+    if (!Array.isArray(value))
+      (formatted as unknown as Record<string, unknown>)[key] = [value]
 
   const replaceURLs = JSON.stringify(formatted).replace(
     /\/static/g,
@@ -432,7 +440,6 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
   const allTopics: AllTopics = {}
 
   formatted.Topics.forEach(topic => {
-    console.log(topic)
     const topicName = topic.Name
     if (!topicName) throw new Error('Topic has no name')
     allTopics[topicName] = []
@@ -448,8 +455,6 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
         })
       })
     })
-
-    console.log(allTopics[topicName])
 
     fs.writeFileSync(
       `${csvDir}/${topicName}.csv`,
