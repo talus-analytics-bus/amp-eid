@@ -494,7 +494,7 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
   const allTreaties: AllTreaties = {}
 
   formatted.Treaties.forEach(treaty => {
-    const treatyName = treaty.Name
+    const treatyName = treaty.Short_name
     if (!treatyName) throw new Error('Treaty has no name')
     allTreaties[treatyName] = []
     treaty.States_parties?.forEach(party => {
