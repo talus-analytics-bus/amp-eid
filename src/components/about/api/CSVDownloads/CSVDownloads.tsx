@@ -1,33 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 
+import CMS from '@talus-analytics/library.airtable-cms'
+
+import useDataAndAPIPageData from 'cmsHooks/useAboutDataAndAPIQuery'
 import useTopics from 'queryHooks/useTopics'
-import styled from 'styled-components'
-import ButtonLink from 'components/ui/ButtonLink'
-import DownloadIcon from 'components/ui/DownloadIcon'
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: 450px;
-  margin-top: 20px;
-
-  select {
-    ${({ theme }) => theme.paragraphMedium};
-    padding: 5px 15px;
-  }
-`
-
-interface TopicOptions {
-  [key: string]: {
-    name: string
-    link: string
-  }
-}
+import CSVDownloadSelector, { CSVOptions } from './CSVDownloadSelector'
 
 const CSVDownloads = () => {
+  const cmsData = useDataAndAPIPageData()
   const topics = useTopics()
 
-  const topicOptions: TopicOptions = {
+  const topicOptions: CSVOptions = {
     'All topics': {
       name: 'All topics',
       link: '/csv/All topics.csv',
@@ -42,20 +25,28 @@ const CSVDownloads = () => {
     }
   })
 
-  const [selectedTopic, setSelectedTopic] = useState(topicOptions['All topics'])
-
   return (
-    <Container>
-      <select onChange={e => setSelectedTopic(topicOptions[e.target.value])}>
-        {Object.values(topicOptions).map(topic => (
-          <option>{topic.name}</option>
-        ))}
-      </select>
-      <ButtonLink href={selectedTopic.link}>
-        <DownloadIcon />
-        Download topic data (CSV)
-      </ButtonLink>
-    </Container>
+    <>
+      <h2>
+        <CMS.Text name="H2 CSV downloads" data={cmsData} />
+      </h2>
+      <h3>
+        <CMS.Text name="H3 topic data CSV" data={cmsData} />
+      </h3>
+      <CMS.RichText name="Topic data CSV paragraph" data={cmsData} />
+      <h3>
+        <CMS.Text name="H3 treaty data CSV" data={cmsData} />
+      </h3>
+      <CMS.RichText name="Treaty data CSV paragraph" data={cmsData} />
+      <CSVDownloadSelector options={topicOptions} defaultOption="All topics" />
+      <h3>
+        <CMS.Text name="H3 document metadata CSV" data={cmsData} />
+      </h3>
+      <CMS.RichText name="Document metadata CSV paragraph" data={cmsData} />
+      <h2>
+        <CMS.Text name="H2 API documentation" data={cmsData} />
+      </h2>
+    </>
   )
 }
 
