@@ -6,3 +6,6 @@ public/
 
 # gatsby auto-generated types
 gatsby-types.d.ts
+
+# vim swap files
+*.swp
