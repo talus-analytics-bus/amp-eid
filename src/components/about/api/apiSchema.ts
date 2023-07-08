@@ -41,7 +41,7 @@ export interface APIType {
       Topics: string[]
       Subtopics: string[]
     }[]
-  }
+  }[]
 
   Treaties: {
     Name: string | undefined
@@ -61,7 +61,7 @@ export interface APIType {
       Reservations_understandings_and_declarations: string | undefined
       RUDs_text: string | undefined
     }[]
-  }
+  }[]
 
   Documents: {
     Name: string | undefined
@@ -82,7 +82,7 @@ export interface APIType {
       prettySize: string | undefined
       ext: string | undefined
     }[]
-  }
+  }[]
 }
 
 const schema = {
