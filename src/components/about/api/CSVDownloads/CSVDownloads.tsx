@@ -4,11 +4,14 @@ import CMS from '@talus-analytics/library.airtable-cms'
 
 import useDataAndAPIPageData from 'cmsHooks/useAboutDataAndAPIQuery'
 import useTopics from 'queryHooks/useTopics'
+import useShortTreatyNames from 'queryHooks/useShortTreatyNames'
 import CSVDownloadSelector, { CSVOptions } from './CSVDownloadSelector'
 
 const CSVDownloads = () => {
   const cmsData = useDataAndAPIPageData()
   const topics = useTopics()
+  const treaties = useShortTreatyNames()
+
 
   const topicOptions: CSVOptions = {
     'All topics': {
@@ -25,6 +28,21 @@ const CSVDownloads = () => {
     }
   })
 
+  const treatyOptions: CSVOptions = {
+    'All treaties': {
+      name: 'All treaties,
+      link: '/csv/All treaties.csv',
+    },
+  }
+
+  treaties.forEach(short_name => {
+    treatyOptions[short_name] = {
+      name: short_name,
+      link: `/csv/${short_name}.csv`,
+    }
+  })
+
+
   return (
     <>
       <h2>
@@ -39,6 +57,7 @@ const CSVDownloads = () => {
         <CMS.Text name="H3 treaty data CSV" data={cmsData} />
       </h3>
       <CMS.RichText name="Treaty data CSV paragraph" data={cmsData} />
+      <CSVDownloadSelector options={treatyOptions} defaultOption="All treaties" />
       <h3>
         <CMS.Text name="H3 document metadata CSV" data={cmsData} />
       </h3>
