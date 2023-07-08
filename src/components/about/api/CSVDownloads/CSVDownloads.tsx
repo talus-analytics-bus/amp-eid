@@ -34,11 +34,11 @@ const CSVDownloads = () => {
         <CMS.Text name="H3 topic data CSV" data={cmsData} />
       </h3>
       <CMS.RichText name="Topic data CSV paragraph" data={cmsData} />
+      <CSVDownloadSelector options={topicOptions} defaultOption="All topics" />
       <h3>
         <CMS.Text name="H3 treaty data CSV" data={cmsData} />
       </h3>
       <CMS.RichText name="Treaty data CSV paragraph" data={cmsData} />
-      <CSVDownloadSelector options={topicOptions} defaultOption="All topics" />
       <h3>
         <CMS.Text name="H3 document metadata CSV" data={cmsData} />
       </h3>
