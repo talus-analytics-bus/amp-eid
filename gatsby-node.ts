@@ -475,4 +475,59 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
   })
 
   fs.writeFileSync(`${csvDir}/All topics.csv`, Papa.unparse(allTopicsFlat))
+
+  // create treaty CSVs
+  interface TreatyJSON {
+    Country: string
+    Status: string
+    Signed: string
+    Ratified: string
+    'Entered into force': string
+    'Reservations, understandings, and declarations': string
+    'Reservations, understandings, and declarations text': string
+  }
+
+  interface AllTreaties {
+    [key: string]: TreatyJSON[]
+  }
+
+  const allTreaties: AllTreaties = {}
+
+  formatted.Treaties.forEach(treaty => {
+    const treatyName = treaty.Name
+    if (!treatyName) throw new Error('Treaty has no name')
+    allTreaties[treatyName] = []
+    treaty.States_parties?.forEach(party => {
+      allTreaties[treatyName].push({
+        Country: party.ISO3 ?? '',
+        Status: party.Status ?? '',
+        Signed: party.Date_signed ?? '',
+        Ratified: party.Date_ratified ?? '',
+        'Entered into force': party.Date_entered_into_force ?? '',
+        'Reservations, understandings, and declarations':
+          party.Reservations_understandings_and_declarations ?? '',
+        'Reservations, understandings, and declarations text':
+          party.RUDs_text ?? '',
+      })
+    })
+
+    fs.writeFileSync(
+      `${csvDir}/${treatyName}.csv`,
+      Papa.unparse(allTreaties[treatyName])
+    )
+  })
+
+  interface AllTreatiesJSON extends TreatyJSON {
+    Treaty: string
+  }
+
+  const allTreatiesFlat: AllTreatiesJSON[] = []
+
+  Object.entries(allTreaties).forEach(([Treaty, topicJSON]) => {
+    topicJSON.forEach(row => {
+      allTreatiesFlat.push({ Treaty, ...row })
+    })
+  })
+
+  fs.writeFileSync(`${csvDir}/All treaties.csv`, Papa.unparse(allTreatiesFlat))
 }
