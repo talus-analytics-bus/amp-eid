@@ -12,7 +12,6 @@ const CSVDownloads = () => {
   const topics = useTopics()
   const treaties = useShortTreatyNames()
 
-
   const topicOptions: CSVOptions = {
     'All topics': {
       name: 'All topics',
@@ -30,7 +29,7 @@ const CSVDownloads = () => {
 
   const treatyOptions: CSVOptions = {
     'All treaties': {
-      name: 'All treaties,
+      name: 'All treaties',
       link: '/csv/All treaties.csv',
     },
   }
@@ -41,7 +40,6 @@ const CSVDownloads = () => {
       link: `/csv/${short_name}.csv`,
     }
   })
-
 
   return (
     <>
@@ -57,7 +55,10 @@ const CSVDownloads = () => {
         <CMS.Text name="H3 treaty data CSV" data={cmsData} />
       </h3>
       <CMS.RichText name="Treaty data CSV paragraph" data={cmsData} />
-      <CSVDownloadSelector options={treatyOptions} defaultOption="All treaties" />
+      <CSVDownloadSelector
+        options={treatyOptions}
+        defaultOption="All treaties"
+      />
       <h3>
         <CMS.Text name="H3 document metadata CSV" data={cmsData} />
       </h3>
