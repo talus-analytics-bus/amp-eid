@@ -17,7 +17,7 @@ import Footer from 'components/layout/Footer'
 import RelatedTreaties from 'components/topics/RelatedTreaties'
 import RelatedTopics from 'components/ui/RelatedTopic'
 import BlueCircleIcon from 'components/ui/BlueCircleIcon'
-import useStatesPartiesDefinitionQuery from 'cmsHooks/useStatesPartiesDefinition'
+import StatesPartiesDefinitions from 'components/treatyPage/StatesPartiesDefinitions'
 
 const MainContent = styled.div``
 const H3 = styled.h3`
@@ -41,10 +41,6 @@ const Footnote = styled(RenderCMSRichText)`
     }
   }
 `
-const StatesPartiesDefinitions = styled(CMS.RichText)`
-  ${({ theme }) => theme.smallParagraph};
-  color: ${({ theme }) => theme.darkGray};
-`
 
 type NoUndefinedField<T> = {
   [P in keyof T]-?: NoUndefinedField<NonNullable<T[P]>>
@@ -56,8 +52,6 @@ const TreatyPage = ({
 }: PageProps<Queries.TreatyPageQuery, { treaty_id: string }>) => {
   if (!treatyData?.data)
     throw new Error(`Treaty data not found for ${pageContext.treaty_id}`)
-
-  const statesPartiesDefinitionsData = useStatesPartiesDefinitionQuery()
 
   return (
     <Providers>
@@ -100,10 +94,7 @@ const TreatyPage = ({
                 <Footnote markdown={treatyData.data.Treaty_footnotes} />
               )}
               <StatusTable treatyData={treatyData} />
-              <StatesPartiesDefinitions
-                name="States parties definitions"
-                data={statesPartiesDefinitionsData}
-              />
+              <StatesPartiesDefinitions />
             </SubSection>
           </MainContent>
         </ColumnSection>
