@@ -46,6 +46,7 @@ const MapLegend = () => {
       openIndex={subtopicIndex}
       setOpenIndex={setSubtopicIndex}
       aria-orientation="vertical"
+      role="tablist"
     >
       {subtopicData.map(({ data: subtopic }, index) => (
         <Accordion
