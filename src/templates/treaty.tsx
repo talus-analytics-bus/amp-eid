@@ -20,7 +20,7 @@ import BlueCircleIcon from 'components/ui/BlueCircleIcon'
 import StatesPartiesDefinitions from 'components/treatyPage/StatesPartiesDefinitions'
 
 const MainContent = styled.div``
-const H3 = styled.h3`
+const H2 = styled.h2`
   margin: 0;
   ${({ theme }) => theme.h3}
   color: ${({ theme }) => theme.black};
@@ -77,7 +77,7 @@ const TreatyPage = ({
             {treatyData.data.Related_document &&
               treatyData.data.Related_document.length > 0 && (
                 <SubSection>
-                  <H3>Related treaties</H3>
+                  <H2>Related treaties</H2>
                   <RelatedTreaties
                     relatedTreaties={
                       treatyData.data.Related_document as NoUndefinedField<
@@ -89,7 +89,7 @@ const TreatyPage = ({
               )}
             <RelatedTopics topic_link={treatyData.data.Document_topic_link} />
             <SubSection>
-              {<H3>States parties</H3>}
+              {<H2>States parties</H2>}
               {treatyData.data.Treaty_footnotes && (
                 <Footnote markdown={treatyData.data.Treaty_footnotes} />
               )}
