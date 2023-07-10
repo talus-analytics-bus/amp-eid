@@ -41,7 +41,7 @@ const Path = styled.div`
 `
 const RouteName = styled.div`
   ${({ theme }) => theme.bigParagraph}
-  color: ${({ theme }) => theme.darkGray};
+  color: ${({ theme }) => theme.veryDarkGray};
   margin-left: auto;
 `
 const Method = styled.div`
