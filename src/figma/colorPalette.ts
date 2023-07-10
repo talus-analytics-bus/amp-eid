@@ -27,6 +27,9 @@ export default {
   option3Lighter: `rgba(199,225,178,1)`,
   option4Lighter: `rgba(248,229,179,1)`,
   option5Lighter: `rgba(244,218,207,1)`,
-  option6Lighter: `rgba(223,191,195,1)`,
+  option6Lighter: `rgba(223,186,191,1)`,
   ampEidEvenDarkerBlue: `rgba(10,36,51,1)`,
+  blueButtonDefault: `linear-gradient(to bottom, rgba(69,128,162,0.271) 0%,rgba(69,128,162,0.271) 100%)`,
+  blueButtonHover: `linear-gradient(to bottom, rgba(143,183,207,0.561) 0%,rgba(143,183,207,0.561) 100%)`,
+  blueButtonDisabled: `linear-gradient(to bottom, rgba(212,216,220,0.832) 0%,rgba(212,216,220,0.832) 100%)`,
 }
