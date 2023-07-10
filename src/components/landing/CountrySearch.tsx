@@ -5,7 +5,7 @@ import Typeahead from '@talus-analytics/library.ui.typeahead'
 import useCountryNames from 'queryHooks/useCountryNames'
 import { navigate } from 'gatsby'
 import simplifyForUrl from 'utilities/simplifyForUrl'
-import styled, { useTheme } from 'styled-components'
+import { useTheme } from 'styled-components'
 
 interface CoutnrySearchProps {
   style?: React.CSSProperties
