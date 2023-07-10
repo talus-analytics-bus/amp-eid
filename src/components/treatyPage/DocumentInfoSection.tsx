@@ -175,7 +175,7 @@ const DocumentInfoSection = ({
           )}
           {topics && !treatyPage && (
             <tr>
-              <td>Topic</td>
+              <td>{topics.length === 1 ? 'Topic' : 'Topics'}</td>
               <td>
                 {topics.map(topic => (
                   <div key={topic?.data?.Topic}>
@@ -197,7 +197,7 @@ const DocumentInfoSection = ({
           )}
           {subtopics && !treatyPage && (
             <tr>
-              <td>Subtopic</td>
+              <td>{subtopics.length === 1 ? 'Subtopic' : 'Subtopics'}</td>
               <td>
                 {subtopics.map(topic => (
                   <div key={topic?.data?.Subtopic}>{topic?.data?.Subtopic}</div>
