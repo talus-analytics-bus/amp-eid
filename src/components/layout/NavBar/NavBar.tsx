@@ -119,10 +119,10 @@ const NavBar = () => {
             />
           </MobileMenuDropdown>
           <MobileMenuDropdown title="Treaty library">
-            <LinksList darkMode links={treatyLinks} />
+            <LinksList $darkMode links={treatyLinks} />
           </MobileMenuDropdown>
           <MobileMenuDropdown title="About">
-            <LinksList darkMode links={aboutLinks} />
+            <LinksList $darkMode links={aboutLinks} />
           </MobileMenuDropdown>
           <NavBarCountrySearch style={{ width: '100%', margin: '0' }} />
         </MobileMenu>
