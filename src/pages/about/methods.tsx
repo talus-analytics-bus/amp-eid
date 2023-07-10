@@ -19,7 +19,10 @@ const MethodsPage = (): JSX.Element => {
 
   return (
     <Providers>
-      <CMS.SEO />
+      <CMS.SEO
+        title="AMP EID Research Methods"
+        description="Methods used to collect and analyze policies for the AMP EID database"
+      />
       <NavBar />
       <Main style={{ maxWidth: 1000 }}>
         <AboutNav />
