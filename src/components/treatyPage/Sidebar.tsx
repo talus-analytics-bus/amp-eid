@@ -40,7 +40,7 @@ const Sidebar = ({
           alt={treatyData.data?.Document_name + ' thumbnail'}
         />
       </ThumbnailHolder>
-      <ButtonLink href={fileData.publicURL}>
+      <ButtonLink href={fileData.publicURL} style={{ maxWidth: 'fit-content' }}>
         <DownloadIcon />
         Download treaty ({fileData.ext.toUpperCase().replace('.', '')},{' '}
         {fileData.prettySize})
