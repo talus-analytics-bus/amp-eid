@@ -50,7 +50,11 @@ const CSVDownloads = () => {
         <CMS.Text name="H3 topic data CSV" data={cmsData} />
       </h3>
       <CMS.RichText name="Topic data CSV paragraph" data={cmsData} />
-      <CSVDownloadSelector options={topicOptions} defaultOption="All topics" />
+      <CSVDownloadSelector
+        options={topicOptions}
+        defaultOption="All topics"
+        buttonLabel="Download topic data (CSV)"
+      />
       <h3>
         <CMS.Text name="H3 treaty data CSV" data={cmsData} />
       </h3>
@@ -58,6 +62,7 @@ const CSVDownloads = () => {
       <CSVDownloadSelector
         options={treatyOptions}
         defaultOption="All treaties"
+        buttonLabel="Download treaty data (CSV)"
       />
       <h3>
         <CMS.Text name="H3 document metadata CSV" data={cmsData} />
@@ -71,6 +76,7 @@ const CSVDownloads = () => {
           },
         }}
         defaultOption="All documents"
+        buttonLabel="Download all document metadata (CSV)"
       />
     </>
   )

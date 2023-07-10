@@ -26,24 +26,28 @@ export interface CSVOptions {
 interface CSVDownloadSelectorProps {
   options: CSVOptions
   defaultOption: keyof CSVOptions
+  buttonLabel: string
 }
 
 const CSVDownloadSelector = ({
   options,
   defaultOption,
+  buttonLabel,
 }: CSVDownloadSelectorProps) => {
   const [selected, setSelected] = useState(options[defaultOption])
 
   return (
     <Container>
-      <select onChange={e => setSelected(options[e.target.value])}>
-        {Object.values(options).map(option => (
-          <option>{option.name}</option>
-        ))}
-      </select>
+      {Object.keys(options).length > 1 && (
+        <select onChange={e => setSelected(options[e.target.value])}>
+          {Object.values(options).map(option => (
+            <option>{option.name}</option>
+          ))}
+        </select>
+      )}
       <ButtonLink href={selected.link}>
         <DownloadIcon />
-        Download topic data (CSV)
+        {buttonLabel}
       </ButtonLink>
     </Container>
   )
