@@ -530,4 +530,56 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
   })
 
   fs.writeFileSync(`${csvDir}/All treaties.csv`, Papa.unparse(allTreatiesFlat))
+
+  // create document CSVs
+
+  interface DocumentJSON {
+    Name: string
+    Subtitile: string
+    'Authoring country': string
+    'Authorinng regional organization': string
+    'All applicable countries': string[]
+    Topics: string
+    Subtopics: string
+    'Document type': string
+    Description: string
+    'Date of original publication': string
+    'Date entered into force': string
+    Language: string
+    'Original language title': string
+    'File URL': string
+    size: string
+    type: string
+  }
+
+  const allDocuments: DocumentJSON[] = []
+  formatted.Documents.forEach(doc => {
+    doc.Languages?.forEach((language, index) => {
+      allDocuments.push({
+        Name: doc.Name ?? '',
+        Subtitile: doc.Subtitle ?? '',
+        'Authoring country': doc.Authoring_country ?? '',
+        'Authorinng regional organization':
+          doc.Authoring_regional_organization ?? '',
+        'All applicable countries': doc.All_applicable_countries ?? '',
+        Topics: doc.Topics?.join(', ') ?? '',
+        Subtopics: doc.Subtopics?.join(', ') ?? '',
+        'Document type': doc.Document_type ?? '',
+        Description: doc.Description ?? '',
+        'Date of original publication': doc.Date_of_original_publication ?? '',
+        'Date entered into force': doc.Date_entered_into_force ?? '',
+        Language: language ?? '',
+        'Original language title': doc.Original_language_titles[index] ?? '',
+        'File URL':
+          doc?.Files?.[index].publicURL?.replace(
+            '/static/',
+            'https://ampeid.org/static/'
+          ) ?? '',
+        size: doc.Files?.[index].prettySize ?? '',
+        type: doc.Files?.[index].ext ?? '',
+      })
+    })
+  })
+
+  fs.writeFileSync(`${csvDir}/All documents.csv`, Papa.unparse(allDocuments))
 }

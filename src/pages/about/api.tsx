@@ -38,6 +38,9 @@ const APIPage = (): JSX.Element => {
           <CMS.RichText name="Top paragraph" data={cmsData} />
           <Citation name="Citation" data={cmsData} />
           <CSVDownloads />
+          <h2>
+            <CMS.Text name="H2 API documentation" data={cmsData} />
+          </h2>
           <CMS.RichText name="API intro paragraph" data={cmsData} />
         </AboutStyle>
         <APIExplorer />

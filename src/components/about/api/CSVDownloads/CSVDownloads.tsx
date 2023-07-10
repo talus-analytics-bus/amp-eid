@@ -63,9 +63,15 @@ const CSVDownloads = () => {
         <CMS.Text name="H3 document metadata CSV" data={cmsData} />
       </h3>
       <CMS.RichText name="Document metadata CSV paragraph" data={cmsData} />
-      <h2>
-        <CMS.Text name="H2 API documentation" data={cmsData} />
-      </h2>
+      <CSVDownloadSelector
+        options={{
+          'All documents': {
+            name: 'All documents',
+            link: '/csv/All documents.csv',
+          },
+        }}
+        defaultOption="All documents"
+      />
     </>
   )
 }
