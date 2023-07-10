@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Dropdown from '@talus-analytics/library.ui.dropdown'
 
-const Container = styled.div`
+const Container = styled.li`
   position: relative;
 `
 const ChildContainer = styled.div`

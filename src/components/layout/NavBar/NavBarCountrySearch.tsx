@@ -11,7 +11,7 @@ interface CoutnrySearchProps {
   style?: React.CSSProperties
 }
 
-const Container = styled.div`
+const Container = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
