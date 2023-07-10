@@ -11,23 +11,22 @@ interface CoutnrySearchProps {
   style?: React.CSSProperties
 }
 
-const Container = styled.div`
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-  // flex-grow: 1;
-  // margin: 0 15px;
-
-  position: relative;
-  max-width: 920px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 30px;
-  padding-right: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
+// const Container = styled.div`
+//   // display: flex;
+//   // align-items: center;
+//   // justify-content: center;
+//   // flex-grow: 1;
+//   // margin: 0 15px;
+//   position: relative;
+//   max-width: 920px;
+//   margin-left: auto;
+//   margin-right: auto;
+//   padding-left: 30px;
+//   padding-right: 30px;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// `
 
 const CountrySearch = ({ style }: CoutnrySearchProps) => {
   const countries = useCountryNames()
@@ -56,7 +55,7 @@ const CountrySearch = ({ style }: CoutnrySearchProps) => {
       // style={style}
       // style={{ width: 450, maxWidth: '90%' }}
       backgroundColor={theme.white}
-      borderColor={theme.ampEidEvenDarkerBlue}
+      borderColor={theme.ampEidDarkBlue}
       fontColor={theme.black}
       items={searchItems}
       placeholder={`Search for a country`}
