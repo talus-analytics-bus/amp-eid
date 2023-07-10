@@ -54,7 +54,7 @@ const Method = styled.div`
 `
 const H3 = styled.h3`
   ${({ theme }) => theme.paragraphItalic}
-  color: ${({ theme }) => theme.darkGray};
+  color: ${({ theme }) => theme.veryDarkGray};
   margin-bottom: 0px;
 `
 const Example = styled.pre`
