@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const ButtonLink = styled.a`
   ${({ theme }) => theme.paragraph};
-  color: ${({ theme }) => theme.white};
+  color: ${({ theme }) => theme.white} !important;
   text-decoration: none;
   background: linear-gradient(
     180deg,
