@@ -27,6 +27,7 @@
     "gatsby-plugin-gtag": "^1.0.13",
     "gatsby-plugin-image": "^3.2.0",
     "gatsby-plugin-mdx": "^5.2.0",
+    "gatsby-plugin-plausible": "^0.0.7",
     "gatsby-plugin-react-helmet": "^6.2.0",
     "gatsby-plugin-sass": "^6.2.0",
     "gatsby-plugin-sharp": "^5.2.0",
