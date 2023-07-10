@@ -91,6 +91,7 @@ const PaginationControls = ({
           setPageSize(Number(e.target.value))
         }}
         value={pageSize}
+        aria-label="Page Size"
       >
         <option value="5">5</option>
         <option value="10">10</option>
@@ -105,7 +106,11 @@ const PaginationControls = ({
       </PageDescription>
       {lastPage >= 1 && (
         <>
-          <Button disabled={page === 0} onClick={() => setPage(0)}>
+          <Button
+            disabled={page === 0}
+            onClick={() => setPage(0)}
+            aria-label="First Page"
+          >
             1
           </Button>
           {nearButtons[0] !== 1 && <span>...</span>}
@@ -115,6 +120,7 @@ const PaginationControls = ({
                 key={number}
                 disabled={number === page}
                 onClick={() => setPage(number)}
+                aria-label={`Page ${number + 1}`}
               >
                 {number + 1}
               </Button>
@@ -125,12 +131,14 @@ const PaginationControls = ({
           <Button
             disabled={lastPage === page}
             onClick={() => setPage(lastPage)}
+            aria-label={`Page ${lastPage + 1}, last page`}
           >
             {lastPage + 1}
           </Button>
           <Button
             disabled={page === lastPage}
             onClick={() => setPage(prev => prev + 1)}
+            aria-label="Next Page"
           >
             Next
           </Button>
