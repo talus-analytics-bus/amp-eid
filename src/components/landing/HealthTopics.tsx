@@ -6,7 +6,7 @@ import TopicList from './TopicList'
 import useIndexPageData from 'cmsHooks/useIndexPageData'
 
 const BackgroundContainer = styled.div`
-  background-color: ${({ theme }) => theme.ampEidEvenDarkerBlue};
+  background-color: ${({ theme }) => theme.ampEidUltraDarkBlue};
   padding-top: 40px;
 `
 const ContentContainer = styled.div`
