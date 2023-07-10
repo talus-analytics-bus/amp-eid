@@ -14,7 +14,7 @@ export default {
   ampEidMedBlue: `rgba(97,152,185,1)`,
   ampEidDarkBlue: `rgba(18,45,61,1)`,
   ampEidEvenDarkerBlue: `rgba(10,36,51,1)`,
-  ampEidUltraDarkBlue: `rgb(6, 25, 36)`,
+  ampEidUltraDarkBlue: `rgb(10, 28, 40)`,
   link: `rgba(24,106,165,1)`,
   option1: `rgba(104,158,189,1)`,
   option2: `rgba(140,115,160,1)`,
