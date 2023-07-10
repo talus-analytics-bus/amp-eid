@@ -13,6 +13,17 @@ const ButtonLink = styled.a`
   border-radius: 5px;
   margin-top: 20px;
   display: block;
+
+  transition: 150ms ease;
+
+  &:hover {
+    transition: 250ms ease;
+    background: linear-gradient(
+      180deg,
+      rgba(143, 183, 207, 0.85) 0%,
+      #8fb7cf 100%
+    );
+  }
 `
 
 export default ButtonLink
