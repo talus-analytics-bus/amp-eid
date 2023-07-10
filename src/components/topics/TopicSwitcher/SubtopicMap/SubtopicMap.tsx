@@ -36,6 +36,12 @@ const MapContainer = styled.div`
   background: ${({ theme }) => theme.veryLightGray};
   border-radius: 5px;
   overflow: hidden;
+
+  @media (max-width: 600px) {
+    .mapboxgl-ctrl-top-left {
+      display: none;
+    }
+  }
 `
 // const MapTitle = styled.h3`
 //   ${({ theme }) => theme.bigParagraph};
@@ -183,7 +189,7 @@ const SubtopicMap = () => {
               <MapPopup {...{ popupState, setPopupState }} />
             </MapBottomCornerModal>
           )}
-          <NavigationControl position="top-left" showCompass={false} />
+          {<NavigationControl position="top-left" showCompass={false} />}
         </Map>
       </MapContainer>
     </MapSection>
