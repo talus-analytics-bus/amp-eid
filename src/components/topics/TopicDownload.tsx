@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import ColumnSection from 'components/layout/ColumnSection'
 import CSVDownloadLink from 'components/ui/CSVDownloadLink'
 
-const H3 = styled.h3`
+const H2 = styled.h2`
   ${({ theme }) => theme.h2};
   color: ${({ theme }) => theme.black};
   margin: 0;
@@ -54,7 +54,7 @@ const SubtopicDataDownload = memo(
     return (
       <ColumnSection rowReverse>
         <div>
-          <H3>Download</H3>
+          <H2>Download</H2>
         </div>
         <div>
           <P>

@@ -48,7 +48,7 @@ const Date = styled.div`
   padding-top: 10px;
   padding-bottom: 10px;
 `
-const H3 = styled.h3`
+const H2 = styled.h2`
   ${({ theme }) => theme.h2};
   color: ${({ theme }) => theme.black};
   margin: 0;
@@ -88,7 +88,7 @@ const TripsPage = ({
         <TopicSwitcher {...{ data, countryDocuments, countryMetadata }} />
         {data.relatedTreaties.nodes.length > 0 && (
           <ColumnSection rowReverse>
-            <H3>Related treaty</H3>
+            <H2>Related treaty</H2>
             <RelatedTreaties relatedTreaties={data.relatedTreaties.nodes} />
           </ColumnSection>
         )}

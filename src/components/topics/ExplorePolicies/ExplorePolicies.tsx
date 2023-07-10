@@ -12,7 +12,7 @@ import PaginationControls from './PaginationControls'
 import { CountryDocuments } from './restructureDocuments'
 import { CountryMetadata } from './restructureCountryMetadata'
 
-const H3 = styled.h3`
+const H2 = styled.h2`
   ${({ theme }) => theme.h2};
   color: ${({ theme }) => theme.black};
   margin: 0;
@@ -75,7 +75,7 @@ const ExplorePolicies = ({
   return (
     <ColumnSection rowReverse>
       <div>
-        <H3>Explore policies</H3>
+        <H2>Explore policies</H2>
         <Label>
           Country
           <Search
