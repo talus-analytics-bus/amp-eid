@@ -8,11 +8,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 450px;
-  margin-top: 20px;
 
   select {
+    margin-top: 20px;
     ${({ theme }) => theme.paragraphMedium};
     padding: 5px 15px;
+    color: ${({ theme }) => theme.black};
   }
 `
 
