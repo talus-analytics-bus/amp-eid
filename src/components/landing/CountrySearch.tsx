@@ -55,7 +55,7 @@ const CountrySearch = ({ style }: CoutnrySearchProps) => {
       // style={style}
       // style={{ width: 450, maxWidth: '90%' }}
       backgroundColor={theme.white}
-      borderColor={theme.ampEidDarkBlue}
+      borderColor={theme.black}
       fontColor={theme.black}
       items={searchItems}
       placeholder={`Search for a country`}
