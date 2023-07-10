@@ -205,7 +205,7 @@ const config: GatsbyConfig = {
       // the cookieconsent opt-in system.
       resolve: `gatsby-plugin-gtag`,
       options: {
-        trackingId: `G-XXXXXXXXXX`,
+        trackingId: `G-G30YL7XJ3Z`,
         anonymize: true,
         head: false,
       },
