@@ -114,7 +114,7 @@ const NavBar = () => {
         <MobileMenu>
           <MobileMenuDropdown title="Topics">
             <LinksList
-              darkMode
+              $darkMode
               links={topicsLinks.filter(topic => !topic.disabled)}
             />
           </MobileMenuDropdown>
