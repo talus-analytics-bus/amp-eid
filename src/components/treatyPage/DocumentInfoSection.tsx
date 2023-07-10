@@ -177,14 +177,18 @@ const DocumentInfoSection = ({
             <tr>
               <td>Topic</td>
               <td>
-                {topics.map(topic => (
-                  <Link
-                    key={topic?.data?.Topic}
-                    to={`/topics/${simplifyForUrl(topic?.data?.Topic ?? '')}`}
-                  >
-                    {topic?.data?.Topic}
-                  </Link>
-                ))}
+                {topics.map(topic =>
+                  topic?.data?.Publish === true ? (
+                    <Link
+                      key={topic?.data?.Topic}
+                      to={`/topics/${simplifyForUrl(topic?.data?.Topic ?? '')}`}
+                    >
+                      {topic?.data?.Topic}
+                    </Link>
+                  ) : (
+                    <span key={topic?.data?.Topic}>{topic?.data?.Topic}</span>
+                  )
+                )}
               </td>
             </tr>
           )}
