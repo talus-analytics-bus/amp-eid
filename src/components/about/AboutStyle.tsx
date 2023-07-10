@@ -17,6 +17,7 @@ const AboutStyle = styled.div`
   h3 {
     ${({ theme }) => theme.paragraphMedium};
     color: ${({ theme }) => theme.black};
+    margin-top: 35px;
   }
 
   p {
