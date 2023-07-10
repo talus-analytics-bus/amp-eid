@@ -18,13 +18,13 @@ const Citation = styled(RenderCMSRichText)`
   width: 350px;
   > p {
     ${({ theme }) => theme.smallParagraph};
-    color: ${({ theme }) => theme.darkGray};
+    color: ${({ theme }) => theme.veryDarkGray};
     margin: 0;
     padding: 0;
 
     > a {
       ${({ theme }) => theme.smallParagraph};
-      color: ${({ theme }) => theme.darkGray};
+      color: ${({ theme }) => theme.veryDarkGray};
       text-decoration: underline;
     }
   }

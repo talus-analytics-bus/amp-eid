@@ -1,12 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
 
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+`
+
 const PageControlSection = styled.div`
   ${({ theme }) => theme.smallParagraph};
   color: ${({ theme }) => theme.veryDarkGray};
   display: flex;
   align-items: baseline;
-  width: 100%;
 `
 const Select = styled.select`
   border: none;
@@ -84,59 +91,71 @@ const PaginationControls = ({
   }
 
   return (
-    <PageControlSection>
-      <Select
-        onChange={e => {
-          setPage(0)
-          setPageSize(Number(e.target.value))
-        }}
-        value={pageSize}
-      >
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="150">150</option>
-        <option value={total}>All</option>
-      </Select>
-      <PageDescription>
-        Showing {page * pageSize + 1} to {maxShown} of {total} countries
-      </PageDescription>
-      {lastPage >= 1 && (
-        <>
-          <Button disabled={page === 0} onClick={() => setPage(0)}>
-            1
-          </Button>
-          {nearButtons[0] !== 1 && <span>...</span>}
-          {lastPage > 1 &&
-            nearButtons.map(number => (
-              <Button
-                key={number}
-                disabled={number === page}
-                onClick={() => setPage(number)}
-              >
-                {number + 1}
-              </Button>
-            ))}
-          {lastPage > 1 && nearButtons.at(-1)! + 1 !== lastPage && (
-            <span>...</span>
-          )}
-          <Button
-            disabled={lastPage === page}
-            onClick={() => setPage(lastPage)}
-          >
-            {lastPage + 1}
-          </Button>
-          <Button
-            disabled={page === lastPage}
-            onClick={() => setPage(prev => prev + 1)}
-          >
-            Next
-          </Button>
-        </>
-      )}
-    </PageControlSection>
+    <Container>
+      <PageControlSection>
+        <Select
+          onChange={e => {
+            setPage(0)
+            setPageSize(Number(e.target.value))
+          }}
+          value={pageSize}
+          aria-label="Page Size"
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="150">150</option>
+          <option value={total}>All</option>
+        </Select>
+        <PageDescription>
+          Showing {page * pageSize + 1} to {maxShown} of {total} countries
+        </PageDescription>
+      </PageControlSection>
+      <PageControlSection>
+        {lastPage >= 1 && (
+          <>
+            <Button
+              disabled={page === 0}
+              onClick={() => setPage(0)}
+              aria-label="First Page"
+            >
+              1
+            </Button>
+            {nearButtons[0] !== 1 && <span>...</span>}
+            {lastPage > 1 &&
+              nearButtons.map(number => (
+                <Button
+                  key={number}
+                  disabled={number === page}
+                  onClick={() => setPage(number)}
+                  aria-label={`Page ${number + 1}`}
+                >
+                  {number + 1}
+                </Button>
+              ))}
+            {lastPage > 1 && nearButtons.at(-1)! + 1 !== lastPage && (
+              <span>...</span>
+            )}
+            <Button
+              disabled={lastPage === page}
+              onClick={() => setPage(lastPage)}
+              aria-label={`Page ${lastPage + 1}, last page`}
+            >
+              {lastPage + 1}
+            </Button>
+            <Button
+              disabled={page === lastPage}
+              onClick={() => setPage(prev => prev + 1)}
+              aria-label="Next Page"
+            >
+              Next
+            </Button>
+          </>
+        )}
+      </PageControlSection>
+    </Container>
   )
 }
 

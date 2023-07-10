@@ -17,6 +17,7 @@ const AboutStyle = styled.div`
   h3 {
     ${({ theme }) => theme.paragraphMedium};
     color: ${({ theme }) => theme.black};
+    margin-top: 35px;
   }
 
   p {
@@ -39,7 +40,8 @@ const AboutStyle = styled.div`
     }
   }
 
-  a {
+  p > a,
+  em > a {
     text-decoration: none;
     color: ${({ theme }) => theme.link};
 

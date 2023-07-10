@@ -28,6 +28,7 @@ const DropdownButton = styled.button<{ open: boolean; animDuration: number }>`
   align-items: center;
   gap: 15px;
   transition: ${({ animDuration }) => animDuration}ms;
+  text-align: left;
 `
 const DropdownContent = styled.div`
   border-bottom-right-radius: 5px;

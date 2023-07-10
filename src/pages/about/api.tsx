@@ -12,6 +12,7 @@ import Footer from 'components/layout/Footer'
 import APIExplorer from 'components/about/api/APIExplorer'
 import useDataAndAPIPageData from 'cmsHooks/useAboutDataAndAPIQuery'
 import AboutStyle from 'components/about/AboutStyle'
+import CSVDownloads from 'components/about/api/CSVDownloads/CSVDownloads'
 
 const Citation = styled(CMS.RichText)`
   em {
@@ -36,6 +37,7 @@ const APIPage = (): JSX.Element => {
           </h1>
           <CMS.RichText name="Top paragraph" data={cmsData} />
           <Citation name="Citation" data={cmsData} />
+          <CSVDownloads />
           <h2>
             <CMS.Text name="H2 API documentation" data={cmsData} />
           </h2>

@@ -12,6 +12,12 @@ const Container = styled.section`
   align-items: center;
 `
 
+const DownloadButton = styled(ButtonLink)`
+  @media (max-width: 1300px) {
+    max-width: fit-content;
+  }
+`
+
 const Sidebar = ({
   treatyData,
 }: {
@@ -40,11 +46,11 @@ const Sidebar = ({
           alt={treatyData.data?.Document_name + ' thumbnail'}
         />
       </ThumbnailHolder>
-      <ButtonLink href={fileData.publicURL}>
+      <DownloadButton href={fileData.publicURL}>
         <DownloadIcon />
         Download treaty ({fileData.ext.toUpperCase().replace('.', '')},{' '}
         {fileData.prettySize})
-      </ButtonLink>
+      </DownloadButton>
       {
         // {treatyData.data?.File_source_URL && (
         //   <ButtonLink href={treatyData.data.File_source_URL}>

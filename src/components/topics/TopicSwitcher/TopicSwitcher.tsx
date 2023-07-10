@@ -20,9 +20,9 @@ export const SubtopicContext = createContext<SubtopicContextProps | null>(null)
 
 const Column = styled.div`
   @media (max-width: 600px) {
-    margin-left: -30px;
-    margin-right: -30px;
-    width: calc(100% + 60px);
+    margin-left: -15px;
+    margin-right: -15px;
+    width: calc(100% + 30px);
   }
 `
 

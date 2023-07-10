@@ -50,6 +50,10 @@ const HomeLink = styled(NavLink)`
   display: flex;
   align-items: center;
   margin-left: 20px;
+
+  @media (max-width: 600px) {
+    margin-left: 10px;
+  }
 `
 const DesktopNavList = styled.ul`
   list-style: none;
@@ -63,8 +67,12 @@ const DesktopNavList = styled.ul`
 const NavLogo = styled(CMS.Image)`
   height: 50px;
   width: 525px;
-  max-width: 60vw;
+  max-width: 65vw;
   margin-right: 30px;
+
+  @media (max-width: 600px) {
+    margin-right: 15px;
+  }
 `
 
 const NavBar = () => {
@@ -114,15 +122,15 @@ const NavBar = () => {
         <MobileMenu>
           <MobileMenuDropdown title="Topics">
             <LinksList
-              darkMode
+              $darkMode
               links={topicsLinks.filter(topic => !topic.disabled)}
             />
           </MobileMenuDropdown>
           <MobileMenuDropdown title="Treaty library">
-            <LinksList darkMode links={treatyLinks} />
+            <LinksList $darkMode links={treatyLinks} />
           </MobileMenuDropdown>
           <MobileMenuDropdown title="About">
-            <LinksList darkMode links={aboutLinks} />
+            <LinksList $darkMode links={aboutLinks} />
           </MobileMenuDropdown>
           <NavBarCountrySearch style={{ width: '100%', margin: '0' }} />
         </MobileMenu>
