@@ -27,7 +27,10 @@ const APIPage = (): JSX.Element => {
 
   return (
     <Providers>
-      <CMS.SEO />
+      <CMS.SEO
+        title="AMP EID API"
+        description="API and data access for the AMP EID database"
+      />
       <NavBar />
       <Main style={{ maxWidth: 1000 }}>
         <AboutNav />

@@ -24,7 +24,10 @@ const OverviewPage = (): JSX.Element => {
 
   return (
     <Providers>
-      <CMS.SEO />
+      <CMS.SEO
+        title="AMP EID Overview"
+        description="Overview of the AMP EID project"
+      />
       <NavBar />
       <Main style={{ maxWidth: 1000 }}>
         <AboutNav />

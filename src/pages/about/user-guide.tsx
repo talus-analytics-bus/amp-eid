@@ -15,7 +15,10 @@ const MethodsPage = (): JSX.Element => {
   const cmsData = useUserGuidePageData()
   return (
     <Providers>
-      <CMS.SEO />
+      <CMS.SEO
+        title="AMP EID User Guide"
+        description="User guide for the AMP EID site and database"
+      />
       <NavBar />
       <Main style={{ maxWidth: 1000 }}>
         <AboutNav />

@@ -70,7 +70,10 @@ const TripsPage = ({
 
   return (
     <Providers>
-      <CMS.SEO />
+      <CMS.SEO
+        title={`AMP EID ${topic}`}
+        description={`Global maps, policies, and analysis related to emerging infectious diseases in ${topic}`}
+      />
       <NavBar />
       <Main>
         <MainHeader>
