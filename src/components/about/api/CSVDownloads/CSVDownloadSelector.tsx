@@ -42,7 +42,7 @@ const CSVDownloadSelector = ({
       {Object.keys(options).length > 1 && (
         <select onChange={e => setSelected(options[e.target.value])}>
           {Object.values(options).map(option => (
-            <option>{option.name}</option>
+            <option key={option.name}>{option.name}</option>
           ))}
         </select>
       )}
