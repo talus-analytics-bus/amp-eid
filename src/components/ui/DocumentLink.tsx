@@ -29,6 +29,13 @@ const StyledLink = styled(Link)`
       text-decoration: underline;
     }
   }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin-left: 0;
+    margin-right: 0;
+    gap: 10px;
+  }
 `
 const Metadata = styled.div`
   padding: 0 15px;
