@@ -542,8 +542,8 @@ Resources:
         Aliases:
           - !If [
               CustomDomainProvided,
-              # !Ref DomainName,
-              !Join ['.', ['prod', !Ref DomainName]],
+              !Ref DomainName,
+              # !Join ['.', ['prod', !Ref DomainName]],
               !Join ['', ['prod-', !Ref AWS::StackName, '.', !Ref DomainName]],
             ]
           - !If [
@@ -581,9 +581,9 @@ Resources:
           ForwardedValues:
             QueryString: 'true'
           ViewerProtocolPolicy: redirect-to-https
-          LambdaFunctionAssociations:
-            - EventType: 'viewer-request'
-              LambdaFunctionARN: !Ref BasicAuthLambdaVersion
+          # LambdaFunctionAssociations:
+          #   - EventType: 'viewer-request'
+          #     LambdaFunctionARN: !Ref BasicAuthLambdaVersion
         PriceClass: PriceClass_All
         ViewerCertificate:
           AcmCertificateArn: !Ref CertificateArn
@@ -602,8 +602,8 @@ Resources:
             HostedZoneId: Z2FDTNDATAQYW2
           Name: !If [
               CustomDomainProvided,
-              # !Ref DomainName,
-              !Join ['.', ['prod', !Ref DomainName]],
+              !Ref DomainName,
+              # !Join ['.', ['prod', !Ref DomainName]],
               !Join ['', ['prod-', !Ref AWS::StackName, '.', !Ref DomainName]],
             ]
           Type: A
