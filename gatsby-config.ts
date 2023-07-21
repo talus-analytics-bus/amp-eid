@@ -220,19 +220,19 @@ const config: GatsbyConfig = {
                 siteUrl
               }
             }
-            allAirtableDatabase(filter: {table: {eq: "Document library"}}) {
-              edges {
-                node {
-                  data {
-                    PDF {
-                      localFiles {
-                        publicURL
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            # allAirtableDatabase(filter: {table: {eq: "Document library"}}) {
+            #   edges {
+            #     node {
+            #       data {
+            #         PDF {
+            #           localFiles {
+            #             publicURL
+            #           }
+            #         }
+            #       }
+            #     }
+            #   }
+            # }
             allSitePage {
               nodes {
                 path
@@ -243,14 +243,14 @@ const config: GatsbyConfig = {
         // eslint-disable-next-line  @typescript-eslint/no-explicit-any
         resolvePages: (query: any) => {
           const allPages = query.allSitePage.nodes
-          const allDocuments = query.allAirtableDatabase.edges
+          // const allDocuments = query.allAirtableDatabase.edges
           const pages = allPages.map((page: { path: string }) => page.path)
           const siteUrl = query.site.siteMetadata.siteUrl
-          const documents = allDocuments.map(
-            // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-            (doc: any) => doc.node.data?.PDF?.localFiles?.[0]?.publicURL
-          )
-          const urls = [...pages, ...documents].map((url: string) => ({
+          // const documents = allDocuments.map(
+          //   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+          //   (doc: any) => doc.node.data?.PDF?.localFiles?.[0]?.publicURL
+          // )
+          const urls = pages.map((url: string) => ({
             path: `${siteUrl}${url}`,
             changeFreq: 'monthly',
             priority: 0.7,
