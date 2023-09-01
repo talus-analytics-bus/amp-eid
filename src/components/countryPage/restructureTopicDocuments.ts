@@ -38,10 +38,11 @@ const restructureTopicDocuments = (topicDocuments: Policies) => {
     }
   }
   const countriesList = Object.values(topicsObj).sort((a, b) =>
-    !a.topic?.data?.Order || !b.topic?.data?.Order
+    !b.topic?.data?.Order || !a.topic?.data?.Order
       ? -1
-      : b.topic.data.Order - a.topic.data.Order
+      : a.topic.data.Order - b.topic.data.Order
   )
+
   return countriesList
 }
 
