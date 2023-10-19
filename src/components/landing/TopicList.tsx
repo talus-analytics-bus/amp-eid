@@ -18,10 +18,12 @@ const TopicLinkList = styled.ul`
   justify-content: center;
 `
 const Li = styled.li`
-  display: block;
   overflow: hidden;
   flex-basis: 30%;
   flex-grow: 1;
+  display: block;
+  align-items: center;
+  justify-content: center;
 
   @media (max-width: 800px) {
     flex-basis: 45%;
