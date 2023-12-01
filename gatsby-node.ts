@@ -552,9 +552,15 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ graphql }) => {
     type: string
   }
 
+  console.log(`Create allDocuments JSON`)
+
   const allDocuments: DocumentJSON[] = []
   formatted.Documents.forEach(doc => {
     doc.Languages?.forEach((language, index) => {
+
+      if (!doc.Original_language_titles || doc.Original_language_titles.length !== doc.Languages.length)
+        throw new Error(`Document: \n\n ${doc.Name}\n\n Authored in ${doc.Authoring_country} is missing original language titles`)
+
       allDocuments.push({
         Name: doc.Name ?? '',
         Subtitile: doc.Subtitle ?? '',
