@@ -6,6 +6,7 @@ import formatAirtableDate from 'utilities/formatDate'
 import getMostRecentFilePublishDate from 'utilities/getMostRecentFilePublishDate'
 import { Link } from 'gatsby'
 import simplifyForUrl from 'utilities/simplifyForUrl'
+import CMS from '@talus-analytics/library.airtable-cms'
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.veryLightGray};
@@ -228,7 +229,9 @@ const DocumentInfoSection = ({
           {relevantArticles && !treatyPage && (
             <tr>
               <td>Relevant articles</td>
-              <td>{relevantArticles}</td>
+              <td>
+                <CMS.RenderRichText markdown={relevantArticles} />
+              </td>
             </tr>
           )}
 
