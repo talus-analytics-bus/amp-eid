@@ -37,6 +37,10 @@ const MetadataTable = styled.table`
       margin-bottom: 10px;
     }
 
+    > div > p:first-of-type {
+      margin-top: 0;
+    }
+
     strong {
       font-weight: normal;
       ${({ theme }) => theme.paragraphMedium};
