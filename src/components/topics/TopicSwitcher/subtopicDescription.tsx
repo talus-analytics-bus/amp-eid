@@ -4,7 +4,9 @@ import { SubtopicContext } from './TopicSwitcher'
 import { RenderCMSRichText } from '@talus-analytics/library.airtable.cms-rich-text'
 import ColumnSection from 'components/layout/ColumnSection'
 
-const Description = styled.p`
+import CMS from '@talus-analytics/library.airtable-cms'
+
+const Description = styled.div`
   ${({ theme }) => theme.paragraph};
   color: ${({ theme }) => theme.black};
   margin: 0;
@@ -14,6 +16,8 @@ const Description = styled.p`
   flex-basis: 60%;
   flex-grow: 1;
 `
+const SubtopicText = styled.div``
+
 const Citation = styled(RenderCMSRichText)`
   width: 350px;
   > p {
@@ -62,7 +66,15 @@ const SubtopicDescription = () => {
                   : ''
               }
             />
-            <Description>{subtopic.data?.Subtopic_description}</Description>
+            <Description>
+              <SubtopicText
+                dangerouslySetInnerHTML={{
+                  __html: CMS.parseRichText(
+                    subtopic.data?.Subtopic_description ?? ''
+                  ),
+                }}
+              />
+            </Description>
           </ColumnSection>
         </div>
       ))}
