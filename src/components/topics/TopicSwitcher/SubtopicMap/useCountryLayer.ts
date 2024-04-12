@@ -5,10 +5,10 @@ import { SubtopicContextProps } from '../TopicSwitcher'
 
 import camelCase from 'utilities/camelCase'
 
-const useCountryLayer = ({
-  subtopicIndex,
-  subtopicData,
-}: SubtopicContextProps) => {
+const useCountryLayer = (
+  { subtopicIndex, subtopicData }: SubtopicContextProps,
+  DUMP_MAP_TO_CONSOLE_FOR_HOMEPAGE: boolean
+) => {
   const theme = useTheme()
 
   const countryLayer = useMemo(() => {
@@ -40,18 +40,19 @@ const useCountryLayer = ({
       source: `countries_v13c-6uk894`,
       'source-layer': 'countries_v13c-6uk894',
       paint: {
-        'fill-outline-color': 'white',
+        // 'fill-outline-color': 'white',
         // outline color for saving images from the map to use on the homepage
-        // 'fill-outline-color': theme.ampEidDarkBlue,
+        'fill-outline-color': DUMP_MAP_TO_CONSOLE_FOR_HOMEPAGE
+          ? theme.ampEidDarkBlue
+          : 'white',
         'fill-color': [
           'match',
           ['get', 'ISO_A3'],
           ...countryColorMatch,
           // last color in the array is the "default color"
-          theme.option7,
-          //
-          // for making disabled map for homepage
-          // theme.darkGray,
+          ...(DUMP_MAP_TO_CONSOLE_FOR_HOMEPAGE
+            ? [theme.darkGray]
+            : [theme.option7]),
         ] as Expression,
       },
       beforeId: 'countries-outline',
