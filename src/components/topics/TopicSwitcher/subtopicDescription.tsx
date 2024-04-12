@@ -16,7 +16,11 @@ const Description = styled.div`
   flex-basis: 60%;
   flex-grow: 1;
 `
-const SubtopicText = styled.div``
+const SubtopicText = styled.div`
+  > p:first-child {
+    margin-top: 0;
+  }
+`
 
 const Citation = styled(RenderCMSRichText)`
   width: 350px;
