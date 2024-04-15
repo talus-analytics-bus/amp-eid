@@ -75,6 +75,17 @@ const selectedLayer = {
   beforeId: 'country-label',
 }
 
+// Toggles styling options for the map
+// and then dumps the canvas content to
+// the console in a data url; copy/paste
+// that into the url bar and save the
+// image as a png and then drop it into
+// airtable for the homepage.
+//
+// It would be nice if this was automatic
+// but we've only needed to do it a few times
+const DUMP_MAP_TO_CONSOLE_FOR_HOMEPAGE = false
+
 const SubtopicMap = () => {
   // setting the default state here to ' ' intentionally
   // because there is a polygon with an iso of '' (empty string)
@@ -87,7 +98,10 @@ const SubtopicMap = () => {
 
   const { countryMetadata } = context
 
-  const countryLayer = useCountryLayer(context)
+  const countryLayer = useCountryLayer(
+    context,
+    DUMP_MAP_TO_CONSOLE_FOR_HOMEPAGE
+  )
 
   const onHover = useCallback(
     (event: MapLayerMouseEvent) =>
@@ -157,10 +171,11 @@ const SubtopicMap = () => {
           maxZoom={5}
           minZoom={0}
           // easy way to dump the canvas content as PNG to use on the homepage
-          // onLoad={map => {
-          //   const content = map.target.getCanvas().toDataURL()
-          //   console.log(content)
-          // }}
+          onLoad={map => {
+            if (!DUMP_MAP_TO_CONSOLE_FOR_HOMEPAGE) return
+            const content = map.target.getCanvas().toDataURL()
+            console.log(content)
+          }}
         >
           {/* This source provides country shapes and their ISO codes */}
           <Source
