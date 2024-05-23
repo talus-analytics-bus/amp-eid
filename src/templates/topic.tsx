@@ -98,7 +98,7 @@ const TripsPage = ({
         <ExplorePolicies {...{ countryDocuments, countryMetadata }} />
         <SubtopicDataDownload
           topic={data.topic.data.Topic}
-          subtopics={data.subtopics}
+          // subtopics={data.subtopics}
         />
       </Main>
       <Footer />
