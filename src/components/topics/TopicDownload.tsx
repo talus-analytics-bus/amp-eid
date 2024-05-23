@@ -69,7 +69,9 @@ const SubtopicDataDownload = memo(({ topic }: SubtopicDataDownloadProps) => {
           Download a CSV of the country information that is displayed in the map
           above.
         </P>
-        <ButtonLink href={url}>Download topic data</ButtonLink>
+        <ButtonLink style={{ maxWidth: 'fit-content' }} href={url}>
+          Download topic data
+        </ButtonLink>
         {
           // <CSVDownloadLink
           //   filename={`AMP EID ${topic}`}
